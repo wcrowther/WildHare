@@ -1,2 +1,0 @@
-C:\Code\Trunk\NewLibrary\Tests.NewLibrary\obj\Release\Tests.NewLibrary.csprojResolveAssemblyReference.cache
-C:\Code\Trunk\NewLibrary\Tests.NewLibrary\obj\Release\Tests.NewLibrary.csproj.CoreCompileInputs.cache

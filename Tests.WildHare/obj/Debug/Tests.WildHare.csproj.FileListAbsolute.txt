@@ -1,2 +1,0 @@
-C:\Code\Trunk\WildHare\Tests.WildHare\obj\Debug\Tests.NewLibrary.dll
-C:\Code\Trunk\WildHare\Tests.WildHare\obj\Debug\Tests.NewLibrary.pdb
