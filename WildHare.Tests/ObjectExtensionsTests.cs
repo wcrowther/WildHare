@@ -7,7 +7,7 @@ using WildHare.Tests.Models;
 namespace WildHare.Tests
 {
     [TestFixture]
-    public class TestsForObject
+    public class ObjectExtensionsTests
     {
         // [SetUp]
         // public void Setup()

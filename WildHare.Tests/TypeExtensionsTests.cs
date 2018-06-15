@@ -7,12 +7,8 @@ using WildHare.Tests.Models;
 namespace WildHare.Tests
 {
     [TestFixture]
-    public class TestsForType
+    public class TypeExtensionsTests
     {
-        //[SetUp]
-        //public void Setup()
-        //{ }
-
         [Test]
         public void GetMetaModel_Basic()
         {

@@ -11,7 +11,7 @@ using WildHare.Tests.Models;
 namespace WildHare.Tests
 {
     [TestFixture]
-    public class TestsForString
+    public class StringExtensionsTests
     {
         [Test]
         public void Test_WriteToFile_Get_Base_Directory_Alternatives()
