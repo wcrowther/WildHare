@@ -81,5 +81,10 @@ namespace WildHare.Models
 
             propertyInfo.SetValue(modelInstance, value, null);
         }
+
+        public override string ToString()
+        {
+            return $"Property: {Name} ({PropertyType})";
+        }
     }
 }

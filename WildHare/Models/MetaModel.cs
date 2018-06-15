@@ -53,7 +53,6 @@ namespace WildHare.Models
             _instance = instance;
         }
 
-
         // --------------------------------------------------------------
         // Public Properties
         // --------------------------------------------------------------
@@ -139,6 +138,11 @@ namespace WildHare.Models
         public bool Implements(string interfaceName)
         {
             return _type.GetInterfaces().Any(a => a.Name == interfaceName);
+        }
+
+        public override string ToString()
+        {
+            return $"MetaModel for {TypeName} ({MetaProperties.Count} MetaProperties)";
         }
 
     }

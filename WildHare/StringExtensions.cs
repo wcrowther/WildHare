@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WildHare.Extensions.ForString
 {
@@ -42,9 +44,7 @@ namespace WildHare.Extensions.ForString
 
         public static string RemoveStartEnd(this string input, string start, string end)
         {
-            string s = input.RemoveStart(start);
-            string t = s.RemoveEnd(end);
-            return t;
+            return input.RemoveStart(start).RemoveEnd(end);
         }
 
         public static string IfNotEmpty(this string s, string addToEnd)
@@ -111,10 +111,15 @@ namespace WildHare.Extensions.ForString
             return Convert.ToChar(s.Substring(i, 1));
         }
 
-
         public static bool WriteToFile(this string stringToWrite, string fileName, bool overWriteExisting = false)
         {
             var file = new FileInfo(fileName);
+
+            return stringToWrite.WriteToFile(file, overWriteExisting);
+        }
+
+        public static bool WriteToFile(this string stringToWrite, FileInfo file, bool overWriteExisting = false)
+        {
             if (file.Exists && overWriteExisting != true)
             {
                 return false;
@@ -129,11 +134,33 @@ namespace WildHare.Extensions.ForString
         public static bool AppendToFile(this string stringToWrite, string fileName)
         {
             var file = new FileInfo(fileName);
+
+            return stringToWrite.AppendToFile(file);
+        }
+
+        public static bool AppendToFile(this string stringToWrite, FileInfo file)
+        {
             using (var tw = file.AppendText())
             {
                 tw.Write(stringToWrite);
             }
             return true;
+        }
+
+        public static string ToApplicationPath(this string fileName)
+        {
+            var appRoot = GetApplicationRoot();
+
+            return Path.Combine(appRoot, fileName.RemoveStart(@"\") );
+        }
+
+        public static string GetApplicationRoot()
+        {
+            var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
+            var appRoot = appPathMatcher.Match(exePath).Value;
+
+            return appRoot;
         }
     }
 }
