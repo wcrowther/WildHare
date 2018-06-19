@@ -5,8 +5,21 @@ using System.Linq;
 
 namespace WildHare.Extensions.ForExpando
 {
+
+    /* NOTE:
+     * 'ExpandoObject's are generally used as a 'dynamic' that is evaluated at runtime. but 
+     * 'dynamic' does not support extension methods. Therefore to use this collection of 
+     * extension methods, the 'dynamic' expression must be cast to ExpandoObject directly.
+     * These methods can also be invoked by calling them directly using non-extension syntax.*/
+
     public static class ExpandoExtensions
     {
+
+        /// <summary>
+        /// Gets item by string name but does not throw an exception if it does not exist.
+        /// If ExpandoObject is cast to dynamic, be sure to cast back to ExpandoObject
+        /// to see this extension method.
+        /// </summary>
         public static T GetByItemName<T>(this ExpandoObject expando, string name)
         {
             var dictionary = (IDictionary<string, object>) expando;
