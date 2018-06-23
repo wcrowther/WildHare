@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace WildHare.ExtensionsFor.IQueryable
+namespace WildHare.Extensions
 {
     public static class IQueryableExtensions
     {

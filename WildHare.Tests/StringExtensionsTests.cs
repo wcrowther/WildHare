@@ -1,12 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using WildHare.Extensions.ForType;
-using WildHare.Extensions.ForString;
-using WildHare.Tests.Models;
+using WildHare.Extensions;
 
 namespace WildHare.Tests
 {
@@ -33,13 +29,17 @@ namespace WildHare.Tests
             // Thanks to Tim Brown
             // http://codebuckets.com/2017/10/19/getting-the-root-directory-path-for-net-core-applications/
 
-            string fileName = @"C:\Code\Trunk\WildHare\WildHare.Tests\TestFile.txt";
-            string fileName2 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
-            string appPathFileName = @"\TestFile.txt".ToApplicationPath();
-            string appPathFileName2 = @"\Helpers\TestFile.txt".ToApplicationPath();
+            string string1 = @"\TestFile.txt".ToMapPath();
+            string string2 = @"\Helpers\TestFile.txt".ToMapPath();
+            string string3 = @"~\Helpers\TestFile.txt".ToMapPath();
 
-            Assert.AreEqual(fileName, appPathFileName);
-            Assert.AreEqual(fileName2, appPathFileName2);
+            string fileName1 = @"C:\Code\Trunk\WildHare\WildHare.Tests\TestFile.txt";
+            string fileName2 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
+            string fileName3 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
+
+            Assert.AreEqual(fileName1, string1);
+            Assert.AreEqual(fileName2, string2);
+            Assert.AreEqual(fileName3, string3);
         }
     }
 }

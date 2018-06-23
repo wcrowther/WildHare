@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WildHare.Extensions.ForIEnumerable
+namespace WildHare.Extensions
 {
     public static class IEnumerableExtensions
     {

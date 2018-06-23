@@ -4,7 +4,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace WildHare.Extensions.ForString
+namespace WildHare.Extensions
+
 {
     public static class StringExtensions
     {
@@ -32,19 +33,60 @@ namespace WildHare.Extensions.ForString
         {
             string s = input.IfNullOrEmpty();
             string t = start.IfNullOrEmpty();
-            return (s.StartsWith(t)) ? s.Remove(0, t.Length) : s;
+
+            return s.StartsWith(t) ? s.Remove(0, t.Length) : s;
         }
 
         public static string RemoveEnd(this string input, string end)
         {
             string s = input.IfNullOrEmpty();
             string e = end.IfNullOrEmpty();
-            return (s.EndsWith(e)) ? s.Remove(s.Length - e.Length, e.Length) : s;
+
+            return s.EndsWith(e) ? s.Remove(s.Length - e.Length, e.Length) : s;
         }
 
-        public static string RemoveStartEnd(this string input, string start, string end)
+        public static string RemoveStartEnd(this string input, string start, string end =  null)
         {
-            return input.RemoveStart(start).RemoveEnd(end);
+
+            return input.RemoveStart(start).RemoveEnd(end ?? start);
+        }
+
+        public static string RemoveStart(this string input, string[] startArray)
+        {
+            string s = input.IfNullOrEmpty();
+            foreach (string start in startArray)
+            {
+                s = s.RemoveStart(start);
+            }
+            return s;
+        }
+
+        public static string RemoveEnd(this string input, string[] endArray)
+        {
+            string s = input.IfNullOrEmpty();
+            foreach (string end in endArray)
+            {
+                s = s.RemoveEnd(end);
+            }
+            return s;
+        }
+
+        public static string RemoveStartEnd(this string input, string[] startArray, string[] endArray = null)
+        {
+            string s = input.IfNullOrEmpty();
+            foreach (string start in startArray)
+            {
+                s = s.RemoveStart(start);
+            }
+
+            if (endArray == null)
+                endArray = startArray;
+
+            foreach (string end in endArray)
+            {
+                s = s.RemoveEnd(end);
+            }
+            return s;
         }
 
         public static string IfNotEmpty(this string s, string addToEnd)
@@ -147,11 +189,13 @@ namespace WildHare.Extensions.ForString
             return true;
         }
 
-        public static string ToApplicationPath(this string fileName)
+        public static string ToMapPath(this string fileName)
         {
             var appRoot = GetApplicationRoot();
+            string file = fileName.Replace(@"/", @"\").RemoveStart(@"~").RemoveStart(@"/");
+            var path = Path.Combine(appRoot, file);
 
-            return Path.Combine(appRoot, fileName.RemoveStart(@"\") );
+            return path;
         }
 
         public static string GetApplicationRoot()

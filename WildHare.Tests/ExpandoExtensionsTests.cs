@@ -2,9 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using WildHare.Extensions.ForType;
+using WildHare.Extensions;
 using WildHare.Tests.Models;
-using WildHare.Extensions.ForExpando;
 
 namespace WildHare.Tests
 {

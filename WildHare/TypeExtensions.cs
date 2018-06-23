@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using WildHare.Extensions.ForString;
 using WildHare.Models;
 
-namespace WildHare.Extensions.ForType
+namespace WildHare.Extensions
 {
     public static class TypeExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using WildHare.Extensions.ForType;
+using WildHare.Extensions;
 using WildHare.Tests.Models;
 
 namespace WildHare.Tests

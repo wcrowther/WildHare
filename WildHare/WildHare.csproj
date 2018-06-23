@@ -1,10 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45;net471</TargetFrameworks>
+    <!--
+        Multitargeting so use the line above. 
+        To see targets google: NET SDKs for Visual Studio
+        Rick Strahl at: https://weblog.west-wind.com/posts/2017/Jun/22/MultiTargeting-and-Porting-a-NET-Library-to-NET-Core-20
     <TargetFramework>netstandard2.0</TargetFramework>
+    -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>0.9.5</Version>
+    <Version>0.9.6</Version>
     <Authors>Will Crowther</Authors>
     <Product>WildHare Extensions</Product>
     <Description>BETA  - WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense. Instead of writing string.IsNullOrEmpty(variable), you can write variable.IsNullOrEmpty(). This allows for a more natural code flow, chaining of code, and better discoverablity.</Description>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WildHare.Extensions.ForIList
+namespace WildHare.Extensions
 {
     public static class IListExtensions
     {

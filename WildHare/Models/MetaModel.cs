@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using WildHare.Extensions.ForObject;
-using WildHare.Extensions.ForString;
+using WildHare.Extensions;
 
-namespace WildHare.Models
+namespace WildHare
 {
     public class MetaModel
     {

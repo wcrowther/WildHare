@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WildHare.Extensions.ForObject
+namespace WildHare.Extensions
 {
     public static class ObjectExtensions
     {
