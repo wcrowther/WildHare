@@ -24,22 +24,27 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_WriteToFile_ToApplictionPath()
+        public void Test_WriteToFile_ToMapPath()
         {
             // Thanks to Tim Brown
             // http://codebuckets.com/2017/10/19/getting-the-root-directory-path-for-net-core-applications/
 
-            string string1 = @"\TestFile.txt".ToMapPath();
-            string string2 = @"\Helpers\TestFile.txt".ToMapPath();
-            string string3 = @"~\Helpers\TestFile.txt".ToMapPath();
+            string source1 = @"\TestFile.txt".ToMapPath();
+            string source2 = @"\Helpers\TestFile.txt".ToMapPath();
+            string source3 = @"~\Helpers\TestFile.txt".ToMapPath();
+            string source4 = @"~/SourceFiles/xmlSeedSourcePlus.xml".ToMapPath();
 
             string fileName1 = @"C:\Code\Trunk\WildHare\WildHare.Tests\TestFile.txt";
             string fileName2 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
             string fileName3 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
+            string fileName4 = @"C:\Code\Trunk\WildHare\WildHare.Tests\SourceFiles\xmlSeedSourcePlus.xml";
+            string fileName4a = "C:\\Code\\Trunk\\WildHare\\WildHare.Tests\\SourceFiles\\xmlSeedSourcePlus.xml";
 
-            Assert.AreEqual(fileName1, string1);
-            Assert.AreEqual(fileName2, string2);
-            Assert.AreEqual(fileName3, string3);
+            Assert.AreEqual(fileName1, source1);
+            Assert.AreEqual(fileName2, source2);
+            Assert.AreEqual(fileName3, source3);
+            Assert.AreEqual(fileName4, source4);
+            Assert.AreEqual(fileName4a, source4);
         }
     }
 }

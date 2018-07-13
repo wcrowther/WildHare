@@ -192,10 +192,10 @@ namespace WildHare.Extensions
         public static string ToMapPath(this string fileName)
         {
             var appRoot = GetApplicationRoot();
-            string file = fileName.Replace(@"/", @"\").RemoveStart(@"~").RemoveStart(@"/");
-            var path = Path.Combine(appRoot, file);
+            string[] characters = { "~", "/", @"\" };
+            string filePath = fileName.RemoveStart(characters).Replace("/", @"\");;
 
-            return path;
+            return Path.Combine(appRoot, filePath);
         }
 
         public static string GetApplicationRoot()
