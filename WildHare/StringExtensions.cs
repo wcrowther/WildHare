@@ -1,42 +1,45 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace WildHare.Extensions
-
 {
     public static class StringExtensions
     {
+        /// <summary>Inline version of string.IsNullOrEmpty()</summary>
         public static bool IsNullOrEmpty(this string s)
         {
             return string.IsNullOrEmpty(s);
         }
 
+        /// <summary>A null or empty string returns {replacement} if given, else an empty string.</summary>
         public static string IfNullOrEmpty(this string s, string replacement = "")
         {
             return s.IsNullOrEmpty() ? replacement : s;
         }
 
+        /// <summary>Inline version of string.IsNullOrWhiteSpace()</summary>
         public static bool IsNullOrSpace(this string s)
         {
             return string.IsNullOrWhiteSpace(s);
         }
 
+        /// <summary>A Null or whitespace string returns {replacement} if given, else an empty string.</summary>
         public static string IfNullOrSpace(this string s, string replacement = "")
         {
             return s.IsNullOrSpace() ? replacement : s;
         }
 
+        /// <summary>Remove the start of a string if it exactly matches {start}.</summary>
         public static string RemoveStart(this string input, string start)
         {
             string s = input.IfNullOrEmpty();
             string t = start.IfNullOrEmpty();
 
-            return s.StartsWith(t) ? s.Remove(0, t.Length) : s;
+            return s.StartsWith(t) ? s.Remove(0, t.Length) : s; 
         }
 
+        /// <summary>Remove the end of a string if it exactly matches {end}.</summary>
         public static string RemoveEnd(this string input, string end)
         {
             string s = input.IfNullOrEmpty();
@@ -45,12 +48,14 @@ namespace WildHare.Extensions
             return s.EndsWith(e) ? s.Remove(s.Length - e.Length, e.Length) : s;
         }
 
+        /// <summary>Remove the start of a string if it exactly matches {start} and remove 
+        /// and the end of a string if it exactly matches {end}.</summary>
         public static string RemoveStartEnd(this string input, string start, string end =  null)
         {
-
             return input.RemoveStart(start).RemoveEnd(end ?? start);
         }
 
+        /// <summary>Remove the start of a string if it exactly matches any of the strings in the {startArray}.</summary>
         public static string RemoveStart(this string input, string[] startArray)
         {
             string s = input.IfNullOrEmpty();
@@ -61,6 +66,7 @@ namespace WildHare.Extensions
             return s;
         }
 
+        /// <summary>Remove the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
         public static string RemoveEnd(this string input, string[] endArray)
         {
             string s = input.IfNullOrEmpty();
@@ -71,6 +77,8 @@ namespace WildHare.Extensions
             return s;
         }
 
+        /// <summary>Remove the start of a string if it exactly matches any of the strings in the {startArray} 
+        /// and remove the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
         public static string RemoveStartEnd(this string input, string[] startArray, string[] endArray = null)
         {
             string s = input.IfNullOrEmpty();
@@ -89,24 +97,40 @@ namespace WildHare.Extensions
             return s;
         }
 
+        /// <summary>Remove the start of line if it exactly matches {start} for all lines in the string. 
+        /// (This can be useful for programmatically removing indents from a long string.)</summary>
+        public static string RemoveStartFromAllLines(this string input, string start)
+        {
+            return string.Join("\n", input.Split('\n').Select(a => a.RemoveStart(start)));
+        }
+
+        /// <summary>Remove the end of line if it exactly matches {end} for all lines in the string.</summary>
+        public static string RemoveEndFromAllLines(this string input, string end)
+        {
+            return string.Join("\n", input.Split('\n').Select(a => a.RemoveEnd(end)));
+        }
+
+        /// <summary>If a string if it is not null or empty, adds {addToEnd} to the end.
         public static string IfNotEmpty(this string s, string addToEnd)
         {
             s = s ?? "";
             return (s.Trim().Length > 0) ? (s += addToEnd) : s;
         }
 
+        /// <summary>If a string if it is not null or empty, adds {addToStart} to the start and {addToEnd} to the end. 
         public static string IfNotEmpty(this string s, string addToStart, string addToEnd)
         {
             s = s ?? "";
             return (s.Trim().Length > 0) ? (addToStart + s + addToEnd) : s;
         }
 
-        public static string NumbersOnly(this string input, string additionalChars)
+        /// <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
+        public static string NumbersOnly(this string input, string otherCharacters)
         {
             var output = new StringBuilder("");
             for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
             {
-                if (("0123456789" + additionalChars).IndexOf(input[i]) != -1)
+                if (("0123456789" + otherCharacters).IndexOf(input[i]) != -1)
                 {
                     output.Append(input[i]);
                 }
@@ -114,6 +138,9 @@ namespace WildHare.Extensions
             return output.ToString();
         }
 
+        /// <summary>Truncates a string down if it is over {maxcharacters{. If truncated it adds {more} 
+        /// (with '...' as the default if not specified) to the end. It will attempt to make the truncation 
+        /// at a space or line break, but will search {wordcut} characters before forcing the wordcut.</summary>
         public static string Truncate(this string input, int maxCharacters, string more = "... ", int wordcut = 12)
         {
             int strEnd = 0;
@@ -126,6 +153,7 @@ namespace WildHare.Extensions
             return input;
         }
 
+        /// <summary>Capitalizes the first letter of all words in a string.</summary>
         public static string ProperCase(this string input)
         {
             var sb = new StringBuilder();
@@ -148,63 +176,10 @@ namespace WildHare.Extensions
             return sb.ToString();
         }
 
+        /// <summary>Returns the character at the position {i}.</summary>
         public static char CharAt(this string s, int i)
         {
             return Convert.ToChar(s.Substring(i, 1));
-        }
-
-        public static bool WriteToFile(this string stringToWrite, string fileName, bool overWriteExisting = false)
-        {
-            var file = new FileInfo(fileName);
-
-            return stringToWrite.WriteToFile(file, overWriteExisting);
-        }
-
-        public static bool WriteToFile(this string stringToWrite, FileInfo file, bool overWriteExisting = false)
-        {
-            if (file.Exists && overWriteExisting != true)
-            {
-                return false;
-            }
-            using (var tw = new StreamWriter(file.Create()))
-            {
-                tw.Write(stringToWrite);
-            }
-            return true;
-        }
-
-        public static bool AppendToFile(this string stringToWrite, string fileName)
-        {
-            var file = new FileInfo(fileName);
-
-            return stringToWrite.AppendToFile(file);
-        }
-
-        public static bool AppendToFile(this string stringToWrite, FileInfo file)
-        {
-            using (var tw = file.AppendText())
-            {
-                tw.Write(stringToWrite);
-            }
-            return true;
-        }
-
-        public static string ToMapPath(this string fileName)
-        {
-            var appRoot = GetApplicationRoot();
-            string[] characters = { "~", "/", @"\" };
-            string filePath = fileName.RemoveStart(characters).Replace("/", @"\");;
-
-            return Path.Combine(appRoot, filePath);
-        }
-
-        public static string GetApplicationRoot()
-        {
-            var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-            var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            var appRoot = appPathMatcher.Match(exePath).Value;
-
-            return appRoot;
         }
     }
 }

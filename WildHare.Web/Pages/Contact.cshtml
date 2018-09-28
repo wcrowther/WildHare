@@ -1,19 +1,49 @@
 ﻿@page
 @model ContactModel
 @{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "CodeTemplates for Generating Code in C# (Part 1)";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@Model.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<p>I have recently been experimenting with a technique for generating code in C#.</p>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<h4>Summary:</h4>
+<p>This article introduces a simple but effective approach to code generation in both .NET Framework and Core
+   using C#6+ string interpolation and verbatim string literals that I am calling 'CodeTemplates'.</p>
+
+<h4>Background:</h4>
+<p>
+    Code generation has long been a useful tool in the developer arsenal where you write code that automates
+    writing a tedious bit of repetitive code. &lt;Examples here&gt;
+</p>
+<p>
+    In the past, .net code generation was typically done using a commercial tool like CodeSmith or using the T4 
+    templating engine built into Visual Studio. T4 templates were quite powerful and used by frameworks like 
+    Linq to SQL and Entity Framework to generate code. Support by Microsoft always seemed a secondary
+    goal. They had there own syntax and required a separate download of a third party trial to get intellisense 
+    and the more advanced features.
+</p>
+<p>
+    With the advent of .net Core, T4 has become even more marginalized and has limited support in Visual Studio Code
+    and Visual Studio for Mac. One alternative that has received focus in Visual Studio recently is the Yeoman code
+    generator used by Node.js. Yeoman is a common scaffolding tool in the javascript development sphere now being used
+    to bootstrap .net starter projects and for other code generation. Some of us still prefer to code in a familiar compiled 
+    language like c# and utilize the benefits that it provides.
+</p>
+<p>
+    The technique that I am outlining in this article (and the followup article "Generating Adapter Classes Using CodeTempates")
+    takes the ability in C# to have multi-line "verbatim strings" and combines it with the recent new c#6 "string interpolation"
+    feature that allows expressions to be embedded and evaluated in a string. The approach is simple but provides a 
+    powerful way to generate code in a familiar environment with full intellisense and debugging, with no extra required plugins. 
+    As the code is native C#, any shortcuts, techniques, and personal libraries are available, with the code being easily 
+    understandable.
+</p>
+<p>
+    There has been some discussion that C# "string interpolation" is not up to snuff for templating &lt;Link&gt;. Variables are
+    embedded in the string literal therefore the string itself cannot be passed in as a variable. For traditional
+    templating of emails, form letters, etc. this approach may be too inflexible as you may not want to have to have a code
+    release to correct a typo. For code generation, however, this is not a problem and the code being fully compiled
+    leverages all the advantages of the language. 
+</p>
+<h4>Getting Started: </h4>
+<p>With C#6 and above, you can use string interpolation embed variables in a string in a streamlined </p>
