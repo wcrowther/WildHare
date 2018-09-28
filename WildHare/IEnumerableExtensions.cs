@@ -6,7 +6,7 @@ namespace WildHare.Extensions
 {
     public static class IEnumerableExtensions
     {
-        /// <summary>Given two lists it returns values from first if the /func/ is true. If /consecutive/ 
+        /// <summary>Given two lists it returns values from first if the {func} is true. If {consecutive} 
         /// is false, continues returning values until one of the lists has no more elements.</summary>
         public static IEnumerable<T1> MatchList<T1, T2>(this IEnumerable<T1> list1,
                                                              IEnumerable<T2> list2,
