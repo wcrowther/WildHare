@@ -15,7 +15,7 @@ namespace WildHare.Tests
             string codeBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
             string localPath = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string applicationRoot = StringExtensions.GetApplicationRoot();
+            string applicationRoot = IOExtensions.GetApplicationRoot();
 
             Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", codeBase);
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", localPath);
