@@ -125,7 +125,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
-        public static string NumbersOnly(this string input, string otherCharacters)
+        public static string NumbersOnly(this string input, string otherCharacters = "")
         {
             var output = new StringBuilder("");
             for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
@@ -181,5 +181,14 @@ namespace WildHare.Extensions
         {
             return Convert.ToChar(s.Substring(i, 1));
         }
-    }
+
+		/// <summary>Removes the indent from a block of text. Defaults to am empty space (' ') indent.</summary>
+		public static string RemoveLineIndents(this string output, int number, string indent = " ")
+		{
+			string indentation = string.Join("", Enumerable.Repeat(indent, number));
+			string trimAllLines = string.Join("\n", output.Split('\n').Select(a => a.RemoveStart(indentation)));
+
+			return trimAllLines;
+		}
+	}
 }

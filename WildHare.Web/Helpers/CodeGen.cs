@@ -78,16 +78,10 @@ namespace WildHare.Web
                 }}
             }}";
 
-            bool isSuccess = output.RemoveIndent(12)
+            bool isSuccess = output.RemoveLineIndents(12)
                             .WriteToFile(($"{outputDir}{class1}Adapter.cs"), overwrite);
 
             return isSuccess;
-        }
-        private static string RemoveIndent(this string output, int spaces)
-        {
-            string indent = string.Join("", Enumerable.Repeat(" ", spaces));
-            string trimmedByLine = string.Join("\n", output.Split('\n').Select(a => a.RemoveStart(indent)));
-            return trimmedByLine;
         }
 
         private static string PropertiesList(Type type, Type toType, string mapName)

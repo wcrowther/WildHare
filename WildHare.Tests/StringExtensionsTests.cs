@@ -9,6 +9,35 @@ namespace WildHare.Tests
     [TestFixture]
     public class StringExtensionsTests
     {
+		[Test]
+		public void Test_NumbersOnly()
+		{
+			string numbersAndWords = "123SomeWord456";
+			string numbersOnlyString = numbersAndWords.NumbersOnly();
 
-    }
+			Assert.AreEqual("123456", numbersOnlyString);
+		}
+
+		[Test]
+		public void Test_NumbersOnly_With_Other_Characters()
+		{
+			string numbersAndWords = "$12345.SomeWord00";
+			string numbersOnlyString = numbersAndWords.NumbersOnly("$.");
+
+			Assert.AreEqual("$12345.00", numbersOnlyString);
+		}
+
+
+		[Test]
+		public void Test_RemoveStartFromAllLines_Basic()
+		{
+			string multiLineText = @"This is a 
+			sentence 
+			spread across multiple lines.";
+
+			string indentingRemovedText = multiLineText.RemoveStartFromAllLines("\t\t\t");
+
+			Assert.AreEqual("This is a \r\nsentence \r\nspread across multiple lines.", indentingRemovedText);
+		}
+	}
 }

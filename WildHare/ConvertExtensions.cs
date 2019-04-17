@@ -22,9 +22,8 @@ namespace WildHare
         /// <returns>An int value or null</returns>
         public static int? ToIntNullable(this string value, int? defaultValue = null)
         {
-            int result;
-            return (int.TryParse(value, out result)) ? result : defaultValue;
-        }
+			return (int.TryParse(value, out int result)) ? result : defaultValue;
+		}
 
         /// <summary>Converts strings to long</summary>
         /// <returns>A long value</returns>
@@ -49,9 +48,8 @@ namespace WildHare
         /// <returns>An double value or null</returns>
         public static double? ToDoubleNullable(this string value, double? defaultValue = null)
         {
-            double result;
-            return (double.TryParse(value, out result)) ? (double?) result : defaultValue;
-        }
+			return (double.TryParse(value, out double result)) ? (double?)result : defaultValue;
+		}
 
 		/// <summary>Converts strings to Decimal without without having to use an explicit try/catch</summary>
         /// <returns>A Decimal value</returns>
@@ -106,5 +104,10 @@ namespace WildHare
             }
             return str + (currentnumber.HasValue ? currentnumber.Value.ToString() : "") + ignoreEnd;
         }
-    }
+
+		public static string ToCSharpType(this String str)
+		{
+			return str;
+		}
+	}
 }
