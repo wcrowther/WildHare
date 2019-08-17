@@ -1,18 +1,24 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
 	public class Users
 	{
+		[Key]
 		public int UserId { get; set; }
 
-		public nvarchar UserName { get; set; }
+		[StringLength(100)]
+		public string UserName { get; set; }
 
-		public nvarchar FirstName { get; set; }
+		[StringLength(50)]
+		public string FirstName { get; set; }
 
-		public nvarchar LastName { get; set; }
+		[StringLength(50)]
+		public string LastName { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }

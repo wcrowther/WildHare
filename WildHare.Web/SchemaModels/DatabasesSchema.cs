@@ -5,10 +5,10 @@ namespace WildHare.Web.SchemaModels
 {
 	public class DatabasesSchema
 	{
-		public string database_name { get; set; }
+		public string Database_Name { get; set; }
 
-		public short dbid { get; set; }
+		public short Dbid { get; set; }
 
-		public DateTime create_date { get; set; }
+		public DateTime Create_Date { get; set; }
 	}
 }

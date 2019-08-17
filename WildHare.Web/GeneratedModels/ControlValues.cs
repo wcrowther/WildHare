@@ -1,10 +1,12 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
 	public class ControlValues
 	{
+		[Key]
 		public int ControlValueId { get; set; }
 
 		public int TimelineId { get; set; }
@@ -13,8 +15,9 @@ namespace WildHare.Web.Models
 
 		public int ActNumber { get; set; }
 
-		public nvarchar Value { get; set; }
+		public string Value { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }

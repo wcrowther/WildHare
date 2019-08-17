@@ -1,20 +1,24 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
 	public class Acts
 	{
+		[Key]
 		public int ActId { get; set; }
 
 		public int TimelineId { get; set; }
 
 		public int ActNumber { get; set; }
 
-		public nvarchar ActText { get; set; }
+		[StringLength(200)]
+		public string ActText { get; set; }
 
-		public bit Hidden { get; set; }
+		public bool Hidden { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }

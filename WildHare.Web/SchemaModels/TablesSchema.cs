@@ -5,12 +5,12 @@ namespace WildHare.Web.SchemaModels
 {
 	public class TablesSchema
 	{
-		public string TABLE_CATALOG { get; set; }
+		public string Table_Catalog { get; set; }
 
-		public string TABLE_SCHEMA { get; set; }
+		public string Table_Schema { get; set; }
 
-		public string TABLE_NAME { get; set; }
+		public string Table_Name { get; set; }
 
-		public string TABLE_TYPE { get; set; }
+		public string Table_Type { get; set; }
 	}
 }

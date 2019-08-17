@@ -5,48 +5,48 @@ namespace WildHare.Web.SchemaModels
 {
 	public class DataTypesSchema
 	{
-		public string TypeName { get; set; }
+		public string Typename { get; set; }
 
-		public int ProviderDbType { get; set; }
+		public int Providerdbtype { get; set; }
 
-		public long ColumnSize { get; set; }
+		public long Columnsize { get; set; }
 
-		public string CreateFormat { get; set; }
+		public string Createformat { get; set; }
 
-		public string CreateParameters { get; set; }
+		public string Createparameters { get; set; }
 
-		public string DataType { get; set; }
+		public string Datatype { get; set; }
 
-		public bool IsAutoIncrementable { get; set; }
+		public bool Isautoincrementable { get; set; }
 
-		public bool IsBestMatch { get; set; }
+		public bool Isbestmatch { get; set; }
 
-		public bool IsCaseSensitive { get; set; }
+		public bool Iscasesensitive { get; set; }
 
-		public bool IsFixedLength { get; set; }
+		public bool Isfixedlength { get; set; }
 
-		public bool IsFixedPrecisionScale { get; set; }
+		public bool Isfixedprecisionscale { get; set; }
 
-		public bool IsLong { get; set; }
+		public bool Islong { get; set; }
 
-		public bool IsNullable { get; set; }
+		public bool Isnullable { get; set; }
 
-		public bool IsSearchable { get; set; }
+		public bool Issearchable { get; set; }
 
-		public bool IsSearchableWithLike { get; set; }
+		public bool Issearchablewithlike { get; set; }
 
-		public bool IsUnsigned { get; set; }
+		public bool Isunsigned { get; set; }
 
-		public short MaximumScale { get; set; }
+		public short Maximumscale { get; set; }
 
-		public short MinimumScale { get; set; }
+		public short Minimumscale { get; set; }
 
-		public bool IsConcurrencyType { get; set; }
+		public bool Isconcurrencytype { get; set; }
 
-		public bool IsLiteralSupported { get; set; }
+		public bool Isliteralsupported { get; set; }
 
-		public string LiteralPrefix { get; set; }
+		public string Literalprefix { get; set; }
 
-		public string LiteralSuffix { get; set; }
+		public string Literalsuffix { get; set; }
 	}
 }

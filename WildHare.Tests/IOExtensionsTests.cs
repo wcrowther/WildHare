@@ -12,18 +12,19 @@ namespace WildHare.Tests
         [Test]
         public void Test_WriteToFile_Get_Base_Directory_Alternatives()
         {
-            string codeBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-            string localPath = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string applicationRoot = IOExtensions.GetApplicationRoot();
+            string codeBase			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            string localPath		= Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            string location			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string applicationRoot	= IOExtensions.GetApplicationRoot();
+			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", codeBase);
+			Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", codeBase);
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", localPath);
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", location);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests", applicationRoot);
-        }
+			Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests", applicationRoot);		
+		}
 
-        [Test]
+		[Test]
         public void Test_WriteToFile_ToMapPath()
         {
             // Thanks to Tim Brown

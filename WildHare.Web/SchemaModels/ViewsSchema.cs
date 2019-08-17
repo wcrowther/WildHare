@@ -5,14 +5,14 @@ namespace WildHare.Web.SchemaModels
 {
 	public class ViewsSchema
 	{
-		public string TABLE_CATALOG { get; set; }
+		public string Table_Catalog { get; set; }
 
-		public string TABLE_SCHEMA { get; set; }
+		public string Table_Schema { get; set; }
 
-		public string TABLE_NAME { get; set; }
+		public string Table_Name { get; set; }
 
-		public string CHECK_OPTION { get; set; }
+		public string Check_Option { get; set; }
 
-		public string IS_UPDATABLE { get; set; }
+		public string Is_Updatable { get; set; }
 	}
 }

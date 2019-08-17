@@ -5,50 +5,50 @@ namespace WildHare.Web.SchemaModels
 {
 	public class ProcedureParametersSchema
 	{
-		public string SPECIFIC_CATALOG { get; set; }
+		public string Specific_Catalog { get; set; }
 
-		public string SPECIFIC_SCHEMA { get; set; }
+		public string Specific_Schema { get; set; }
 
-		public string SPECIFIC_NAME { get; set; }
+		public string Specific_Name { get; set; }
 
-		public int ORDINAL_POSITION { get; set; }
+		public int Ordinal_Position { get; set; }
 
-		public string PARAMETER_MODE { get; set; }
+		public string Parameter_Mode { get; set; }
 
-		public string IS_RESULT { get; set; }
+		public string Is_Result { get; set; }
 
-		public string AS_LOCATOR { get; set; }
+		public string As_Locator { get; set; }
 
-		public string PARAMETER_NAME { get; set; }
+		public string Parameter_Name { get; set; }
 
-		public string DATA_TYPE { get; set; }
+		public string Data_Type { get; set; }
 
-		public int CHARACTER_MAXIMUM_LENGTH { get; set; }
+		public int Character_Maximum_Length { get; set; }
 
-		public int CHARACTER_OCTET_LENGTH { get; set; }
+		public int Character_Octet_Length { get; set; }
 
-		public string COLLATION_CATALOG { get; set; }
+		public string Collation_Catalog { get; set; }
 
-		public string COLLATION_SCHEMA { get; set; }
+		public string Collation_Schema { get; set; }
 
-		public string COLLATION_NAME { get; set; }
+		public string Collation_Name { get; set; }
 
-		public string CHARACTER_SET_CATALOG { get; set; }
+		public string Character_Set_Catalog { get; set; }
 
-		public string CHARACTER_SET_SCHEMA { get; set; }
+		public string Character_Set_Schema { get; set; }
 
-		public string CHARACTER_SET_NAME { get; set; }
+		public string Character_Set_Name { get; set; }
 
-		public byte NUMERIC_PRECISION { get; set; }
+		public byte Numeric_Precision { get; set; }
 
-		public short NUMERIC_PRECISION_RADIX { get; set; }
+		public short Numeric_Precision_Radix { get; set; }
 
-		public int NUMERIC_SCALE { get; set; }
+		public int Numeric_Scale { get; set; }
 
-		public short DATETIME_PRECISION { get; set; }
+		public short Datetime_Precision { get; set; }
 
-		public string INTERVAL_TYPE { get; set; }
+		public string Interval_Type { get; set; }
 
-		public short INTERVAL_PRECISION { get; set; }
+		public short Interval_Precision { get; set; }
 	}
 }

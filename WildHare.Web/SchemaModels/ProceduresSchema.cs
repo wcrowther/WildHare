@@ -5,22 +5,22 @@ namespace WildHare.Web.SchemaModels
 {
 	public class ProceduresSchema
 	{
-		public string SPECIFIC_CATALOG { get; set; }
+		public string Specific_Catalog { get; set; }
 
-		public string SPECIFIC_SCHEMA { get; set; }
+		public string Specific_Schema { get; set; }
 
-		public string SPECIFIC_NAME { get; set; }
+		public string Specific_Name { get; set; }
 
-		public string ROUTINE_CATALOG { get; set; }
+		public string Routine_Catalog { get; set; }
 
-		public string ROUTINE_SCHEMA { get; set; }
+		public string Routine_Schema { get; set; }
 
-		public string ROUTINE_NAME { get; set; }
+		public string Routine_Name { get; set; }
 
-		public string ROUTINE_TYPE { get; set; }
+		public string Routine_Type { get; set; }
 
-		public DateTime CREATED { get; set; }
+		public DateTime Created { get; set; }
 
-		public DateTime LAST_ALTERED { get; set; }
+		public DateTime Last_Altered { get; set; }
 	}
 }

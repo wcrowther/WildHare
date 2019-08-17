@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -69,10 +70,17 @@ namespace WildHare.Extensions
         public static string GetApplicationRoot()
         {
             var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-            var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            var appRoot = appPathMatcher.Match(exePath).Value;
+			Debug.WriteLine("exePath: " + exePath);
 
-            return appRoot;
+			var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
+            var appRoot = appPathMatcher.Match(exePath).Value;
+			Debug.WriteLine("appRoot: " + appRoot);
+
+			string entryAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			Debug.WriteLine("entryAssembly: " + entryAssembly);
+
+
+			return appRoot;
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WildHare.Extensions
 {
@@ -138,12 +139,12 @@ namespace WildHare.Extensions
             return output.ToString();
         }
 
-        /// <summary>Truncates a string down if it is over {maxcharacters{. If truncated it adds {more} 
-        /// (with '...' as the default if not specified) to the end. It will attempt to make the truncation 
+        /// <summary>Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter
+        ///  to the end with '...' as the default, if not specified. It will attempt to make the truncation 
         /// at a space or line break, but will search {wordcut} characters before forcing the wordcut.</summary>
         public static string Truncate(this string input, int maxCharacters, string more = "... ", int wordcut = 12)
         {
-            int strEnd = 0;
+            int strEnd;
             if (input.Length > maxCharacters)
             {
                 strEnd = input.Trim().LastIndexOfAny(new char[] { ' ', '\n', '\r' }, maxCharacters);
@@ -153,22 +154,34 @@ namespace WildHare.Extensions
             return input;
         }
 
-        /// <summary>Capitalizes the first letter of all words in a string.</summary>
-        public static string ProperCase(this string input)
+		/// <summary>Capitalizes the first letter and all first letters after whitespace in a string.
+		/// If {underscoreCountsAsSpace} is true then also capitalizes the first letter after an underscore '_'.
+		/// </summary>
+		public static string ProperCase(this string input, bool underscoreCountsAsSpace = false)
         {
             var sb = new StringBuilder();
             bool emptyBefore = true;
             foreach (char ch in input)
             {
                 char chThis = ch;
-                if (Char.IsWhiteSpace(chThis))
+                if (char.IsWhiteSpace(chThis))
+				{
                     emptyBefore = true;
-                else
+				}
+				else if (underscoreCountsAsSpace && chThis == '_')
+				{
+					emptyBefore = true;
+				}
+				else
                 {
-                    if (Char.IsLetter(chThis) && emptyBefore)
-                        chThis = Char.ToUpper(chThis);
-                    else
-                        chThis = Char.ToLower(chThis);
+					if (char.IsLetter(chThis) && emptyBefore)
+					{
+						chThis = char.ToUpper(chThis);
+					}
+					else
+					{
+						chThis = char.ToLower(chThis);
+					}
                     emptyBefore = false;
                 }
                 sb.Append(chThis);
@@ -189,6 +202,25 @@ namespace WildHare.Extensions
 			string trimAllLines = string.Join("\n", output.Split('\n').Select(a => a.RemoveStart(indentation)));
 
 			return trimAllLines;
+		}
+
+		/// <summary>Increments integer +1 on the end of a string</summary>
+		/// <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
+		/// <example>'File6.txt'.IncrementString(1,".txt") = 'File1.txt'</example>
+		/// <returns>A string with end int incremented +1</returns>
+		public static string IncrementString(this string str, int? seedIfEmpty = 1, string ignoreExtension = "", int increment = 1)
+		{
+			str = str.RemoveEnd(ignoreExtension);
+			int? currentnumber = seedIfEmpty;
+			string numberstring = "";
+
+			numberstring += Regex.Match(str, @"[0-9,-]*$");
+			if (numberstring.ToIntNullable() != null)
+			{
+				str = str.Remove(str.Length - numberstring.Length);
+				currentnumber = numberstring.ToInt() + increment;
+			}
+			return str + (currentnumber.HasValue ? currentnumber.Value.ToString() : "") + ignoreExtension;
 		}
 	}
 }

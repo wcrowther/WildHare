@@ -5,18 +5,18 @@ namespace WildHare.Web.SchemaModels
 {
 	public class ViewColumnsSchema
 	{
-		public string VIEW_CATALOG { get; set; }
+		public string View_Catalog { get; set; }
 
-		public string VIEW_SCHEMA { get; set; }
+		public string View_Schema { get; set; }
 
-		public string VIEW_NAME { get; set; }
+		public string View_Name { get; set; }
 
-		public string TABLE_CATALOG { get; set; }
+		public string Table_Catalog { get; set; }
 
-		public string TABLE_SCHEMA { get; set; }
+		public string Table_Schema { get; set; }
 
-		public string TABLE_NAME { get; set; }
+		public string Table_Name { get; set; }
 
-		public string COLUMN_NAME { get; set; }
+		public string Column_Name { get; set; }
 	}
 }

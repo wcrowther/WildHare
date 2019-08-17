@@ -1,7 +1,9 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Extensions.ForTemplating;
 
 namespace WildHare.Web
 {
@@ -10,7 +12,7 @@ namespace WildHare.Web
 		/* ==========================================================================
          * DIRECTIONS
          * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE
          * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
          * 
            WildHare.Web.CodeGenSchema.Init();
@@ -30,8 +32,10 @@ namespace WildHare.Web
 
 		public static string Init()
         {
+			// List of Various Schemas
 			CreateSqlServerSchemaModel("MetaDataCollections", true);
-			CreateSqlServerSchemaModel("Columns", false);
+
+			CreateSqlServerSchemaModel("Columns", true);
 			CreateSqlServerSchemaModel("AllColumns", true);
 			CreateSqlServerSchemaModel("ColumnSetColumns", true);
 			CreateSqlServerSchemaModel("StructuredTypeMembers", true);
@@ -62,8 +66,9 @@ namespace WildHare.Web
 				conn.Open();
 				DataTable table = conn.GetSchema(schemaName);
 
-				// Debugging : 
-				var schemaString = DisplayData(table);
+				
+				var schemaString = DisplayDebugData(table);
+				Debug.WriteLine(schemaString); 
 
 				output =
 				$@"
@@ -73,7 +78,7 @@ namespace WildHare.Web
 				{{
 					public class {schemaName}Schema
 					{{
-						{ CreateProperty(table) }
+						{ CreateTableClassProperties(table) }
 					}}
 				}}";
 
@@ -81,13 +86,13 @@ namespace WildHare.Web
 			};
 
 			bool isSuccess = output.RemoveLineIndents(4, "\t")
-					.WriteToFile(($"{outputDir}{schemaName}Schema.cs"), true);
+							.WriteToFile(($"{outputDir}{schemaName}Schema.cs"), overwrite);
 
 
 			return isSuccess;
 		}
 
-		private static string CreateProperty(DataTable table)
+		private static string CreateTableClassProperties(DataTable table)
 		{
 			string output = "";
 			string start = "\t\t";
@@ -95,16 +100,18 @@ namespace WildHare.Web
 
 			foreach (DataColumn col in table.Columns)
 			{
-				output += $"{start}public {col.DataType.Name.RemoveStart("System.")} {col.ColumnName} {{ get; set; }}{end}";
+				output += $"{start}public {col.DataType.Name.FromDotNetTypeToCSharpType()} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
 			}
 
 			return output.RemoveStartEnd(start, end);
 		}
 
-		// Nest this string in connection using: var schemaString = DisplayData(table);
-		private static string DisplayData(DataTable table)
+		// Nest this string in connection using: var schemaString = DisplayDebugData(table);
+		private static string DisplayDebugData(DataTable table)
 		{
 			var sb = new StringBuilder();
+
+			sb.AppendLine("============================");
 
 			foreach (DataRow row in table.Rows)
 			{
@@ -116,5 +123,6 @@ namespace WildHare.Web
 			}
 			return sb.ToString();
 		}
+
 	}
 }

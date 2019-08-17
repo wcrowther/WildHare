@@ -29,13 +29,13 @@ namespace WildHare.Tests
         {
             string file = "file.txt";
 
-            string newStr = file.IncrementString(ignoreEnd: ".txt");
+            string newStr = file.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file1.txt", newStr);
 
-            newStr = newStr.IncrementString(ignoreEnd: ".txt");
+            newStr = newStr.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file2.txt", newStr);
 
-            newStr = newStr.IncrementString(ignoreEnd: ".txt");
+            newStr = newStr.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file3.txt", newStr);
         }
 
@@ -44,13 +44,13 @@ namespace WildHare.Tests
         {
             string file = "file1.txt";
 
-            string newStr = file.IncrementString(ignoreEnd: ".txt");
+            string newStr = file.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file2.txt", newStr);
 
-            newStr = newStr.IncrementString(ignoreEnd: ".txt");
+            newStr = newStr.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file3.txt", newStr);
 
-            newStr = newStr.IncrementString(ignoreEnd: ".txt");
+            newStr = newStr.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file4.txt", newStr);
         }
     }

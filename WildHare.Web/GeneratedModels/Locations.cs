@@ -1,5 +1,6 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
@@ -9,16 +10,22 @@ namespace WildHare.Web.Models
 
 		public int TeventId { get; set; }
 
-		public nvarchar LocationName { get; set; }
+		[StringLength(100)]
+		public string LocationName { get; set; }
 
-		public nvarchar Address { get; set; }
+		[StringLength(100)]
+		public string Address { get; set; }
 
-		public nvarchar State { get; set; }
+		[StringLength(100)]
+		public string State { get; set; }
 
-		public nvarchar PostalCode { get; set; }
+		[StringLength(50)]
+		public string PostalCode { get; set; }
 
-		public nvarchar Country { get; set; }
+		[StringLength(50)]
+		public string Country { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }

@@ -1,26 +1,32 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
 	public class Tevents
 	{
+		[Key]
 		public int TeventId { get; set; }
 
-		public uniqueidentifier TeventGuid { get; set; }
+		public Guid TeventGuid { get; set; }
 
-		public nvarchar TeventName { get; set; }
+		[StringLength(50)]
+		public string TeventName { get; set; }
 
-		public nvarchar TeventSummary { get; set; }
+		[StringLength(500)]
+		public string TeventSummary { get; set; }
 
-		public nvarchar TeventInfo { get; set; }
+		public string TeventInfo { get; set; }
 
-		public datetime2 StartDate { get; set; }
+		public DateTime StartDate { get; set; }
 
 		public int OwnerUserId { get; set; }
 
-		public nvarchar TeaserSrc { get; set; }
+		[StringLength(200)]
+		public string TeaserSrc { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }

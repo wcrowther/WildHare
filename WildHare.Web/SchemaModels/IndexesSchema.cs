@@ -5,20 +5,20 @@ namespace WildHare.Web.SchemaModels
 {
 	public class IndexesSchema
 	{
-		public string constraint_catalog { get; set; }
+		public string Constraint_Catalog { get; set; }
 
-		public string constraint_schema { get; set; }
+		public string Constraint_Schema { get; set; }
 
-		public string constraint_name { get; set; }
+		public string Constraint_Name { get; set; }
 
-		public string table_catalog { get; set; }
+		public string Table_Catalog { get; set; }
 
-		public string table_schema { get; set; }
+		public string Table_Schema { get; set; }
 
-		public string table_name { get; set; }
+		public string Table_Name { get; set; }
 
-		public string index_name { get; set; }
+		public string Index_Name { get; set; }
 
-		public string type_desc { get; set; }
+		public string Type_Desc { get; set; }
 	}
 }

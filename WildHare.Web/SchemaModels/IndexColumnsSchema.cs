@@ -5,24 +5,24 @@ namespace WildHare.Web.SchemaModels
 {
 	public class IndexColumnsSchema
 	{
-		public string constraint_catalog { get; set; }
+		public string Constraint_Catalog { get; set; }
 
-		public string constraint_schema { get; set; }
+		public string Constraint_Schema { get; set; }
 
-		public string constraint_name { get; set; }
+		public string Constraint_Name { get; set; }
 
-		public string table_catalog { get; set; }
+		public string Table_Catalog { get; set; }
 
-		public string table_schema { get; set; }
+		public string Table_Schema { get; set; }
 
-		public string table_name { get; set; }
+		public string Table_Name { get; set; }
 
-		public string column_name { get; set; }
+		public string Column_Name { get; set; }
 
-		public int ordinal_position { get; set; }
+		public int Ordinal_Position { get; set; }
 
-		public byte KeyType { get; set; }
+		public byte Keytype { get; set; }
 
-		public string index_name { get; set; }
+		public string Index_Name { get; set; }
 	}
 }

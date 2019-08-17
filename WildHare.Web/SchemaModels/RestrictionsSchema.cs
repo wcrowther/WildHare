@@ -5,14 +5,14 @@ namespace WildHare.Web.SchemaModels
 {
 	public class RestrictionsSchema
 	{
-		public string CollectionName { get; set; }
+		public string Collectionname { get; set; }
 
-		public string RestrictionName { get; set; }
+		public string Restrictionname { get; set; }
 
-		public string ParameterName { get; set; }
+		public string Parametername { get; set; }
 
-		public string RestrictionDefault { get; set; }
+		public string Restrictiondefault { get; set; }
 
-		public int RestrictionNumber { get; set; }
+		public int Restrictionnumber { get; set; }
 	}
 }

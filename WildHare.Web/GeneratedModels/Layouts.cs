@@ -1,18 +1,24 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
 	public class Layouts
 	{
+		[Key]
 		public int LayoutId { get; set; }
 
-		public nvarchar LayoutName { get; set; }
+		[StringLength(100)]
+		public string LayoutName { get; set; }
 
-		public nvarchar LayoutDescription { get; set; }
+		[StringLength(300)]
+		public string LayoutDescription { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
 
-		public nvarchar Template { get; set; }
+		[StringLength(50)]
+		public string Template { get; set; }
+
 	}
 }

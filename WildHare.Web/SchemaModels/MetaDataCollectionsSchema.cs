@@ -5,10 +5,10 @@ namespace WildHare.Web.SchemaModels
 {
 	public class MetaDataCollectionsSchema
 	{
-		public string CollectionName { get; set; }
+		public string Collectionname { get; set; }
 
-		public int NumberOfRestrictions { get; set; }
+		public int Numberofrestrictions { get; set; }
 
-		public int NumberOfIdentifierParts { get; set; }
+		public int Numberofidentifierparts { get; set; }
 	}
 }

@@ -9,7 +9,7 @@ using WildHare.Web.Models;
 
 namespace WildHare.Web
 {
-    public static class CodeGen
+    public static class CodeGenAdapters
     {
         /* ==========================================================================
          * DIRECTIONS

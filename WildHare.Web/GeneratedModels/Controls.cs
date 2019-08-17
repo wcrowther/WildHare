@@ -1,24 +1,32 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
 	public class Controls
 	{
+		[Key]
 		public int ControlId { get; set; }
 
 		public int LayoutId { get; set; }
 
-		public nvarchar ControlName { get; set; }
+		[StringLength(50)]
+		public string ControlName { get; set; }
 
-		public varchar DataType { get; set; }
+		[StringLength(20)]
+		public string DataType { get; set; }
 
-		public nchar MinValue { get; set; }
+		[StringLength(10)]
+		public string MinValue { get; set; }
 
-		public nchar MaxValue { get; set; }
+		[StringLength(10)]
+		public string MaxValue { get; set; }
 
-		public nvarchar DefaultValue { get; set; }
+		[StringLength(1000)]
+		public string DefaultValue { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }

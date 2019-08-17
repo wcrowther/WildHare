@@ -1,5 +1,6 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Web.Models
 {
@@ -7,8 +8,10 @@ namespace WildHare.Web.Models
 	{
 		public int TagId { get; set; }
 
-		public nvarchar TagName { get; set; }
+		[StringLength(50)]
+		public string TagName { get; set; }
 
-		public datetime2 DateCreated { get; set; }
+		public DateTime DateCreated { get; set; }
+
 	}
 }
