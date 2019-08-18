@@ -40,6 +40,16 @@ namespace WildHare.Web
             app.UseStaticFiles();
 
             app.UseMvc();
+
+            RunCodeGen(env);
+        }
+
+        private void RunCodeGen(IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                WildHare.Web.CodeGenAdapters.Init();
+            }
         }
     }
 }

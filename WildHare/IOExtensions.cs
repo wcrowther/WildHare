@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -26,7 +26,7 @@ namespace WildHare.Extensions
         /// but will not create the parent folder structure if that is not in place.</summary>
         public static bool WriteToFile(this string stringToWrite, FileInfo file, bool overwrite = false)
         {
-            if (file.Exists && overwrite != true)
+            if (file.Exists && overwrite == false)
             {
                 return false;
             }

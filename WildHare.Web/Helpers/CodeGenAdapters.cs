@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,7 +18,7 @@ namespace WildHare.Web
          * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE
          * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
          * 
-           WildHare.Web.CodeGen.Init();
+           WildHare.Web.CodeGenAdapters.Init();
         ========================================================================== */
 
         private static readonly string namespaceRoot = "WildHare.Web";
@@ -27,9 +28,15 @@ namespace WildHare.Web
 
         public static string Init()
         {
-            GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel));
-            GenerateAdapter(typeof(Invoice), typeof(InvoiceModel));
-            GenerateAdapter(typeof(Account), typeof(AccountModel));
+            Debug.WriteLine("=".Repeat(50));
+            Debug.WriteLine("Running CodeGenAdapters");
+            Debug.WriteLine("=".Repeat(50));
+
+            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), false);
+            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , false);
+            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , false);
+
+            Debug.WriteLine("=".Repeat(50));
 
             return "CodeGen.Init() complete....";
         }
@@ -38,16 +45,16 @@ namespace WildHare.Web
         {
             string class1 = type1.Name;
             string class2 = type2.Name;
+            string adapterName = $"{class1}Adapter.cs";
 
             string output =
-            $@"
-            using {namespaceRoot}.Models;
+            $@"using {namespaceRoot}.Models;
             using {namespaceRoot}.Entities;
             using System.Linq;
             using System.Collections.Generic;
 
             namespace {namespaceRoot}.Adapters
-            {{
+            {{ 
                 public static partial class Adapter
                 {{
                     public static {class2} To{class2} (this {class1} {mapName1})
@@ -78,8 +85,10 @@ namespace WildHare.Web
                 }}
             }}";
 
-            bool isSuccess = output.RemoveLineIndents(12)
-                            .WriteToFile(($"{outputDir}{class1}Adapter.cs"), overwrite);
+            bool isSuccess = output.RemoveLineIndents(12).WriteToFile($"{outputDir}{adapterName}", overwrite);
+
+            if (isSuccess)
+                Debug.WriteLine($"Generated file {adapterName} in {outputDir}.");
 
             return isSuccess;
         }
@@ -117,10 +126,10 @@ namespace WildHare.Web
 
         public static string GetGeneratorAdapterList() // Use this string to set up models in CodeGen constructor
         {
-            
+            string output = "";           
             var assembly = Assembly.Load("WildHare.Web");
             var typeList = assembly.GetTypesInNamespace("WildHare.Web.Entities");
-            string output = "";
+
             foreach (var type in typeList)
             {
                 output += $"\n GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model));";

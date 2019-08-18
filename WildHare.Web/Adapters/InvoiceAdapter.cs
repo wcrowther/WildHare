@@ -1,12 +1,12 @@
-
 using WildHare.Web.Models;
 using WildHare.Web.Entities;
 using System.Linq;
 using System.Collections.Generic;
 
+// InvoiceAdapter.cs
 
 namespace WildHare.Web.Adapters
-{
+{ 
     public static partial class Adapter
     {
         public static InvoiceModel ToInvoiceModel (this Invoice entity)

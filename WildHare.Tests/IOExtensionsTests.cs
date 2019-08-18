@@ -1,5 +1,6 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using WildHare.Extensions;
@@ -9,6 +10,29 @@ namespace WildHare.Tests
     [TestFixture]
     public class IOExtensionsTests
     {
+
+
+        [Test]
+        public void Test_WriteToFile_TextFile1()
+        {
+            string testRoot = IOExtensions.GetApplicationRoot();
+            string pathToWriteTo = $@"{testRoot}\Helpers\TestFile1.txt";
+
+            bool fileAlreadyExists = File.Exists(pathToWriteTo);
+            Debug.WriteLine($"{fileAlreadyExists}");
+
+            File.Delete(pathToWriteTo);
+            bool notAbleToDeleteExistingFile = File.Exists(pathToWriteTo);
+
+            string sentenceToWrite = "This is the sentence to save to write to file";
+            sentenceToWrite.WriteToFile(pathToWriteTo, false);
+
+            var fileAllText = File.ReadAllText(pathToWriteTo);
+
+            Assert.IsFalse(notAbleToDeleteExistingFile);
+            Assert.AreEqual(sentenceToWrite, fileAllText);
+        }
+
         [Test]
         public void Test_WriteToFile_Get_Base_Directory_Alternatives()
         {
@@ -21,10 +45,11 @@ namespace WildHare.Tests
 			Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", codeBase);
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", localPath);
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", location);
-			Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests", applicationRoot);		
-		}
+            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests", applicationRoot);
+            Assert.AreEqual(@"C:\Users\Will Crowther\.nuget\packages\microsoft.testplatform.testhost\15.7.2\lib\netstandard1.5", entryAssembly);
+        }
 
-		[Test]
+        [Test]
         public void Test_WriteToFile_ToMapPath()
         {
             // Thanks to Tim Brown

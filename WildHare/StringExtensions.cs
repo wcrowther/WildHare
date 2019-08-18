@@ -222,5 +222,14 @@ namespace WildHare.Extensions
 			}
 			return str + (currentnumber.HasValue ? currentnumber.Value.ToString() : "") + ignoreExtension;
 		}
-	}
+
+        /// <summary>Returns a string {str} x {number} of times</summary>
+        public static string Repeat(this string str, int number)
+        {
+            if (str == null)
+                return null;
+
+            return new StringBuilder(str.Length * number).Insert(0, str, number).ToString();
+        }
+    }
 }

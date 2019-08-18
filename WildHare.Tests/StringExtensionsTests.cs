@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.IO;
 using System.Reflection;
@@ -39,5 +39,27 @@ namespace WildHare.Tests
 
 			Assert.AreEqual("This is a \r\nsentence \r\nspread across multiple lines.", indentingRemovedText);
 		}
-	}
+
+
+        [Test]
+        public void Test_String_Repeat_Times_Ten()
+        {
+            string stringRepeated = "x".Repeat(10);
+
+            Assert.AreEqual("xxxxxxxxxx", stringRepeated);
+
+            string stringRepeatedTwice = stringRepeated.Repeat(3);
+
+            Assert.AreEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", stringRepeatedTwice);
+        }
+
+        [Test]
+        public void Test_String_Repeat_With_Null()
+        {
+            string nullString = null;
+            string stringRepeated = nullString.Repeat(10);
+
+            Assert.AreEqual(null, stringRepeated);
+        }
+    }
 }
