@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using WildHare.Extensions;
+using System;
 
-namespace WildHare
+namespace WildHare.Extensions
 {
     public static class ConvertExtensions
     {
@@ -55,11 +51,18 @@ namespace WildHare
             return long.TryParse(value, out long result) ? result : defaultValue;
         }
 
+        /// <summary>Converts strings to long</summary>
+        /// <returns>A long value or null</returns>
+        public static long? ToLongNullable(this string value, long? defaultValue = null)
+        {
+            return long.TryParse(value, out long result) ? result : defaultValue;
+        }
+
         /// <summary>Converts strings to double.</summary>
         /// <returns>An double value</returns>
         public static double ToDouble(this string value, double defaultValue = 0D)
         {
-            return double.TryParse(value, out double result ) ? result: defaultValue;
+            return double.TryParse(value, out double result ) ? result : defaultValue;
         }
 
         /// <summary>Converts strings to double if possible</summary>
@@ -97,6 +100,5 @@ namespace WildHare
 		{
             return DateTime.TryParse(value, out DateTime result) ? result : defaultValue;
         }
-
-	}
+    }
 }

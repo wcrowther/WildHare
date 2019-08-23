@@ -2,6 +2,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+                // For table: Controls
+
 namespace WildHare.Web.Models
 {
 	public class Controls
@@ -26,7 +28,13 @@ namespace WildHare.Web.Models
 		[StringLength(1000)]
 		public string DefaultValue { get; set; }
 
+		public int TabIndex { get; set; }
+
 		public DateTime DateCreated { get; set; }
 
+		public override string ToString()
+		{
+			return $"ControlId: {ControlId}";
+		}
 	}
 }

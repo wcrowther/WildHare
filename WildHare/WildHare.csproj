@@ -10,7 +10,7 @@
     -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>0.9.8.4</Version>
+    <Version>0.9.8.5</Version>
     <Authors>Will Crowther</Authors>
     <Product>WildHare Extensions</Product>
     <Description>BETA  - WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense. Instead of writing string.IsNullOrEmpty(variable), you can write variable.IsNullOrEmpty(). This allows for a more natural code flow, chaining of code, and better discoverablity.</Description>
@@ -18,8 +18,8 @@
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://www.seedpacket.com/</PackageProjectUrl>
     <PackageTags>extension methods</PackageTags>
-    <AssemblyVersion>0.9.8.4</AssemblyVersion>
-    <FileVersion>0.9.8.4</FileVersion>
+    <AssemblyVersion>0.9.8.5</AssemblyVersion>
+    <FileVersion>0.9.8.5</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -73,7 +73,7 @@ namespace WildHare.Extensions
             Type[] types = assembly.GetTypes().Where(t => !t.Name.StartsWith("<")).ToArray();
 
             if (!nameSpace.IsNullOrEmpty())
-                types = types.Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToArray();
+                types = types.Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToArray();
 
             return types.OrderBy(t => t.Name).ToArray();
         }

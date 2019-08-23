@@ -90,6 +90,8 @@ namespace WildHare.Web
 				using System;
 				using System.ComponentModel.DataAnnotations;
 
+                // For table: {tableName}
+
 				namespace {namespaceRoot}.Models
 				{{
 					public class {tableName}
@@ -124,43 +126,49 @@ namespace WildHare.Web
 		}
 
 
-		// ===============================================================================
-		// ALTERNATE TECHNIQUE WITH PK Data Required - EXTRA SQL QUERIES
-		// ===============================================================================
+        // ===============================================================================
+        // ALTERNATE TECHNIQUE WITH PK Data Required - EXTRA SQL QUERIES
+        // ===============================================================================
 
-		private static string CreateModelPropertiesWithKeys(string tableName)
-		{
-			// REFERENCE: https ://docs.microsoft.com/en-us/dotnet/api/system.data.datatablereader.getschematable?redirectedfrom=MSDN&view=netframework-4.8
+        private static string CreateModelPropertiesWithKeys(string tableName)
+        {
+            // REFERENCE: https ://docs.microsoft.com/en-us/dotnet/api/system.data.datatablereader.getschematable?redirectedfrom=MSDN&view=netframework-4.8
 
-			var sb = new StringBuilder();
-			var dataTable = new DataTable();
+            var sb = new StringBuilder();
+            var dataTable = new DataTable();
 
-			using (var conn = new SqlConnection(sqlConnString))
-			{
-				conn.Open();
+            using (var conn = new SqlConnection(sqlConnString))
+            {
+                conn.Open();
 
-				var adapter = new SqlDataAdapter("SELECT * FROM " + tableName + " WHERE 0=1", conn)
-				{
-					MissingSchemaAction = MissingSchemaAction.AddWithKey
-				};
-				adapter.FillSchema(dataTable, SchemaType.Mapped);
-			};
+                var adapter = new SqlDataAdapter("SELECT * FROM " + tableName + " WHERE 0=1", conn)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.FillSchema(dataTable, SchemaType.Mapped);
+            };
 
-			// loops through all the rows of the data table
-			foreach (DataColumn col in dataTable.Columns)
-			{
-				string dataTypeName = col.DataType.Name.FromDotNetTypeToCSharpType();
-				string columnName = col.ColumnName;
+            // loops through all the rows of the data table
+            foreach (DataColumn col in dataTable.Columns)
+            {
+                string dataTypeName = col.DataType.Name.FromDotNetTypeToCSharpType();
+                string columnName = col.ColumnName;
 
-				string isKey = dataTable.PrimaryKey.Contains(col) ? $"{start}[Key]{end}" : "";
-				bool hasMaxLength = dataTypeName == "string" && col.MaxLength > 0 && col.MaxLength < 10000;
-				string stringLength = hasMaxLength ? $"{start}[StringLength({col.MaxLength})]{end}" : "";
+                string isKey = dataTable.PrimaryKey.Contains(col) ? $"{start}[Key]{end}" : "";
+                bool hasMaxLength = (dataTypeName == "string" && col.MaxLength > 0 && col.MaxLength < 10000);
+                string stringLength = hasMaxLength ? $"{start}[StringLength({col.MaxLength})]{end}" : "";
 
-				sb.Append($"{isKey}");
-				sb.Append($"{stringLength}");
-				sb.AppendLine($"{start}public {dataTypeName} {columnName} {{ get; set; }}{end}");
-			}
-			return sb.ToString().RemoveStartEnd(start, end);
+                sb.Append($"{isKey}");
+                sb.Append($"{stringLength}");
+                sb.AppendLine($"{start}public {dataTypeName} {columnName} {{ get; set; }}{end}");
+            }
+
+            sb.AppendLine($"{start}public override string ToString()");
+            sb.AppendLine($"{start}{{");
+            sb.AppendLine($"{start}\treturn $\"{ dataTable.Columns[0].ColumnName}: {{{dataTable.Columns[0].ColumnName}}}\";");
+            sb.AppendLine($"{start}}}");
+
+            return sb.ToString().RemoveStartEnd(start, end);
 		}
 	}
 }

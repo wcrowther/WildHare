@@ -2,6 +2,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+                // For table: Layouts
+
 namespace WildHare.Web.Models
 {
 	public class Layouts
@@ -20,5 +22,9 @@ namespace WildHare.Web.Models
 		[StringLength(50)]
 		public string Template { get; set; }
 
+		public override string ToString()
+		{
+			return $"LayoutId: {LayoutId}";
+		}
 	}
 }

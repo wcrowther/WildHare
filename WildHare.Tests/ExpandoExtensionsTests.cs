@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -31,7 +31,8 @@ namespace WildHare.Tests
             {
                 InvoiceId = 1,
                 AccountId = 7890,
-                InvoiceItems = new List<InvoiceItem> {
+                InvoiceItems = new List<InvoiceItem>
+                {
                     new InvoiceItem{ InvoiceItemId = 1234 , Fee = 99.99M },
                     new InvoiceItem{ InvoiceItemId = 5678 , Fee = 2.22M }
                 }
@@ -40,22 +41,22 @@ namespace WildHare.Tests
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
 
-            Assert.AreEqual(1, cache.GetByItemName<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890, cache.GetByItemName<Invoice>("Invoice").AccountId);
+            Assert.AreEqual(1,      cache.GetByItemName<Invoice>("Invoice").InvoiceId);
+            Assert.AreEqual(7890,   cache.GetByItemName<Invoice>("Invoice").AccountId);
             Assert.AreEqual(99.99M, cache.GetByItemName<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, cache.GetByItemName<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(5678,   cache.GetByItemName<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Inline cast to ExpandoObject alternative
-            Assert.AreEqual(1, ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890, ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").AccountId);
+            Assert.AreEqual(1,      ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceId);
+            Assert.AreEqual(7890,   ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").AccountId);
             Assert.AreEqual(99.99M, ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(5678,   ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Invoke with non-extension method syntax alternative
-            Assert.AreEqual(1, ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceId);
-            Assert.AreEqual(7890, ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").AccountId);
+            Assert.AreEqual(1,      ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceId);
+            Assert.AreEqual(7890,   ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").AccountId);
             Assert.AreEqual(99.99M, ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(5678,   ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
         }
 
         [Test]

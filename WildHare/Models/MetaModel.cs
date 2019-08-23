@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
+using WildHare.Extensions.Xtra;
 
 namespace WildHare
 {

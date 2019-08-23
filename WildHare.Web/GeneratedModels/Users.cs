@@ -2,6 +2,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+                // For table: Users
+
 namespace WildHare.Web.Models
 {
 	public class Users
@@ -20,5 +22,9 @@ namespace WildHare.Web.Models
 
 		public DateTime DateCreated { get; set; }
 
+		public override string ToString()
+		{
+			return $"UserId: {UserId}";
+		}
 	}
 }
