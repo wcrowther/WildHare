@@ -61,5 +61,14 @@ namespace WildHare.Tests
 
             Assert.AreEqual(null, stringRepeated);
         }
+
+        [Test]
+        public void Test_String_Repeat_With_Negative_Number()
+        {
+            string emptyString = "empty";
+            string stringRepeated = emptyString.Repeat(-10);
+
+            Assert.AreEqual(null, stringRepeated);
+        }
     }
 }

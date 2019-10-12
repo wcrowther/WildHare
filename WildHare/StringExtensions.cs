@@ -226,7 +226,7 @@ namespace WildHare.Extensions
         /// <summary>Returns a string {str} x {number} of times</summary>
         public static string Repeat(this string str, int number)
         {
-            if (str == null)
+            if (str == null || number < 1)
                 return null;
 
             return new StringBuilder(str.Length * number).Insert(0, str, number).ToString();

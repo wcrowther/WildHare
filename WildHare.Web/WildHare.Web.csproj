@@ -13,12 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="WildHare" Version="0.9.8.5" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WildHare\WildHare.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Data">
