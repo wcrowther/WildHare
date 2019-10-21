@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,12 +12,12 @@ namespace WildHare.Tests
     public class IListExtensionsTests
     {
         [Test]
-        public void Test_TakeFromListRandom_With_Remove_True()
+        public void Test_TakeRandom_With_Remove_True()
         {
             var random = new Random(123456); // repeatable as random is seeded
 
             var itemList = GetTestList();
-            var destinationList = itemList.TakeFromListRandom(random, 5);
+            var destinationList = itemList.TakeRandom(5, random);
 
             Assert.AreEqual(5, destinationList.Count);
             Assert.AreEqual(5, itemList.Count);
@@ -36,10 +36,10 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_TakeFromListNext_With_Remove_True()
+        public void Test_TakeNext_With_Remove_True()
         {
             var itemList = GetTestList();
-            var destinationList = itemList.TakeFromListNext(5);
+            var destinationList = itemList.TakeNext(5);
 
             Assert.AreEqual(5, destinationList.Count);
             Assert.AreEqual(5, itemList.Count);
@@ -58,10 +58,10 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_TakeFromListNext_With_Remove_True_And_Offset()
+        public void Test_TakeNext_With_Remove_True_And_Offset()
         {
             var itemList = GetTestList();
-            var destinationList = itemList.TakeFromListNext(5, 3);
+            var destinationList = itemList.TakeNext(5, 3);
 
             Assert.AreEqual(5, destinationList.Count);
             Assert.AreEqual(5, itemList.Count);
