@@ -19,6 +19,7 @@ namespace WildHare.Extensions
                 random = new Random();
 
             var destinationList = new List<T>();
+
             for (int i = 0; i < count; i++)
             {
                 int index = random.Next(sourceList.Count);
@@ -42,7 +43,8 @@ namespace WildHare.Extensions
 
         /// <summary>Will return a sequencial list of items from the {sourceList} equal to the {count}(up to the number<b />
         /// remaining in the list).<br/>If the {count} is not specified, it will return one. If {remove} is true, the items
-        /// are removed from the {sourceList}. If {offset} > 0, it will skip this number of records (and will not loop back to the beginning).
+        /// are removed from the {sourceList}. If {offset} > 0, it will skip this number of records
+        /// but will loop back to the beginning if necessary and elements exist.
         /// </summary>
         public static IList<T> TakeNext<T>(this IList<T> sourceList, int count = 1, int offset = 0, bool remove = true)
         {
@@ -51,7 +53,17 @@ namespace WildHare.Extensions
                 throw new Exception("TakeNext Error. The Datasource list is null.");
             }
 
-            var destinationList = sourceList.Skip(offset).Take(count).ToList();
+            var destinationList = new List<T>();
+
+            for (int i = 0; i < count; i++)
+            {
+                T element = sourceList.ElementInOrDefault(i + offset); // ElementIn - wraps list
+
+                if (element == null)
+                    break;
+                else
+                    destinationList.Add(element);
+            }
 
             if (remove)
             {
