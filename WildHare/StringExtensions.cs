@@ -105,10 +105,23 @@ namespace WildHare.Extensions
             return string.Join("\n", input.Split('\n').Select(a => a.RemoveStart(start)));
         }
 
+        /// <summary>Remove the start of line if it exactly matches any string in the {startArray} for all lines in the string. 
+        /// (This can be useful for programmatically removing indents from a long string.)</summary>
+        public static string RemoveStartFromAllLines(this string input, string[] startArray)
+        {
+            return string.Join("\n", input.Split('\n').Select(a => a.RemoveStart(startArray)));
+        }
+
         /// <summary>Remove the end of line if it exactly matches {end} for all lines in the string.</summary>
         public static string RemoveEndFromAllLines(this string input, string end)
         {
             return string.Join("\n", input.Split('\n').Select(a => a.RemoveEnd(end)));
+        }
+
+        /// <summary>Remove the end of line if it exactly matches any string in the {endArray} for all lines in the string.</summary>
+        public static string RemoveEndFromAllLines(this string input, string[] endArray)
+        {
+            return string.Join("\n", input.Split('\n').Select(a => a.RemoveEnd(endArray)));
         }
 
         /// <summary>If a string if it is not null or empty, adds {addToEnd} to the end.
