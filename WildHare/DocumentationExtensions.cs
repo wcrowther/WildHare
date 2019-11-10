@@ -4,13 +4,16 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace WildHare.Extensions
+namespace WildHare.Extensions.Xtra
 {
     public static class DocumentationExtensions
     {
 
-        /// <summary>Gets the Xml Documentation like: @"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</summary>
-
+        /// <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
+        /// Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
+        /// an XML file is generated to the file location with all the /// comments (like this one)
+        /// that have been written in the your code.</summary>
+        /// <example>@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</example>
         public static List<DocMember> GetXmlDocumentation(this string xmlDocPath, bool enhanced = true)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();

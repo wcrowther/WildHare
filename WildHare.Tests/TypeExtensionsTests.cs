@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
 
@@ -108,6 +110,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(2, metaProperties.Count);
             Assert.AreEqual("Created", metaProperties[0].Name);
+            Assert.AreEqual("Stuff", metaProperties[1].Name);
         }
 
         [Test]
@@ -133,5 +136,89 @@ namespace WildHare.Tests
             );
             Assert.AreEqual(errorMessage, ex.Message);
         }
+
+        [Test]
+        public void MetaProperty_GetInstanceValue_From_Instance()
+        {
+            var now = DateTime.Now;
+            var item = new Item
+            {
+                ItemId = 1,
+                ItemName = "One",
+                Created = now,
+                Stuff = new List<string>(){ "stuff1", "stuff2"}
+            };
+            var metaProperties = item.GetMetaProperties();
+
+            Assert.AreEqual(1, metaProperties[0].GetInstanceValue());           // ItemId
+            Assert.AreEqual("One",  metaProperties[1].GetInstanceValue());      // ItemName
+            Assert.AreEqual(now,  metaProperties[2].GetInstanceValue());        // Created
+            Assert.AreEqual(2, metaProperties[3].GetInstanceValue().Count);     // Stuff
+            Assert.AreEqual("stuff1", metaProperties[3].GetInstanceValue()[0]); // Stuff1
+            Assert.AreEqual("stuff2", metaProperties[3].GetInstanceValue()[1]); // Stuff2
+
+            // For some reason ElementAt extension method does not work on dynamic List<Item> ?
+            // Assert.AreEqual("stuff1", metaProperties[3].GetInstanceValue().ToList().ElementAt(0));
+            var list = item.Stuff.ElementAt(0); // this works for non-dynamic
+        }
+
+        [Test]
+        public void MetaProperty_GetInstanceValue_With_Instance_Injected_Into_Property()
+        {
+            var item = new Item
+            {
+                ItemName = "One"
+            };
+
+            PropertyInfo propertyInfo = typeof(Item).GetProperties()[1];
+            var ItemNameMetaProperty = new MetaProperty(propertyInfo);
+
+            Assert.AreEqual("One", ItemNameMetaProperty.GetInstanceValue(item)); // ItemName
+        }
+
+        [Test]
+        public void MetaProperty_SetInstanceValue_From_Instance()
+        {
+            // THIS IMPORTANT WHEN TYPES ARE DYNAMIC AS TYPED PROPERTIES 
+            // CAN BE SET WITHOUT HAVING TO KNOW THE UNDERLYING COMPILE-TIME TYPE
+
+            var item = new Item
+            {
+                ItemId = 1,
+                ItemName = "One"
+            };
+
+            var metaProperties = item.GetMetaProperties();
+            metaProperties[0].SetInstanceValue(2);
+            metaProperties[1].SetInstanceValue("Two");
+
+            Assert.AreEqual(2, item.ItemId);         
+            Assert.AreEqual("Two", item.ItemName);    
+        }
+
+        [Test]
+        public void MetaProperty_SetInstanceValue_With_Instance_Injected_Into_Property()
+        {
+            var item = new Item
+            {
+                ItemName = "One"
+            };
+
+            PropertyInfo propertyInfo = typeof(Item).GetProperties()[1];
+            var ItemName_MetaProperty = new MetaProperty(propertyInfo);
+
+            ItemName_MetaProperty.SetInstanceValue("Two", item);
+
+            Assert.AreEqual("Two", item.ItemName);
+
+            // Alternate way
+            PropertyInfo propertyInfoAlt = typeof(Item).GetProperties()[1];
+            var ItemName_MetaPropertyAlt = new MetaProperty(propertyInfoAlt, item);
+
+            ItemName_MetaPropertyAlt.SetInstanceValue("Three");
+
+            Assert.AreEqual("Three", item.ItemName);
+        }
+
     }
 }

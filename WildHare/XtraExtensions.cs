@@ -13,7 +13,7 @@ namespace WildHare.Extensions.Xtra
         // Object Is... 
         // =========================================================================================
 
-        /// <summary>A simple shortcut method to test if an object {obj} is NOT null.</summary>
+        /// <summary(EXPERIMENTAL) >A simple shortcut method to test if an object {obj} is NOT null.</summary>
         public static bool Is(this object obj)
         {
             return (obj != null);
@@ -27,7 +27,7 @@ namespace WildHare.Extensions.Xtra
 
         // =========================================================================================
 
-        /// <summary>Xtra: Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
+        /// <summary>(EXPERIMENTAL) Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
         public static string ToMapPath(this string fileName)
         {
             var appRoot = GetApplicationRoot();
@@ -37,7 +37,7 @@ namespace WildHare.Extensions.Xtra
             return Path.Combine(appRoot, filePath);
         }
 
-        /// <summary>Xtra: Gets the root path of an application. This can have different meanings it
+        /// <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings it
         /// different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
         public static string GetApplicationRoot()
         {

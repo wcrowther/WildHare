@@ -31,7 +31,7 @@ namespace WildHare.Web
         public static string Init()
         {
             GenerateRowData<ControlValues>(20, null, "ControlValueId", true);
-            GenerateRowData<Account>(20, null, null, true); // Example using temporary private class below
+            //GenerateRowData<Account>(20, null, null, true); // Example using temporary private class below
 
             return "CodeGenSqlRowInsert.Init() complete....";
 		}
@@ -76,19 +76,19 @@ namespace WildHare.Web
 
             foreach (var item in dataList)
             {
-                sb.AppendLine($"{start}({columns}),");
+                sb.Append($"{start}({columns}),{end}");
             }
-            return sb.ToString().RemoveStartEnd("\t", ",");
+            return sb.ToString().RemoveStartEnd("\t", $",{end}");
 		}
 
         // =====================================================================
         // EXAMPLE OF PRIVATE NESTED CLASS
         // =====================================================================
-        private class Account
+        public class Account
         {
             public int AccountId { get; set; }
 
-            public int AccountName { get; set; }
+            public string AccountName { get; set; }
 
             public DateTime Created { get; set; }
         }

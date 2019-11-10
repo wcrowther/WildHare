@@ -74,8 +74,23 @@
             <extensionmethod>true</extensionmethod>
         </member>
         <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.DataTableExtensions.DataTableToList``1(System.Data.DataTable)" -->
-        <member name="M:WildHare.Extensions.DocumentationExtensions.GetXmlDocumentation(System.String,System.Boolean)">
-            <summary>Gets the Xml Documentation like: @"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</summary>
+        <member name="M:WildHare.Extensions.Xtra.DocumentationExtensions.GetXmlDocumentation(System.String,System.Boolean)">
+            <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
+            Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
+            an XML file is generated to the file location with all the /// comments (like this one)
+            that have been written in the your code.</summary>
+            <example>@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)" -->
+        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object)">
+            <summary>A simple shortcut method to test if an object {obj} is null.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String)">
+            <summary>(EXPERIMENTAL) Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot">
+            <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings it
+            different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
         </member>
         <member name="M:WildHare.Extensions.ExpandoExtensions.Get``1(System.Dynamic.ExpandoObject,System.String)">
             <summary> Gets item by string {name} but does not throw an exception if it does not exist.
@@ -250,19 +265,6 @@
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)">
-            <summary>A simple shortcut method to test if an object {obj} is NOT null.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object)">
-            <summary>A simple shortcut method to test if an object {obj} is null.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String)">
-            <summary>Xtra: Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot">
-            <summary>Xtra: Gets the root path of an application. This can have different meanings it
-            different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
         </member>
     </members>
 </doc>
