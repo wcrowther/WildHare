@@ -16,7 +16,7 @@ namespace WildHare.Web.Models
 		[StringLength(100)]
 		public string TimelineDescription { get; set; }
 
-		public int LayoutId { get; set; }
+		public int? LayoutId { get; set; }
 
 		public DateTime DateCreated { get; set; }
 

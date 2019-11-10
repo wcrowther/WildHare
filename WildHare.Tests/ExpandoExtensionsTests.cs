@@ -2,8 +2,10 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
+using ex = WildHare.Extensions.ExpandoExtensions;
 
 namespace WildHare.Tests
 {
@@ -15,7 +17,7 @@ namespace WildHare.Tests
 
         public dynamic Cache
         {
-            get { return cache; }
+            get { return cache ?? null; }
             set { cache = value; }
         }
     }
@@ -33,34 +35,67 @@ namespace WildHare.Tests
                 AccountId = 7890,
                 InvoiceItems = new List<InvoiceItem>
                 {
-                    new InvoiceItem{ InvoiceItemId = 1234 , Fee = 99.99M },
-                    new InvoiceItem{ InvoiceItemId = 5678 , Fee = 2.22M }
+                    new InvoiceItem{ InvoiceItemId = 1234 , Fee = 99.99M, Product = "Doodad" },
+                    new InvoiceItem{ InvoiceItemId = 5678 , Fee = 2.22M,  Product = "Thingamajig" },
+                    new InvoiceItem{ InvoiceItemId = 9000 , Fee = 100.00M,Product = "Thing" }
                 }
             };
+
+            Assert.AreEqual(1,      dummy.Cache.Invoice.InvoiceId);
+            Assert.AreEqual(7890,   dummy.Cache.Invoice.AccountId);
+            Assert.AreEqual(99.99M, dummy.Cache.Invoice.InvoiceItems[0].Fee);
+            Assert.AreEqual(5678,   dummy.Cache.Invoice.InvoiceItems[1].InvoiceItemId);
 
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
 
-            Assert.AreEqual(1,      cache.GetByItemName<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890,   cache.GetByItemName<Invoice>("Invoice").AccountId);
-            Assert.AreEqual(99.99M, cache.GetByItemName<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   cache.GetByItemName<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(1,      cache.Get<Invoice>("Invoice").InvoiceId);
+            Assert.AreEqual(7890,   cache.Get<Invoice>("Invoice").AccountId);
+            Assert.AreEqual(99.99M, cache.Get<Invoice>("Invoice").InvoiceItems[0].Fee);
+            Assert.AreEqual(5678,   cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Inline cast to ExpandoObject alternative
-            Assert.AreEqual(1,      ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890,   ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").AccountId);
-            Assert.AreEqual(99.99M, ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   ((ExpandoObject)dummy.Cache).GetByItemName<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(1,      ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
+            Assert.AreEqual(7890,   ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").AccountId);
+            Assert.AreEqual(99.99M, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[0].Fee);
+            Assert.AreEqual(5678,   ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
-            // Invoke with non-extension method syntax alternative
-            Assert.AreEqual(1,      ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceId);
-            Assert.AreEqual(7890,   ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").AccountId);
-            Assert.AreEqual(99.99M, ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   ExpandoExtensions.GetByItemName<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
+            // Invoke with non-extension method syntax alternative (with ex using statement above)
+            Assert.AreEqual(1,      ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
+            Assert.AreEqual(7890,   ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
+            Assert.AreEqual(99.99M, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
+            Assert.AreEqual(5678,   ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
         }
 
         [Test]
-        public void TestRemoveByItemName()
+        public void GetByName_When_Item_Is_Null()
+        {
+            var dummy = new Dummy();
+            dummy.Cache.Invoice = null;
+
+            // Cast to ExpandoObject
+            ExpandoObject cache = dummy.Cache;
+
+            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceId);
+            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceItems[0]?.Fee);
+            Assert.IsNull(cache.Get("Invoice"));
+        }
+
+        [Test]
+        public void GetByName_When_Item_Is_Never_Initialized()
+        {
+            var dummy = new Dummy();
+
+            // Cast to ExpandoObject
+            ExpandoObject cache = dummy.Cache;
+
+            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceId);
+            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceItems[0]?.Fee);
+            Assert.IsNull(cache.Get("Invoice"));
+        }
+
+        [Test]
+        public void TestRemoveByName()
         {
             var name = "Invoice";
             var dummy = new Dummy();
@@ -69,13 +104,13 @@ namespace WildHare.Tests
                 InvoiceId = 1
             };
             ExpandoObject cache = dummy.Cache;
-            cache.RemoveItemByName(name);
+            cache.Remove(name);
 
-            Assert.AreEqual(null, cache.GetByItemName<Invoice>(name)); // Does not throw
+            Assert.AreEqual(null, cache.Get<Invoice>(name)); // Does not throw
         }
 
         [Test]
-        public void TestAddByItemName()
+        public void TestAddByName()
         {
             string name = "Invoice";
             var dummy = new Dummy();
@@ -85,9 +120,25 @@ namespace WildHare.Tests
             };
 
             ExpandoObject cache = dummy.Cache;
-            cache.AddItemByName(name, invoice);
+            cache.Add(name, invoice);
 
-            Assert.AreEqual(1, cache.GetByItemName<Invoice>(name).InvoiceId);
+            Assert.AreEqual(1, cache.Get<Invoice>(name).InvoiceId);
         }
+
+        [Test]
+        public void Test_Add_And_Get_AsString()
+        {
+            string name = "InvoiceItem";
+            string value = "Doodad";
+            var dummy = new Dummy();
+
+            ExpandoObject cache = dummy.Cache;
+            cache.Add(name, value);
+
+            Assert.AreEqual(value, cache.Get(name));
+        }
+
+
+
     }
 }

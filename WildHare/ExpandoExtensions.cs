@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -16,22 +16,48 @@ namespace WildHare.Extensions
     {
 
         /// <summary> Gets item by string {name} but does not throw an exception if it does not exist.
-        /// If an ExpandoObject is cast to dynamic, be sure to cast back to ExpandoObject to see this
-        /// extension method.</summary>
-        public static T GetByItemName<T>(this ExpandoObject expando, string name)
-        {
-            var dictionary = (IDictionary<string, object>) expando;
-
-            return dictionary.ContainsKey(name) ? (T)dictionary[name] : default(T);
-        }
-        
-        /// <summary>Add a {value} of (T) to the Expando using a string {name}. </summary>
-        public static void AddItemByName<T>(this ExpandoObject expando, string name, T value)
+        /// If an ExpandoObject is cast to dynamic, be sure to cast back to ExpandoObject to see this extension method.</summary>
+        public static T Get<T>(this ExpandoObject expando, string name)
         {
             var dictionary = (IDictionary<string, object>)expando;
 
-            if (value == null)
-                value = default(T);
+            return dictionary != null && dictionary.ContainsKey(name) ? (T)dictionary[name] : default;
+        }
+
+        /// <summary> Gets a string by string {name} but does not throw an exception if it does not exist.
+        /// If an ExpandoObject is cast to dynamic, be sure to cast back to ExpandoObject to see this extension method.</summary>
+        public static string Get(this ExpandoObject expando, string name)
+        {
+            var dictionary = (IDictionary<string, object>) expando;
+
+            return dictionary != null && dictionary.ContainsKey(name) ? dictionary[name]?.ToString() : default;
+        }
+
+        /// <summary>Add a {value} of (T) to the Expando using a string {name}. </summary>
+        public static void Add<T>(this ExpandoObject expando, string name, T value)
+        {
+            var dictionary = (IDictionary<string, object>)expando;
+
+            if (dictionary == null || value == null)
+                return;
+
+            if (dictionary.ContainsKey(name))
+            {
+                dictionary[name] = value;
+            }
+            else
+            {
+                dictionary.Add(name, value);
+            }
+        }
+
+        /// <summary>Add a string to the Expando using a string {name}. </summary>
+        public static void Add(this ExpandoObject expando, string name, string value)
+        {
+            var dictionary = (IDictionary<string, object>) expando;
+
+            if (dictionary == null || value == null)
+                return;
 
             if (dictionary.ContainsKey(name))
             {
@@ -44,7 +70,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Remove a value from the Expando using a string {name}. </summary>
-        public static void RemoveItemByName(this ExpandoObject expando, string name)
+        public static void Remove(this ExpandoObject expando, string name)
         {
             var dictionary = (IDictionary<string, object>) expando;
 
@@ -56,7 +82,7 @@ namespace WildHare.Extensions
 
         /// <summary>Gets a value from an ExpandoObject by the specified {key}. If it does not exist, the
         ///  method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
-        public static TVal Get<TKey, TVal>(this Dictionary<TKey, TVal> dictionary, TKey key, TVal defaultVal = default(TVal))
+        public static TVal Get<TKey, TVal>(this Dictionary<TKey, TVal> dictionary, TKey key, TVal defaultVal = default)
         {
             if (dictionary.TryGetValue(key, out TVal val))
             {

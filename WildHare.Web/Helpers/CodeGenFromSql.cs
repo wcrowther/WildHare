@@ -106,28 +106,9 @@ namespace WildHare.Web
 			return isSuccess;
 		}
 
-        // ===============================================================================
-        // ORIGINAL TECHNIQUE WITH PK Data NOT NEEDED
-        // ===============================================================================
-
-        private static string CreateModelProperties(string tableName)
-		{
-			var tableSchema = sqlTables.First(t => t.Key == tableName).ToList();
-			var sb = new StringBuilder();
-
-			foreach (var column in tableSchema)
-			{
-				bool isNullable = column.Is_Nullable.ToBool("YES");
-				string dataType = column.Data_Type.FromTSqlTypeToCSharpType(isNullable);
-
-				sb.AppendLine($"{start}public {dataType} {column.Column_Name} {{ get; set; }}");
-			}
-			return sb.ToString().RemoveStartEnd(start, end);
-		}
-
 
         // ===============================================================================
-        // ALTERNATE TECHNIQUE WITH PK Data Required - EXTRA SQL QUERIES
+        // TECHNIQUE WITH PK Data Required - EXTRA SQL QUERIES
         // ===============================================================================
 
         private static string CreateModelPropertiesWithKeys(string tableName)
@@ -151,7 +132,8 @@ namespace WildHare.Web
             // loops through all the rows of the data table
             foreach (DataColumn col in dataTable.Columns)
             {
-                string dataTypeName = col.DataType.Name.FromDotNetTypeToCSharpType();
+                bool isNullable = col.AllowDBNull;
+                string dataTypeName = col.DataType.Name.FromDotNetTypeToCSharpType(isNullable);
                 string columnName = col.ColumnName;
 
                 string isKey = dataTable.PrimaryKey.Contains(col) ? $"{start}[Key]{end}" : "";
@@ -170,5 +152,26 @@ namespace WildHare.Web
 
             return sb.ToString().RemoveStartEnd(start, end);
 		}
-	}
+
+
+        // ===============================================================================
+        // ALTERNATE TECHNIQUE IF PK DATA NOT NEEDED
+        // ===============================================================================
+
+        private static string CreateModelProperties(string tableName)
+        {
+            var tableSchema = sqlTables.First(t => t.Key == tableName).ToList();
+            var sb = new StringBuilder();
+
+            foreach (var column in tableSchema)
+            {
+                bool isNullable = column.Is_Nullable.ToBool("YES");
+                string dataType = column.Data_Type.FromTSqlTypeToCSharpType(isNullable);
+
+                sb.AppendLine($"{start}public {dataType} {column.Column_Name} {{ get; set; }}");
+            }
+            return sb.ToString().RemoveStartEnd(start, end);
+        }
+
+    }
 }

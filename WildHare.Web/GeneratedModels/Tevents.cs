@@ -21,9 +21,9 @@ namespace WildHare.Web.Models
 
 		public string TeventInfo { get; set; }
 
-		public DateTime StartDate { get; set; }
+		public DateTime? StartDate { get; set; }
 
-		public int OwnerUserId { get; set; }
+		public int? OwnerUserId { get; set; }
 
 		[StringLength(200)]
 		public string TeaserSrc { get; set; }

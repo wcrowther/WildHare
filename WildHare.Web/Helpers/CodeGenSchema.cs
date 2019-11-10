@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Text;
@@ -100,7 +100,8 @@ namespace WildHare.Web
 
 			foreach (DataColumn col in table.Columns)
 			{
-				output += $"{start}public {col.DataType.Name.FromDotNetTypeToCSharpType()} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
+                bool isNullable = col.AllowDBNull;
+                output += $"{start}public {col.DataType.Name.FromDotNetTypeToCSharpType(isNullable)} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
 			}
 
 			return output.RemoveStartEnd(start, end);

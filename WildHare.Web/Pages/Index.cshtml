@@ -1,16 +1,49 @@
 @page
 @using WildHare.Extensions
 @using WildHare.Extensions.Xtra
+
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 
     "This is text to right to the file".WriteToFile(@"Pages\test.txt");
+
+    var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
+
+    var WildHareList = "C:\\Code\\Trunk\\WildHare\\WildHare\\WildHare.xml".GetXmlDocumentation();
+    var SeedPacketList = "C:\\Code\\Trunk\\SeedPacket\\SeedPacket\\SeedPacket.xml".GetXmlDocumentation();
+
+    var groupList = from s in WildHareList group s by $"{s.Namespace}.{s.ClassName}";
 }
 
+<h2>@info.Title</h2>
+<div>@info.SubTitle</div>
+<div>&nbsp;</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <h2>Application Root: @(XtraExtensions.GetApplicationRoot() )</h2>
-    </div>
-</div>
+@foreach (var groupedList in groupList.Where(w => !w.Key.StartsWith("SeedPacketCore.Properties")))
+{
+    <h3 style="font-weight: bold;">@groupedList.Key</h3><br />
+    int i = 0;
+
+    @foreach (var member in groupedList)
+    {
+        i++;
+        <div>
+            <h4>
+                <b style="color: red;">@(member.ClassName).@member.ToString()</b> : @member.MemberType
+            </h4>
+        </div>
+        <div>@member.Summary</div>
+        <br />
+
+        @*@if (!member.Documentation.IsNull())
+        {
+            @Html.Action(member.Documentation)
+        }*@
+
+        @if (member.Member == "ToLong")
+        {
+            <div style="background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;">Some Custom Content</div><br />
+        }
+    }
+}

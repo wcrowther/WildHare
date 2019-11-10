@@ -51,12 +51,13 @@ namespace WildHare.Extensions
 
         /// <summary>Remove the start of a string if it exactly matches {start} and remove 
         /// and the end of a string if it exactly matches {end}.</summary>
+
         public static string RemoveStartEnd(this string input, string start, string end =  null)
         {
             return input.RemoveStart(start).RemoveEnd(end ?? start);
         }
 
-        /// <summary>Remove the start of a string if it exactly matches any of the strings in the {startArray}.</summary>
+        /// <summary>Removes the start of a string if it exactly matches any of the strings in the {startArray}.</summary>
         public static string RemoveStart(this string input, string[] startArray)
         {
             string s = input.IfNullOrEmpty();
@@ -67,7 +68,7 @@ namespace WildHare.Extensions
             return s;
         }
 
-        /// <summary>Remove the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
+        /// <summary>Removes the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
         public static string RemoveEnd(this string input, string[] endArray)
         {
             string s = input.IfNullOrEmpty();
@@ -78,8 +79,8 @@ namespace WildHare.Extensions
             return s;
         }
 
-        /// <summary>Remove the start of a string if it exactly matches any of the strings in the {startArray} 
-        /// and remove the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
+        /// <summary>Removes the start of a string if it exactly matches any of the strings in the {startArray} 
+        /// and removse the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
         public static string RemoveStartEnd(this string input, string[] startArray, string[] endArray = null)
         {
             string s = input.IfNullOrEmpty();
@@ -124,18 +125,29 @@ namespace WildHare.Extensions
             return string.Join("\n", input.Split('\n').Select(a => a.RemoveEnd(endArray)));
         }
 
-        /// <summary>If a string if it is not null or empty, adds {addToEnd} to the end.
-        public static string IfNotEmpty(this string s, string addToEnd)
+        /// <summary>Adds {start} to the beginning of the string if it does not start with that string
+        /// AND if it is not NULL or EMPTY.</summary>
+        public static string AddStart(this string s, string addToStart)
         {
-            s = s ?? "";
-            return (s.Trim().Length > 0) ? (s += addToEnd) : s;
+            string str = s ?? "";
+            return (str.Trim().Length > 0) ? (addToStart + str) : s;
         }
 
-        /// <summary>If a string if it is not null or empty, adds {addToStart} to the start and {addToEnd} to the end. 
-        public static string IfNotEmpty(this string s, string addToStart, string addToEnd)
+        /// <summary>Adds {end} to the end of the string if it does not end with that string
+        /// AND if it is not NULL or EMPTY.</summary>
+        public static string AddEnd(this string s, string addToEnd)
         {
-            s = s ?? "";
-            return (s.Trim().Length > 0) ? (addToStart + s + addToEnd) : s;
+            string str = s ?? "";
+            return (str.Trim().Length > 0) ? (str + addToEnd) : s;
+        }
+
+        /// <summary>Adds {start} to the beginning of the string if it does not start with that string AND
+        /// adds {end} to the end of the string if it does not end with that string
+        /// AND if it is not NULL or EMPTY.</summary>
+        public static string AddStartEnd(this string s, string addToStart, string addToEnd)
+        {
+            string str = s ?? "";
+            return (str.Trim().Length > 0) ? (addToStart + str + addToEnd) : s;
         }
 
         /// <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
@@ -211,8 +223,7 @@ namespace WildHare.Extensions
 		/// <summary>Removes the indent from a block of text. Defaults to am empty space (' ') indent.</summary>
 		public static string RemoveLineIndents(this string output, int number, string indent = " ")
 		{
-			string indentation = string.Join("", Enumerable.Repeat(indent, number));
-			string trimAllLines = string.Join("\n", output.Split('\n').Select(a => a.RemoveStart(indentation)));
+			string trimAllLines = string.Join( "\n", output.Split('\n').Select( a => a.RemoveStart(indent.Repeat(number))) );
 
 			return trimAllLines;
 		}

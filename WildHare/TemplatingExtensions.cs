@@ -6,7 +6,7 @@ namespace WildHare.Extensions.ForTemplating
 		/// <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
 		public static string FromTSqlTypeToCSharpType(this string sqlTypeName, bool isNull = false)
 		{
-			string cstype = "";
+			string cstype;
 			string nullable = isNull ? "?" : "";
 
 			switch (sqlTypeName.RemoveStart("System.").ToLower())
@@ -46,31 +46,37 @@ namespace WildHare.Extensions.ForTemplating
 		/// <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present,</summary>
 		public static string FromDotNetTypeToCSharpType(this string dotNetTypeName, bool isNull = false)
 		{
-			string cstype = "";
+			string cstype;
 			string nullable = isNull ? "?" : "";
-			string typeName = dotNetTypeName;
 
-			switch (typeName.RemoveStart("System."))
+            if(dotNetTypeName.StartsWith("System.Nullable{"))
+            {
+                dotNetTypeName = dotNetTypeName.RemoveStartEnd("System.Nullable{", "}");
+                nullable = "?";
+            };
+
+            switch (dotNetTypeName.RemoveStart("System."))
 			{
-				case "Boolean": cstype = "bool"; break;
-				case "Byte":	cstype = "byte"; break;
-				case "SByte":	cstype = "sbyte"; break;
-				case "Char":	cstype = "char"; break;
-				case "Decimal": cstype = "decimal"; break;
-				case "Double":	cstype = "double"; break;
-				case "Single":	cstype = "float"; break;
-				case "Int32":	cstype = "int"; break;
-				case "UInt32":	cstype = "uint"; break;
-				case "Int64":	cstype = "long"; break;
-				case "UInt64":	cstype = "ulong"; break;
-				case "Object":	cstype = "object"; break;
-				case "Int16":	cstype = "short"; break;
-				case "UInt16":	cstype = "ushort"; break;
-				case "String":	cstype = "string"; break;
+				case "Boolean":     cstype = "bool";    break;
+				case "Byte":	    cstype = "byte";    break;
+				case "SByte":	    cstype = "sbyte";   break;
+				case "Char":	    cstype = "char";    break;
+				case "Decimal":     cstype = "decimal"; break;
+				case "Double":	    cstype = "double";  break;
+				case "Single":	    cstype = "float";   break;
+				case "Int32":	    cstype = "int";     break;
+				case "UInt32":	    cstype = "uint";    break;
+				case "Int64":	    cstype = "long";    break;
+				case "UInt64":	    cstype = "ulong";   break;
+				case "Object":	    cstype = "object";  break;
+				case "Int16":	    cstype = "short";   break;
+				case "UInt16":	    cstype = "ushort";  break;
+                case "String":      cstype = "string";  break;
+                case "DateTime":    cstype = "DateTime";break;
 
-				default: cstype = dotNetTypeName; break; // do nothing
+                default: cstype = dotNetTypeName;       break; // do nothing
 			}
-			return $"{cstype}{nullable}";
+			return (cstype == "string") ? cstype : $"{cstype}{nullable}"; // string? not currently supported
 		}
 	}
 }
