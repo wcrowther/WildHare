@@ -66,7 +66,16 @@ namespace WildHare.Web
             return isSuccess;
         }
 
-        private static string CreateData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
+
+        private static object CreateData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
+        {
+            // Add in logic here to create batches of up to 
+
+            return CreateBatchData(rowList, schema, tableName, metaProperties) ;
+        }
+
+
+        private static string CreateBatchData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
 		{
             var tableColumns = string.Join("", metaProperties.Select(a => $"[{a.Name}],")).RemoveEnd(",");
 
@@ -99,7 +108,7 @@ namespace WildHare.Web
                     }
                     else if (prop.PropertyType == typeof(DateTime))
                     {
-                        valuesSb.Append($"CAST('{val}') AS DateTime2, ");
+                        valuesSb.Append($"CAST('{val}' AS DateTime2), ");
                     }
                     else // Numbers etc.
                     {
