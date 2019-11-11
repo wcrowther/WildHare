@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,10 @@ namespace WildHare.Extensions
         {
             if (instance is IEnumerable)
             {
-                Type type = instance.GetType().GetGenericArguments()[0];
+                Type type = instance.GetType();
+                Type[] genericTypes = type.GetGenericArguments();
+                type = genericTypes.Count() > 0 ? genericTypes[0] : type;
+
                 return new MetaModel(type);
             }
             return new MetaModel(instance.GetType(), instance);
@@ -42,6 +45,12 @@ namespace WildHare.Extensions
         public static List<MetaProperty> GetMetaProperties(this Type type)
         {
             return new MetaModel(type).GetMetaProperties();
+        }
+
+        /// <summary>Gets a list of MetaProperties for the current {type}.</summary>
+        public static List<MetaProperty> GetMetaProperties(this Type type, string exclude = null, string include = null)
+        {
+            return new MetaModel(type).GetMetaProperties(exclude, include);
         }
 
         /// <summary>Gets a list of MetaProperties for the {type} for (T) for use in code generation. You can 

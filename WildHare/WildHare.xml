@@ -255,6 +255,9 @@
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type)">
             <summary>Gets a list of MetaProperties for the current {type}.</summary>
         </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type,System.String,System.String)">
+            <summary>Gets a list of MetaProperties for the current {type}.</summary>
+        </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaProperties``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
             <summary>Gets a list of MetaProperties for the {type} for (T) for use in code generation. You can 
             include either an include or exclude list (but not both) to filter in/out these properties.</summary>
