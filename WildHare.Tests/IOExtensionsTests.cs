@@ -31,5 +31,19 @@ namespace WildHare.Tests
             Assert.IsFalse(notAbleToDeleteExistingFile);
             Assert.AreEqual(sentenceToWrite, fileAllText);
         }
+
+        [Test]
+        public void Test_WriteToFile_WithCreateFolder()
+        {
+            string testRoot = XtraExtensions.GetApplicationRoot();
+            string filePath = $@"{testRoot}\TestFolder\TestFile.txt";
+            string testText = "Write to file.";
+
+            testText.WriteToFile(filePath);
+
+            string fileContents = File.ReadAllText(filePath);
+
+            Assert.AreEqual(fileContents, testText);
+        }
     }
 }

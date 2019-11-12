@@ -28,6 +28,10 @@ namespace WildHare.Extensions
             {
                 return false;
             }
+
+            // If directories do not exist create them
+            file.Directory.Create();
+
             using (var tw = new StreamWriter(file.Create()))
             {
                 tw.Write(stringToWrite);
@@ -39,6 +43,9 @@ namespace WildHare.Extensions
         public static bool AppendToFile(this string stringToWrite, string fileName)
         {
             var file = new FileInfo(fileName);
+
+            // If directories do not exist create them
+            file.Directory.Create();
 
             return stringToWrite.AppendToFile(file);
         }

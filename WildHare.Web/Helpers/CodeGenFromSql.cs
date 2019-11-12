@@ -23,7 +23,7 @@ namespace WildHare.Web
 		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
 		private static readonly string namespaceRoot = "WildHare.Web";
-		private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\GeneratedModels\";
+		private static readonly string outputDir     = @"C:\Code\Trunk\WildHare\WildHare.Web\GeneratedModels\";
 		private static readonly string sqlConnString = "Data Source=Behemoth;Initial Catalog=Tevents;Connect Timeout=30;Persist Security Info=True;MultipleActiveResultSets=True;User ID=Tevents_User;Password=!london!";
 
 		private static readonly string start = "\t\t"; // Indentation

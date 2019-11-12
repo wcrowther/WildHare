@@ -1,19 +1,14 @@
 using SeedPacket.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
-using WildHare.Extensions.ForTemplating;
-using WildHare.Web.Models;
-using WildHare.Web.SchemaModels;
 
 namespace WildHare.Web
 {
-	public static class CodeGenSqlRowInsert
+    public static class CodeGenSqlRowInsert
     {
         /* ==========================================================================
          * DIRECTIONS
@@ -31,15 +26,16 @@ namespace WildHare.Web
 
         public static string Init()
         {
-            GenereateSQLInserts<ControlValues>(20, "ControlValues", "dbo", "ControlValueId", true);
-            GenereateSQLInserts<Account>(20, "Account", null, null, true); // Example using temporary private class below
+            // GenereateSQLInserts<ControlValues>(5002, "ControlValues", "dbo", "ControlValueId", true, true);
+            GenereateSQLInserts<User>(2000, excludeColumns: "Created", identityInsertOn: true);   // Example using temporary private class below
 
             return "CodeGenSqlRowInsert.Init() complete....";
 		}
 
-        public static bool GenereateSQLInserts<T>(  int count, string tableName = null, string schema = null,
-                                                    string excludeColumns = null, bool overwrite = true)
+        public static bool GenereateSQLInserts<T>( int count, string tableName = null, string schema = null, string excludeColumns = null, 
+                                                   bool identityInsertOn = false, bool overwrite = true)
         {
+            int batchSize = 1000;
             var metaModel = typeof(T).GetMetaModel();
             var metaProperties = typeof(T).GetMetaProperties(excludeColumns);
             var rowList = new List<T>().Seed(count, new Random(randomSeed)).ToList();
@@ -47,13 +43,21 @@ namespace WildHare.Web
             tableName = tableName ?? metaModel.TypeName;
             schema = schema ?? "dbo";
 
+            string identity_insert     = identityInsertOn ? $"SET IDENTITY_INSERT [{schema}].[{tableName}]" : "";
+            string identity_insert_ON  = identity_insert.AddEnd(" ON");
+            string identity_insert_OFF = identity_insert.AddEnd(" OFF");
+
             string output =
             $@"
-              --===========================================================
-              -- Generating Insert Data for {tableName}
-              --===========================================================
+            --===========================================================
+            -- Generating Insert Data for {tableName}
+            --===========================================================
 
-            { CreateData(rowList, schema, tableName, metaProperties) }
+            {identity_insert_ON}
+
+            { CreateData(rowList, schema, tableName, metaProperties, batchSize) }
+
+            {identity_insert_OFF}
             ";
 
             // OUTPUT ===================================================================
@@ -66,14 +70,21 @@ namespace WildHare.Web
             return isSuccess;
         }
 
-
-        private static object CreateData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
+        private static object CreateData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties, int batchSize)
         {
-            // Add in logic here to create batches of up to 
+            var sb = new StringBuilder();
 
-            return CreateBatchData(rowList, schema, tableName, metaProperties) ;
+            for (int i = 0; i <= (rowList.Count/batchSize); i++)
+            {
+                var rows = rowList.Skip(i * batchSize).Take(batchSize).ToList();
+                if (rows.Count > 0)
+                {
+                    string batch = CreateBatchData(rows, schema, tableName, metaProperties);
+                    sb.Append(batch);
+                }
+            }
+            return sb.ToString();
         }
-
 
         private static string CreateBatchData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
 		{
@@ -86,8 +97,8 @@ namespace WildHare.Web
             )
             VALUES
                 { CreateRows(rowList, metaProperties) }
-
-            GO";
+            GO
+            ";
 
             return output;
 		}
@@ -133,14 +144,22 @@ namespace WildHare.Web
         // =====================================================================
         // EXAMPLE OF PRIVATE NESTED CLASS
         // =====================================================================
-        public class Account
+
+        public class User
         {
-            public int AccountId { get; set; }
+            public int UserId { get; set; }
 
-            public string AccountName { get; set; }
+            public string FirstName { get; set; }
 
-            public DateTime Created { get; set; }
+            public string LastName { get; set; }
+
+            public string UserName { get; set; }
+
+            public string Email { get; set; }
+
+            public DateTime Created { get; set; } = DateTime.Now;
         }
+
         // =====================================================================
     }
 }
