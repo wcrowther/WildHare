@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace WildHare.Extensions.Xtra
 {
-    public static class DocumentationExtensions
+    public static partial class XtraExtensions
     {
 
         /// <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
@@ -14,19 +14,20 @@ namespace WildHare.Extensions.Xtra
         /// an XML file is generated to the file location with all the /// comments (like this one)
         /// that have been written in the your code.</summary>
         /// <example>@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</example>
-        public static List<DocMember> GetXmlDocumentation(this string xmlDocPath, bool enhanced = true)
+        public static List<DocMember> GetXmlDocumentation(this string xmlDocPath, Assembly assemblyToDocument = null)
         {
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            var assembly = assemblyToDocument ?? Assembly.GetExecutingAssembly();
             var docXml = XElement.Load(xmlDocPath);
             var assemblyName = docXml.Element("assembly").Element("name").Value;
 
             var memberList = docXml.Element("members").Elements()
-                .Select(g => new DocMember(currentAssembly)
+                .Select(g => new DocMember(g.Attribute("name").Value, assembly)
                 {
                     Documentation = g.Element("documentation")?.Value,
-                    RawName = g.Attribute("name").Value,
                     Summary = g.Element("summary").Value,
-                    IsExtensionMethod = g.Element("extensionmethod") != null ? g.Element("extensionmethod").Value.ToBool() : false
+                    IsExtensionMethod = g.Element("extensionmethod")?.Value.ToBool() ?? false
+                    //Example = g.Element("example")?.Value,
+                    //Params = g.Elements("param")?.Select(s => s.Value).ToList()
                 }).ToList();
 
             return memberList;

@@ -10,7 +10,8 @@ namespace WildHare.Extensions
         but 'dynamic' does not support extension methods. Therefore to use this collection of 
         extension methods, the 'dynamic' expression must be cast to an ExpandoObject. These 
         methods can also be invoked by calling them directly using non-extension syntax.
-        >> See the unit tests for examples. <<*/
+        >> See the unit tests for examples. <<
+    */
 
     public static class ExpandoExtensions
     {

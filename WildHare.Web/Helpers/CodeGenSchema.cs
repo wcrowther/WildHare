@@ -33,26 +33,26 @@ namespace WildHare.Web
 		public static string Init()
         {
 			// List of Various Schemas
-			CreateSqlServerSchemaModel("MetaDataCollections", true);
+			CreateSqlServerSchemaModel("MetaDataCollections", false);
 
-			CreateSqlServerSchemaModel("Columns", true);
-			CreateSqlServerSchemaModel("AllColumns", true);
-			CreateSqlServerSchemaModel("ColumnSetColumns", true);
-			CreateSqlServerSchemaModel("StructuredTypeMembers", true);
-			CreateSqlServerSchemaModel("DataTypes", true);
-			CreateSqlServerSchemaModel("Restrictions", true);
-			CreateSqlServerSchemaModel("ReservedWords", true);
-			CreateSqlServerSchemaModel("Databases", true);
-			CreateSqlServerSchemaModel("ForeignKeys", true);
-			CreateSqlServerSchemaModel("Indexes", true);
-			CreateSqlServerSchemaModel("IndexColumns", true);
-			CreateSqlServerSchemaModel("Procedures", true);
-			CreateSqlServerSchemaModel("ProcedureParameters", true);
-			CreateSqlServerSchemaModel("Tables", true);
-			CreateSqlServerSchemaModel("Users", true);
-			CreateSqlServerSchemaModel("Views", true);
-			CreateSqlServerSchemaModel("ViewColumns", true);
-			CreateSqlServerSchemaModel("UserDefinedTypes", true);
+			CreateSqlServerSchemaModel("Columns", false);
+			CreateSqlServerSchemaModel("AllColumns", false);
+			CreateSqlServerSchemaModel("ColumnSetColumns", false);
+			CreateSqlServerSchemaModel("StructuredTypeMembers", false);
+			CreateSqlServerSchemaModel("DataTypes", false);
+			CreateSqlServerSchemaModel("Restrictions", false);
+			CreateSqlServerSchemaModel("ReservedWords", false);
+			CreateSqlServerSchemaModel("Databases", false);
+			CreateSqlServerSchemaModel("ForeignKeys", false);
+			CreateSqlServerSchemaModel("Indexes", false);
+			CreateSqlServerSchemaModel("IndexColumns", false);
+			CreateSqlServerSchemaModel("Procedures", false);
+			CreateSqlServerSchemaModel("ProcedureParameters", false);
+			CreateSqlServerSchemaModel("Tables", false);
+			CreateSqlServerSchemaModel("Users", false);
+			CreateSqlServerSchemaModel("Views", false);
+			CreateSqlServerSchemaModel("ViewColumns", false);
+			CreateSqlServerSchemaModel("UserDefinedTypes", false);
 
 			return "CodeGenSchema.Init() complete....";
 		}

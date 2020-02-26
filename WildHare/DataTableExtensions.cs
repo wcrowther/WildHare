@@ -7,8 +7,11 @@ namespace WildHare.Extensions
 {
     public static class DataTableExtensions
     {
-		/// <summary>Converts a DataTable to a list of <T>.</summary>
-		public static List<T> DataTableToList<T>(this DataTable table) where T : new()
+        /// <summary>Converts a DataTable to a list of T</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="table"></param>
+        /// <returns>List{T}</returns>
+        public static List<T> DataTableToList<T>(this DataTable table) where T : new()
 		{
 			var list = new List<T>();
 			var typeProperties = typeof(T).GetProperties().Select(propertyInfo => new

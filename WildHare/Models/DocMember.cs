@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
@@ -8,156 +9,154 @@ namespace WildHare
 {
     public class DocMember
     {
-        private Assembly _currentAssembly;
+        private readonly Assembly _assemblyToDocument;
+        private readonly string _rawName;
+        private string[] codeArray;
 
-        public DocMember(Assembly currentAssembly)
+        public DocMember(string rawName, Assembly assemblyToDocument)
         {
-            _currentAssembly = currentAssembly;
+            _assemblyToDocument = assemblyToDocument;
+            _rawName = rawName;
+
+            Process();
         }
 
-        public string RawName
-        {
-            get { return rawName; }
-            set
-            {
-                rawName = value;
-                Process();
-            }
-        }
+        public string RawName { get; set; }
 
-        public bool IsExtensionMethod { get; set; }
-
-        public string Summary { get; set; }
-
-        public string Namespace { get; private set; }
-
-        public string ClassName { get; private set; }
-
-        public string GenericType { get; private set; }
-
-        public string Member { get; private set; }
-
-        public string MemberType { get; private set; }
+        public string CodeElement { get; private set; }
 
         public string MethodParams { get; private set; }
 
+        public string MethodParamsGenericType { get; private set; }
+
         public string Documentation { get; set; }
+
+        public string Summary { get; set; }
+
+        public Type ClassType { get; private set; }
+
+        public bool IsExtensionMethod { get; set; }
+
+        public List<string> Examples { get; set; } = new List<string>();
+
+        public string Reference { get; set; }
+
+        public bool Display { get; set; } = true;
+
+        public string Member
+        {
+            get
+            {
+                return codeArray.LastOrDefault();
+            }
+        }
+
+        public string ClassName
+        {
+            get
+            {
+
+                if (CodeElement == "Type" && codeArray.Length == 2)
+                    return default;
+
+                if (codeArray.Length >= 2)
+                {
+                    return codeArray.ElementAtOrDefault(codeArray.Length - 2);
+                }
+                return default;
+            }
+        }
+
+        public string Namespace
+        {
+            get
+            {
+                if (codeArray.Length > 2)
+                {
+                    return string.Join(".", codeArray.Reverse().Skip(2).Reverse());
+                }
+                return default;
+            }
+        }
 
         public override string ToString()
         {
+            string addThis = IsExtensionMethod ? "this " : "";
+            string parameters = $"{addThis}{MethodParams}"; 
 
-            return Member + GenericType + " " + MethodParams;
+            return $"{CodeElement} {Member} {parameters.AddStartEnd("(", ")")}";
         }
 
-        private string rawName;
-
-        // ==================================================
+        // =================================================
         // Private
         // ==================================================
 
         private void Process()
         {
-            if (rawName.IsNullOrEmpty())
+            if (_rawName.IsNullOrEmpty())
                 return;
 
-            var temp = rawName;
-            temp = GetMemberType(temp);
-            temp = GetMethodParams(temp);
+            var code = _rawName;
+            code = SetCodeElement(code);
+            code = SetMethodParams(code);
+            codeArray = code.Split('.');
 
-            var tempArray = temp.Split('.');
-            tempArray = GetMember(tempArray);
-            tempArray = GetClass(tempArray);
-            GetNamespace(tempArray);
-            GetParamsGenericType();
-
-            // Use reflection to get underlying type
-            GetMemberType();
+            GetClassType();
         }
 
-        private string GetMemberType(string temp)
+        private string SetCodeElement(string temp)
         {
             if (temp.Substring(1, 1) == ":")
             {
                 switch (temp.Substring(0, 1))
                 {
-                    case "M": MemberType = "Method";    break;
-                    case "T": MemberType = "Type";      break;
-                    case "F": MemberType = "Field";     break;
-                    case "P": MemberType = "Property";  break;
-                    case "C": MemberType = "Ctor";      break;
-                    case "E": MemberType = "Events";    break;
-                    default:  MemberType = null;        break;
+                    case "M": CodeElement = "Method";    break;
+                    case "T": CodeElement = "Type";      break;
+                    case "F": CodeElement = "Field";     break;
+                    case "P": CodeElement = "Property";  break;
+                    case "C": CodeElement = "Ctor";      break;
+                    case "E": CodeElement = "Event";     break;
+                    default:  CodeElement = null;        break;
                 }
                 temp = temp.Substring(2);
             }
             return temp;
         }
 
-        private string GetMethodParams(string temp)
+        private string SetMethodParams(string temp)
         {
-            var tempArray = temp.Split('(');
-            temp = tempArray[0];
-            Member = temp;
+            int startIndex = temp.IndexOf('(');
+            int endIndex = temp.IndexOf(')');
 
-
-            if (tempArray.Length > 1 && !tempArray[1].IsNullOrEmpty())
+            if (startIndex != -1 && endIndex != -1)
             {
-                var prams = tempArray[1]
-                    .RemoveStartEnd("(", ")")
-                    .Split(',')
-                    .Select(a => a.FromDotNetTypeToCSharpType());
+                int length = endIndex - startIndex;
+                MethodParams = temp.Substring(startIndex + 1, length - 1).Replace(",", ", ");
 
-                string pramsJoined  = string.Join(", ", prams);
-                MethodParams = IsExtensionMethod ? "this " : "";
-                MethodParams += pramsJoined.AddStartEnd("(", ")");
+                return temp.Substring(0, startIndex);
             }
             return temp;
         }
 
-        private string[] GetMember(string[] tempArray)
+        //    if (tempArray.Length > 1 && !tempArray[1].IsNullOrEmpty())
+        //    {
+        //        var prams = tempArray[1]
+        //            .RemoveStartEnd("(", ")")
+        //            .Split(',')
+        //            .Select(a => a.FromDotNetTypeToCSharpType());
+
+        //        string pramsJoined  = string.Join(", ", prams);
+        //        MethodParams = IsExtensionMethod ? "this " : "";
+        //        MethodParams += pramsJoined.AddStartEnd("(", ")");
+        //    }
+        //    return temp;
+        //}
+
+
+        private void GetClassType()
         {
-            if (tempArray.Length > 1)
-            {
-                Member = tempArray.LastOrDefault();
-                Array.Resize(ref tempArray, tempArray.Length - 1); // Remove last item
-            }
-            return tempArray;
-        }
-
-        private string[] GetClass(string[] tempArray)
-        {
-            if (tempArray.Length > 1)
-            {
-                ClassName = tempArray.LastOrDefault();
-                Array.Resize(ref tempArray, tempArray.Length - 1); // Remove last item
-            }
-            return tempArray;
-        }
-
-        private void GetNamespace(string[] tempArray)
-        {
-            Namespace = string.Join(".", tempArray);
-        }
-
-        private void GetParamsGenericType()
-        {
-            if (Member.IsNullOrEmpty())
-                return;
-
-            var s = Member.Split('`');
-            if (s.Length > 1 && !s[1].IsNullOrEmpty())
-            {
-                GenericType = "<T>"; //s[1].AddStartEnd("<", ">");
-            }
-            Member = s[0];
-        }
-
-        private void GetMemberType()
-        {
-            string typeName = $"{Namespace}.{ClassName}, {_currentAssembly}";
-            var type = Type.GetType(typeName);
-
-            var x = type;
+            string typeName = $"{Namespace}{ClassName.AddStart(".")}, {_assemblyToDocument}";
+            ClassType = Type.GetType(typeName);
         }
     }
 }

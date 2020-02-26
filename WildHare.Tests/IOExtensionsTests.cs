@@ -1,8 +1,11 @@
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
 
@@ -35,15 +38,128 @@ namespace WildHare.Tests
         [Test]
         public void Test_WriteToFile_WithCreateFolder()
         {
-            string testRoot = XtraExtensions.GetApplicationRoot();
-            string filePath = $@"{testRoot}\TestFolder\TestFile.txt";
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\TestFolder";
+            string file = "TestFile.txt";
+
+            string fullPath = $"{directoryPath}\\{file}";
             string testText = "Write to file.";
 
-            testText.WriteToFile(filePath);
+            testText.WriteToFile(fullPath);
 
-            string fileContents = File.ReadAllText(filePath);
+            string fileContents = File.ReadAllText(fullPath);
 
             Assert.AreEqual(fileContents, testText);
+
+            // Cleanup by deleting directory and existing files
+            var directory = new DirectoryInfo(directoryPath);
+            directory.Delete(true);
+
+            var fileInfo = new FileInfo(fullPath);
+
+            Assert.IsFalse(fileInfo.Exists);
         }
+
+        [Test]
+        public void Test_GetAllFiles()
+        {
+            string pathRoot = "C:\\Code\\Trunk\\WildHare\\WildHare.Web";
+            string outputPath = $@"{pathRoot}\AllFiles.txt";
+            var sb = new StringBuilder();
+
+            var allFiles = pathRoot.GetAllFiles().Where(w => w.Extension == ".css");
+
+            foreach (var file in allFiles)
+            {
+                sb.AppendLine(file.Name);
+            }
+            string x = sb.ToString();
+            x.WriteToFile(outputPath, true);
+
+            Assert.AreEqual(4, allFiles.Count());
+        }
+
+        [Test]
+        public void Test_GetFileSystemInfos()
+        {
+            // Only gets 1 level of hierarchy
+
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\Directory0";
+            string outputPath = $@"{pathRoot}\TestDirectories.txt";
+            var files = new StringBuilder();
+            var folders = new StringBuilder();
+
+            var allFilesAndFolders = new DirectoryInfo(directoryPath).GetFileSystemInfos();
+
+            foreach (var info in allFilesAndFolders)
+            {
+                if ((info.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                {
+                    folders.AppendLine($"Directory: {info.Name}");
+                }
+                else
+                {
+                    files.AppendLine($"File: {info.Name}");
+                }
+            }
+            string filesAndFolders = folders.ToString() + files.ToString();
+            filesAndFolders.WriteToFile(outputPath, true);
+
+            Assert.AreEqual(3, allFilesAndFolders.Count());
+        }
+
+        [Test]
+        public void Test_GetFileSystemInfos_WithSearchOption()
+        {
+            // Gets multiple levels
+
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\Directory0";
+            string outputPath = $@"{pathRoot}\TestDirectories.txt";
+            var files = new StringBuilder();
+            var folders = new StringBuilder();
+
+            var allFilesAndFolders = new DirectoryInfo(directoryPath).GetFileSystemInfos("*", SearchOption.AllDirectories);
+
+            foreach (var info in allFilesAndFolders)
+            {
+                if (info.IsDirectory())
+                {
+                    folders.AppendLine($"Directory: {info.Name}");
+                }
+                else
+                {
+                    files.AppendLine($"File: {info.Name}");
+                }
+            }
+            string filesAndFolders = folders.ToString() + files.ToString();
+            filesAndFolders.WriteToFile(outputPath, true);
+
+            Assert.AreEqual(10, allFilesAndFolders.Count());
+        }
+
+        [Test]
+        public void Test_GetAllDirectoriesAndFiles()
+        {
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\Directory0";
+            string outputPath = $@"{pathRoot}\FileSystemInfos.txt";
+
+            var allFilesAndFolders = new DirectoryInfo(directoryPath);
+            List<FileSystemInfo> list = allFilesAndFolders.GetAllDirectoriesAndFiles();
+
+            var sb = new StringBuilder();
+
+            foreach (var info in list)
+            {
+                sb.AppendLine($"{(info.IsDirectory() ? "Directory" : "\t File")} {info.Name} {info.FullName}");
+            }
+
+            sb.ToString().WriteToFile(outputPath, true);
+
+            Assert.AreEqual(8, list.Count());
+        }
+
     }
 }

@@ -73,17 +73,24 @@
             <returns>A nullable DateTime value</returns>
             <extensionmethod>true</extensionmethod>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.DataTableExtensions.DataTableToList``1(System.Data.DataTable)" -->
-        <member name="M:WildHare.Extensions.Xtra.DocumentationExtensions.GetXmlDocumentation(System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.DataTableExtensions.DataTableToList``1(System.Data.DataTable)">
+            <summary>Converts a DataTable to a list of T</summary>
+            <typeparam name="T"></typeparam>
+            <param name="table"></param>
+            <returns>List{T}</returns>
+        </member>
+        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)">
             <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
             Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
             an XML file is generated to the file location with all the /// comments (like this one)
             that have been written in the your code.</summary>
             <example>@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</example>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)" -->
+        <member name="M:WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)">
+            <summary>(EXPERIMENTAL)A simple shortcut method to test if an object {obj} is NOT null.</summary>
+        </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object)">
-            <summary>A simple shortcut method to test if an object {obj} is null.</summary>
+            <summary>(EXPERIMENTAL) A simple shortcut method to test if an object {obj} is null.</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String)">
             <summary>(EXPERIMENTAL) Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
@@ -113,23 +120,49 @@
             <summary>Gets a value from an ExpandoObject by the specified {key}. If it does not exist, the
              method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementIn``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
+            If no elements in the list, returns an exception.</summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="index"></param>
+            <returns>&lt;TSource&gt;</returns>
+        </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
+            Returns the {TSource} default if no items in the list.</summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="index"></param>
+            <returns>TSource</returns>
+        </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.MatchList``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
             <summary>Given two lists it returns values from first if the {func} is true. If {consecutive} 
             is false, continues returning values until one of the lists has no more elements.</summary>
         </member>
+        <member name="T:WildHare.Extensions.IListExtensions">
+            <summary>Class Summary</summary>
+        </member>
         <member name="M:WildHare.Extensions.IListExtensions.TakeRandom``1(System.Collections.Generic.IList{``0},System.Int32,System.Random,System.Boolean)">
             <summary>Will randomly return a list of items from the {sourceList} equal to the {count} (up to the number in the list).<br />
             If the {count} is not specified, it will return one. If {remove} is true, the items are removed from the {sourceList}. </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sourceList"></param>
+            <param name="count"></param>
+            <param name="random"></param>
+            <param name="remove"></param>
+            <reference>TakeRandom</reference>
         </member>
         <member name="M:WildHare.Extensions.IListExtensions.TakeNext``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,System.Boolean)">
             <summary>Will return a sequencial list of items from the {sourceList} equal to the {count}(up to the number<b />
             remaining in the list).<br/>If the {count} is not specified, it will return one. If {remove} is true, the items
             are removed from the {sourceList}. If {offset} > 0, it will skip this number of records
-            but will loop back to the beginning if necessary and elements exist.
-            </summary>
-        </member>
-        <member name="T:WildHare.Extensions.IOExtensions">
-            <summary>Input/Output extension methods to help with templating.</summary>
+            but will loop back to the beginning if necessary and elements exist.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="sourceList"></param>
+            <param name="count"></param>
+            <param name="offset"></param>
+            <param name="remove"></param>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)">
             <summary>Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will
@@ -147,8 +180,14 @@
         <member name="M:WildHare.Extensions.IOExtensions.AppendToFile(System.String,System.IO.FileInfo)">
             <summary>Writes the {stringToWrite} to the end of the {fileName} FileInfo content, returning true or false.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32)">
+            <summary>Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. Defaults to a depth of 2.</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String)">
             <summary>Inline version of string.IsNullOrEmpty()</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.IfNull(System.String,System.String)">
+            <summary>A null string returns {replacement} if given, else an empty string.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.IfNullOrEmpty(System.String,System.String)">
             <summary>A null or empty string returns {replacement} if given, else an empty string.</summary>
@@ -166,8 +205,13 @@
             <summary>Remove the end of a string if it exactly matches {end}.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String,System.String)">
-            <summary>Remove the start of a string if it exactly matches {start} and remove 
-            and the end of a string if it exactly matches {end}.</summary>
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String[])">
             <summary>Removes the start of a string if it exactly matches any of the strings in the {startArray}.</summary>
@@ -194,17 +238,33 @@
             <summary>Remove the end of line if it exactly matches any string in the {endArray} for all lines in the string.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddStart(System.String,System.String)">
-            <summary>Adds {start} to the beginning of the string if it does not start with that string
-            AND if it is not NULL or EMPTY.</summary>
+            <summary>Adds {addToStart} to the beginning of the string if it is not NULL or EMPTY.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddEnd(System.String,System.String)">
-            <summary>Adds {end} to the end of the string if it does not end with that string
-            AND if it is not NULL or EMPTY.</summary>
+            <summary>Adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String)">
-            <summary>Adds {start} to the beginning of the string if it does not start with that string AND
-            adds {end} to the end of the string if it does not end with that string
-            AND if it is not NULL or EMPTY.</summary>
+            <summary>Adds {addToEnd} to the beginning of the string if it does not start with that string AND
+            adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.EnsureStart(System.String,System.String)">
+            <summary>Adds {addToStart} to the beginning of the string UNLESS it already starts with that string.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.EnsureEnd(System.String,System.String)">
+            <summary>Adds {addToEnd} to the end of the string UNLESS it already starts with that string.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String)">
+            <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
+            adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
+            is null, adds {addToStart} to both the start and end.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Start(System.String,System.String,System.Boolean)">
+            <summary>Splits string into an array based on {separator} and returns the start element.
+            Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.End(System.String,System.String,System.Boolean)">
+            <summary>Splits string into an array based on {separator} and returns the end element.
+            Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.NumbersOnly(System.String,System.String)">
             <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
@@ -233,6 +293,9 @@
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32)">
             <summary>Returns a string {str} x {number} of times</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
+            <summary></summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.FromTSqlTypeToCSharpType(System.String,System.Boolean)">
             <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
@@ -268,6 +331,9 @@
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
+        </member>
+        <member name="T:WildHare.MetaProperty">
+            <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
         </member>
     </members>
 </doc>

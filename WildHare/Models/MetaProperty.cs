@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,13 +7,12 @@ using System.Text;
 
 namespace WildHare
 {
+    /// <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
     public class MetaProperty
     {
-        // Private Properties
         private PropertyInfo propertyInfo;
         private object modelInstance;
 
-        // Constructor
         public MetaProperty(PropertyInfo propertyinfo)
         {
             propertyInfo = propertyinfo;
@@ -25,12 +24,10 @@ namespace WildHare
             modelInstance = modelinstance;
         }
 
-        // Public Properties
         public string Name { get; set; }
 
         public Type PropertyType
         {
-
             get { return propertyInfo.PropertyType; }
         }
 

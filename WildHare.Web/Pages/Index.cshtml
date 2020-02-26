@@ -10,10 +10,14 @@
 
     var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
 
+
+    // TODO MAKE THIS WORK - how to get target assemply???
+    // var currentAssembly = Assembly.GetExecutingAssembly();
+
     var WildHareList = "C:\\Code\\Trunk\\WildHare\\WildHare\\WildHare.xml".GetXmlDocumentation();
     var SeedPacketList = "C:\\Code\\Trunk\\SeedPacket\\SeedPacket\\SeedPacket.xml".GetXmlDocumentation();
 
-    var groupList = from s in WildHareList group s by $"{s.Namespace}.{s.ClassName}";
+    var groupList = from s in WildHareList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
 }
 
 <h2>@info.Title</h2>
@@ -22,7 +26,8 @@
 
 @foreach (var groupedList in groupList.Where(w => !w.Key.StartsWith("SeedPacketCore.Properties")))
 {
-    <h3 style="font-weight: bold;">@groupedList.Key</h3><br />
+    <h3 style="font-weight: bold;">@groupedList.Key</h3>
+    <br />
     int i = 0;
 
     @foreach (var member in groupedList)
@@ -30,20 +35,29 @@
         i++;
         <div>
             <h4>
-                <b style="color: red;">@(member.ClassName).@member.ToString()</b> : @member.MemberType
+                <b style="color: red;">@member.ToString()</b> : @member.CodeElement
             </h4>
         </div>
-        <div>@member.Summary</div>
+        <div>@Html.Raw(member.Summary.Replace("{", "<b>{").Replace("}", "}</b>"))</div>
         <br />
 
-        @*@if (!member.Documentation.IsNull())
+        @if (!member.Reference.IsNullOrEmpty())
         {
-            @Html.Action(member.Documentation)
-        }*@
+            @Html.Partial(member.Reference)
+        }
 
-        @if (member.Member == "ToLong")
+        @if (@member.Examples.Any())
         {
-            <div style="background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;">Some Custom Content</div><br />
+            foreach (var ex in member.Examples)
+            {
+                <div class="example-div">@ex</div>
+            }
+        }
+
+        @if (member.Member == "ToLong") // Inline content
+        {
+            <div style="background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;">Some Custom Content</div>
+            <br />
         }
     }
 }

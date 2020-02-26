@@ -5,21 +5,19 @@ using System.Text.RegularExpressions;
 
 namespace WildHare.Extensions.Xtra
 {
-    // Xtra Extensions - Still under development  
-
-    public static class XtraExtensions
+    public static partial class XtraExtensions
     {
         // =========================================================================================
-        // Object Is... 
+        // Object Is and Object IsNull
         // =========================================================================================
 
-        /// <summary(EXPERIMENTAL) >A simple shortcut method to test if an object {obj} is NOT null.</summary>
+        /// <summary>(EXPERIMENTAL)A simple shortcut method to test if an object {obj} is NOT null.</summary>
         public static bool Is(this object obj)
         {
             return (obj != null);
         }
 
-        /// <summary>A simple shortcut method to test if an object {obj} is null.</summary>
+        /// <summary>(EXPERIMENTAL) A simple shortcut method to test if an object {obj} is null.</summary>
         public static bool IsNull(this object obj)
         {
             return (obj == null);

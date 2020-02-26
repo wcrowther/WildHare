@@ -6,7 +6,12 @@ namespace WildHare.Extensions
 {
     public static class IEnumerableExtensions
     {
-
+        /// <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
+        /// If no elements in the list, returns an exception.</summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="index"></param>
+        /// <returns>&lt;TSource&gt;</returns>
         public static TSource ElementIn<TSource>(this IEnumerable<TSource> source, int index)
         {
             if (source == null)
@@ -41,6 +46,12 @@ namespace WildHare.Extensions
             throw new Exception("ElementIn() no elements to return.");
         }
 
+        /// <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
+        /// Returns the {TSource} default if no items in the list.</summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="index"></param>
+        /// <returns>TSource</returns>
         public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index)
         {
             if (source == null)

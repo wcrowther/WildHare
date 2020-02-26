@@ -9,39 +9,13 @@ namespace WildHare
 {
     public class MetaModel
     {
-
         // --------------------------------------------------------------
         // Private properties
         // --------------------------------------------------------------
 
-        private Type _type;
+        private readonly Type _type;
         private List<MetaProperty> properties = null;
         private object _instance;
-
-        private List<MetaProperty> MetaProperties
-        {
-            get
-            {
-                if (_type == null)
-                    throw new Exception("MetaModel type cannot be null.");
-
-                if (properties == null)
-                    properties = new List<MetaProperty>();
-
-                if (properties.Count == 0)
-                {
-                    foreach (var propertyInfo in _type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-                    {
-
-                        properties.Add(new MetaProperty(propertyInfo, _instance)
-                        {
-                            Name = propertyInfo.Name
-                        });
-                    }
-                }
-                return properties;
-            }
-        }
 
         // --------------------------------------------------------------
         // Constructors
@@ -108,7 +82,6 @@ namespace WildHare
             }
         }
 
-
         // --------------------------------------------------------------
         // Public Methods
         // --------------------------------------------------------------
@@ -144,6 +117,36 @@ namespace WildHare
         {
             return $"MetaModel for {TypeName} ({MetaProperties.Count} MetaProperties)";
         }
+
+        // --------------------------------------------------------------
+        // Public Methods
+        // --------------------------------------------------------------
+
+        private List<MetaProperty> MetaProperties
+        {
+            get
+            {
+                if (_type == null)
+                    throw new Exception("MetaModel type cannot be null.");
+
+                if (properties == null)
+                    properties = new List<MetaProperty>();
+
+                if (properties.Count == 0)
+                {
+                    foreach (var propertyInfo in _type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    {
+
+                        properties.Add(new MetaProperty(propertyInfo, _instance)
+                        {
+                            Name = propertyInfo.Name
+                        });
+                    }
+                }
+                return properties;
+            }
+        }
+
 
     }
 }

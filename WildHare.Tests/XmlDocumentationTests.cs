@@ -31,41 +31,5 @@ namespace WildHare.Tests
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml", pathToDocumentation);
             Assert.IsNotNull(docXml);
         }
-
-        //.Select(g => new
-        //{
-        //    name            = g.Attribute("name").Value,
-        //    nameConverted   = Regex.Replace(g.Attribute("name").Value, @"\[.*\]", string.Empty).Replace('+', '.'),
-        //    summary         = g.Element("summary").Value
-        //});   
-
-        private static string XmlDocumentationKeyHelper(  string typeFullNameString,  string memberNameString)
-        {
-            string key = Regex.Replace(
-              typeFullNameString, @"\[.*\]",
-              string.Empty).Replace('+', '.');
-            if (memberNameString != null)
-            {
-                key += "." + memberNameString;
-            }
-            return key;
-        }
-
-        internal static readonly Dictionary<string, string> loadedXmlDocumentation =  new Dictionary<string, string>();
-
-        private static void LoadXmlDocumentation(string xmlDocumentation)
-        {
-            using (XmlReader xmlReader = XmlReader.Create(new StringReader(xmlDocumentation)))
-            {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
-                    {
-                        string raw_name = xmlReader["name"];
-                        loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
-                    }
-                }
-            }
-        }
     }
 }

@@ -79,14 +79,14 @@ namespace WildHare.Web
                 var rows = rowList.Skip(i * batchSize).Take(batchSize).ToList();
                 if (rows.Count > 0)
                 {
-                    string batch = CreateBatchData(rows, schema, tableName, metaProperties);
+                    string batch = CreateDataBatch(rows, schema, tableName, metaProperties);
                     sb.Append(batch);
                 }
             }
             return sb.ToString();
         }
 
-        private static string CreateBatchData<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
+        private static string CreateDataBatch<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
 		{
             var tableColumns = string.Join("", metaProperties.Select(a => $"[{a.Name}],")).RemoveEnd(",");
 

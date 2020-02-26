@@ -6,6 +6,7 @@ using System.Text;
 using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
 using WildHare.Web.SchemaModels;
+using static System.Environment;
 
 namespace WildHare.Web
 {
@@ -27,9 +28,9 @@ namespace WildHare.Web
 		private static readonly string sqlConnString = "Data Source=Behemoth;Initial Catalog=Tevents;Connect Timeout=30;Persist Security Info=True;MultipleActiveResultSets=True;User ID=Tevents_User;Password=!london!";
 
 		private static readonly string start = "\t\t"; // Indentation
-		private static readonly string end = Environment.NewLine;
+        private static readonly string end = NewLine;
 
-		private static ILookup<string, ColumnsSchema> sqlTables;
+        private static ILookup<string, ColumnsSchema> sqlTables;
 
 		public static string Init()
         {
@@ -55,15 +56,15 @@ namespace WildHare.Web
 
 			var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
 
-			CreateModelFromSQLTable("Acts", true);
-			CreateModelFromSQLTable("Controls", true);
-			CreateModelFromSQLTable("ControlValues", true);
-			CreateModelFromSQLTable("Description", true);
-			CreateModelFromSQLTable("Layouts", true);
-			CreateModelFromSQLTable("Locations", true);
-			CreateModelFromSQLTable("Tags", true);
-			CreateModelFromSQLTable("Tevents", true);
-			CreateModelFromSQLTable("Timelines", true);
+			CreateModelFromSQLTable("Acts", false);
+			CreateModelFromSQLTable("Controls", false);
+			CreateModelFromSQLTable("ControlValues", false);
+			CreateModelFromSQLTable("Description", false);
+			CreateModelFromSQLTable("Layouts", false);
+			CreateModelFromSQLTable("Locations", false);
+			CreateModelFromSQLTable("Tags", false);
+			CreateModelFromSQLTable("Tevents", false);
+			CreateModelFromSQLTable("Timelines", false);
 			CreateModelFromSQLTable("Users", true);
 
 			return "CodeGenFromSql.Init() complete....";

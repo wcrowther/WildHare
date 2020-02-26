@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,6 +12,12 @@ namespace WildHare.Extensions
         public static bool IsNullOrEmpty(this string s)
         {
             return string.IsNullOrEmpty(s);
+        }
+
+        /// <summary>A null string returns {replacement} if given, else an empty string.</summary>
+        public static string IfNull(this string s, string replacement = "")
+        {
+            return s ?? replacement;
         }
 
         /// <summary>A null or empty string returns {replacement} if given, else an empty string.</summary>
@@ -49,9 +56,13 @@ namespace WildHare.Extensions
             return s.EndsWith(e) ? s.Remove(s.Length - e.Length, e.Length) : s;
         }
 
-        /// <summary>Remove the start of a string if it exactly matches {start} and remove 
-        /// and the end of a string if it exactly matches {end}.</summary>
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public static string RemoveStartEnd(this string input, string start, string end =  null)
         {
             return input.RemoveStart(start).RemoveEnd(end ?? start);
@@ -125,29 +136,80 @@ namespace WildHare.Extensions
             return string.Join("\n", input.Split('\n').Select(a => a.RemoveEnd(endArray)));
         }
 
-        /// <summary>Adds {start} to the beginning of the string if it does not start with that string
-        /// AND if it is not NULL or EMPTY.</summary>
+        /// <summary>Adds {addToStart} to the beginning of the string if it is not NULL or EMPTY.</summary>
         public static string AddStart(this string s, string addToStart)
         {
             string str = s ?? "";
             return (str.Trim().Length > 0) ? (addToStart + str) : s;
         }
 
-        /// <summary>Adds {end} to the end of the string if it does not end with that string
-        /// AND if it is not NULL or EMPTY.</summary>
+        /// <summary>Adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
         public static string AddEnd(this string s, string addToEnd)
         {
             string str = s ?? "";
             return (str.Trim().Length > 0) ? (str + addToEnd) : s;
         }
 
-        /// <summary>Adds {start} to the beginning of the string if it does not start with that string AND
-        /// adds {end} to the end of the string if it does not end with that string
-        /// AND if it is not NULL or EMPTY.</summary>
-        public static string AddStartEnd(this string s, string addToStart, string addToEnd)
+        /// <summary>Adds {addToEnd} to the beginning of the string if it does not start with that string AND
+        /// adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
+        public static string AddStartEnd(this string s, string addToStart, string addToEnd = null)
         {
             string str = s ?? "";
-            return (str.Trim().Length > 0) ? (addToStart + str + addToEnd) : s;
+            return (str.Trim().Length > 0) ? (addToStart + str + (addToEnd ?? addToStart) ) : s;
+        }
+
+        /// <summary>Adds {addToStart} to the beginning of the string UNLESS it already starts with that string.</summary>
+        public static string EnsureStart(this string s, string addToStart)
+        {
+            if (s == null) return null;
+
+            return s.StartsWith(addToStart) ? s : addToStart + s;
+        }
+
+        /// <summary>Adds {addToEnd} to the end of the string UNLESS it already starts with that string.</summary>
+        public static string EnsureEnd(this string s, string addToEnd)
+        {
+            if (s == null) return null;
+
+            return s.EndsWith(addToEnd) ? s : s + addToEnd;
+        }
+
+        /// <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
+        /// adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
+        /// is null, adds {addToStart} to both the start and end.</summary>
+        public static string EnsureStartEnd(this string s, string addToStart, string addToEnd = null)
+        {
+            if (s == null) return null;
+
+            addToEnd = addToEnd ?? addToStart;
+            string str = s.StartsWith(addToStart) ? s : addToStart + s;
+
+            return s.EndsWith(addToEnd) ? str : str + addToEnd;
+        }
+
+        /// <summary>Splits string into an array based on {separator} and returns the start element.
+        /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
+        public static string Start(this string s, string separator, bool includeSeparator = false)
+        {
+            if (s == null) return null;
+
+            var sepArray = new string[1] { separator };
+            var array = s.Split(sepArray, StringSplitOptions.None);
+
+            return includeSeparator && s.Contains(separator) ? array[0] + separator : array[0];
+        }
+
+        /// <summary>Splits string into an array based on {separator} and returns the end element.
+        /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
+        public static string End(this string s, string separator, bool includeSeparator = false)
+        {
+            if (s == null) return null;
+
+            var sepArray = new string[1] { separator };
+            var array = s.Split(sepArray, StringSplitOptions.None);
+            int last = array.Length - 1;
+
+            return includeSeparator && s.Contains(separator) ? separator + array[last] : array[last];
         }
 
         /// <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
@@ -255,5 +317,19 @@ namespace WildHare.Extensions
 
             return new StringBuilder(str.Length * number).Insert(0, str, number).ToString();
         }
+
+        /// <summary></summary>
+        public static bool StartsWith(this string str, string[] valuesArray, bool ignoreCase = false, CultureInfo culture = null)
+        {
+            foreach (string value in valuesArray)
+            {
+                if (str.StartsWith(value, ignoreCase, culture ?? CultureInfo.CurrentCulture))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

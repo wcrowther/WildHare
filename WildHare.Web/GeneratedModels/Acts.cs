@@ -18,6 +18,12 @@ namespace WildHare.Web.Models
 		[StringLength(200)]
 		public string ActText { get; set; }
 
+		[StringLength(50)]
+		public string ActSet { get; set; }
+
+		[StringLength(50)]
+		public string ActSubSet { get; set; }
+
 		public bool Hidden { get; set; }
 
 		public DateTime DateCreated { get; set; }

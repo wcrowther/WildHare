@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +9,7 @@ namespace WildHare.Tests.Models
         [Key]
         public int ItemId { get; set; }
 
+        [Editable(true)]
         public string ItemName { get; set; }
 
         public DateTime Created { get; set; }
