@@ -47,6 +47,9 @@ namespace WildHare
         {
             get
             {
+                if (CodeElement == "Type")
+                    return default;
+
                 return codeArray.LastOrDefault();
             }
         }
@@ -56,8 +59,8 @@ namespace WildHare
             get
             {
 
-                if (CodeElement == "Type" && codeArray.Length == 2)
-                    return default;
+                if (CodeElement == "Type")
+                    return codeArray.LastOrDefault();
 
                 if (codeArray.Length >= 2)
                 {
@@ -71,9 +74,14 @@ namespace WildHare
         {
             get
             {
+                if (CodeElement == "Type" && codeArray.Length > 1)
+                {
+                    return string.Join(".", codeArray, 0, codeArray.Length - 1);
+                }
+
                 if (codeArray.Length > 2)
                 {
-                    return string.Join(".", codeArray.Reverse().Skip(2).Reverse());
+                    return string.Join(".", codeArray, 0, codeArray.Length - 2);
                 }
                 return default;
             }
