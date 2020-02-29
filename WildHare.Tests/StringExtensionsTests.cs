@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
 
@@ -240,57 +242,57 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_Start_Basic()
+        public void Test_GetStart_Basic()
         {
             string str = "Begin_Finish";
-            string result = str.Start("_");
+            string start = str.GetStart("_");
 
-            Assert.AreEqual("Begin", result);
+            Assert.AreEqual("Begin", start);
         }
 
         [Test]
-        public void Test_Start_Basic_IncludeSeparator()
+        public void Test_GetStart_Basic_IncludeSeparator()
         {
             string str = "Begin_Finish";
-            string result = str.Start("_", true);
+            string start = str.GetStart("_", true);
 
-            Assert.AreEqual("Begin_", result);
+            Assert.AreEqual("Begin_", start);
         }
 
         [Test]
-        public void Test_Start_No_Separator()
+        public void Test_GetStart_No_Separator()
         {
             string str = "Begin_Finish";
-            string result = str.Start("x");
+            string start = str.GetStart("x");
 
-            Assert.AreEqual("Begin_Finish", result);
+            Assert.IsNull(start);
         }
 
         [Test]
-        public void Test_Start_Null()
+        public void Test_GetStart_Null()
         {
             string str = null;
-            string result = str.Start("_");
+            string start = str.GetStart("_");
 
-            Assert.IsNull(result);
+            Assert.IsNull(start);
         }
 
         [Test]
-        public void Test_End_Basic()
+        public void Test_GetEnd_Basic()
         {
             string str = "Begin_Finish";
-            string result = str.End("_");
+            string end = str.GetEnd("_");
 
-            Assert.AreEqual("Finish", result);
+            Assert.AreEqual("Finish", end);
         }
 
         [Test]
-        public void Test_End_Basic_IncludeSeparator()
+        public void Test_GetEnd_Basic_IncludeSeparator()
         {
             string str = "Begin_Finish";
-            string result = str.End("_", true);
+            string end = str.GetEnd("_", true);
 
-            Assert.AreEqual("_Finish", result);
+            Assert.AreEqual("_Finish", end);
         }
 
         [Test]
@@ -360,6 +362,26 @@ namespace WildHare.Tests
             string result = str.Substring(startIndex + 1, length - 1);
 
             Assert.AreEqual("Inner", result);
+        }
+
+        [Test]
+        public void Test__Replace_With_Two_Array_Overload()
+        {
+            string str = "Favorite animals: cat dog rabbit.";
+            string[] old = { "cat", "dog", "rabbit" };
+            var result = str.Replace(old, new[]{ "platypus", "cheetah", "emu" });
+
+            Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
+        }
+
+        [Test]
+        public void Test_Dictionary_Aggregate_Replace()
+        {
+            string str = "Favorite animals: cat dog rabbit.";
+            var dict = new Dictionary<string, string>{ { "cat", "platypus" }, {"dog", "cheetah"},{"rabbit", "emu" } };
+            var result = dict.Aggregate(str, (current, value) => current.Replace(value.Key, value.Value));
+
+            Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
     }
 }

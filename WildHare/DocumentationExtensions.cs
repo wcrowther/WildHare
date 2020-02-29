@@ -16,9 +16,9 @@ namespace WildHare.Extensions.Xtra
         /// <example>@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</example>
         public static List<DocMember> GetXmlDocumentation(this string xmlDocPath, Assembly assemblyToDocument = null)
         {
-            var assembly = assemblyToDocument ?? Assembly.GetExecutingAssembly();
             var docXml = XElement.Load(xmlDocPath);
             var assemblyName = docXml.Element("assembly").Element("name").Value;
+            var assembly = assemblyToDocument ?? Assembly.Load(assemblyName);
 
             var memberList = docXml.Element("members").Elements()
                 .Select(g => new DocMember(g.Attribute("name").Value, assembly)

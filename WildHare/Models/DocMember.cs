@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
 
@@ -12,6 +14,8 @@ namespace WildHare
         private readonly Assembly _assemblyToDocument;
         private readonly string _rawName;
         private string[] codeArray;
+        private string[] parameterArray;
+        private bool isExtensionMethod;
 
         public DocMember(string rawName, Assembly assemblyToDocument)
         {
@@ -25,9 +29,7 @@ namespace WildHare
 
         public string CodeElement { get; private set; }
 
-        public string MethodParams { get; private set; }
-
-        public string MethodParamsGenericType { get; private set; }
+        public string Generics { get; private set; }
 
         public string Documentation { get; set; }
 
@@ -35,40 +37,27 @@ namespace WildHare
 
         public Type ClassType { get; private set; }
 
-        public bool IsExtensionMethod { get; set; }
+        public bool IsExtensionMethod
+        {
+            get
+            {
+                // Reflected type takes precedent if defined
+                if(MethodInfo !=  null)
+                    return MethodInfo.IsDefined(typeof(ExtensionAttribute), true);
+
+                return isExtensionMethod;
+            }
+            set
+            {
+                isExtensionMethod = value;
+            }
+        }
 
         public List<string> Examples { get; set; } = new List<string>();
 
         public string Reference { get; set; }
 
         public bool Display { get; set; } = true;
-
-        public string Member
-        {
-            get
-            {
-                if (CodeElement == "Type")
-                    return default;
-
-                return codeArray.LastOrDefault();
-            }
-        }
-
-        public string ClassName
-        {
-            get
-            {
-
-                if (CodeElement == "Type")
-                    return codeArray.LastOrDefault();
-
-                if (codeArray.Length >= 2)
-                {
-                    return codeArray.ElementAtOrDefault(codeArray.Length - 2);
-                }
-                return default;
-            }
-        }
 
         public string Namespace
         {
@@ -87,12 +76,54 @@ namespace WildHare
             }
         }
 
+        public string ClassName
+        {
+            get
+            {
+                if (CodeElement == "Type")
+                    return codeArray.LastOrDefault();
+
+                if (codeArray.Length >= 2)
+                {
+                    return codeArray.ElementAtOrDefault(codeArray.Length - 2);
+                }
+                return default;
+            }
+        }
+
+        public string Member
+        {
+            get
+            {
+                if (CodeElement == "Type")
+                    return default;
+
+                return codeArray.LastOrDefault();
+            }
+        }
+
+        public string MethodParams
+        {
+            get
+            {
+                if (parameterArray == null)
+                    return null;
+
+                string cSharpStr = string.Join(", ", parameterArray.Select(s => s.FromDotNetTypeToCSharpType()));
+
+                return cSharpStr.Replace(new[] { "{", "}", "``0", "``1", "``2" }, new[] { "<", ">", "T1", "T2", "T3" });
+            }
+        }
+
         public override string ToString()
         {
-            string addThis = IsExtensionMethod ? "this " : "";
-            string parameters = $"{addThis}{MethodParams}"; 
+            if (CodeElement == "Type")
+                return ClassName;
 
-            return $"{CodeElement} {Member} {parameters.AddStartEnd("(", ")")}";
+            string isExt = IsExtensionMethod ? "this " : "";
+            string parameters = $"{isExt}{MethodParams}";
+
+            return $"{Member} {Generics}{parameters.AddStartEnd("(", ")")}";
         }
 
         // =================================================
@@ -107,6 +138,7 @@ namespace WildHare
             var code = _rawName;
             code = SetCodeElement(code);
             code = SetMethodParams(code);
+            code = SetGenerics(code);
             codeArray = code.Split('.');
 
             GetClassType();
@@ -118,13 +150,13 @@ namespace WildHare
             {
                 switch (temp.Substring(0, 1))
                 {
-                    case "M": CodeElement = "Method";    break;
-                    case "T": CodeElement = "Type";      break;
-                    case "F": CodeElement = "Field";     break;
-                    case "P": CodeElement = "Property";  break;
-                    case "C": CodeElement = "Ctor";      break;
-                    case "E": CodeElement = "Event";     break;
-                    default:  CodeElement = null;        break;
+                    case "M": CodeElement = "Method"; break;
+                    case "T": CodeElement = "Type"; break;
+                    case "F": CodeElement = "Field"; break;
+                    case "P": CodeElement = "Property"; break;
+                    case "C": CodeElement = "Ctor"; break;
+                    case "E": CodeElement = "Event"; break;
+                    default: CodeElement = null; break;
                 }
                 temp = temp.Substring(2);
             }
@@ -139,32 +171,68 @@ namespace WildHare
             if (startIndex != -1 && endIndex != -1)
             {
                 int length = endIndex - startIndex;
-                MethodParams = temp.Substring(startIndex + 1, length - 1).Replace(",", ", ");
+                string paramStr = temp.Substring(startIndex + 1, length - 1);
+                parameterArray = paramStr.Split(',');
 
                 return temp.Substring(0, startIndex);
             }
             return temp;
         }
 
-        //    if (tempArray.Length > 1 && !tempArray[1].IsNullOrEmpty())
-        //    {
-        //        var prams = tempArray[1]
-        //            .RemoveStartEnd("(", ")")
-        //            .Split(',')
-        //            .Select(a => a.FromDotNetTypeToCSharpType());
+        private string SetGenerics(string temp)
+        {
+            string generics = temp.GetEnd("``", true);
+            if (generics == null)
+                return temp;
 
-        //        string pramsJoined  = string.Join(", ", prams);
-        //        MethodParams = IsExtensionMethod ? "this " : "";
-        //        MethodParams += pramsJoined.AddStartEnd("(", ")");
-        //    }
-        //    return temp;
-        //}
+            string[] replacements = { "<T>", "<T,T2>", "<T,T2,T3>" };
+            Generics = generics.Replace(new[] { "``1", "``2", "``3" }, replacements);
+
+            return temp.RemoveEnd(generics);
+        }
 
 
         private void GetClassType()
         {
             string typeName = $"{Namespace}{ClassName.AddStart(".")}, {_assemblyToDocument}";
-            ClassType = Type.GetType(typeName);
+            try
+            {
+                ClassType = Type.GetType(typeName);
+            }
+            catch
+            {
+                Debug.WriteLine($"Error getting ClassType for: {typeName}");
+            }
+        }
+
+        public List<MetaProperty> ClassProperties
+        {
+            get
+            {
+                if (CodeElement != "Type" || ClassType == null)
+                    return null;
+
+                return ClassType?.GetMetaProperties();
+            }
+        }
+
+        public MethodInfo MethodInfo
+        {
+            get
+            {
+                if (CodeElement == "Method" || ClassType != null)
+                {
+                    try
+                    {
+                        return ClassType.GetMethod(Member);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
+                return null;
+            }
         }
     }
 }

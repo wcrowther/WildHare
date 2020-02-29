@@ -56,13 +56,8 @@ namespace WildHare.Extensions
             return s.EndsWith(e) ? s.Remove(s.Length - e.Length, e.Length) : s;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <summary>Remove the start of a string if it matches {start} and end of a string if it matches {end}.
+        /// If {end} is not specified use {start} for both values.</summary>
         public static string RemoveStartEnd(this string input, string start, string end =  null)
         {
             return input.RemoveStart(start).RemoveEnd(end ?? start);
@@ -189,11 +184,12 @@ namespace WildHare.Extensions
 
         /// <summary>Splits string into an array based on {separator} and returns the start element.
         /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
-        public static string Start(this string s, string separator, bool includeSeparator = false)
+        public static string GetStart(this string s, string separator, bool includeSeparator = false)
         {
-            if (s == null) return null;
+            if (s == null || s.IndexOf(separator) == -1)
+                return null;
 
-            var sepArray = new string[1] { separator };
+            var sepArray = new string[1] { separator }; // .Split requires string array
             var array = s.Split(sepArray, StringSplitOptions.None);
 
             return includeSeparator && s.Contains(separator) ? array[0] + separator : array[0];
@@ -201,11 +197,12 @@ namespace WildHare.Extensions
 
         /// <summary>Splits string into an array based on {separator} and returns the end element.
         /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
-        public static string End(this string s, string separator, bool includeSeparator = false)
+        public static string GetEnd(this string s, string separator, bool includeSeparator = false)
         {
-            if (s == null) return null;
+            if (s == null || s.IndexOf(separator) == -1)
+                return null;
 
-            var sepArray = new string[1] { separator };
+            var sepArray = new string[1] { separator }; // .Split requires string array
             var array = s.Split(sepArray, StringSplitOptions.None);
             int last = array.Length - 1;
 
@@ -318,7 +315,8 @@ namespace WildHare.Extensions
             return new StringBuilder(str.Length * number).Insert(0, str, number).ToString();
         }
 
-        /// <summary></summary>
+        /// <summary>An overload of StartsWith that accepts a string array.
+        /// Will return true if any of the values in the {valuesArray} is true.</summary>
         public static bool StartsWith(this string str, string[] valuesArray, bool ignoreCase = false, CultureInfo culture = null)
         {
             foreach (string value in valuesArray)
@@ -331,5 +329,38 @@ namespace WildHare.Extensions
             return false;
         }
 
+        /// <summary>An overload of Replace that accepts a string array.
+        /// For the supplied string, replaces all values in the {oldValues} array with the {newValue} string.</summary>
+        /// <example>Shortcut for y.Replace("cat", "").Replace("dog", "") etc...</example>.
+        public static string Replace(this string str, string[] oldValues, string newValue)
+        {
+            string result = str;
+
+            foreach (string oldValue in oldValues)
+            {
+                result = result.Replace(oldValue, newValue);
+            }
+            return result;
+        }
+
+        /// <summary>An overload of Replace that accepts a string array.
+        /// For the supplied string, replaces all values in the {oldValues} array with those in {newValues} array.</summary>
+        /// <example>Shortcut for y.Replace("cat", "frog").Replace("dog", "bird") etc...</example>.
+        public static string Replace(this string str, string[] oldValues, string[] newValues)
+        {
+            if (oldValues == null || newValues == null)
+                return str;
+
+            if (oldValues.Length != newValues.Length)
+                throw new Exception("To use this overload of Replace, the oldValues array must contain the same number of elements as the newValues array.");
+
+            string result = str;
+
+            for (int i = 0; i < oldValues.Length; i++)
+            {
+                result = result.Replace(oldValues[i], newValues[i]);
+            }
+            return result;
+        }
     }
 }

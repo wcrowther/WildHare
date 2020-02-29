@@ -205,13 +205,8 @@
             <summary>Remove the end of a string if it exactly matches {end}.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="input"></param>
-            <param name="start"></param>
-            <param name="end"></param>
-            <returns></returns>
+            <summary>Remove the start of a string if it matches {start} and end of a string if it matches {end}.
+            If {end} is not specified use {start} for both values.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String[])">
             <summary>Removes the start of a string if it exactly matches any of the strings in the {startArray}.</summary>
@@ -258,11 +253,11 @@
             adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
             is null, adds {addToStart} to both the start and end.</summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.Start(System.String,System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.StringExtensions.GetStart(System.String,System.String,System.Boolean)">
             <summary>Splits string into an array based on {separator} and returns the start element.
             Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.End(System.String,System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.StringExtensions.GetEnd(System.String,System.String,System.Boolean)">
             <summary>Splits string into an array based on {separator} and returns the end element.
             Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         </member>
@@ -295,7 +290,18 @@
             <summary>Returns a string {str} x {number} of times</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
-            <summary></summary>
+            <summary>An overload of StartsWith that accepts a string array.
+            Will return true if any of the values in the {valuesArray} is true.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String)">
+            <summary>An overload of Replace that accepts a string array.
+            For the supplied string, replaces all values in the {oldValues} array with the {newValue} string.</summary>
+            <example>Shortcut for y.Replace("cat", "").Replace("dog", "") etc...</example>.
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String[])">
+            <summary>An overload of Replace that accepts a string array.
+            For the supplied string, replaces all values in the {oldValues} array with those in {newValues} array.</summary>
+            <example>Shortcut for y.Replace("cat", "frog").Replace("dog", "bird") etc...</example>.
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.FromTSqlTypeToCSharpType(System.String,System.Boolean)">
             <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>

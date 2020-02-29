@@ -2,13 +2,14 @@
 @using WildHare.Extensions
 @using WildHare.Extensions.Xtra
 
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+@model SeedPacketModel
 
-    var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
-    var WildHareList = "C:\\Code\\Trunk\\WildHare\\WildHare\\WildHare.xml".GetXmlDocumentation();
-    var groupList = from s in WildHareList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
+@{
+    ViewData["Title"] = "SeedPacket Documentation";
+
+    var info = (Title: "Xml Documentation For SeedPacket", SubTitle: "Having fun with code.");
+    var SeedPacketList = "C:\\Code\\Trunk\\SeedPacket\\SeedPacket\\SeedPacket.xml".GetXmlDocumentation();
+    var groupList = from s in SeedPacketList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
 }
 
 <h2>@info.Title</h2>
