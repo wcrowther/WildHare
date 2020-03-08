@@ -11,7 +11,7 @@ namespace WildHare.Tests
     public class TemplatingExtensionsTests
     {
         [Test]
-        public void GetCSharpTypes_Basic()
+        public void GetTSqlTypesToCSharpTypes_Basic()
         {
 			string binaryStr	= "binary";
 			string datetimeStr	= "datetime";
@@ -19,16 +19,30 @@ namespace WildHare.Tests
 			string intStr		= "int";
 			string unknownStr	= "fred";
 
-			Assert.AreEqual("byte[]",       binaryStr.FromTSqlTypeToCSharpType());
-			Assert.AreEqual("DateTime",     datetimeStr.FromTSqlTypeToCSharpType());
-			Assert.AreEqual("DateTime",     datetimeStr.FromTSqlTypeToCSharpType(false));
-			Assert.AreEqual("DateTime?",    datetimeStr.FromTSqlTypeToCSharpType(true));
-			Assert.AreEqual("decimal",      numericStr.FromTSqlTypeToCSharpType());
-			Assert.AreEqual("decimal",      numericStr.FromTSqlTypeToCSharpType(false));
-			Assert.AreEqual("decimal?",     numericStr.FromTSqlTypeToCSharpType(true));
-			Assert.AreEqual("int",          intStr.FromTSqlTypeToCSharpType());
-			Assert.AreEqual("int?",         intStr.FromTSqlTypeToCSharpType(true));
-			Assert.AreEqual("UNKNOWN",      unknownStr.FromTSqlTypeToCSharpType());
+			Assert.AreEqual("byte[]",       binaryStr.TSqlTypeToCSharpType());
+			Assert.AreEqual("DateTime",     datetimeStr.TSqlTypeToCSharpType());
+			Assert.AreEqual("DateTime",     datetimeStr.TSqlTypeToCSharpType(false));
+			Assert.AreEqual("DateTime?",    datetimeStr.TSqlTypeToCSharpType(true));
+			Assert.AreEqual("decimal",      numericStr.TSqlTypeToCSharpType());
+			Assert.AreEqual("decimal",      numericStr.TSqlTypeToCSharpType(false));
+			Assert.AreEqual("decimal?",     numericStr.TSqlTypeToCSharpType(true));
+			Assert.AreEqual("int",          intStr.TSqlTypeToCSharpType());
+			Assert.AreEqual("int?",         intStr.TSqlTypeToCSharpType(true));
+			Assert.AreEqual("UNKNOWN",      unknownStr.TSqlTypeToCSharpType());
 		}
-	}
+
+        [Test]
+        public void GetDotNetTypeToCSharpType_Basic()
+        {
+            string boolString1 = "Boolean";
+            string boolString2 = "Boolean?";
+            string boolString3 = "System.Nullable{Boolean}";
+
+            Assert.AreEqual("bool", boolString1.DotNetTypeToCSharpType());
+            Assert.AreEqual("bool?", boolString1.DotNetTypeToCSharpType(true));
+            Assert.AreEqual("bool?", boolString2.DotNetTypeToCSharpType());
+            Assert.AreEqual("bool?", boolString3.DotNetTypeToCSharpType());
+
+        }
+    }
 }
