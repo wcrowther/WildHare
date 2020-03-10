@@ -29,7 +29,7 @@
                 <b style="color: red;">@member.ToString()</b> : @member.CodeElement
             </h4>
         </div>
-        <div>@Html.Raw(member.Summary.Replace("{", "<b>{").Replace("}", "}</b>"))</div>
+        <div>@Html.Raw(member.Summary.IfNull().Replace("{", "<b>{").Replace("}", "}</b>"))</div>
         <br />
 
         @if (!member.Reference.IsNullOrEmpty())

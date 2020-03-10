@@ -45,6 +45,7 @@ namespace WildHare.Tests
             Assert.AreEqual(7890,   dummy.Cache.Invoice.AccountId);
             Assert.AreEqual(99.99M, dummy.Cache.Invoice.InvoiceItems[0].Fee);
             Assert.AreEqual(5678,   dummy.Cache.Invoice.InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(3,      dummy.Cache.Invoice.InvoiceItems.Count);
 
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
@@ -53,6 +54,8 @@ namespace WildHare.Tests
             Assert.AreEqual(7890,   cache.Get<Invoice>("Invoice").AccountId);
             Assert.AreEqual(99.99M, cache.Get<Invoice>("Invoice").InvoiceItems[0].Fee);
             Assert.AreEqual(5678,   cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(3,      cache.Get<Invoice>("Invoice").InvoiceItems.Select(a => a.InvoiceId).Count());
+            Assert.AreEqual(3,      cache.Get<Invoice>("Invoice.InvoiceItems").InvoiceItems.Select(a => a.InvoiceId).Count());
 
             // Inline cast to ExpandoObject alternative
             Assert.AreEqual(1,      ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
@@ -138,7 +141,35 @@ namespace WildHare.Tests
             Assert.AreEqual(value, cache.Get(name));
         }
 
+        [Test]
+        public void Test__Get_List_From_Expando()
+        {
+            var dummy = new Dummy();
+            dummy.Cache.Invoices = new List<Invoice>
+            {
+                new Invoice{ InvoiceId = 1, AccountId = 1},
+                new Invoice{ InvoiceId = 2, AccountId = 1}
+            };
 
+            Assert.AreEqual(2, dummy.Cache.Invoices.Count);
+        }
 
+        [Test]
+        public void GetByItemName_List_Select()
+        {
+            var dummy = new Dummy();
+            dummy.Cache.InvoiceItems = new List<InvoiceItem>
+            {
+                new InvoiceItem{ InvoiceItemId = 1234 , Fee = 99.99M, Product = "Doodad" },
+                new InvoiceItem{ InvoiceItemId = 5678 , Fee = 2.22M,  Product = "Thingamajig" },
+                new InvoiceItem{ InvoiceItemId = 9000 , Fee = 100.00M,Product = "Thing" }
+            };
+
+            // Cast to ExpandoObject
+            ExpandoObject cache = dummy.Cache;
+
+            Assert.AreEqual(3, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceId).Count());
+            Assert.AreEqual(1234, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceItemId).First());
+        }
     }
 }

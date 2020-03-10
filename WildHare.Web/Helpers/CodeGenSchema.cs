@@ -101,7 +101,7 @@ namespace WildHare.Web
 			foreach (DataColumn col in table.Columns)
 			{
                 bool isNullable = col.AllowDBNull;
-                output += $"{start}public {col.DataType.Name.FromDotNetTypeToCSharpType(isNullable)} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
+                output += $"{start}public {col.DataType.Name.DotNetTypeToCSharpType(isNullable)} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
 			}
 
 			return output.RemoveStartEnd(start, end);

@@ -134,7 +134,7 @@ namespace WildHare.Web
             foreach (DataColumn col in dataTable.Columns)
             {
                 bool isNullable = col.AllowDBNull;
-                string dataTypeName = col.DataType.Name.FromDotNetTypeToCSharpType(isNullable);
+                string dataTypeName = col.DataType.Name.DotNetTypeToCSharpType(isNullable);
                 string columnName = col.ColumnName;
 
                 string isKey = dataTable.PrimaryKey.Contains(col) ? $"{start}[Key]{end}" : "";
@@ -167,7 +167,7 @@ namespace WildHare.Web
             foreach (var column in tableSchema)
             {
                 bool isNullable = column.Is_Nullable.ToBool("YES");
-                string dataType = column.Data_Type.FromTSqlTypeToCSharpType(isNullable);
+                string dataType = column.Data_Type.TSqlTypeToCSharpType(isNullable);
 
                 sb.AppendLine($"{start}public {dataType} {column.Column_Name} {{ get; set; }}");
             }

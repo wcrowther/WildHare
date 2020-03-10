@@ -19,13 +19,13 @@ namespace WildHare.Extensions.Xtra
             var docXml = XElement.Load(xmlDocPath);
             var assemblyName = docXml.Element("assembly").Element("name").Value;
             var assembly = assemblyToDocument ?? Assembly.Load(assemblyName);
+            var mList = docXml.Element("members").Elements();
 
             var memberList = docXml.Element("members").Elements()
                 .Select(g => new DocMember(g.Attribute("name").Value, assembly)
                 {
                     Documentation = g.Element("documentation")?.Value,
-                    Summary = g.Element("summary").Value,
-                    IsExtensionMethod = g.Element("extensionmethod")?.Value.ToBool() ?? false
+                    Summary = g.Element("summary")?.Value
                     //Example = g.Element("example")?.Value,
                     //Params = g.Elements("param")?.Select(s => s.Value).ToList()
                 }).ToList();

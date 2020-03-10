@@ -14,8 +14,8 @@ namespace WildHare
         private readonly Assembly _assemblyToDocument;
         private readonly string _rawName;
         private string[] codeArray;
+        private string paramStr;
         private string[] parameterArray;
-        private bool isExtensionMethod;
 
         public DocMember(string rawName, Assembly assemblyToDocument)
         {
@@ -37,21 +37,9 @@ namespace WildHare
 
         public Type ClassType { get; private set; }
 
-        public bool IsExtensionMethod
-        {
-            get
-            {
-                // Reflected type takes precedent if defined
-                if(MethodInfo !=  null)
-                    return MethodInfo.IsDefined(typeof(ExtensionAttribute), true);
+        public bool IsExtensionMethod => MethodInfo?.IsDefined(typeof(ExtensionAttribute), true) ?? false;
 
-                return isExtensionMethod;
-            }
-            set
-            {
-                isExtensionMethod = value;
-            }
-        }
+        public bool IsStaticMethod => MethodInfo?.IsStatic ?? false;
 
         public List<string> Examples { get; set; } = new List<string>();
 
@@ -109,7 +97,7 @@ namespace WildHare
                 if (parameterArray == null)
                     return null;
 
-                string cSharpStr = string.Join(", ", parameterArray.Select(s => s.FromDotNetTypeToCSharpType()));
+                string cSharpStr = string.Join(", ", parameterArray.Select(s => s.DotNetTypeToCSharpType()));
 
                 return cSharpStr.Replace(new[] { "{", "}", "``0", "``1", "``2" }, new[] { "<", ">", "T1", "T2", "T3" });
             }
@@ -171,7 +159,7 @@ namespace WildHare
             if (startIndex != -1 && endIndex != -1)
             {
                 int length = endIndex - startIndex;
-                string paramStr = temp.Substring(startIndex + 1, length - 1);
+                paramStr = temp.Substring(startIndex + 1, length - 1);
                 parameterArray = paramStr.Split(',');
 
                 return temp.Substring(0, startIndex);
@@ -218,21 +206,45 @@ namespace WildHare
 
         public MethodInfo MethodInfo
         {
+            // TODO - ISSUE HERE IS THAT WE NEED TO PASS IN THE TYPES IN
+            // THE METHOD SIGNATURE, UNFORTUNATELY THE TYPES DESCRIBED IN
+            // THE XML DOCUMENTATION DON'T ALWAYS WORK WHEN USING Type.GetType(name)
+
             get
             {
                 if (CodeElement == "Method" || ClassType != null)
                 {
                     try
                     {
-                        return ClassType.GetMethod(Member);
+                        var types = ToTypeArray(parameterArray);
+
+                        if(types.Length == 0)
+                            ClassType.GetMethod(Member);
+
+                        return ClassType.GetMethod(Member, types);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Debug.WriteLine($"Not able to get MethodInfo for Member: {Member} Parameters: {paramStr}. {ex.Message}");
+
                         return null;
                     }
                 }
                 return null;
             }
+        }
+
+        // Type type = Type.GetType(System.Nullable{System.Boolean})
+
+        private Type[] ToTypeArray(string[] typeNames)
+        {
+            var types = new List<Type>();
+
+            foreach (string name in typeNames)
+            {
+                types.Add(Type.GetType(name));
+            }
+            return types.ToArray();
         }
     }
 }

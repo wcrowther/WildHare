@@ -4,7 +4,7 @@ namespace WildHare.Extensions.ForTemplating
     public static class TemplatingExtensions
     {
 		/// <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
-		public static string FromTSqlTypeToCSharpType(this string sqlTypeName, bool isNull = false)
+		public static string TSqlTypeToCSharpType(this string sqlTypeName, bool isNull = false)
 		{
 			string cstype;
 			string nullable = isNull ? "?" : "";
@@ -44,7 +44,7 @@ namespace WildHare.Extensions.ForTemplating
 		}
 
 		/// <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present,</summary>
-		public static string FromDotNetTypeToCSharpType(this string dotNetTypeName, bool isNull = false)
+		public static string DotNetTypeToCSharpType(this string dotNetTypeName, bool isNull = false)
 		{
 			string cstype;
 			string nullable = isNull ? "?" : "";
@@ -52,6 +52,12 @@ namespace WildHare.Extensions.ForTemplating
             if(dotNetTypeName.StartsWith("System.Nullable{"))
             {
                 dotNetTypeName = dotNetTypeName.RemoveStartEnd("System.Nullable{", "}");
+                nullable = "?";
+            };
+
+            if (dotNetTypeName.EndsWith("?"))
+            {
+                dotNetTypeName = dotNetTypeName.RemoveEnd("?");
                 nullable = "?";
             };
 

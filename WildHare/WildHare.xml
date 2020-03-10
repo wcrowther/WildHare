@@ -7,12 +7,10 @@
         <member name="M:WildHare.Extensions.ConvertExtensions.ToBool(System.String)">
             <summary>Converts string to bool. (case insensitive, defaults to false if string does not parse to true)</summary>
             <returns>An bool value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToBoolNullable(System.String,System.Nullable{System.Boolean})">
             <summary>Converts string to bool. Can be null. (case insensitive)</summary>
             <returns>An bool value</returns>
-            <extensionmethod>true</extensionmethod>
             <documentation>Test1</documentation>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToBool(System.String,System.String,System.Boolean)">
@@ -20,64 +18,71 @@
             <example>"yes".ToBool("yes") return true.</example>
             <example>"Yes".ToBool("yes", false) return false.</example>
             <returns>An bool value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToInt(System.String,System.Int32)">
             <summary>Converts strings to Int.</summary>
             <returns>An int value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToIntNullable(System.String,System.Nullable{System.Int32})">
             <summary>Converts strings to Int if possible</summary>
             <returns>An int value or null</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64)">
             <summary>Converts strings to long</summary>
             <returns>A long value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToLongNullable(System.String,System.Nullable{System.Int64})">
             <summary>Converts strings to long</summary>
             <returns>A long value or null</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToDouble(System.String,System.Double)">
             <summary>Converts strings to double.</summary>
             <returns>An double value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToDoubleNullable(System.String,System.Nullable{System.Double})">
             <summary>Converts strings to double if possible</summary>
             <returns>An double value or null</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToDecimal(System.String,System.Decimal)">
             <summary>Converts strings to Decimal without without having to use an explicit try/catch</summary>
             <returns>A Decimal value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToDecimalNullable(System.String,System.Nullable{System.Decimal})">
             <summary>Converts strings to Decimal if possible</summary>
             <returns>An Decimal value or null</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.DateTime)">
             <summary>Converts strings to DateTime with default if unsuccessful</summary>
             <returns>A DateTime value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.Nullable{System.DateTime})">
             <summary>Converts strings to DateTime with default value of nullable (datetime or null) 
             if unsuccessful</summary>
             <returns>A nullable DateTime value</returns>
-            <extensionmethod>true</extensionmethod>
         </member>
         <member name="M:WildHare.Extensions.DataTableExtensions.DataTableToList``1(System.Data.DataTable)">
             <summary>Converts a DataTable to a list of T</summary>
             <typeparam name="T"></typeparam>
             <param name="table"></param>
             <returns>List{T}</returns>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>Given a DateTime like {date}, get the next {DayOfWeek}, like Sunday, Monday, etc. as DateTime.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime)">
+            <summary>Gets a DateTime for the first day of the month for the given {datetime}.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.FirstDayOfNextMonth(System.DateTime)">
+            <summary>Gets a DateTime for the first day of the next month for the given {datetime}.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.LastDayOfTheMonth(System.DateTime)">
+            <summary>Gets a DateTime for the last day of the next month for the given {datetime}.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.IsInTheSameMonth(System.DateTime,System.DateTime)">
+            <summary>Returns a boolean true if the {datetime} and {target} at in the same month.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime)">
+            <summary>Returns a boolean true if the {datetime} is today or before.</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)">
             <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
@@ -303,10 +308,10 @@
             For the supplied string, replaces all values in the {oldValues} array with those in {newValues} array.</summary>
             <example>Shortcut for y.Replace("cat", "frog").Replace("dog", "bird") etc...</example>.
         </member>
-        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.FromTSqlTypeToCSharpType(System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean)">
             <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
         </member>
-        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.FromDotNetTypeToCSharpType(System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean)">
             <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present,</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaModel(System.Type)">
@@ -337,6 +342,9 @@
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
+        </member>
+        <member name="P:WildHare.MetaModel.IsDictionary">
+            
         </member>
         <member name="T:WildHare.MetaProperty">
             <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
