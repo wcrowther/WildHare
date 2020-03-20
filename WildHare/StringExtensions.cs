@@ -289,7 +289,7 @@ namespace WildHare.Extensions
 
 		/// <summary>Increments integer +1 on the end of a string</summary>
 		/// <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
-		/// <example>'File6.txt'.IncrementString(1,".txt") = 'File1.txt'</example>
+		/// <example>'File6.txt'.IncrementString(1,".txt") = 'File7.txt'</example>
 		/// <returns>A string with end int incremented +1</returns>
 		public static string IncrementString(this string str, int? seedIfEmpty = 1, string ignoreExtension = "", int increment = 1)
 		{

@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Web.Models;
+using static System.Environment;
 
 namespace WildHare.Web
 {
@@ -21,13 +23,17 @@ namespace WildHare.Web
 
 		private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\SqlInserts\";
 		private static readonly string start = "\t"; // Indentation
-		private static readonly string end = Environment.NewLine;
+		private static readonly string end = NewLine;
         private static readonly int randomSeed = 34335;
+        private static readonly int batchSize = 1000;
+
 
         public static string Init()
         {
-            // GenereateSQLInserts<ControlValues>(5002, "ControlValues", "dbo", "ControlValueId", true, true);
-            GenereateSQLInserts<User>(2000, excludeColumns: "Created", identityInsertOn: true);   // Example using temporary private class below
+            GenereateSQLInserts<InvoiceModel>(10000, "Invoices", "dbo", "InvoiceItems", true, true);
+            GenereateSQLInserts<User>(2000, excludeColumns: "Created", identityInsertOn: true, overwrite: false);   // Example using temporary private class below
+            //GenereateSQLInserts<ControlValue>(5002, "ControlValues", "dbo", "ControlValueId", true, false);
+
 
             return "CodeGenSqlRowInsert.Init() complete....";
 		}
@@ -35,7 +41,6 @@ namespace WildHare.Web
         public static bool GenereateSQLInserts<T>( int count, string tableName = null, string schema = null, string excludeColumns = null, 
                                                    bool identityInsertOn = false, bool overwrite = true)
         {
-            int batchSize = 1000;
             var metaModel = typeof(T).GetMetaModel();
             var metaProperties = typeof(T).GetMetaProperties(excludeColumns);
             var rowList = new List<T>().Seed(count, new Random(randomSeed)).ToList();

@@ -288,7 +288,7 @@
         <member name="M:WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable{System.Int32},System.String,System.Int32)">
             <summary>Increments integer +1 on the end of a string</summary>
             <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
-            <example>'File6.txt'.IncrementString(1,".txt") = 'File1.txt'</example>
+            <example>'File6.txt'.IncrementString(1,".txt") = 'File7.txt'</example>
             <returns>A string with end int incremented +1</returns>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32)">
@@ -342,9 +342,6 @@
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
-        </member>
-        <member name="P:WildHare.MetaModel.IsDictionary">
-            
         </member>
         <member name="T:WildHare.MetaProperty">
             <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>

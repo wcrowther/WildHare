@@ -36,75 +36,80 @@ namespace WildHare.Web
         {
 
 			// Get list of table from SQL database
-			sqlTables = GetTablesFromSQL();
+			sqlTables = GetTablesFromSQL("__MigrationHistory");
 
-			// 1) Loop through the tables
-			// ============================================================
-			// a) Generates models for all tables in the database. 
+            // 1) Loop through the tables
+            // ============================================================
+            // a) Generates models for all tables in the database. 
 
-			//foreach (var table in sqlTables)
-			//{
-			//	CreateModelFromSQLTable(table.Key);
-			//}
+            //foreach (var table in sqlTables)
+            //{
+            //    CreateModelFromSQLTable(table.Key);
+            //}
 
-			// 2) Pre-Generate a list of tables - Alternate approach
-			// ============================================================
-			// a) Create a string list of tables to use in this Init(). 
-			// b) ie: generate a string using the modelsToCreate function below and paste it into this Init. 
-			// c) This gives you the ability to remove tables that are not needed. 
-			// d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
+            // 2) Pre-Generate a list of tables - Alternate approach
+            // ============================================================
+            // a) Create a string list of tables to use in this Init(). 
+            // b) ie: generate a string using the modelsToCreate function below and paste it into this Init. 
+            // c) This gives you the ability to remove tables that are not needed. 
+            // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
-			var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
+            // var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
 
-			CreateModelFromSQLTable("Acts", false);
-			CreateModelFromSQLTable("Controls", false);
-			CreateModelFromSQLTable("ControlValues", false);
-			CreateModelFromSQLTable("Description", false);
-			CreateModelFromSQLTable("Layouts", false);
-			CreateModelFromSQLTable("Locations", false);
-			CreateModelFromSQLTable("Tags", false);
-			CreateModelFromSQLTable("Tevents", false);
-			CreateModelFromSQLTable("Timelines", false);
-			CreateModelFromSQLTable("Users", true);
+            CreateModelFromSQLTable("Acts", overwrite:true);
+            CreateModelFromSQLTable("Controls", overwrite: true);
+            CreateModelFromSQLTable("ControlValues", overwrite: true);
+            CreateModelFromSQLTable("Description", overwrite: true);
+            CreateModelFromSQLTable("Layouts", overwrite: true);
+            CreateModelFromSQLTable("Locations", overwrite: true);
+            CreateModelFromSQLTable("Tags", overwrite: true);
+            CreateModelFromSQLTable("Tevents", overwrite: true);
+            CreateModelFromSQLTable("Timelines", "Timeline", overwrite: true);
+            CreateModelFromSQLTable("Users", "User", overwrite: true);
 
-			return "CodeGenFromSql.Init() complete....";
+            return "CodeGenFromSql.Init() complete....";
 		}
 
-		private static ILookup<string, ColumnsSchema> GetTablesFromSQL()
+		private static ILookup<string, ColumnsSchema> GetTablesFromSQL(string exclude = "")
 		{
-			using (var conn = new SqlConnection(sqlConnString))
+            string[] excludeList = exclude.Split(',').Select(a => a.Trim()).ToArray();
+
+            using (var conn = new SqlConnection(sqlConnString))
 			{
 				conn.Open();
 
 				DataTable tables = conn.GetSchema("Columns");
-				var tablesList = tables.DataTableToList<ColumnsSchema>().OrderBy(o => o.Ordinal_Position)
+				var tablesList = tables.DataTableToList<ColumnsSchema>()
+                                .Where(w => !excludeList.Any(e => w.Table_Name == e))
+                                .OrderBy(o => o.Ordinal_Position)
 					            .ToLookup(g => $"{g.Table_Name}");
-
-				return tablesList;
+                return tablesList;
 			};
 		}
 
-		private static bool CreateModelFromSQLTable(string tableName, bool overwrite = true)
+		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
 		{
-			string output =
-			$@"
-				using System;
-				using System.ComponentModel.DataAnnotations;
+            modelName = modelName ?? tableName.RemoveEnd("s");
 
-                // For table: {tableName}
+            string output =  
+                $@"using System;
+                using System.ComponentModel.DataAnnotations;
 
-				namespace {namespaceRoot}.Models
-				{{
-					public class {tableName}
-					{{
-						{ CreateModelPropertiesWithKeys(tableName) }
-					}}
-				}}";
+                // Generated from table: {tableName}
 
-			bool isSuccess = output.RemoveLineIndents(4, "\t")
-					.WriteToFile(($"{outputDir}/{tableName}.cs"), overwrite);
+                namespace {namespaceRoot}.Models
+                {{
+                    public class {modelName}
+                    {{
+                        { CreateModelPropertiesWithKeys(tableName) }
+                    }}
+                }}";
 
-			return isSuccess;
+            bool isSuccess = output.RemoveLineIndents(16)
+                                   .RemoveLineIndents(4, "\t")
+                                   .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
+
+            return isSuccess;
 		}
 
 
@@ -118,6 +123,7 @@ namespace WildHare.Web
 
             var sb = new StringBuilder();
             var dataTable = new DataTable();
+
 
             using (var conn = new SqlConnection(sqlConnString))
             {
@@ -146,9 +152,11 @@ namespace WildHare.Web
                 sb.AppendLine($"{start}public {dataTypeName} {columnName} {{ get; set; }}{end}");
             }
 
+            var pkColumn = dataTable.Columns.Cast<DataColumn>().FirstOrDefault(f => dataTable.PrimaryKey.Contains(f)) ?? dataTable.Columns[0];
+
             sb.AppendLine($"{start}public override string ToString()");
             sb.AppendLine($"{start}{{");
-            sb.AppendLine($"{start}\treturn $\"{ dataTable.Columns[0].ColumnName}: {{{dataTable.Columns[0].ColumnName}}}\";");
+            sb.AppendLine($"{start}\treturn $\"{ pkColumn.ColumnName}: {{{pkColumn.ColumnName}}}\";");
             sb.AppendLine($"{start}}}");
 
             return sb.ToString().RemoveStartEnd(start, end);

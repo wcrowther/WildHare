@@ -15,7 +15,7 @@ namespace WildHare.Web
         /* ==========================================================================
          * DIRECTIONS
          * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE LIKE STARTUP
          * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
          * 
            WildHare.Web.CodeGenAdapters.Init();
@@ -31,6 +31,9 @@ namespace WildHare.Web
             Debug.WriteLine("=".Repeat(50));
             Debug.WriteLine("Running CodeGenAdapters");
             Debug.WriteLine("=".Repeat(50));
+
+            // Generate this list from code from a namespace
+            // string adapterList = GetGeneratorAdapterList();
 
             GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), false);
             GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , false);
@@ -132,7 +135,7 @@ namespace WildHare.Web
 
             foreach (var type in typeList)
             {
-                output += $"\n GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model));";
+                output += $"\n GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model), true);";
             }
 
             return output.TrimStart('\n');

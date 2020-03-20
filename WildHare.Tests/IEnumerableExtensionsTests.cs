@@ -146,6 +146,36 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_ElementInOrDefault_IList_Ints()
+        {
+            int[] numbers = { 0,1,2,3,4,5,6,7,8,9 };
+
+            Assert.AreEqual(0, numbers.ElementInOrDefault(0));
+            Assert.AreEqual(2, numbers.ElementInOrDefault(2));
+            Assert.AreEqual(0, numbers.ElementInOrDefault(10));
+            Assert.AreEqual(5, numbers.ElementInOrDefault(15));
+            Assert.AreEqual(6, numbers.ElementInOrDefault(106));
+            Assert.AreEqual(6, numbers.ElementInOrDefault(1606));
+            Assert.AreEqual(0, numbers.ElementInOrDefault(DateTime.Parse("1/1/2020").Year));
+
+        }
+
+        [Test]
+        public void Test_ElementInOrDefault_IList_Date_To_Int()
+        {
+            int[] numbers = { 1, 2, 3, 4 };
+            var dateYear2018 = DateTime.Parse("1/1/2018").Year;
+            var dateYear2019 = DateTime.Parse("1/1/2019").Year;
+            var dateYear2020 = DateTime.Parse("1/1/2020").Year;
+            var dateYear2021 = DateTime.Parse("1/1/2021").Year;
+
+            Assert.AreEqual(3, numbers.ElementInOrDefault(dateYear2018));
+            Assert.AreEqual(4, numbers.ElementInOrDefault(dateYear2019));
+            Assert.AreEqual(1, numbers.ElementInOrDefault(dateYear2020));
+            Assert.AreEqual(2, numbers.ElementInOrDefault(dateYear2021));
+        }
+
+        [Test]
         public void Test_MatchList_Basic()
         {
             string[] phraseArray = {"the", "president", "of", "the", "united", "states", "is", "a", "politician" };

@@ -23,7 +23,7 @@ namespace WildHare.Extensions
 
 			foreach (var row in table.Rows.Cast<DataRow>())
 			{
-				T obj = new T();
+				var obj = new T();
 				foreach (var typeProperty in typeProperties)
 				{
 					object value = row[typeProperty.PropertyInfo.Name];

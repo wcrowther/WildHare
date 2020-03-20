@@ -30,17 +30,30 @@ namespace WildHare.Tests
 		}
 
 
-		[Test]
-		public void Test_RemoveStartFromAllLines_Basic()
-		{
-			string multiLineText = @"This is a 
+        [Test]
+        public void Test_RemoveStartFromAllLines_Basic()
+        {
+            string multiLineText = @"This is a 
 			sentence 
 			spread across multiple lines.";
 
-			string indentingRemovedText = multiLineText.RemoveStartFromAllLines("\t\t\t");
+            string indentingRemovedText = multiLineText.RemoveStartFromAllLines("\t\t\t");
 
-			Assert.AreEqual("This is a \r\nsentence \r\nspread across multiple lines.", indentingRemovedText);
-		}
+            Assert.AreEqual("This is a \r\nsentence \r\nspread across multiple lines.", indentingRemovedText);
+        }
+
+        [Test]
+        public void Test_RemoveStartFromAllLines_Using_String_Array()
+        {
+            string multiLineText = @"This is a 
+            sentence 
+            spread across 
+            multiple lines.";
+
+            string indentingRemovedText = multiLineText.RemoveStartFromAllLines(new[] { "\t\t\t", "            " });
+
+            Assert.AreEqual("This is a \nsentence \nspread across \nmultiple lines.", indentingRemovedText);
+        }
 
 
         [Test]
@@ -373,6 +386,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
+
 
         [Test]
         public void Test_Dictionary_Aggregate_Replace()

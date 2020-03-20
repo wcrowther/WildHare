@@ -1,14 +1,13 @@
-
 using System;
 using System.ComponentModel.DataAnnotations;
 
-                // For table: Users
+// Generated from table: Users
 
 namespace WildHare.Web.Models
 {
-	public class Users
-	{
-		[Key]
+    public class User
+    {
+        [Key]
 		public int UserId { get; set; }
 
 		[StringLength(100)]
@@ -26,5 +25,5 @@ namespace WildHare.Web.Models
 		{
 			return $"UserId: {UserId}";
 		}
-	}
+    }
 }

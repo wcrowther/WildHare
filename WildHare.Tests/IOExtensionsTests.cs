@@ -18,7 +18,8 @@ namespace WildHare.Tests
         public void Test_WriteToFile_TextFile1()
         {
             string testRoot = XtraExtensions.GetApplicationRoot();
-            string pathToWriteTo = $@"{testRoot}\Helpers\TestFile1.txt";
+            string fileName = "TestFile1.txt";
+            string pathToWriteTo = $@"{testRoot}\TestFiles\{fileName}";
 
             bool fileAlreadyExists = File.Exists(pathToWriteTo);
             Debug.WriteLine($"{fileAlreadyExists}");
@@ -26,7 +27,7 @@ namespace WildHare.Tests
             File.Delete(pathToWriteTo);
             bool notAbleToDeleteExistingFile = File.Exists(pathToWriteTo);
 
-            string sentenceToWrite = "This is the sentence to save to write to file";
+            string sentenceToWrite = $"This is the sentence to write to file '{fileName}'.";
             sentenceToWrite.WriteToFile(pathToWriteTo, false);
 
             var fileAllText = File.ReadAllText(pathToWriteTo);
@@ -40,14 +41,14 @@ namespace WildHare.Tests
         {
             string pathRoot = XtraExtensions.GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\TestFolder";
-            string file = "TestFile.txt";
+            string fileName = "TestFile.txt";
 
-            string fullPath = $"{directoryPath}\\{file}";
-            string testText = "Write to file.";
+            string pathToWriteTo = $@"{directoryPath}\{fileName}";
+            string testText = $"Write to file {fileName}.";
 
-            testText.WriteToFile(fullPath);
+            testText.WriteToFile(pathToWriteTo);
 
-            string fileContents = File.ReadAllText(fullPath);
+            string fileContents = File.ReadAllText(pathToWriteTo);
 
             Assert.AreEqual(fileContents, testText);
 
@@ -55,7 +56,7 @@ namespace WildHare.Tests
             var directory = new DirectoryInfo(directoryPath);
             directory.Delete(true);
 
-            var fileInfo = new FileInfo(fullPath);
+            var fileInfo = new FileInfo(pathToWriteTo);
 
             Assert.IsFalse(fileInfo.Exists);
         }
@@ -64,7 +65,7 @@ namespace WildHare.Tests
         public void Test_GetAllFiles()
         {
             string pathRoot = "C:\\Code\\Trunk\\WildHare\\WildHare.Web";
-            string outputPath = $@"{pathRoot}\AllFiles.txt";
+            string pathToWriteTo = $@"{pathRoot}\AllCssFiles.txt";
             var sb = new StringBuilder();
 
             var allFiles = pathRoot.GetAllFiles().Where(w => w.Extension == ".css");
@@ -74,7 +75,7 @@ namespace WildHare.Tests
                 sb.AppendLine(file.Name);
             }
             string x = sb.ToString();
-            x.WriteToFile(outputPath, true);
+            x.WriteToFile(pathToWriteTo, true);
 
             Assert.AreEqual(4, allFiles.Count());
         }
@@ -86,7 +87,7 @@ namespace WildHare.Tests
 
             string pathRoot = XtraExtensions.GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0";
-            string outputPath = $@"{pathRoot}\TestDirectories.txt";
+            string outputPath = $@"{pathRoot}\TextFiles\TestDirectories.txt";
             var files = new StringBuilder();
             var folders = new StringBuilder();
 
@@ -116,7 +117,7 @@ namespace WildHare.Tests
 
             string pathRoot = XtraExtensions.GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0";
-            string outputPath = $@"{pathRoot}\TestDirectories.txt";
+            string outputPath = $@"{pathRoot}\TextFiles\TestDirectories.txt";
             var files = new StringBuilder();
             var folders = new StringBuilder();
 
@@ -144,7 +145,7 @@ namespace WildHare.Tests
         {
             string pathRoot = XtraExtensions.GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0";
-            string outputPath = $@"{pathRoot}\FileSystemInfos.txt";
+            string outputPath = $@"{pathRoot}\TextFiles\FileSystemInfos.txt";
 
             var allFilesAndFolders = new DirectoryInfo(directoryPath);
             List<FileSystemInfo> list = allFilesAndFolders.GetAllDirectoriesAndFiles();
