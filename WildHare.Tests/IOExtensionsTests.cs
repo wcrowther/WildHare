@@ -73,7 +73,7 @@ namespace WildHare.Tests
             string pathToWriteTo = $@"{pathRoot}\AllCssFiles.txt";
             var sb = new StringBuilder();
 
-            var allFiles = pathRoot.GetAllFiles().Where(w => w.Extension == ".css");
+            var allFiles = pathRoot.GetAllFiles("*.css");
 
             foreach (var file in allFiles)
             {
@@ -177,7 +177,7 @@ namespace WildHare.Tests
             string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\SeedPacketCss.txt";
             string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
             
-            var allFiles = $@"{pathRoot}".GetAllFiles().Where(w => w.Extension == ".cshtml");
+            var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
 
             var sb = new StringBuilder();
 

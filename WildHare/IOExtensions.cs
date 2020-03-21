@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -125,47 +126,56 @@ namespace WildHare.Extensions
         // Only Gets Files
         // ==============================================================================
 
-
-        public static List<FileInfo> GetAllFiles(this string path)
+        public static List<FileInfo> GetAllFiles(this string directoryPath, string searchPattern = "*")
         {
-            var fileList = new List<FileInfo>();
+            var di = new DirectoryInfo(directoryPath);
 
-            EnumerateFiles(path, fileList);
+            var fileList = di.GetFiles(searchPattern, SearchOption.AllDirectories);
 
-            return fileList;
-        }
-
-        internal static void EnumerateFiles(string sFullPath, List<FileInfo> fileInfoList)
-        {
-            try
-            {
-                var di = new DirectoryInfo(sFullPath);
-                FileInfo[] files = di.GetFiles();
-
-                foreach (FileInfo file in files)
-                {
-                    fileInfoList.Add(file);
-                }
-
-                //Scan recursively
-                DirectoryInfo[] dirs = di.GetDirectories();
-
-                if (dirs == null || dirs.Length < 1)
-                {
-                    return;
-                }
-
-                foreach (DirectoryInfo dir in dirs)
-                {
-                    EnumerateFiles(dir.FullName, fileInfoList);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Logger.Write("Exception in Helper.EnumerateFiles", ex);
-
-                Debug.WriteLine($"EnumerateFiles Exception: {ex.Message}" );
-            }
+            return fileList.ToList();
         }
     }
 }
+
+// =================================================================
+// PREVIOUS IMPLEMENTATION OF GETALL FILES - New version is better
+// =================================================================
+//public static List<FileInfo> GetAllFiles(this string path)
+//{
+//    var fileList = new List<FileInfo>();
+//    EnumerateFiles(path, fileList);
+//    return fileList;
+//}
+
+//internal static void EnumerateFiles(string sFullPath, List<FileInfo> fileInfoList)
+//{
+//    try
+//    {
+//        var di = new DirectoryInfo(sFullPath);
+//        FileInfo[] files = di.GetFiles();
+
+//        foreach (FileInfo file in files)
+//        {
+//            fileInfoList.Add(file);
+//        }
+
+//        //Scan recursively
+//        DirectoryInfo[] dirs = di.GetDirectories();
+
+//        if (dirs == null || dirs.Length < 1)
+//        {
+//            return;
+//        }
+
+//        foreach (DirectoryInfo dir in dirs)
+//        {
+//            EnumerateFiles(dir.FullName, fileInfoList);
+//        }
+//    }
+//    catch (Exception ex)
+//    {
+//        // Logger.Write("Exception in Helper.EnumerateFiles", ex);
+
+//        Debug.WriteLine($"EnumerateFiles Exception: {ex.Message}" );
+//    }
+//}
