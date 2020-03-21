@@ -31,6 +31,59 @@ namespace WildHare.Tests
 
 
         [Test]
+        public void Test_Truncate_Basic()
+        {
+            string str = "12345678901234567890123456789012345678901234567890";
+            string result = str.Truncate(10);
+
+            Assert.AreEqual("1234567890...", result);
+        }
+        [Test]
+        public void Test_Truncate_Custom_More()
+        {
+            string str = "12345678901234567890123456789012345678901234567890";
+            string result = str.Truncate(10, "...(truncated)");
+
+            Assert.AreEqual("1234567890...(truncated)", result);
+        }
+
+        [Test]
+        public void Test_Truncate_Exact()
+        {
+            string str = "12345678901234567890123456789012345678901234567890";
+            string result = str.Truncate(10, "", 0);
+
+            Assert.AreEqual("1234567890", result);
+        }
+
+        [Test]
+        public void Test_Truncate_Small_WordCut()
+        {
+            string str = "12345 67890 1234567890";
+            string result = str.Truncate(10);
+
+            Assert.AreEqual("12345...", result);
+        }
+
+        [Test]
+        public void Test_Truncate_Small_WordCut_Case2()
+        {
+            string str = "12345 67890 123456789012345";
+            string result = str.Truncate(12);
+
+            Assert.AreEqual("12345 67890...", result);
+        }
+
+        [Test]
+        public void Test_Truncate_Small_WordCut_Case3()
+        {
+            string str = "12345 678901234567890123456789";
+            string result = str.Truncate(20, "...", 12);
+
+            Assert.AreEqual("12345 67890123456789...", result);
+        }
+
+        [Test]
         public void Test_RemoveStartFromAllLines_Basic()
         {
             string multiLineText = @"This is a 

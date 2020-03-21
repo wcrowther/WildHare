@@ -271,7 +271,7 @@
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.String,System.Int32)">
             <summary>Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter
-             to the end with '...' as the default, if not specified. It will attempt to make the truncation 
+            to the end with '...' as the default. It will attempt to make the truncation 
             at a space or line break, but will search {wordcut} characters before forcing the wordcut.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.ProperCase(System.String,System.Boolean)">

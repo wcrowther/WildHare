@@ -224,15 +224,23 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter
-        ///  to the end with '...' as the default, if not specified. It will attempt to make the truncation 
+        /// to the end with '...' as the default. It will attempt to make the truncation 
         /// at a space or line break, but will search {wordcut} characters before forcing the wordcut.</summary>
-        public static string Truncate(this string input, int maxCharacters, string more = "... ", int wordcut = 12)
+        public static string Truncate(this string input, int maxCharacters, string more = "...", int wordcut = 10)
         {
             int strEnd;
             if (input.Length > maxCharacters)
             {
                 strEnd = input.Trim().LastIndexOfAny(new char[] { ' ', '\n', '\r' }, maxCharacters);
-                if ((maxCharacters - strEnd) > wordcut) strEnd = maxCharacters - wordcut;
+
+                if (strEnd == -1)  // if no space or line found
+                    return input.Substring(0, maxCharacters) + more;
+
+                var charsFromEndOfLastWord = maxCharacters - strEnd;
+
+                if (charsFromEndOfLastWord > wordcut)
+                    strEnd = maxCharacters - wordcut;
+
                 input = input.Substring(0, strEnd).Trim() + more;
             }
             return input;
