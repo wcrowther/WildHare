@@ -9,6 +9,7 @@ using ex = WildHare.Extensions.ExpandoExtensions;
 
 namespace WildHare.Tests
 {
+    // REFERENCE: https ://stackoverflow.com/questions/1653046/what-are-the-true-benefits-of-expandoobject
 
     // Example using ExpandoObject as a cache
     public class Dummy  
@@ -54,8 +55,6 @@ namespace WildHare.Tests
             Assert.AreEqual(7890,   cache.Get<Invoice>("Invoice").AccountId);
             Assert.AreEqual(99.99M, cache.Get<Invoice>("Invoice").InvoiceItems[0].Fee);
             Assert.AreEqual(5678,   cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
-            Assert.AreEqual(3,      cache.Get<Invoice>("Invoice").InvoiceItems.Select(a => a.InvoiceId).Count());
-            Assert.AreEqual(3,      cache.Get<Invoice>("Invoice.InvoiceItems").InvoiceItems.Select(a => a.InvoiceId).Count());
 
             // Inline cast to ExpandoObject alternative
             Assert.AreEqual(1,      ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
@@ -171,5 +170,6 @@ namespace WildHare.Tests
             Assert.AreEqual(3, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceId).Count());
             Assert.AreEqual(1234, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceItemId).First());
         }
+
     }
 }

@@ -1,0 +1,35 @@
+====================================================================================================
+Contact.cshtml - inline styles(1)
+		style: border: solid red 1px;
+====================================================================================================
+Error.cshtml - inline styles(0)
+====================================================================================================
+Index.cshtml - inline styles(3)
+		style: font-weight: bold;
+		style: color: red;
+		style: background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;
+====================================================================================================
+SeedPacket.cshtml - inline styles(3)
+		style: font-weight: bold;
+		style: color: red;
+		style: background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;
+====================================================================================================
+TakeRandom.cshtml - inline styles(1)
+		style: background-color: #bbb; border: solid 1px #ccc; padding: 10px;
+====================================================================================================
+Test1.cshtml - inline styles(1)
+		style: border: solid red 1px; padding: 10px; width: 200px;
+====================================================================================================
+_Layout.cshtml - inline styles(0)
+----------------------------------------------------------------------------------------------------
+		stylesheet: ~/lib/bootstrap/dist/css/bootstrap.css
+		stylesheet: ~/css/site.css
+		stylesheet: https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css
+		stylesheet: ~/css/site.min.css
+====================================================================================================
+_ValidationScriptsPartial.cshtml - inline styles(0)
+====================================================================================================
+_ViewImports.cshtml - inline styles(0)
+====================================================================================================
+_ViewStart.cshtml - inline styles(0)
+====================================================================================================

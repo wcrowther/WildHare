@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.13.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
@@ -14,6 +15,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WildHare\WildHare.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="C:\Users\Will Crowther\.nuget\packages\nunit3testadapter\3.10.0\build\netcoreapp1.0\Mono.Cecil.dll" Link="Mono.Cecil.dll" />
+    <Content Update="C:\Users\Will Crowther\.nuget\packages\nunit3testadapter\3.10.0\build\netcoreapp1.0\nunit.engine.netstandard.dll" Link="nunit.engine.netstandard.dll" />
+    <Content Update="C:\Users\Will Crowther\.nuget\packages\nunit3testadapter\3.10.0\build\netcoreapp1.0\NUnit3.TestAdapter.dll" Link="NUnit3.TestAdapter.dll" />
+    <Content Update="C:\Users\Will Crowther\.nuget\packages\nunit3testadapter\3.10.0\build\netcoreapp1.0\NUnit3.TestAdapter.pdb" Link="NUnit3.TestAdapter.pdb" />
   </ItemGroup>
 
 </Project>

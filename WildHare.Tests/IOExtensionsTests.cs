@@ -1,3 +1,7 @@
+using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -6,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
 
@@ -62,9 +67,9 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_GetAllFiles()
+        public void Test_GetAllCssFiles()
         {
-            string pathRoot = "C:\\Code\\Trunk\\WildHare\\WildHare.Web";
+            string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
             string pathToWriteTo = $@"{pathRoot}\AllCssFiles.txt";
             var sb = new StringBuilder();
 
@@ -72,13 +77,62 @@ namespace WildHare.Tests
 
             foreach (var file in allFiles)
             {
-                sb.AppendLine(file.Name);
+                sb.AppendLine($"{file.Name} length: {file.Length}");
             }
-            string x = sb.ToString();
-            x.WriteToFile(pathToWriteTo, true);
+
+            sb.ToString().WriteToFile(pathToWriteTo, true);
 
             Assert.AreEqual(4, allFiles.Count());
         }
+
+
+        [Test]
+        public void Test_GetAll_CsHtml_Files_And_Parse_With_AngleSharp()
+        {
+            string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
+            string pathToWriteTo = $@"{pathRoot}\AllCsHtmlFiles.txt";
+            var sb = new StringBuilder();
+
+            var allFiles = $@"{pathRoot}\Pages".GetAllFiles().Where(w => w.Extension == ".cshtml");
+
+            // Uses AngleSharp to parse HTML
+            var config = Configuration.Default;
+
+            foreach (var file in allFiles)
+            {
+                string source = File.ReadAllText(file.FullName);
+
+                var parser = new HtmlParser();
+                var doc = parser.ParseDocument(source);
+                var styles = doc.QuerySelectorAll("*[style]");
+
+                sb.AppendLine("=".Repeat(100));
+                sb.AppendLine($"{file.Name} - inline styles({styles.Count()})");
+
+                foreach (var style in styles)
+                {
+                    sb.AppendLine($"\t\tstyle: {style.GetAttribute("style")}");
+                }
+
+                var styleImports = doc.QuerySelectorAll("link[rel=stylesheet]");
+
+                if(styleImports.Count() > 0)
+                    sb.AppendLine("-".Repeat(100));
+
+                foreach (var import in styleImports)
+                {
+                    sb.AppendLine($"\t\tstylesheet: {import.GetAttribute("href")}");
+                }
+            }
+
+            if(allFiles.Count() > 0)
+                sb.AppendLine("=".Repeat(100));
+
+            sb.ToString().WriteToFile(pathToWriteTo, true);
+
+            Assert.AreEqual(10, allFiles.Count());
+        }
+
 
         [Test]
         public void Test_GetFileSystemInfos()

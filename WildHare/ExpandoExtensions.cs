@@ -22,7 +22,7 @@ namespace WildHare.Extensions
         {
             var dictionary = (IDictionary<string, object>)expando;
 
-            return dictionary != null && dictionary.ContainsKey(name) ? (T)dictionary[name] : default;
+            return dictionary != null && dictionary.ContainsKey(name) ? (T)dictionary[name] : default(T);
         }
 
         /// <summary> Gets a string by string {name} but does not throw an exception if it does not exist.
