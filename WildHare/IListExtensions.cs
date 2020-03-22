@@ -10,12 +10,6 @@ namespace WildHare.Extensions
     {
         /// <summary>Will randomly return a list of items from the {sourceList} equal to the {count} (up to the number in the list).<br />
         /// If the {count} is not specified, it will return one. If {remove} is true, the items are removed from the {sourceList}. </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sourceList"></param>
-        /// <param name="count"></param>
-        /// <param name="random"></param>
-        /// <param name="remove"></param>
-        /// <reference>TakeRandom</reference>
         public static IList<T> TakeRandom<T>(this IList<T> sourceList, int count = 1, Random random = null, bool remove = true)
         {
             if (sourceList == null)
@@ -49,15 +43,17 @@ namespace WildHare.Extensions
             return destinationList;
         }
 
+        /// <summary>Will randomly return a single item from the {sourceList}.  If {remove} is true, the item
+        /// is removed from the {sourceList}.
+        public static T TakeRandomOne<T>(this IList<T> sourceList, Random random = null, bool remove = true)
+        {
+            return sourceList.TakeRandom(1, random, remove).FirstOrDefault();
+        }
+
         /// <summary>Will return a sequencial list of items from the {sourceList} equal to the {count}(up to the number<b />
         /// remaining in the list).<br/>If the {count} is not specified, it will return one. If {remove} is true, the items
         /// are removed from the {sourceList}. If {offset} > 0, it will skip this number of records
         /// but will loop back to the beginning if necessary and elements exist.</summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sourceList"></param>
-        /// <param name="count"></param>
-        /// <param name="offset"></param>
-        /// <param name="remove"></param>
         public static IList<T> TakeNext<T>(this IList<T> sourceList, int count = 1, int offset = 0, bool remove = true)
         {
             if (sourceList == null)
@@ -85,6 +81,15 @@ namespace WildHare.Extensions
                 }
             }
             return destinationList;
+        }
+
+        /// <summary>Will return a single item from the {sourceList}  If {remove} is true, the item
+        /// is removed from the {sourceList}. If {offset} > 0, it will skip this number of records
+        /// but will loop back to the beginning if necessary and elements exist.</summary>
+
+        public static T TakeNextOne<T>(this IList<T> sourceList, int offset = 0, bool remove = true)
+        {
+            return sourceList.TakeNext(1, offset, remove).FirstOrDefault();
         }
     }
 }

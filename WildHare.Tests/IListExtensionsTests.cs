@@ -50,6 +50,30 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_TakeRandomOne_With_Remove_True()
+        {
+            var random = new Random(123456);
+
+            var itemList = GetTestList();
+            var randomItem = itemList.TakeRandomOne(random);
+
+            Assert.AreEqual(9, itemList.Count);
+            Assert.AreEqual(3, randomItem.ItemId);
+        }
+
+        [Test]
+        public void Test_TakeRandomOne_With_Remove_False()
+        {
+            var random = new Random(123456);
+
+            var itemList = GetTestList();
+            var randomItem = itemList.TakeRandomOne(random, false);
+
+            Assert.AreEqual(10, itemList.Count);
+            Assert.AreEqual(3, randomItem.ItemId);
+        }
+
+        [Test]
         public void Test_TakeNext_With_Remove_True()
         {
             var itemList = GetTestList();
@@ -95,6 +119,46 @@ namespace WildHare.Tests
 
 
         [Test]
+        public void Test_TakeNext_With_Remove_True_And_Large_Offset()
+        {
+            var itemList = GetTestList();
+            var destinationList = itemList.TakeNext(5, 2022);
+
+            Assert.AreEqual(5, destinationList.Count);
+            Assert.AreEqual(5, itemList.Count);
+
+            Assert.AreEqual(3, destinationList[0].ItemId);
+            Assert.AreEqual(4, destinationList[1].ItemId);
+            Assert.AreEqual(5, destinationList[2].ItemId);
+            Assert.AreEqual(6, destinationList[3].ItemId);
+            Assert.AreEqual(7, destinationList[4].ItemId);
+
+            Assert.AreEqual(1, itemList[0].ItemId);
+            Assert.AreEqual(2, itemList[1].ItemId);
+            Assert.AreEqual(8, itemList[2].ItemId);
+            Assert.AreEqual(9, itemList[3].ItemId);
+            Assert.AreEqual(10, itemList[4].ItemId);
+        }
+
+
+        [Test]
+        public void Test_TakeNext_With_Integers_Remove_True_()
+        {
+            var numbers = new List<int>{1,2,3,4};
+            int offset = 2;
+
+            int first = numbers.TakeNext().Single();
+            int second = numbers.TakeNext(offset: offset).Single();
+            int third = numbers.TakeNext().Single();
+            int fourth = numbers.TakeNext().Single();
+
+            Assert.AreEqual(1, first);
+            Assert.AreEqual(4, second);
+            Assert.AreEqual(2, third);
+            Assert.AreEqual(3, fourth);
+        }
+
+        [Test]
         public void Test_TakeNext_With_Remove_True_And_Offset_Is_Close_To_End_But_Wraps()
         {
             var itemList = GetTestList();
@@ -115,6 +179,50 @@ namespace WildHare.Tests
             Assert.AreEqual(1,  destinationList[2].ItemId);
             Assert.AreEqual(2,  destinationList[3].ItemId);
             Assert.AreEqual(3,  destinationList[4].ItemId);
+        }
+
+        [Test]
+        public void Test_TakeNextOne_With_Remove_True()
+        {
+            var itemList = GetTestList();
+            var nextItem = itemList.TakeNextOne();
+
+            Assert.AreEqual(9, itemList.Count);
+            Assert.AreEqual(1, nextItem.ItemId);
+
+            var nextItem2 = itemList.TakeNextOne();
+
+            Assert.AreEqual(8, itemList.Count);
+            Assert.AreEqual(2, nextItem2.ItemId);
+        }
+
+        [Test]
+        public void Test_TakeNextOne_With_Remove_False()
+        {
+            var itemList = GetTestList();
+            var nextItem = itemList.TakeNextOne(remove: false);
+
+            Assert.AreEqual(10, itemList.Count);
+            Assert.AreEqual(1, nextItem.ItemId);
+
+            var nextItem2 = itemList.TakeNextOne();
+
+            Assert.AreEqual(10, itemList.Count);
+            Assert.AreEqual(2, nextItem2.ItemId);
+        }
+        [Test]
+        public void Test_TakeNextOne_With_Offset_Remove_True()
+        {
+            var itemList = GetTestList();
+            var nextItem = itemList.TakeNextOne(3, true);
+
+            Assert.AreEqual(9, itemList.Count);
+            Assert.AreEqual(4, nextItem.ItemId);
+
+            var nextItem2 = itemList.TakeNextOne();
+
+            Assert.AreEqual(8, itemList.Count);
+            Assert.AreEqual(1, nextItem2.ItemId);
         }
     }
 }

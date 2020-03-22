@@ -151,23 +151,18 @@
         <member name="M:WildHare.Extensions.IListExtensions.TakeRandom``1(System.Collections.Generic.IList{``0},System.Int32,System.Random,System.Boolean)">
             <summary>Will randomly return a list of items from the {sourceList} equal to the {count} (up to the number in the list).<br />
             If the {count} is not specified, it will return one. If {remove} is true, the items are removed from the {sourceList}. </summary>
-            <typeparam name="T"></typeparam>
-            <param name="sourceList"></param>
-            <param name="count"></param>
-            <param name="random"></param>
-            <param name="remove"></param>
-            <reference>TakeRandom</reference>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.IListExtensions.TakeRandomOne``1(System.Collections.Generic.IList{``0},System.Random,System.Boolean)" -->
         <member name="M:WildHare.Extensions.IListExtensions.TakeNext``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,System.Boolean)">
             <summary>Will return a sequencial list of items from the {sourceList} equal to the {count}(up to the number<b />
             remaining in the list).<br/>If the {count} is not specified, it will return one. If {remove} is true, the items
             are removed from the {sourceList}. If {offset} > 0, it will skip this number of records
             but will loop back to the beginning if necessary and elements exist.</summary>
-            <typeparam name="T"></typeparam>
-            <param name="sourceList"></param>
-            <param name="count"></param>
-            <param name="offset"></param>
-            <param name="remove"></param>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.TakeNextOne``1(System.Collections.Generic.IList{``0},System.Int32,System.Boolean)">
+            <summary>Will return a single item from the {sourceList}  If {remove} is true, the item
+            is removed from the {sourceList}. If {offset} > 0, it will skip this number of records
+            but will loop back to the beginning if necessary and elements exist.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)">
             <summary>Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will
