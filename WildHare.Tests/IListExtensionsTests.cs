@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
@@ -142,7 +143,7 @@ namespace WildHare.Tests
 
 
         [Test]
-        public void Test_TakeNext_With_Integers_Remove_True_()
+        public void Test_TakeNext_With_Integers_Remove_True_1()
         {
             var numbers = new List<int>{1,2,3,4};
             int offset = 2;
@@ -156,6 +157,39 @@ namespace WildHare.Tests
             Assert.AreEqual(4, second);
             Assert.AreEqual(2, third);
             Assert.AreEqual(3, fourth);
+        }
+
+        [Test]
+        public void Test_TakeNext_With_Integers_Remove_True_2()
+        {
+            var numbers = new List<int> { 1, 2, 3, 4 };
+            int offset = 1;
+
+            int first = numbers.TakeNext(offset: offset).Single();
+            int second = numbers.TakeNext(offset: offset).Single();
+            int third = numbers.TakeNext(offset: offset).Single();
+            int fourth = numbers.TakeNext(offset: offset).Single();
+
+            Assert.AreEqual(2, first);
+            Assert.AreEqual(3, second);
+            Assert.AreEqual(4, third);
+            Assert.AreEqual(1, fourth);
+        }
+
+        [Test]
+        public void Test_TakeNext_With_Integers_Remove_True_3()
+        {
+            var numbers = new List<int> { 1, 2, 3, 4 };
+            int offset = 61;
+
+            var taken = numbers.TakeNext(4, offset);
+
+            Assert.AreEqual(4, taken.Count());
+
+            Assert.AreEqual(2, taken[0]);
+            Assert.AreEqual(3, taken[1]);
+            Assert.AreEqual(4, taken[2]);
+            Assert.AreEqual(1, taken[3]);
         }
 
         [Test]
@@ -207,8 +241,8 @@ namespace WildHare.Tests
 
             var nextItem2 = itemList.TakeNextOne();
 
-            Assert.AreEqual(10, itemList.Count);
-            Assert.AreEqual(2, nextItem2.ItemId);
+            Assert.AreEqual(9, itemList.Count);
+            Assert.AreEqual(1, nextItem2.ItemId);
         }
         [Test]
         public void Test_TakeNextOne_With_Offset_Remove_True()
@@ -223,6 +257,19 @@ namespace WildHare.Tests
 
             Assert.AreEqual(8, itemList.Count);
             Assert.AreEqual(1, nextItem2.ItemId);
+        }
+
+        [Test]
+        public void Test_()
+        {
+            var numbers = Enumerable.Range(0, 16).ToArray();
+
+            foreach (int number in numbers)
+            {
+                Debug.WriteLine($"{number}: {number % 2}");
+            }
+
+            Assert.AreEqual(16, numbers.Count());
         }
     }
 }

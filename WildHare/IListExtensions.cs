@@ -44,7 +44,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Will randomly return a single item from the {sourceList}.  If {remove} is true, the item
-        /// is removed from the {sourceList}.
+        /// is removed from the {sourceList}.</summary>
         public static T TakeRandomOne<T>(this IList<T> sourceList, Random random = null, bool remove = true)
         {
             return sourceList.TakeRandom(1, random, remove).FirstOrDefault();
@@ -59,6 +59,11 @@ namespace WildHare.Extensions
             if (sourceList == null)
             {
                 throw new Exception("TakeNext Error. The Datasource list is null.");
+            }
+
+            if (offset < 0)
+            {
+                throw new Exception("TakeNext offset values must be 0 or greater.");
             }
 
             var destinationList = new List<T>();
