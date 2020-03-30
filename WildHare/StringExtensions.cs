@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Environment;
 
 namespace WildHare.Extensions
 {
@@ -109,7 +110,7 @@ namespace WildHare.Extensions
         /// (This can be useful for programmatically removing indents from a long string.)</summary>
         public static string RemoveStartFromAllLines(this string input, string start)
         {
-            return string.Join("\n", input.Split('\n').Select(a => a.RemoveStart(start)));
+            return string.Join(NewLine, input.Split(NewLine).Select(a => a.RemoveStart(start)));
         }
 
         /// <summary>Remove the start of line if it exactly matches any string in the {startArray} for all lines in the string. 
@@ -369,6 +370,14 @@ namespace WildHare.Extensions
                 result = result.Replace(oldValues[i], newValues[i]);
             }
             return result;
+        }
+
+        /// <summary>An overload of Split that accepts a single string as separator.</summary>
+        public static string[] Split(this string str, string separator, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+        {
+            string[] s = new string[] { separator };
+            
+            return str.Split(s, options);
         }
     }
 }

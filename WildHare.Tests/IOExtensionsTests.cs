@@ -1,16 +1,10 @@
-using AngleSharp;
-using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
 
@@ -170,16 +164,16 @@ namespace WildHare.Tests
         [Test]
         public void Test_GetAll_CsHtml_Files_And_Parse_With_AngleSharp()
         {
-            //string pathToWriteTo = $@"{pathRoot}\AllCsHtmlFiles.txt";
-            //string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
-            //var allFiles = $@"{pathRoot}\Pages".GetAllFiles().Where(w => w.Extension == ".cshtml");
+            string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
+            string pathToWriteTo = $@"{pathRoot}\AllCsHtmlFiles.txt";
+            var allFiles = $@"{pathRoot}\Pages".GetAllFiles().Where(w => w.Extension == ".cshtml");
 
-            string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\SeedPacketCss.txt";
-            string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
-            
-            var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
+            //string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\SeedPacketCss.txt";
+            //string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
+            //var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
 
             var sb = new StringBuilder();
+            sb.AppendLine("=".Repeat(100) + "\nCSS Report - Style and Stylesheets\n");
 
             foreach (var file in allFiles)
             {
@@ -191,7 +185,7 @@ namespace WildHare.Tests
 
             sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(30, allFiles.Count());  // 10 for WildHare
+            Assert.AreEqual(10, allFiles.Count());  // 10 for WildHare //30 for SeedPacket
         }
 
         // =======================================================================
@@ -203,7 +197,7 @@ namespace WildHare.Tests
             string start = "\t\t   ";
             string source = File.ReadAllText(file.FullName);
 
-            var parser = new HtmlParser();
+            var parser = new HtmlParser(new HtmlParserOptions{ IsKeepingSourceReferences = true });
             var doc = parser.ParseDocument(source);
             var styles = doc.QuerySelectorAll("*[style]");
 
@@ -217,7 +211,9 @@ namespace WildHare.Tests
 
             foreach (var style in styles)
             {
-                sb.AppendLine($"{start}style: {style.GetAttribute("style")}");
+                string lineNumber = $"line {style.SourceReference.Position.Line}";
+
+                sb.AppendLine($"{start}{lineNumber} (style): {style.GetAttribute("style")} ");
             }
 
             // ---------------------------------------------------
@@ -229,7 +225,9 @@ namespace WildHare.Tests
 
             foreach (var import in styleImports)
             {
-                sb.AppendLine($"{start}stylesheet: {import.GetAttribute("href")}");
+                string lineNumber = $"line {import.SourceReference.Position.Line}";
+
+                sb.AppendLine($"{start}{lineNumber} (stylesheet): {import.GetAttribute("href")}");
             }
 
             // ---------------------------------------------------

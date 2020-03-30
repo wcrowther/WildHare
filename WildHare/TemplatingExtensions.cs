@@ -1,4 +1,6 @@
 
+using System.Linq;
+
 namespace WildHare.Extensions.ForTemplating
 {
     public static class TemplatingExtensions
@@ -82,7 +84,9 @@ namespace WildHare.Extensions.ForTemplating
 
                 default: cstype = dotNetTypeName;       break; // do nothing
 			}
-			return (cstype == "string") ? cstype : $"{cstype}{nullable}"; // string? not currently supported
+            string[] nullableIgnoreList = { "string", "object" };
+
+            return nullableIgnoreList.Any(cstype.Contains) ? cstype : $"{cstype}{nullable}"; // string? not currently supported
 		}
 	}
 }

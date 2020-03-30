@@ -1,63 +1,42 @@
+====================================================================================================CSS Report - Style and Stylesheets
+
 ====================================================================================================
-Contact.cshtml - (1 styles)
-		------------------------------------------------------------------------------------------
-		style: border: solid red 1px;
+Pages      Contact.cshtml - (1 inline styles)
+		   ------------------------------------------------------------------------------------------
+		   line 8 (style): border: solid red 1px; 
 ====================================================================================================
-Error.cshtml - (0 styles)
+Pages      Error.cshtml - (0 inline styles)
 ====================================================================================================
-Index.cshtml - (3 styles)
-		------------------------------------------------------------------------------------------
-		style: font-weight: bold;
-		style: color: red;
-		style: background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;
-		------------------------------------------------------------------------------------------
-		line 14: <div>@info.SubTitle</div>
-		line 15: <div>&nbsp;</div>
-		line 26: <div>
-		line 31: <div>@Html.Raw(member.Summary.IfNull().Replace("{", "<b>{").Replace("}", "}</b>"))</div>
-		line 43: <div class="example-div">@ex</div>
-		line 49: <div style="background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;">Some Custom Content</div>
+Pages      Index.cshtml - (3 inline styles)
+		   ------------------------------------------------------------------------------------------
+		   line 20 (style): font-weight: bold; 
+		   line 29 (style): color: red; 
+		   line 50 (style): background-color: ghostwhite; border: solid 1px #ccc; padding: 10px; 
 ====================================================================================================
-SeedPacket.cshtml - (3 styles)
-		------------------------------------------------------------------------------------------
-		style: font-weight: bold;
-		style: color: red;
-		style: background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;
-		------------------------------------------------------------------------------------------
-		line 15: <div>@info.SubTitle</div>
-		line 16: <div>&nbsp;</div>
-		line 27: <div>
-		line 32: <div>@Html.Raw(member.Summary.Replace("{", "<b>{").Replace("}", "}</b>"))</div>
-		line 44: <div class="example-div">@ex</div>
-		line 50: <div style="background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;">Some Custom Content</div>
+Pages      SeedPacket.cshtml - (3 inline styles)
+		   ------------------------------------------------------------------------------------------
+		   line 21 (style): font-weight: bold; 
+		   line 30 (style): color: red; 
+		   line 51 (style): background-color: ghostwhite; border: solid 1px #ccc; padding: 10px; 
 ====================================================================================================
-TakeRandom.cshtml - (1 styles)
-		------------------------------------------------------------------------------------------
-		style: background-color: #bbb; border: solid 1px #ccc; padding: 10px;
-		------------------------------------------------------------------------------------------
-		line 3: <div style="background-color: #bbb; border: solid 1px #ccc; padding: 10px;">Info about TakeRandom...</div>
+Pages      TakeRandom.cshtml - (1 inline styles)
+		   ------------------------------------------------------------------------------------------
+		   line 4 (style): background-color: #bbb; border: solid 1px #ccc; padding: 10px; 
 ====================================================================================================
-Test1.cshtml - (1 styles)
-		------------------------------------------------------------------------------------------
-		style: border: solid red 1px; padding: 10px; width: 200px;
-		------------------------------------------------------------------------------------------
-		line 5: <div style="border: solid red 1px; padding: 10px; width: 200px;">Test 1</div>
+Pages      Test1.cshtml - (1 inline styles)
+		   ------------------------------------------------------------------------------------------
+		   line 6 (style): border: solid red 1px; padding: 10px; width: 200px; 
 ====================================================================================================
-_Layout.cshtml - (0 styles)
-		------------------------------------------------------------------------------------------
-		stylesheet: ~/lib/bootstrap/dist/css/bootstrap.css
-		stylesheet: ~/css/site.css
-		stylesheet: https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css
-		stylesheet: ~/css/site.min.css
-		------------------------------------------------------------------------------------------
-		line 20: <div class="container">
-		line 21: <div class="navbar-header">
-		line 30: <div class="navbar-collapse collapse">
-		line 39: <div class="container body-content">
+Pages      _Layout.cshtml - (0 inline styles)
+		   ------------------------------------------------------------------------------------------
+		   line 9 (stylesheet): ~/lib/bootstrap/dist/css/bootstrap.css
+		   line 10 (stylesheet): ~/css/site.css
+		   line 13 (stylesheet): https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css
+		   line 16 (stylesheet): ~/css/site.min.css
 ====================================================================================================
-_ValidationScriptsPartial.cshtml - (0 styles)
+Pages      _ValidationScriptsPartial.cshtml - (0 inline styles)
 ====================================================================================================
-_ViewImports.cshtml - (0 styles)
+Pages      _ViewImports.cshtml - (0 inline styles)
 ====================================================================================================
-_ViewStart.cshtml - (0 styles)
+Pages      _ViewStart.cshtml - (0 inline styles)
 ====================================================================================================

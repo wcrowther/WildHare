@@ -259,17 +259,17 @@ namespace WildHare.Tests
             Assert.AreEqual(1, nextItem2.ItemId);
         }
 
-        [Test]
-        public void Test_()
-        {
-            var numbers = Enumerable.Range(0, 16).ToArray();
+        //[Test]
+        //public void Test_()
+        //{
+        //    var numbers = Enumerable.Range(0, 16).ToArray();
 
-            foreach (int number in numbers)
-            {
-                Debug.WriteLine($"{number}: {number % 2}");
-            }
+        //    foreach (int number in numbers)
+        //    {
+        //        Debug.WriteLine($"{number}: {number % 2}");
+        //    }
 
-            Assert.AreEqual(16, numbers.Count());
-        }
+        //    Assert.AreEqual(16, numbers.Count());
+        //}
     }
 }

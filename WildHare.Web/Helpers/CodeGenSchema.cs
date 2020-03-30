@@ -66,7 +66,6 @@ namespace WildHare.Web
 				conn.Open();
 				DataTable table = conn.GetSchema(schemaName);
 
-				
 				var schemaString = DisplayDebugData(table);
 				Debug.WriteLine(schemaString); 
 
@@ -100,7 +99,7 @@ namespace WildHare.Web
 
 			foreach (DataColumn col in table.Columns)
 			{
-                bool isNullable = col.AllowDBNull;
+                bool isNullable = col.AllowDBNull && col.DefaultValue is null;
                 output += $"{start}public {col.DataType.Name.DotNetTypeToCSharpType(isNullable)} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
 			}
 
