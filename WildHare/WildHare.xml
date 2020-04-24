@@ -27,6 +27,12 @@
             <summary>Converts strings to Int if possible</summary>
             <returns>An int value or null</returns>
         </member>
+        <member name="M:WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean)">
+            <summary>Conerts a string to an array of ints. With {strict} equals false, the default, 
+            the method will ignore any characters except for numbers, the negative symbol, or commas.
+            With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
+            <returns>int[]</returns>
+        </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64)">
             <summary>Converts strings to long</summary>
             <returns>A long value</returns>

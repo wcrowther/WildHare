@@ -79,7 +79,7 @@ namespace WildHare.Web
 				conn.Open();
 
 				DataTable tables = conn.GetSchema("Columns");
-				var tablesList = tables.DataTableToList<ColumnsSchema>()
+				var tablesList = tables.ToList<ColumnsSchema>()
                                 .Where(w => !excludeList.Any(e => w.Table_Name == e))
                                 .OrderBy(o => o.Ordinal_Position)
 					            .ToLookup(g => $"{g.Table_Name}");

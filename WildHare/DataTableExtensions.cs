@@ -11,7 +11,7 @@ namespace WildHare.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="table"></param>
         /// <returns>List{T}</returns>
-        public static List<T> DataTableToList<T>(this DataTable table) where T : new()
+        public static List<T> ToList<T>(this DataTable table) where T : new()
 		{
 			var list = new List<T>();
 			var typeProperties = typeof(T).GetProperties().Select(propertyInfo => new

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using WildHare.Extensions;
+using WildHare.Tests.Helpers;
 using WildHare.Tests.Models;
 
 namespace WildHare.Tests
@@ -69,6 +70,8 @@ namespace WildHare.Tests
 
             var itemList = GetTestList();
             var randomItem = itemList.TakeRandomOne(random, false);
+
+            itemList.Debugger();
 
             Assert.AreEqual(10, itemList.Count);
             Assert.AreEqual(3, randomItem.ItemId);

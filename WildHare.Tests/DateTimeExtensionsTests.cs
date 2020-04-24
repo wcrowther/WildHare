@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,53 +7,48 @@ using WildHare.Tests.Models;
 
 namespace WildHare.Tests
 {
-	[TestFixture]
-	public class DataTableExtensionsTests
-	{
-		[Test]
-		public void DataTableToListOfObject_Test()
-		{
-			var prescriptionTable = GetPrescriptionTable();
-			var prescriptionList = prescriptionTable.DataTableToList<Prescription>();
+    [TestFixture]
+    public class DateTimeExtensionsTests
+    {
+        [Test]
+        public void DateTime_Next_DayOfWeek()
+        {
+            var date = DateTime.Parse("3/24/2020 12:15:07 AM");
+            var nextSunday = date.NextDayOfWeek(DayOfWeek.Sunday).Date;         
 
-			Assert.AreEqual(prescriptionTable.Rows.Count, prescriptionList.Count);
+            Assert.AreEqual(DateTime.Parse("3/29/2020"), nextSunday);
+        }
 
-		}
+        [Test]
+        public void DateTime_Next_DayOfWeek_When_On_That_Day_And_IncludeCurrentDate_Is_true()
+        {
+            var date = DateTime.Parse("3/29/2020 12:15:07 AM");
+            var nextSunday = date.NextDayOfWeek(DayOfWeek.Sunday, true).Date;
 
-		static DataTable GetPrescriptionTable()
-		{
-			return new DataTable()
-			{
-				Columns = {
-					{ "Dosage",		typeof(int)},
-					{ "Drug",		typeof(string) },
-					{ "Patient",	typeof(string) },
-					{ "Created",	typeof(DateTime) }
-				},
-				Rows = {
-					{ 25, "Indocin", "David", DateTime.Now },
-					{ 50, "Enebrel", "Sam", DateTime.Now },
-					{ 10, "Hydralazine", "Christoff", DateTime.Now },
-					{ 21, "Combivent", "Janet", DateTime.Now },
-					{ 100, "Dilantin", "Melanie", DateTime.Now }
-				}
-			};
-		}
-	}
+            Assert.AreEqual(DateTime.Parse("3/29/2020"), nextSunday);
+        }
 
-	public class Prescription
-	{
-		public int Dosage { get; set; }
+        [Test]
+        public void DateTime_Next_DayOfWeek_When_On_That_Day_And_IncludeCurrentDate_Is_false()
+        {
+            var date = DateTime.Parse("3/29/2020 12:15:07 AM");
+            var nextSunday = date.NextDayOfWeek(DayOfWeek.Sunday).Date;
 
-		public string Drug { get; set; }
+            Assert.AreEqual(DateTime.Parse("4/05/2020"), nextSunday);
+        }
 
-		public string Patient { get; set; }
+        [Test]
+        public void TodayOrBefore_Test()
+        {
+            var yesterday   = DateTime.Today.AddDays(-1);
+            var today       = DateTime.Today;
+            var tomorrow    = DateTime.Today.AddDays(1);
+            var now         = DateTime.Now;
 
-		public DateTime Created { get; set; }
-
-		public override string ToString()
-		{
-			return $"{Patient} Drup: {Drug}";
-		}
-	}
+            Assert.IsTrue(yesterday.TodayOrBefore());
+            Assert.IsTrue(today.TodayOrBefore());
+            Assert.IsTrue(now.TodayOrBefore());
+            Assert.IsFalse(tomorrow.TodayOrBefore());
+        }
+    }
 }

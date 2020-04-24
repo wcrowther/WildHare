@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
+using WildHare.Tests.Helpers;
 
 namespace WildHare.Tests
 {
@@ -77,10 +78,10 @@ namespace WildHare.Tests
         [Test]
         public void Test_Truncate_Small_WordCut_Case3()
         {
-            string str = "12345 678901234567890123456789";
+            string str = "12345 78901234567890123456789";
             string result = str.Truncate(20, "...", 12);
 
-            Assert.AreEqual("12345 67890123456789...", result);
+            Assert.AreEqual("12345 78901234567890...", result);
         }
 
         [Test]
@@ -420,7 +421,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_Parse()
         {
-            string str = "Get.Parse.The.Contents.Of.The.(Inner)Parenthesis";
+            string str = "Parse.The.Contents.Of.The.(Inner)Parenthesis";
             int startIndex = str.IndexOf('(');
             int endIndex = str.IndexOf(')');
 
@@ -431,7 +432,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test__Replace_With_Two_Array_Overload()
+        public void Test_Replace_With_Two_Array_Overload()
         {
             string str = "Favorite animals: cat dog rabbit.";
             string[] old = { "cat", "dog", "rabbit" };

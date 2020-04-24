@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Libs\**" />
+    <EmbeddedResource Remove="Libs\**" />
+    <None Remove="Libs\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.13.0" />
@@ -15,10 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WildHare\WildHare.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Libs\" />
   </ItemGroup>
 
   <ItemGroup>

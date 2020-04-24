@@ -43,13 +43,12 @@ namespace WildHare.Extensions
             return datetime.Date <= DateTime.Today;
         }
 
-        public static DateTime Next(this DateTime date, DayOfWeek dayOfWeek, bool includeCurrentDate = false)
+        public static DateTime NextDayOfWeek(this DateTime date, DayOfWeek dayOfWeek, bool includeCurrentDate = false)
         {
             if (includeCurrentDate && date.DayOfWeek == dayOfWeek)
                 return date;
 
             return date.AddDays(7 - (int)date.DayOfWeek);
         }
-
     }
 }
