@@ -1,8 +1,0 @@
-Directory Directory3a C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1a\Directory2a\Directory3a
-	 File TextFile4.txt C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1a\Directory2a\TextFile4.txt
-Directory Directory2a C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1a\Directory2a
-	 File TestFIle1.txt C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1a\TestFIle1.txt
-	 File TestFile2.txt C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1a\TestFile2.txt
-Directory Directory1a C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1a
-Directory Directory1b C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\Directory1b
-	 File TextFile0.txt C:\Code\Trunk\WildHare\WildHare.Tests\Directory0\TextFile0.txt

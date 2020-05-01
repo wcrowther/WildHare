@@ -1,4 +1,3 @@
-using AngleSharp.Html.Parser;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -159,100 +158,6 @@ namespace WildHare.Tests
             sb.ToString().WriteToFile(outputPath, true);
 
             Assert.AreEqual(8, list.Count());
-        }
-
-        [Test]
-        public void Test_GetAll_CsHtml_Files_And_Parse_With_AngleSharp()
-        {
-            string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
-            string pathToWriteTo = $@"{pathRoot}\AllCsHtmlFiles.txt";
-            var allFiles = $@"{pathRoot}\Pages".GetAllFiles().Where(w => w.Extension == ".cshtml");
-
-            //string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\SeedPacketCss.txt";
-            //string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
-            //var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
-
-            var sb = new StringBuilder();
-            sb.AppendLine("=".Repeat(100) + "\nCSS Report - Style and Stylesheets\n");
-
-            foreach (var file in allFiles)
-            {
-                GetStyleInfoForFile(sb, file);
-            }
-
-            if (allFiles.Count() > 0)
-                sb.AppendLine("=".Repeat(100));
-
-            sb.ToString().WriteToFile(pathToWriteTo, true);
-
-            Assert.AreEqual(10, allFiles.Count());  // 10 for WildHare //30 for SeedPacket
-        }
-
-        // =======================================================================
-        // PRIVATE FUNCTIONS
-        // =======================================================================
-
-        private static void GetStyleInfoForFile(StringBuilder sb, FileInfo file)
-        {
-            string start = "\t\t   ";
-            string source = File.ReadAllText(file.FullName);
-
-            var parser = new HtmlParser(new HtmlParserOptions{ IsKeepingSourceReferences = true });
-            var doc = parser.ParseDocument(source);
-            var styles = doc.QuerySelectorAll("*[style]");
-
-            sb.AppendLine("=".Repeat(100));
-            sb.AppendLine($"{file.Directory.Name,-10} {file.Name} - ({styles.Count()} inline styles)");
-
-            // ---------------------------------------------------
-
-            if (styles.Count() > 0)
-                sb.AppendLine(start + "-".Repeat(90));
-
-            foreach (var style in styles)
-            {
-                string lineNumber = $"line {style.SourceReference.Position.Line}";
-
-                sb.AppendLine($"{start}{lineNumber} (style): {style.GetAttribute("style")} ");
-            }
-
-            // ---------------------------------------------------
-
-            var styleImports = doc.QuerySelectorAll("link[rel=stylesheet]");
-
-            if (styleImports.Count() > 0)
-                sb.AppendLine(start + "-".Repeat(90));
-
-            foreach (var import in styleImports)
-            {
-                string lineNumber = $"line {import.SourceReference.Position.Line}";
-
-                sb.AppendLine($"{start}{lineNumber} (stylesheet): {import.GetAttribute("href")}");
-            }
-
-            // ---------------------------------------------------
-
-            var textLines = source.Split('\n')
-                            .Select((x, lineNum) => $"line {lineNum}: {x.TrimStart()}")
-                            .Where(w => w.Contains("@Styles.Render"))
-                            .Select(s => $"{start}{s.Truncate(150).EnsureEnd("\n")}");
-
-            if (textLines.Count() > 0)
-                sb.AppendLine(start + "-".Repeat(90));
-
-            sb.Append(string.Join("", textLines));
-
-            // ---------------------------------------------------
-
-            var scriptRenderLines = source.Split('\n')
-                            .Select((x, lineNum) => $"line {lineNum}: {x.TrimStart()}")
-                            .Where(w => w.Contains("@Scripts.Render"))
-                            .Select(s => $"{start}{s.Truncate(150).EnsureEnd("\n")}");
-
-            if (scriptRenderLines.Count() > 0)
-                sb.AppendLine(start + "-".Repeat(90));
-
-            sb.Append(string.Join("", scriptRenderLines));
         }
     }
 }

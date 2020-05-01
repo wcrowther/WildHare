@@ -1,43 +1,49 @@
 ====================================================================================================
-CSS Report - Style and Stylesheets
+CSS Report - Style and Stylesheets (generated from IOExtensionTests.cs)
 
 ====================================================================================================
-Pages      Contact.cshtml - (1 inline styles)
+Pages      Contact.cshtml
 		   ------------------------------------------------------------------------------------------
-		   line 8 (style): border: solid red 1px; 
+		   1 inline styles
+		   line 8 : border: solid red 1px; 
 ====================================================================================================
-Pages      Error.cshtml - (0 inline styles)
+Pages      Error.cshtml
 ====================================================================================================
-Pages      Index.cshtml - (3 inline styles)
+Pages      Index.cshtml
 		   ------------------------------------------------------------------------------------------
-		   line 20 (style): font-weight: bold; 
-		   line 29 (style): color: red; 
-		   line 50 (style): background-color: ghostwhite; border: solid 1px #ccc; padding: 10px; 
+		   3 inline styles
+		   line 20 : font-weight: bold; 
+		   line 29 : color: red; 
+		   line 50 : background-color: ghostwhite; border: solid 1px #ccc; padding: 10px; 
 ====================================================================================================
-Pages      SeedPacket.cshtml - (3 inline styles)
+Pages      SeedPacket.cshtml
 		   ------------------------------------------------------------------------------------------
-		   line 21 (style): font-weight: bold; 
-		   line 30 (style): color: red; 
-		   line 51 (style): background-color: ghostwhite; border: solid 1px #ccc; padding: 10px; 
+		   3 inline styles
+		   line 21 : font-weight: bold; 
+		   line 30 : color: red; 
+		   line 51 : background-color: ghostwhite; border: solid 1px #ccc; padding: 10px; 
 ====================================================================================================
-Pages      TakeRandom.cshtml - (1 inline styles)
+Pages      TakeRandom.cshtml
 		   ------------------------------------------------------------------------------------------
-		   line 4 (style): background-color: #bbb; border: solid 1px #ccc; padding: 10px; 
+		   1 inline styles
+		   line 4 : background-color: #bbb; border: solid 1px #ccc; padding: 10px; 
 ====================================================================================================
-Pages      Test1.cshtml - (1 inline styles)
+Pages      Test1.cshtml
 		   ------------------------------------------------------------------------------------------
-		   line 6 (style): border: solid red 1px; padding: 10px; width: 200px; 
+		   1 inline styles
+		   line 6 : border: solid red 1px; padding: 10px; width: 200px; 
 ====================================================================================================
-Pages      _Layout.cshtml - (0 inline styles)
+Pages      _Layout.cshtml
 		   ------------------------------------------------------------------------------------------
-		   line 9 (stylesheet): ~/lib/bootstrap/dist/css/bootstrap.css
-		   line 10 (stylesheet): ~/css/site.css
-		   line 13 (stylesheet): https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css
-		   line 16 (stylesheet): ~/css/site.min.css
+		   4 stylesheets
+		   line 9 : ~/lib/bootstrap/dist/css/bootstrap.css
+		   line 10 : ~/css/site.css
+		   line 13 : https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css
+		   line 16 : ~/css/site.min.css
 ====================================================================================================
-Pages      _ValidationScriptsPartial.cshtml - (0 inline styles)
+Pages      _ValidationScriptsPartial.cshtml
 ====================================================================================================
-Pages      _ViewImports.cshtml - (0 inline styles)
+Pages      _ViewImports.cshtml
 ====================================================================================================
-Pages      _ViewStart.cshtml - (0 inline styles)
+Pages      _ViewStart.cshtml
 ====================================================================================================

@@ -9,7 +9,7 @@ namespace WildHare.Extensions.Xtra
     public static partial class XtraExtensions
     {
 
-        /// <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
+        /// <summary>(EXPERIMENTAL) Returns a list Xml Documentation elements.
         /// Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
         /// an XML file is generated to the file location with all the /// comments (like this one)
         /// that have been written in the your code.</summary>

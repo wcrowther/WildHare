@@ -187,7 +187,7 @@ namespace WildHare.Extensions
         /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         public static string GetStart(this string s, string separator, bool includeSeparator = false)
         {
-            if (s == null || s.IndexOf(separator) == -1)
+            if (s == null)
                 return null;
 
             var sepArray = new string[1] { separator }; // .Split requires string array
@@ -217,6 +217,20 @@ namespace WildHare.Extensions
             for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
             {
                 if (("0123456789" + otherCharacters).IndexOf(input[i]) != -1)
+                {
+                    output.Append(input[i]);
+                }
+            }
+            return output.ToString();
+        }
+
+        /// <summary>Returns a string with only letters and any additional characters in {otherCharacters}.</summary>
+        public static string LettersOnly(this string input, string otherCharacters = "")
+        {
+            var output = new StringBuilder("");
+            for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
+            {
+                if (("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" + otherCharacters).IndexOf(input[i]) != -1)
                 {
                     output.Append(input[i]);
                 }
@@ -288,8 +302,8 @@ namespace WildHare.Extensions
             return Convert.ToChar(s.Substring(i, 1));
         }
 
-		/// <summary>Removes the indent from a block of text. Defaults to am empty space (' ') indent.</summary>
-		public static string RemoveLineIndents(this string output, int number, string indent = " ")
+        /// <summary>Removes the indent from a block of text. Defaults to am empty space (' ') indent.</summary>
+        public static string RemoveLineIndents(this string output, int number, string indent = " ")
 		{
 			string trimAllLines = string.Join( "\n", output.Split('\n').Select( a => a.RemoveStart(indent.Repeat(number))) );
 
