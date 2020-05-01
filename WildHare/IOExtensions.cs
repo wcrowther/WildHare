@@ -11,8 +11,7 @@ namespace WildHare.Extensions
     public static class IOExtensions
     {
         /// <summary>Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will
-        /// overwrite existing file returning a success boolean. It will create the file if it does not exist,
-        /// but will not create the parent folder structure if that is not in place.</summary>
+        /// overwrite existing file returning a success boolean. It will create the file if it does not existe.</summary>
         public static bool WriteToFile(this string stringToWrite, string fileName, bool overwrite = false)
         {
             var file = new FileInfo(fileName);
@@ -21,8 +20,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Writes the {stringToWrite} to the {fileName} FileInfo. If {overwrite} is true, it will
-        /// overwrite existing file returning a success boolean. It will create the file if it does not exist,
-        /// but will not create the parent folder structure if that is not in place.</summary>
+        /// overwrite existing file returning a success boolean. It will create the file if it does not exist.</summary>
         public static bool WriteToFile(this string stringToWrite, FileInfo file, bool overwrite = false)
         {
             if (file.Exists && overwrite == false)

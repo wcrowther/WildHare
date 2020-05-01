@@ -15,7 +15,7 @@ namespace WildHare.Tests.Helpers
                 string s => s,
                 null => null,
                 int i => i.ToString(),
-                object o => JsonConvert.SerializeObject(o, Formatting.Indented)
+                object o => o.ToJson()
             };
             Console.WriteLine(str);
         }
@@ -28,10 +28,16 @@ namespace WildHare.Tests.Helpers
                 string s => s,
                 null => null,
                 int i => i.ToString(),
-                object o => JsonConvert.SerializeObject(o, Formatting.Indented)
+                object o => o.ToJson()
             };
             Debug.WriteLine($"{"-".Repeat(30)}{NewLine}{name}{NewLine}{"-".Repeat(30)}");
             Debug.WriteLine(str);
         }
+
+        public static string ToJson(this object obj, Formatting formatting = Formatting.Indented)
+        {
+            return JsonConvert.SerializeObject(obj, formatting);
+        }
+
     }
 }
