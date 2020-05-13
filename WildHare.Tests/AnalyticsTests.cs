@@ -70,6 +70,55 @@ namespace WildHare.Tests
             Assert.AreEqual(2, allFiles.Count());  // 7 files currently
         }
 
+        [Test]
+        public void Test_Get_ClassTag_List()
+        {
+            string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\Analytics\ClassTagList.txt";
+            string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
+            var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
+
+            var classTags = new List<ClassTag>();
+
+            string start = "\t\t   ";
+            var sb = new StringBuilder();
+
+            sb.AppendLine("=".Repeat(100) + "\nClassTag List  (generated from AnalyticsTests.cs)\n");
+
+            foreach (var file in allFiles)
+            {
+                GetClassTagList(sb, file, classTags);
+            }
+
+            // ---------------------------------------------------
+            // Render ClassTag list
+
+            var groupedClassTags = classTags.OrderBy(o => o.Name)
+                                            .GroupBy(g => g.Name, g => g.Reference,
+                                                    (name, refs) => new ClassTag {  Name = name, References = refs.ToList() }
+                                             );
+            
+            if (groupedClassTags.Count() > 0)
+            {
+                sb.AppendLine(start + "-".Repeat(90));
+                sb.AppendLine($"{start}{groupedClassTags.Count()} class references");
+                sb.AppendLine(start + "-".Repeat(90));
+            }
+
+
+            foreach (var classTag in groupedClassTags)
+            {
+                sb.AppendLine($"{start}{classTag.Name, -40} count: {classTag.References.Count} ");
+            }
+
+
+            if (groupedClassTags.Count() > 0)
+                sb.AppendLine("=".Repeat(100));
+
+            sb.ToString().WriteToFile(pathToWriteTo, true);
+
+            Assert.AreEqual(31, allFiles.Count());  // 10 for WildHare //30 for SeedPacket
+        }
+
 
         // =======================================================================
         // PRIVATE FUNCTIONS
@@ -87,6 +136,7 @@ namespace WildHare.Tests
             sb.AppendLine($"{file.Directory.Name,-10} {file.Name}");
 
             // ---------------------------------------------------
+            // Get inline style info
 
             var styles = doc.QuerySelectorAll("*[style]");
 
@@ -104,6 +154,7 @@ namespace WildHare.Tests
             }
 
             // ---------------------------------------------------
+            // Get stylesheets
 
             var styleImports = doc.QuerySelectorAll("link[rel=stylesheet]");
 
@@ -122,23 +173,31 @@ namespace WildHare.Tests
             }
 
             // ---------------------------------------------------
+            // Get class info
 
-            var classes = doc.QuerySelectorAll("*[class]");
-
-            if (classes.Count() > 0)
+            var classTagList = doc.QuerySelectorAll("*[class]");
+            
+            if (classTagList.Count() > 0)
             {
                 sb.AppendLine(start + "-".Repeat(90));
-                sb.AppendLine($"{start}{classes.Count()} class references");
+                sb.AppendLine($"{start}{classTagList.Count()} class references");
                 sb.AppendLine(start + "-".Repeat(90));
             }
 
-            foreach (var @class in classes)
+            foreach (var classTag in classTagList)
             {
-                string lineNumber = $"line {@class.SourceReference.Position.Line}";
-                sb.AppendLine($"{start}{lineNumber} : {@class.GetAttribute("class")} ");
+                string lineNumber = $"line {classTag.SourceReference.Position.Line}";
+
+                var classTagArray = classTag.GetAttribute("class").Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                foreach (var @class in classTagArray)
+                {
+                    sb.AppendLine($"{start}{lineNumber} : {@class} ");
+                }
             }
+
 
             // ---------------------------------------------------
+            // Get .net Style.Render references
 
             var textLines = source.Split('\n')
                             .Select((x, lineNum) => $"line {lineNum}: {x.TrimStart()}")
@@ -151,6 +210,8 @@ namespace WildHare.Tests
             sb.Append(string.Join("", textLines));
 
             // ---------------------------------------------------
+            // Get .net Scripts.Render references (for js)
+
 
             var scriptRenderLines = source.Split('\n')
                             .Select((x, lineNum) => $"line {lineNum}: {x.TrimStart()}")
@@ -180,6 +241,7 @@ namespace WildHare.Tests
             sb.AppendLine("=".Repeat(100));
 
             //=========================================================================
+            // Get Css for file
 
             var selectorList = new List<Selector>();
 
@@ -193,6 +255,7 @@ namespace WildHare.Tests
             }
 
             //=========================================================================
+            //  Group selectors and write file
 
             var selectorGroups = selectorList.OrderBy(o => o.Main)
                                              .GroupBy(g => g.Type)
@@ -209,6 +272,30 @@ namespace WildHare.Tests
 
             sb.AppendLine("");
         }
+
+        private static void GetClassTagList(StringBuilder sb, FileInfo file, List<ClassTag> classTags)
+        {
+            string source = File.ReadAllText(file.FullName);
+
+            var parser = new HtmlParser(new HtmlParserOptions { IsKeepingSourceReferences = true });
+            var doc = parser.ParseDocument(source);
+            var classTagList = doc.QuerySelectorAll("*[class]");
+
+            // ---------------------------------------------------
+            // Get class info
+
+            foreach (var classTag in classTagList)
+            {
+                var classTagArray = classTag.GetAttribute("class").Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string lineNumber = $"line {classTag.SourceReference.Position.Line}";
+
+                foreach (var @class in classTagArray)
+                {
+                    classTags.Add(new ClassTag { Name = @class, Reference = $"{file.Name} {lineNumber}" });
+                }
+            }
+        }
+
 
         // Get all selectors of a CSS rule
         // ".a, .b, .c" contains 3 selectors ".a", ".b" and ".c"

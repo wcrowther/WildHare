@@ -1,11 +1,10 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Text;
 using WildHare.Extensions;
-using WildHare.Tests.Helpers;
+using static System.Environment;
 
 namespace WildHare.Tests
 {
@@ -93,8 +92,49 @@ namespace WildHare.Tests
 
             string indentingRemovedText = multiLineText.RemoveStartFromAllLines("\t\t\t");
 
-            Assert.AreEqual("This is a \r\nsentence \r\nspread across multiple lines.", indentingRemovedText);
+            Assert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
         }
+
+        [Test]
+        public void Test_IsWhiteSpace_Characters()
+        {
+            char newlineChar    = '\n';
+            char tabChar        = '\t';
+            char returnChar     = '\r';
+
+            Assert.IsTrue(char.IsWhiteSpace(newlineChar));
+            Assert.IsTrue(char.IsWhiteSpace(tabChar));
+            Assert.IsTrue(char.IsWhiteSpace(returnChar));
+        }
+
+        [Test]
+        public void Test_WriteLine_And_Verbatim_String_NewLine_Equality()
+        {
+            string multiLineText = @"This is a 
+            sentence 
+            spread across 
+            multiple lines.";
+
+            var sb1 = new StringBuilder();
+            sb1.Append("This is a \n");
+            sb1.Append("            sentence \n");
+            sb1.Append("            spread across \n");
+            sb1.Append("            multiple lines.");
+
+            var sb2 = new StringBuilder();
+            sb2.AppendLine("This is a ");
+            sb2.AppendLine("            sentence ");
+            sb2.AppendLine("            spread across ");
+            sb2.AppendLine("            multiple lines.");
+
+            string string1 = sb1.ToString();
+            string string2 = sb2.ToString();
+
+            Assert.AreEqual(multiLineText, string1);
+            Assert.AreNotEqual(multiLineText, string2);
+            Assert.AreNotEqual(string1, string2);
+        }
+
 
         [Test]
         public void Test_RemoveStartFromAllLines_Using_String_Array()
@@ -105,10 +145,25 @@ namespace WildHare.Tests
             multiple lines.";
 
             string indentingRemovedText = multiLineText.RemoveStartFromAllLines(new[] { "\t\t\t", "            " });
+            string expected = $"This is a {NewLine}sentence {NewLine}spread across {NewLine}multiple lines.";
 
-            Assert.AreEqual("This is a \nsentence \nspread across \nmultiple lines.", indentingRemovedText);
+            Assert.AreEqual(expected, indentingRemovedText);
         }
 
+        [Test]
+        public void Test_RemoveStartFromAllLines_Using_String_Array_2()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("This is a ");
+            sb.AppendLine("\t\tsentence ");
+            sb.AppendLine("\t\tspread across ");
+            sb.AppendLine("\t\tmultiple lines.");
+
+            string sbText = sb.ToString().RemoveStartFromAllLines(new[] { "\t\t", "            " });
+            string expected = $"This is a {NewLine}sentence {NewLine}spread across {NewLine}multiple lines.";
+
+            Assert.AreEqual(expected, sbText);
+        }
 
         [Test]
         public void Test_String_Repeat_Times_Ten()
@@ -332,7 +387,7 @@ namespace WildHare.Tests
             string str = "Begin_Finish";
             string start = str.GetStart("x");
 
-            Assert.IsNull(start);
+            Assert.AreEqual(str, start);
         }
 
         [Test]

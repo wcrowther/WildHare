@@ -17,7 +17,7 @@ namespace WildHare.Tests
         {
             string testRoot = XtraExtensions.GetApplicationRoot();
             string fileName = "TestFile1.txt";
-            string pathToWriteTo = $@"{testRoot}\TestFiles\{fileName}";
+            string pathToWriteTo = $@"{testRoot}\TextFiles\{fileName}";
 
             bool fileAlreadyExists = File.Exists(pathToWriteTo);
             Debug.WriteLine($"{fileAlreadyExists}");

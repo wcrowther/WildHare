@@ -27,7 +27,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_TakeRandom_With_Remove_True()
         {
-            var random = new Random(123456); 
+            var random = new Random(123456);
 
             var itemList = GetTestList();
             var destinationList = itemList.TakeRandom(5, random);
@@ -96,7 +96,7 @@ namespace WildHare.Tests
             Assert.AreEqual(7, itemList[1].ItemId);
             Assert.AreEqual(8, itemList[2].ItemId);
             Assert.AreEqual(9, itemList[3].ItemId);
-            Assert.AreEqual(10,itemList[4].ItemId);
+            Assert.AreEqual(10, itemList[4].ItemId);
         }
 
         [Test]
@@ -121,7 +121,6 @@ namespace WildHare.Tests
             Assert.AreEqual(10, itemList[4].ItemId);
         }
 
-
         [Test]
         public void Test_TakeNext_With_Remove_True_And_Large_Offset()
         {
@@ -144,11 +143,10 @@ namespace WildHare.Tests
             Assert.AreEqual(10, itemList[4].ItemId);
         }
 
-
         [Test]
         public void Test_TakeNext_With_Integers_Remove_True_1()
         {
-            var numbers = new List<int>{1,2,3,4};
+            var numbers = new List<int> { 1, 2, 3, 4 };
             int offset = 2;
 
             int first = numbers.TakeNext().Single();
@@ -199,7 +197,7 @@ namespace WildHare.Tests
         public void Test_TakeNext_With_Remove_True_And_Offset_Is_Close_To_End_But_Wraps()
         {
             var itemList = GetTestList();
-            var destinationList = itemList.TakeNext(5, 8); 
+            var destinationList = itemList.TakeNext(5, 8);
 
             Assert.AreEqual(5, destinationList.Count);
             Assert.AreEqual(5, itemList.Count);
@@ -211,11 +209,11 @@ namespace WildHare.Tests
             Assert.AreEqual(8, itemList[4].ItemId);
 
             // Takes five elements as it wraps back to the beginning
-            Assert.AreEqual(9,  destinationList[0].ItemId);
+            Assert.AreEqual(9, destinationList[0].ItemId);
             Assert.AreEqual(10, destinationList[1].ItemId);
-            Assert.AreEqual(1,  destinationList[2].ItemId);
-            Assert.AreEqual(2,  destinationList[3].ItemId);
-            Assert.AreEqual(3,  destinationList[4].ItemId);
+            Assert.AreEqual(1, destinationList[2].ItemId);
+            Assert.AreEqual(2, destinationList[3].ItemId);
+            Assert.AreEqual(3, destinationList[4].ItemId);
         }
 
         [Test]
@@ -247,6 +245,7 @@ namespace WildHare.Tests
             Assert.AreEqual(9, itemList.Count);
             Assert.AreEqual(1, nextItem2.ItemId);
         }
+
         [Test]
         public void Test_TakeNextOne_With_Offset_Remove_True()
         {
@@ -262,17 +261,41 @@ namespace WildHare.Tests
             Assert.AreEqual(1, nextItem2.ItemId);
         }
 
-        //[Test]
-        //public void Test_()
-        //{
-        //    var numbers = Enumerable.Range(0, 16).ToArray();
+        [Test]
+        public void Test_GroupBy()
+        {
+            var people = new List<Person>
+            {
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" },
+                new Person { PersonId = 2, FirstName = "Joe", LastName= "Jones" },
+                new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" },
+                new Person { PersonId = 4, FirstName = "Jeff", LastName= "Jones" },
+                new Person { PersonId = 5, FirstName = "Fred", LastName= "Jones" }
+            };
 
-        //    foreach (int number in numbers)
-        //    {
-        //        Debug.WriteLine($"{number}: {number % 2}");
-        //    }
+            // familiesList Type is: System.Linq.GroupedEnumerable<Person,string> (not public?)
+            // familiesList Interface is: IEnumerable<IGrouping<string, Person>>
 
-        //    Assert.AreEqual(16, numbers.Count());
-        //}
+            var familiesList = people.GroupBy(g => g.LastName);
+
+            var famDictionary = familiesList.ToDictionary(g => g.Key, g => g.ToList());
+
+            // simplest, best performance(?)
+            var famLookUp = people.ToLookup(l => l.LastName);
+
+            Assert.AreEqual(5, people.Count());
+            Assert.AreEqual(2, familiesList.Count());
+
+            Assert.AreEqual(2, famDictionary.Count());
+            Assert.AreEqual(2, famDictionary.Values.Count());
+            Assert.AreEqual(2, famDictionary.Keys.Count());
+            Assert.AreEqual(2, famDictionary["Smith"].Count());
+            Assert.AreEqual(3, famDictionary["Jones"].Count());
+
+            Assert.AreEqual(2, famLookUp.Count());
+            Assert.AreEqual(2, famLookUp["Smith"].Count());
+            Assert.AreEqual(3, famLookUp["Jones"].Count());
+            Assert.AreEqual(0, famLookUp["Crowther"].Count());
+        }
     }
 }

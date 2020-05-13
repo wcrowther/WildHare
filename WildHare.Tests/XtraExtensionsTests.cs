@@ -20,11 +20,11 @@ namespace WildHare.Tests
             string applicationRoot	= XtraExtensions.GetApplicationRoot();
 			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-			Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", codeBase);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", localPath);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp2.0", location);
+			Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", codeBase);
+            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", localPath);
+            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", location);
             Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests", applicationRoot);
-            Assert.AreEqual(@"C:\Users\Will Crowther\.nuget\packages\microsoft.testplatform.testhost\15.7.2\lib\netstandard1.5", entryAssembly);
+            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", entryAssembly);
         }
 
         [Test]

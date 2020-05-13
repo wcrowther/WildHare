@@ -22,20 +22,28 @@ Ajax       Index.cshtml
 		   line 26 : col-md-12 
 		   line 31 : row 
 		   line 32 : col-md-12 
-		   line 33 : nextpage pull-right 
-		   line 34 : glyphicon glyphicon-triangle-right 
+		   line 33 : nextpage 
+		   line 33 : pull-right 
+		   line 34 : glyphicon 
+		   line 34 : glyphicon-triangle-right 
 ====================================================================================================
 Ajax       _AjaxExample1.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 5 : table table-striped topSpace table-collapse-sm 
+		   line 5 : table 
+		   line 5 : table-striped 
+		   line 5 : topSpace 
+		   line 5 : table-collapse-sm 
 ====================================================================================================
 Ajax       _AjaxExample1A.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 5 : table table-striped topSpace table-collapse-sm 
+		   line 5 : table 
+		   line 5 : table-striped 
+		   line 5 : topSpace 
+		   line 5 : table-collapse-sm 
 ====================================================================================================
 Extending  Index.cshtml
 		   ------------------------------------------------------------------------------------------
@@ -54,30 +62,42 @@ Extending  Index.cshtml
 		   line 83 : col-md-6 
 		   line 88 : row 
 		   line 89 : col-md-12 
-		   line 90 : nextpage pull-right 
-		   line 91 : glyphicon glyphicon-triangle-right 
+		   line 90 : nextpage 
+		   line 90 : pull-right 
+		   line 91 : glyphicon 
+		   line 91 : glyphicon-triangle-right 
 ====================================================================================================
 Extending  _ExtendingExample1.cshtml
 		   ------------------------------------------------------------------------------------------
 		   3 class references
 		   ------------------------------------------------------------------------------------------
-		   line 4 : row topSpace 
+		   line 4 : row 
+		   line 4 : topSpace 
 		   line 5 : col-md-12 
-		   line 6 : table table table-striped topSpace table-collapse-sm 
+		   line 6 : table 
+		   line 6 : table 
+		   line 6 : table-striped 
+		   line 6 : topSpace 
+		   line 6 : table-collapse-sm 
 ====================================================================================================
 Extending  _ExtendingGeneratorExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   3 class references
 		   ------------------------------------------------------------------------------------------
-		   line 4 : row topSpace 
+		   line 4 : row 
+		   line 4 : topSpace 
 		   line 5 : col-md-12 
-		   line 6 : table table table-striped topSpace 
+		   line 6 : table 
+		   line 6 : table 
+		   line 6 : table-striped 
+		   line 6 : topSpace 
 ====================================================================================================
 Extending  _ExtendingSeedOneExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 9 : seedOne topSpace 
+		   line 9 : seedOne 
+		   line 9 : topSpace 
 ====================================================================================================
 Generator  Index.cshtml
 		   ------------------------------------------------------------------------------------------
@@ -96,26 +116,37 @@ Generator  Index.cshtml
 		   line 85 : col-md-12 
 		   line 90 : row 
 		   line 91 : col-md-12 
-		   line 92 : nextpage pull-right 
-		   line 93 : glyphicon glyphicon-triangle-right 
+		   line 92 : nextpage 
+		   line 92 : pull-right 
+		   line 93 : glyphicon 
+		   line 93 : glyphicon-triangle-right 
 ====================================================================================================
 Generator  _GeneratorCustomDataSource.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 13 : table table table-striped topSpace 
+		   line 13 : table 
+		   line 13 : table 
+		   line 13 : table-striped 
+		   line 13 : topSpace 
 ====================================================================================================
 Generator  _GeneratorCustomizingExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 27 : table table table-striped topSpace table-collapse 
+		   line 27 : table 
+		   line 27 : table 
+		   line 27 : table-striped 
+		   line 27 : topSpace 
+		   line 27 : table-collapse 
 ====================================================================================================
 Home       DynamicView.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 13 : table table-striped topSpace 
+		   line 13 : table 
+		   line 13 : table-striped 
+		   line 13 : topSpace 
 ====================================================================================================
 Home       Index.cshtml
 		   ------------------------------------------------------------------------------------------
@@ -126,7 +157,8 @@ Home       Index.cshtml
 		   28 class references
 		   ------------------------------------------------------------------------------------------
 		   line 4 : row 
-		   line 5 : col-md-offset-4 col-md-8 
+		   line 5 : col-md-offset-4 
+		   line 5 : col-md-8 
 		   line 6 : hotBox 
 		   line 13 : row 
 		   line 14 : col-md-4 
@@ -151,50 +183,73 @@ Home       Index.cshtml
 		   line 112 : col-md-8 
 		   line 117 : row 
 		   line 118 : col-md-12 
-		   line 119 : nextpage pull-right 
-		   line 120 : glyphicon glyphicon-triangle-right 
+		   line 119 : nextpage 
+		   line 119 : pull-right 
+		   line 120 : glyphicon 
+		   line 120 : glyphicon-triangle-right 
 ====================================================================================================
 Home       _DictionaryExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 5 : table table-striped topSpace table-collapse-sm 
+		   line 5 : table 
+		   line 5 : table-striped 
+		   line 5 : topSpace 
+		   line 5 : table-collapse-sm 
 ====================================================================================================
 Home       _HomeBasicExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 9 : table table-striped topSpace table-collapse-sm 
+		   line 9 : table 
+		   line 9 : table-striped 
+		   line 9 : topSpace 
+		   line 9 : table-collapse-sm 
 ====================================================================================================
 Home       _HomeCustomCountExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 5 : table table-striped topSpace table-collapse-sm 
+		   line 5 : table 
+		   line 5 : table-striped 
+		   line 5 : topSpace 
+		   line 5 : table-collapse-sm 
 ====================================================================================================
 Home       _HomeCustomRangeExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 5 : table table-striped topSpace table-collapse-sm 
+		   line 5 : table 
+		   line 5 : table-striped 
+		   line 5 : topSpace 
+		   line 5 : table-collapse-sm 
 ====================================================================================================
 Home       _HomeDefaultsExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 15 : table table-striped topSpace table-collapse-sm 
+		   line 15 : table 
+		   line 15 : table-striped 
+		   line 15 : topSpace 
+		   line 15 : table-collapse-sm 
 ====================================================================================================
 Home       _ParagraphTextExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 5 : table table-striped topSpace table-collapse-sm 
+		   line 5 : table 
+		   line 5 : table-striped 
+		   line 5 : topSpace 
+		   line 5 : table-collapse-sm 
 ====================================================================================================
 Home       _PrimitiveListsExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 3 : table table table-striped topSpace 
+		   line 3 : table 
+		   line 3 : table 
+		   line 3 : table-striped 
+		   line 3 : topSpace 
 ====================================================================================================
 Rows       Index.cshtml
 		   ------------------------------------------------------------------------------------------
@@ -206,8 +261,10 @@ Rows       Index.cshtml
 		   line 37 : col-md-12 
 		   line 42 : row 
 		   line 43 : col-md-12 
-		   line 44 : nextpage pull-right 
-		   line 45 : glyphicon glyphicon-triangle-right 
+		   line 44 : nextpage 
+		   line 44 : pull-right 
+		   line 45 : glyphicon 
+		   line 45 : glyphicon-triangle-right 
 ====================================================================================================
 Rows       _25kRowsExample.cshtml
 		   ------------------------------------------------------------------------------------------
@@ -215,7 +272,11 @@ Rows       _25kRowsExample.cshtml
 		   ------------------------------------------------------------------------------------------
 		   line 9 : row 
 		   line 10 : col-md-12 
-		   line 11 : table accountTable table-striped topSpace table-collapse 
+		   line 11 : table 
+		   line 11 : accountTable 
+		   line 11 : table-striped 
+		   line 11 : topSpace 
+		   line 11 : table-collapse 
 		   line 22 : accountRow 
 		   line 31 : invoice 
 		   line 32 : invoiceHeader 
@@ -234,14 +295,19 @@ Rules      Index.cshtml
 		   line 18 : col-md-12 
 		   line 23 : row 
 		   line 24 : col-md-12 
-		   line 25 : nextpage pull-right 
-		   line 26 : glyphicon glyphicon-triangle-right 
+		   line 25 : nextpage 
+		   line 25 : pull-right 
+		   line 26 : glyphicon 
+		   line 26 : glyphicon-triangle-right 
 ====================================================================================================
 Rules      _RulesAll.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 class references
 		   ------------------------------------------------------------------------------------------
-		   line 8 : table table-striped topSpace table-collapse 
+		   line 8 : table 
+		   line 8 : table-striped 
+		   line 8 : topSpace 
+		   line 8 : table-collapse 
 ====================================================================================================
 Shared     Error.cshtml
 ====================================================================================================
@@ -262,39 +328,47 @@ Shared     _Layout.cshtml
 		   ------------------------------------------------------------------------------------------
 		   1 inline style references
 		   ------------------------------------------------------------------------------------------
-		   line 17 : clear: both; 
+		   line 18 : clear: both; 
 		   ------------------------------------------------------------------------------------------
 		   7 class references
 		   ------------------------------------------------------------------------------------------
-		   line 12 : mainContent 
-		   line 15 : container body-content 
-		   line 24 : badge badge-warning-light widget 
-		   line 25 : visible-xs 
-		   line 26 : visible-sm 
-		   line 27 : visible-md 
-		   line 28 : visible-lg 
+		   line 13 : mainContent 
+		   line 16 : container 
+		   line 16 : body-content 
+		   line 25 : badge 
+		   line 25 : badge-warning-light 
+		   line 25 : widget 
+		   line 26 : visible-xs 
+		   line 27 : visible-sm 
+		   line 28 : visible-md 
+		   line 29 : visible-lg 
 		   ------------------------------------------------------------------------------------------
-		   line 6: @Styles.Render("~/Content/css")
+		   line 7: @Styles.Render("~/Content/css")
 		   ------------------------------------------------------------------------------------------
-		   line 7: @Scripts.Render("~/bundles/jquery")
-		   line 8: @Scripts.Render("~/bundles/modernizr")
-		   line 30: @Scripts.Render("~/bundles/bootstrap")
-		   line 31: @Scripts.Render("~/bundles/ScriptApp")
+		   line 8: @Scripts.Render("~/bundles/jquery")
+		   line 9: @Scripts.Render("~/bundles/modernizr")
+		   line 31: @Scripts.Render("~/bundles/bootstrap")
+		   line 32: @Scripts.Render("~/bundles/ScriptApp")
 ====================================================================================================
 Shared     _NavBar.cshtml
 		   ------------------------------------------------------------------------------------------
 		   17 class references
 		   ------------------------------------------------------------------------------------------
-		   line 2 : navbar navbar-inverse navbar-fixed-top 
+		   line 2 : navbar 
+		   line 2 : navbar-inverse 
+		   line 2 : navbar-fixed-top 
 		   line 3 : container 
 		   line 6 : navbar-header 
-		   line 7 : navbar-toggle collapsed 
+		   line 7 : navbar-toggle 
+		   line 7 : collapsed 
 		   line 8 : sr-only 
 		   line 9 : icon-bar 
 		   line 10 : icon-bar 
 		   line 11 : icon-bar 
-		   line 16 : navbar-collapse collapse 
-		   line 17 : nav navbar-nav 
+		   line 16 : navbar-collapse 
+		   line 16 : collapse 
+		   line 17 : nav 
+		   line 17 : navbar-nav 
 		   line 18 : @Html.ActiveToggle( 
 		   line 19 : @Html.ActiveToggle( 
 		   line 20 : @Html.ActiveToggle( 
@@ -334,27 +408,52 @@ Teams      Index.cshtml
 		   line 17 : byline 
 		   line 20 : row 
 		   line 21 : col-xs-12 
-		   line 22 : elapsedTime pull-right 
+		   line 22 : elapsedTime 
+		   line 22 : pull-right 
 		   line 22 : hidden-xs 
 		   line 27 : row 
-		   line 28 : col-md-offset-6 col-md-6 
+		   line 28 : col-md-offset-6 
+		   line 28 : col-md-6 
 		   line 29 : teamsSeed 
 		   line 36 : form-control 
 		   line 45 : bubble 
-		   line 47 : nav nav-tabs 
-		   line 53 : row gameBox 
-		   line 54 : col-xs-12 sectionHeader 
-		   line 55 : col-xs-12 sectionContent 
-		   line 56 : table table-striped topSpace table-collapse 
-		   line 84 : row gameBox 
-		   line 117 : row gameBox 
-		   line 119 : col-xs-12 topSpace bottomSpace 
-		   line 120 : col-xs-6 conference-box row-no-gutters 
+		   line 47 : nav 
+		   line 47 : nav-tabs 
+		   line 53 : row 
+		   line 53 : gameBox 
+		   line 54 : col-xs-12 
+		   line 54 : sectionHeader 
+		   line 55 : col-xs-12 
+		   line 55 : sectionContent 
+		   line 56 : table 
+		   line 56 : table-striped 
+		   line 56 : topSpace 
+		   line 56 : table-collapse 
+		   line 84 : row 
+		   line 84 : gameBox 
+		   line 117 : row 
+		   line 117 : gameBox 
+		   line 119 : col-xs-12 
+		   line 119 : topSpace 
+		   line 119 : bottomSpace 
+		   line 120 : col-xs-6 
+		   line 120 : conference-box 
+		   line 120 : row-no-gutters 
 		   line 121 : col-xs-3 
-		   line 122 : col-sm-3 col-md-6 col-sm-3 col-lg-3 team-box 
-		   line 127 : col-xs-6 conference-box row-no-gutters 
+		   line 122 : col-sm-3 
+		   line 122 : col-md-6 
+		   line 122 : col-sm-3 
+		   line 122 : col-lg-3 
+		   line 122 : team-box 
+		   line 127 : col-xs-6 
+		   line 127 : conference-box 
+		   line 127 : row-no-gutters 
 		   line 128 : col-xs-3 
-		   line 129 : col-sm-3 col-md-6 col-sm-3 col-lg-3 team-box 
+		   line 129 : col-sm-3 
+		   line 129 : col-md-6 
+		   line 129 : col-sm-3 
+		   line 129 : col-lg-3 
+		   line 129 : team-box 
 ====================================================================================================
 Teams      _Games.cshtml
 		   ------------------------------------------------------------------------------------------
@@ -385,5 +484,9 @@ Teams      _GamesRow.cshtml
 		   ------------------------------------------------------------------------------------------
 		   line 5 : row 
 		   line 6 : col-md-12 
-		   line 7 : table accountTable table-striped topSpace table-collapse 
+		   line 7 : table 
+		   line 7 : accountTable 
+		   line 7 : table-striped 
+		   line 7 : topSpace 
+		   line 7 : table-collapse 
 ====================================================================================================

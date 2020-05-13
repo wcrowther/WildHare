@@ -5,6 +5,6 @@ Directory: Directory3a
 File: TextFile0.txt
 File: TestFIle1.txt
 File: TestFile2.txt
+File: TestFile3.txt
 File: TextFile4.txt
 File: TextFile5.txt
-File: TestFile3.txt

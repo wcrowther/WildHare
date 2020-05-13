@@ -91,7 +91,7 @@
             <summary>Returns a boolean true if the {datetime} is today or before.</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)">
-            <summary>(EXPERIMENTAL) Returns a list the Visual Studio Build Xml Documentation.
+            <summary>(EXPERIMENTAL) Returns a list Xml Documentation elements.
             Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
             an XML file is generated to the file location with all the /// comments (like this one)
             that have been written in the your code.</summary>
@@ -175,13 +175,11 @@
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)">
             <summary>Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will
-            overwrite existing file returning a success boolean. It will create the file if it does not exist,
-            but will not create the parent folder structure if that is not in place.</summary>
+            overwrite existing file returning a success boolean. It will create the file if it does not existe.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.IO.FileInfo,System.Boolean)">
             <summary>Writes the {stringToWrite} to the {fileName} FileInfo. If {overwrite} is true, it will
-            overwrite existing file returning a success boolean. It will create the file if it does not exist,
-            but will not create the parent folder structure if that is not in place.</summary>
+            overwrite existing file returning a success boolean. It will create the file if it does not exist.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.AppendToFile(System.String,System.String)">
             <summary>Writes the {stringToWrite} to the end of the {fileName} content, returning true or false.</summary>
@@ -228,18 +226,20 @@
             and removse the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String)">
-            <summary>Remove the start of line if it exactly matches {start} for all lines in the string. 
-            (This can be useful for programmatically removing indents from a long string.)</summary>
+            <summary>Remove the start of line if it exactly matches {start} for all lines in the string. Normalizes all
+            line returns to Environment.NewLine. This can be useful for programmatically removing indents from long strings.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String[])">
-            <summary>Remove the start of line if it exactly matches any string in the {startArray} for all lines in the string. 
-            (This can be useful for programmatically removing indents from a long string.)</summary>
+            <summary>Remove the start of line if it exactly matches any string in the {startArray} for all lines in the string. Normalizes all line 
+            returns to Environment.NewLine. This can be useful for programmatically removing indents from long strings.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String)">
-            <summary>Remove the end of line if it exactly matches {end} for all lines in the string.</summary>
+            <summary>Remove the end of line if it exactly matches {end} for all lines in the string.
+            Normalizes all line returns to Environment.NewLine.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String[])">
-            <summary>Remove the end of line if it exactly matches any string in the {endArray} for all lines in the string.</summary>
+            <summary>Remove the end of line if it exactly matches any string in the {endArray} for all lines in the string.
+            Normalizes all line returns to Environment.NewLine.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddStart(System.String,System.String)">
             <summary>Adds {addToStart} to the beginning of the string if it is not NULL or EMPTY.</summary>
@@ -317,6 +317,10 @@
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Split(System.String,System.String,System.StringSplitOptions)">
             <summary>An overload of Split that accepts a single string as separator.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Ignore(System.String,System.String)">
+            <summary>Ignores string by returning null if the string {str} equals {str2}.</summary>
+            <example>string field = "*"; var f = field.Ignore("*") ?? "Empty" ex: return "Empty"</example>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean)">
             <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
