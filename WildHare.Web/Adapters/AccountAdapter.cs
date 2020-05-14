@@ -3,8 +3,6 @@ using WildHare.Web.Entities;
 using System.Linq;
 using System.Collections.Generic;
 
-// AccountAdapter.cs
-
 namespace WildHare.Web.Adapters
 { 
     public static partial class Adapter
@@ -13,10 +11,10 @@ namespace WildHare.Web.Adapters
         {
             return entity == null ? null : new AccountModel
             {
-                AccountId = entity.AccountId,
-				AccountName = entity.AccountName,
-				Created = entity.Created,
-				Invoices = entity.Invoices.ToInvoiceModelList()
+                AccountId            = entity.AccountId,
+				AccountName          = entity.AccountName,
+				Created              = entity.Created,
+				Invoices             = entity.Invoices.ToInvoiceModelList()
             };
         }
 
@@ -29,10 +27,10 @@ namespace WildHare.Web.Adapters
         {
             return model == null ? null : new Account
             {
-                AccountId = model.AccountId,
-				AccountName = model.AccountName,
-				Created = model.Created,
-				Invoices = model.Invoices.ToInvoiceList()
+                AccountId            = model.AccountId,
+				AccountName          = model.AccountName,
+				Created              = model.Created,
+				Invoices             = model.Invoices.ToInvoiceList()
             };
         }
 

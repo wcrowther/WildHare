@@ -3,8 +3,6 @@ using WildHare.Web.Entities;
 using System.Linq;
 using System.Collections.Generic;
 
-// InvoiceAdapter.cs
-
 namespace WildHare.Web.Adapters
 { 
     public static partial class Adapter
@@ -13,11 +11,11 @@ namespace WildHare.Web.Adapters
         {
             return entity == null ? null : new InvoiceModel
             {
-                InvoiceId = entity.InvoiceId,
-				AccountId = entity.AccountId,
-				InvoiceDate = entity.InvoiceDate,
-				Created = entity.Created,
-				InvoiceItems = entity.InvoiceItems.ToInvoiceItemModelList()
+                InvoiceId            = entity.InvoiceId,
+				AccountId            = entity.AccountId,
+				InvoiceDate          = entity.InvoiceDate,
+				Created              = entity.Created,
+				InvoiceItems         = entity.InvoiceItems.ToInvoiceItemModelList()
             };
         }
 
@@ -30,11 +28,11 @@ namespace WildHare.Web.Adapters
         {
             return model == null ? null : new Invoice
             {
-                InvoiceId = model.InvoiceId,
-				AccountId = model.AccountId,
-				InvoiceDate = model.InvoiceDate,
-				Created = model.Created,
-				InvoiceItems = model.InvoiceItems.ToInvoiceItemList()
+                InvoiceId            = model.InvoiceId,
+				AccountId            = model.AccountId,
+				InvoiceDate          = model.InvoiceDate,
+				Created              = model.Created,
+				InvoiceItems         = model.InvoiceItems.ToInvoiceItemList()
             };
         }
 

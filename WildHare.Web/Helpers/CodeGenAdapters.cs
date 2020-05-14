@@ -25,6 +25,7 @@ namespace WildHare.Web
         private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\Adapters\";
         private static readonly string mapName1 = "entity";
         private static readonly string mapName2 = "model";
+        private const int pad = -20;
 
         public static string Init()
         {
@@ -35,9 +36,9 @@ namespace WildHare.Web
             // Generate this list from code from a namespace
             // string adapterList = GetGeneratorAdapterList();
 
-            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), false);
-            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , false);
-            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , false);
+            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), true);
+            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , true);
+            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , true);
 
             Debug.WriteLine("=".Repeat(50));
 
@@ -101,16 +102,17 @@ namespace WildHare.Web
             string output = "";
             string start = "\t\t\t\t";
             string end = ",\r\n";
+            int longest = type.GetProperties().Max(m => m.Name.Length) * -1;
 
             foreach (var prop in type.GetProperties())
             {
                 if (toType.GetProperties().Any(a => a.Name.ToLower() == prop.Name.ToLower()))
                 {
-                    output += $"{start}{prop.Name} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}";
+                    output += $"{start}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}";
                 }
                 else
                 {
-                    output += $"// No Match // {start}{prop.Name} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}";
+                    output += $"// No Match // {start}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}";
                 }
             }
             return output.RemoveStartEnd(start, end);
