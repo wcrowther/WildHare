@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-
+    
 // Generated from table: Users
 
 namespace WildHare.Web.Models

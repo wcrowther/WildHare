@@ -34,7 +34,6 @@ namespace WildHare.Web
             GenereateSQLInserts<User>(2000, excludeColumns: "Created", identityInsertOn: true, overwrite: false);   // Example using temporary private class below
             //GenereateSQLInserts<ControlValue>(5002, "ControlValues", "dbo", "ControlValueId", true, false);
 
-
             return "CodeGenSqlRowInsert.Init() complete....";
 		}
 
@@ -43,7 +42,9 @@ namespace WildHare.Web
         {
             var metaModel = typeof(T).GetMetaModel();
             var metaProperties = typeof(T).GetMetaProperties(excludeColumns);
-            var rowList = new List<T>().Seed(count, new Random(randomSeed)).ToList();
+            var rowList =   new List<T>()
+                            .Seed(count, new Random(randomSeed))
+                            .ToList();
 
             tableName = tableName ?? metaModel.TypeName;
             schema = schema ?? "dbo";
@@ -51,13 +52,14 @@ namespace WildHare.Web
             string identity_insert     = identityInsertOn ? $"SET IDENTITY_INSERT [{schema}].[{tableName}]" : "";
             string identity_insert_ON  = identity_insert.AddEnd(" ON");
             string identity_insert_OFF = identity_insert.AddEnd(" OFF");
+            string indent = " ".Repeat(12);
 
             string output =
             $@"
             --===========================================================
             -- Generating Insert Data for {tableName}
             --===========================================================
-
+            
             {identity_insert_ON}
 
             { CreateData(rowList, schema, tableName, metaProperties, batchSize) }
@@ -68,7 +70,9 @@ namespace WildHare.Web
             // OUTPUT ===================================================================
 
             string fileName = $"{tableName}_Insert.sql";
-            bool isSuccess = output.RemoveLineIndents(12).WriteToFile($"{outputDir}{fileName}", overwrite);
+            bool isSuccess = output
+                             .RemoveStartFromAllLines(indent)
+                             .WriteToFile($"{outputDir}{fileName}", overwrite);
 
             LogResult (fileName, isSuccess);
 

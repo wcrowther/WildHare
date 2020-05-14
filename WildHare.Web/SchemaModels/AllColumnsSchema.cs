@@ -1,4 +1,3 @@
-
 using System;
 
 namespace WildHare.Web.SchemaModels
@@ -46,5 +45,6 @@ namespace WildHare.Web.SchemaModels
 		public bool Is_Column_Set { get; set; }
 
 		public bool Is_Filestream { get; set; }
+
 	}
 }

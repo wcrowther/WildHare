@@ -48,9 +48,9 @@ namespace WildHare.Web
         {
             if (env.IsDevelopment())
             {
-                CodeGenAdapters.Init();
+                //CodeGenAdapters.Init();
                 //CodeGenFromSql.Init();
-                //CodeGenSqlRowInsert.Init();
+                CodeGenSqlRowInsert.Init();
                 //CodeGenSchema.Init();
             }
         }

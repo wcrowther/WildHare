@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
+using static System.Environment;
 
 namespace WildHare.Web
 {
@@ -33,10 +34,10 @@ namespace WildHare.Web
 		public static string Init()
         {
 			// List of Various Schemas
-			CreateSqlServerSchemaModel("MetaDataCollections", false);
+			CreateSqlServerSchemaModel("MetaDataCollections", true);
 
-			CreateSqlServerSchemaModel("Columns", false);
-			CreateSqlServerSchemaModel("AllColumns", false);
+			CreateSqlServerSchemaModel("Columns", true);
+			CreateSqlServerSchemaModel("AllColumns", true);
 			CreateSqlServerSchemaModel("ColumnSetColumns", false);
 			CreateSqlServerSchemaModel("StructuredTypeMembers", false);
 			CreateSqlServerSchemaModel("DataTypes", false);
@@ -59,7 +60,8 @@ namespace WildHare.Web
 
 		private static bool CreateSqlServerSchemaModel(string schemaName, bool overwrite = true)
 		{
-			string output = "";
+			string output;
+            string indent = "\t".Repeat(4);
 
 			using (var conn = GetConnection())
 			{
@@ -70,8 +72,7 @@ namespace WildHare.Web
 				Debug.WriteLine(schemaString); 
 
 				output =
-				$@"
-				using System;
+				$@"using System;
 
 				namespace {namespaceRoot}.SchemaModels
 				{{
@@ -84,34 +85,38 @@ namespace WildHare.Web
 				conn.Close();
 			};
 
-			bool isSuccess = output.RemoveLineIndents(4, "\t")
-							.WriteToFile(($"{outputDir}{schemaName}Schema.cs"), overwrite);
-
+			bool isSuccess = output
+                            .RemoveStartFromAllLines(indent)
+                            .WriteToFile(($"{outputDir}{schemaName}Schema.cs"), overwrite);
 
 			return isSuccess;
 		}
 
 		private static string CreateTableClassProperties(DataTable table)
 		{
-			string output = "";
 			string start = "\t\t";
-			string end = "\r\n\r\n";
+			string end = NewLine;
 
-			foreach (DataColumn col in table.Columns)
+            var sb = new StringBuilder();
+
+            foreach (DataColumn col in table.Columns)
 			{
                 bool isNullable = col.AllowDBNull && col.DefaultValue is null;
-                output += $"{start}public {col.DataType.Name.DotNetTypeToCSharpType(isNullable)} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}";
+                string cSharpType = col.DataType.Name.DotNetTypeToCSharpType(isNullable);
+
+                sb.AppendLine( $"{start}public {cSharpType} {col.ColumnName.ProperCase(true)} {{ get; set; }}{end}");
 			}
 
-			return output.RemoveStartEnd(start, end);
+			return sb.ToString().RemoveStartEnd(start, end);
 		}
 
 		// Nest this string in connection using: var schemaString = DisplayDebugData(table);
 		private static string DisplayDebugData(DataTable table)
 		{
 			var sb = new StringBuilder();
+            string line = "-".Repeat(25);
 
-			sb.AppendLine("============================");
+			sb.AppendLine(line);
 
 			foreach (DataRow row in table.Rows)
 			{
@@ -119,7 +124,7 @@ namespace WildHare.Web
 				{
 					sb.AppendLine($"{col.ColumnName} = {row[col]}");
 				}
-				sb.AppendLine("============================");
+				sb.AppendLine(line);
 			}
 			return sb.ToString();
 		}

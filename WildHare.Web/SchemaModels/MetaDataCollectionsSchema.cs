@@ -1,4 +1,3 @@
-
 using System;
 
 namespace WildHare.Web.SchemaModels
@@ -10,5 +9,6 @@ namespace WildHare.Web.SchemaModels
 		public int Numberofrestrictions { get; set; }
 
 		public int Numberofidentifierparts { get; set; }
+
 	}
 }

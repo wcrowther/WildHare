@@ -1,4 +1,3 @@
-
 using System;
 
 namespace WildHare.Web.SchemaModels
@@ -47,9 +46,5 @@ namespace WildHare.Web.SchemaModels
 
 		public bool Is_Filestream { get; set; }
 
-		public override string ToString()
-		{
-			return $"{Table_Catalog} {Table_Schema}.{Column_Name}";
-		}
 	}
 }

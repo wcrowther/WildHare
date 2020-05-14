@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using WildHare.Extensions;
 using WildHare.Web.Entities;
 using WildHare.Web.Models;
@@ -36,9 +37,9 @@ namespace WildHare.Web
             // Generate this list from code from a namespace
             // string adapterList = GetGeneratorAdapterList();
 
-            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), true);
-            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , true);
-            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , true);
+            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), false);
+            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , false);
+            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , false);
 
             Debug.WriteLine("=".Repeat(50));
 
@@ -49,6 +50,7 @@ namespace WildHare.Web
         {
             string class1 = type1.Name;
             string class2 = type2.Name;
+            string indent = "\t".Repeat(4);
             string adapterName = $"{class1}Adapter.cs";
 
             string output =
@@ -89,7 +91,9 @@ namespace WildHare.Web
                 }}
             }}";
 
-            bool isSuccess = output.RemoveLineIndents(12).WriteToFile($"{outputDir}{adapterName}", overwrite);
+            bool isSuccess = output
+                             .RemoveStartFromAllLines(indent)
+                             .WriteToFile($"{outputDir}{adapterName}", overwrite);
 
             if (isSuccess)
                 Debug.WriteLine($"Generated file {adapterName} in {outputDir}.");
@@ -131,16 +135,16 @@ namespace WildHare.Web
 
         public static string GetGeneratorAdapterList() // Use this string to set up models in CodeGen constructor
         {
-            string output = "";           
+            var sb = new StringBuilder();         
             var assembly = Assembly.Load("WildHare.Web");
             var typeList = assembly.GetTypesInNamespace("WildHare.Web.Entities");
 
             foreach (var type in typeList)
             {
-                output += $"\n GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model), true);";
+                sb.AppendLine($"\n GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model), true);");
             }
 
-            return output.TrimStart('\n');
+            return sb.ToString();
         }
     }
 }

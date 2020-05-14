@@ -90,24 +90,25 @@ namespace WildHare.Web
 		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
 		{
             modelName = modelName ?? tableName.RemoveEnd("s");
+            string indent = " ".Repeat(12);
 
             string output =  
-                $@"using System;
-                using System.ComponentModel.DataAnnotations;
+            $@"using System;
+            using System.ComponentModel.DataAnnotations;
+    
+            // Generated from table: {tableName}
 
-                // Generated from table: {tableName}
-
-                namespace {namespaceRoot}.Models
+            namespace {namespaceRoot}.Models
+            {{
+                public class {modelName}
                 {{
-                    public class {modelName}
-                    {{
-                        { CreateModelPropertiesWithKeys(tableName) }
-                    }}
-                }}";
+                    { CreateModelPropertiesWithKeys(tableName) }
+                }}
+            }}";
 
-            bool isSuccess = output.RemoveLineIndents(16)
-                                   .RemoveLineIndents(4, "\t")
-                                   .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
+            bool isSuccess = output
+                             .RemoveStartFromAllLines(indent)
+                             .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
 
             return isSuccess;
 		}

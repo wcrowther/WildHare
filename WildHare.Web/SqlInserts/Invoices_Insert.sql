@@ -1,10 +1,8 @@
-
 --===========================================================
 -- Generating Insert Data for Invoices
 --===========================================================
 
 SET IDENTITY_INSERT [dbo].[Invoices] ON
-
 
 INSERT [dbo].[Invoices] (
     [InvoiceId],[AccountId],[InvoiceDate],[Created]
@@ -10065,6 +10063,5 @@ VALUES
 	(9999, 9999, CAST('1/15/2018 5:00:00 PM' AS DateTime2), CAST('7/26/2021 2:00:00 PM' AS DateTime2)),
 	(10000, 10000, CAST('12/10/2020 3:00:00 PM' AS DateTime2), CAST('3/5/2020 12:00:00 AM' AS DateTime2))
 GO
-
 
 SET IDENTITY_INSERT [dbo].[Invoices] OFF
