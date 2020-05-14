@@ -289,9 +289,6 @@
         <member name="M:WildHare.Extensions.StringExtensions.CharAt(System.String,System.Int32)">
             <summary>Returns the character at the position {i}.</summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.RemoveLineIndents(System.String,System.Int32,System.String)">
-            <summary>Removes the indent from a block of text. Defaults to am empty space (' ') indent.</summary>
-        </member>
         <member name="M:WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable{System.Int32},System.String,System.Int32)">
             <summary>Increments integer +1 on the end of a string</summary>
             <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>

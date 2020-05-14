@@ -304,14 +304,6 @@ namespace WildHare.Extensions
             return Convert.ToChar(s.Substring(i, 1));
         }
 
-        /// <summary>Removes the indent from a block of text. Defaults to am empty space (' ') indent.</summary>
-        public static string RemoveLineIndents(this string output, int number, string indent = " ")
-		{
-			string trimAllLines = string.Join( "\n", output.Split('\n').Select( a => a.RemoveStart(indent.Repeat(number))) );
-
-			return trimAllLines;
-		}
-
 		/// <summary>Increments integer +1 on the end of a string</summary>
 		/// <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
 		/// <example>'File6.txt'.IncrementString(1,".txt") = 'File7.txt'</example>
