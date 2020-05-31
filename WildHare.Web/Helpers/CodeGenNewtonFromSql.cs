@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
@@ -10,22 +11,14 @@ using static System.Environment;
 
 namespace WildHare.Web
 {
-	public static class CodeGenFromSql
+	public static class CodeGenNewtonFromSql
     {
-		/* ==========================================================================
-         * DIRECTIONS
-         * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE
-         * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
-         * 
-           WildHare.Web.CodeGenFromSql.Init();
-        ========================================================================== */
 
 		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
-		private static readonly string namespaceRoot = "WildHare.Web";
-		private static readonly string outputDir     = @"C:\Code\Trunk\WildHare\WildHare.Web\GeneratedModels\";
-		private static readonly string sqlConnString = "Data Source=Behemoth;Initial Catalog=Tevents;Connect Timeout=30;Persist Security Info=True;MultipleActiveResultSets=True;User ID=Tevents_User;Password=!london!";
+		private static readonly string namespaceRoot = "Me.Logic";
+		private static readonly string outputDir     = @"C:\Code\Trunk\WildHare\WildHare.Web\NewtonModels\";
+		private static readonly string sqlConnString = "Data Source=Behemoth;Initial Catalog=Newton;Connect Timeout=30;Persist Security Info=True;MultipleActiveResultSets=True;User ID=Newton_User;Password=!london!";
 
 		private static readonly string start = "\t\t"; // Indentation
         private static readonly string end = NewLine;
@@ -54,18 +47,29 @@ namespace WildHare.Web
             // c) This gives you the ability to remove tables that are not needed. 
             // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
-            // var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
+            var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", overwrite: true);"));
+            Debug.Write(NewLine + modelsToCreate + NewLine.Repeat(2));
 
-            CreateModelFromSQLTable("Acts", overwrite:true);
-            CreateModelFromSQLTable("Controls", overwrite: true);
-            CreateModelFromSQLTable("ControlValues", overwrite: true);
-            CreateModelFromSQLTable("Description", overwrite: true);
-            CreateModelFromSQLTable("Layouts", overwrite: true);
-            CreateModelFromSQLTable("Locations", overwrite: true);
-            CreateModelFromSQLTable("Tags", overwrite: true);
-            CreateModelFromSQLTable("Tevents", overwrite: true);
-            CreateModelFromSQLTable("Timelines", "Timeline", overwrite: true);
-            CreateModelFromSQLTable("Users", "User", overwrite: true);
+            CreateModelFromSQLTable("Abstract", overwrite:  false);
+            CreateModelFromSQLTable("Categories", "Category", overwrite:  false);
+            CreateModelFromSQLTable("ComplexWords", overwrite:  false);
+            CreateModelFromSQLTable("ComplexWordsDetail", overwrite:  false);
+            CreateModelFromSQLTable("ComplexWordToken", overwrite:  false);
+            CreateModelFromSQLTable("Encrypted", overwrite:  false);
+            CreateModelFromSQLTable("Features", overwrite:  false);
+            CreateModelFromSQLTable("LinkProperties", overwrite:  false);
+            CreateModelFromSQLTable("LinkToAbstract", overwrite:  false);
+            CreateModelFromSQLTable("Pattern", overwrite:  false);
+            CreateModelFromSQLTable("PatternDetail", overwrite:  false);
+            CreateModelFromSQLTable("SymbolRule", overwrite:  false);
+            CreateModelFromSQLTable("TestCase", overwrite:  false);
+            CreateModelFromSQLTable("TestCaseType", overwrite:  false);
+            CreateModelFromSQLTable("TestResult", overwrite:  false);
+            CreateModelFromSQLTable("TestRun", overwrite:  false);
+            CreateModelFromSQLTable("Token", overwrite:  false);
+            CreateModelFromSQLTable("TokenProperty", overwrite:  false);
+            CreateModelFromSQLTable("Word", overwrite:  false);
+            CreateModelFromSQLTable("WordToken", overwrite:  false);
 
             return "CodeGenFromSql.Init() complete....";
 		}
@@ -89,7 +93,7 @@ namespace WildHare.Web
 
 		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
 		{
-            modelName = modelName ?? tableName.RemoveEnd("s");
+            modelName = modelName ?? tableName.RemoveEnd("s");;
             string indent = " ".Repeat(12);
 
             string output =  

@@ -10,18 +10,8 @@ using static System.Environment;
 
 namespace WildHare.Web
 {
-	public static class CodeGenFromSql
+	public static class CodeGenFromConfig
     {
-		/* ==========================================================================
-         * DIRECTIONS
-         * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE
-         * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
-         * 
-           WildHare.Web.CodeGenFromSql.Init();
-        ========================================================================== */
-
-		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
 		private static readonly string namespaceRoot = "WildHare.Web";
 		private static readonly string outputDir     = @"C:\Code\Trunk\WildHare\WildHare.Web\GeneratedModels\";
@@ -35,39 +25,8 @@ namespace WildHare.Web
 		public static string Init()
         {
 
-			// Get list of table from SQL database
-			sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
 
-            // 1) Loop through the tables
-            // ============================================================
-            // a) Generates models for all tables in the database. 
-
-            //foreach (var table in sqlTables)
-            //{
-            //    CreateModelFromSQLTable(table.Key);
-            //}
-
-            // 2) Pre-Generate a list of tables - Alternate approach
-            // ============================================================
-            // a) Create a string list of tables to use in this Init(). 
-            // b) ie: generate a string using the modelsToCreate function below and paste it into this Init. 
-            // c) This gives you the ability to remove tables that are not needed. 
-            // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
-
-            // var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
-
-            CreateModelFromSQLTable("Acts", overwrite:true);
-            CreateModelFromSQLTable("Controls", overwrite: true);
-            CreateModelFromSQLTable("ControlValues", overwrite: true);
-            CreateModelFromSQLTable("Description", overwrite: true);
-            CreateModelFromSQLTable("Layouts", overwrite: true);
-            CreateModelFromSQLTable("Locations", overwrite: true);
-            CreateModelFromSQLTable("Tags", overwrite: true);
-            CreateModelFromSQLTable("Tevents", overwrite: true);
-            CreateModelFromSQLTable("Timelines", "Timeline", overwrite: true);
-            CreateModelFromSQLTable("Users", "User", overwrite: true);
-
-            return "CodeGenFromSql.Init() complete....";
+            return "CodeGenFromConfig.Init() complete....";
 		}
 
 		private static ILookup<string, ColumnsSchema> GetTablesFromSQL(string exclude = "")

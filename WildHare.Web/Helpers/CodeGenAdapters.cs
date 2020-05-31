@@ -8,6 +8,7 @@ using System.Text;
 using WildHare.Extensions;
 using WildHare.Web.Entities;
 using WildHare.Web.Models;
+using static System.Environment;
 
 namespace WildHare.Web
 {
@@ -35,7 +36,10 @@ namespace WildHare.Web
             Debug.WriteLine("=".Repeat(50));
 
             // Generate this list from code from a namespace
-            // string adapterList = GetGeneratorAdapterList();
+            string adapterList = GetGeneratorAdapterList();
+            Debug.Write(adapterList);
+
+            // Copy and paste list here if wanted.
 
             GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), false);
             GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , false);
@@ -141,10 +145,10 @@ namespace WildHare.Web
 
             foreach (var type in typeList)
             {
-                sb.AppendLine($"\n GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model), true);");
+                sb.AppendLine($"GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model), true);");
             }
 
-            return sb.ToString();
+            return sb.ToString().AddEnd(NewLine);
         }
     }
 }

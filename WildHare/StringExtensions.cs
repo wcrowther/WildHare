@@ -134,22 +134,22 @@ namespace WildHare.Extensions
             return string.Join(NewLine, input.Split('\n').Select(a => a.RemoveEnd("\r").RemoveEnd(endArray)));
         }
 
-        /// <summary>Adds {addToStart} to the beginning of the string if it is not NULL or EMPTY.</summary>
+        /// <summary>Adds {addToStart} to the beginning of the string if string {s} is not NULL or EMPTY.</summary>
         public static string AddStart(this string s, string addToStart)
         {
             string str = s ?? "";
             return (str.Trim().Length > 0) ? (addToStart + str) : s;
         }
 
-        /// <summary>Adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
+        /// <summary>Adds {addToEnd} to the end of the string if string {s} is not NULL or EMPTY.</summary>
         public static string AddEnd(this string s, string addToEnd)
         {
             string str = s ?? "";
             return (str.Trim().Length > 0) ? (str + addToEnd) : s;
         }
 
-        /// <summary>Adds {addToEnd} to the beginning of the string if it does not start with that string AND
-        /// adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
+        /// <summary>Adds {addToStart} to the beginning of the string and {addToEnd} to the end of the string {s} if is not NULL or EMPTY.
+        /// If {addToEnd} is NULL, adds {addToStart} to both the start and end..</summary>
         public static string AddStartEnd(this string s, string addToStart, string addToEnd = null)
         {
             string str = s ?? "";
@@ -174,7 +174,7 @@ namespace WildHare.Extensions
 
         /// <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
         /// adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
-        /// is null, adds {addToStart} to both the start and end.</summary>
+        /// is NULL, adds {addToStart} to both the start and end.</summary>
         public static string EnsureStartEnd(this string s, string addToStart, string addToEnd = null)
         {
             if (s == null) return null;
