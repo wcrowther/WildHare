@@ -38,7 +38,7 @@ namespace WildHare.Extensions
             return new DateTime(datetime.Year, datetime.Month, daysInMonth);
         }
 
-        /// <summary>Returns a boolean true if the {datetime} and {target} at in the same month.</summary>
+        /// <summary>Returns a boolean true if the {datetime} and {target} are in the same month.</summary>
         public static bool IsInTheSameMonth(this DateTime datetime, DateTime target)
         {
             return datetime >= target.FirstDayOfTheMonth() && datetime < target.FirstDayOfNextMonth();
