@@ -1,0 +1,57 @@
+@page
+@using WildHare.Extensions
+@using WildHare.Extensions.Xtra
+@using Newtonsoft.Json.Linq
+
+
+@model DocumentationModel
+@{
+    ViewData["Title"] = "Home page";
+
+    var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
+    var WildHareList = "C:\\Code\\Trunk\\WildHare\\WildHare\\WildHare.xml".GetXmlDocumentation();
+    var groupList = from s in WildHareList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
+}
+
+<h2>@info.Title</h2>
+<div>@info.SubTitle</div>
+<div>&nbsp;</div>
+
+
+@foreach (var groupedList in groupList) //.Where(w => !w.Key.StartsWith("SeedPacketCore.Properties")))
+{
+    <h3 style="font-weight: bold;">@groupedList.Key</h3>
+    <br />
+    int i = 0;
+
+    @foreach (var member in groupedList)
+    {
+        i++;
+        <div>
+            <h4>
+                <b style="color: red;">@member.ToString()</b> : @member.CodeElement
+            </h4>
+        </div>
+        <div>@Html.Raw(member.Summary.IfNull().Replace("{", "<b>{").Replace("}", "}</b>"))</div>
+        <br />
+
+        @if (!member.Reference.IsNullOrEmpty())
+        {
+            @Html.Partial(member.Reference)
+        }
+
+        @if (@member.Examples.Any())
+        {
+            foreach (var ex in member.Examples)
+            {
+                <div class="example-div">@ex</div>
+            }
+        }
+
+        @if (member.Member == "ToLong") // Inline content
+        {
+            <div style="background-color: ghostwhite; border: solid 1px #ccc; padding: 10px;">Some Custom Content</div>
+            <br />
+        }
+    }
+}

@@ -5,7 +5,6 @@ namespace WildHare.Extensions
 {
     public static class ConvertExtensions
     {
-
         /// <summary>Converts string to bool. (case insensitive, defaults to false if string does not parse to true)</summary>
         /// <returns>An bool value</returns>
         public static bool ToBool(this string value)
@@ -46,18 +45,6 @@ namespace WildHare.Extensions
 			return int.TryParse(value, out int result) ? result : defaultValue;
 		}
 
-        /// <summary>Conerts a string to an array of ints. With {strict} equals false, the default, 
-        /// the method will ignore any characters except for numbers, the negative symbol, or commas.
-        /// With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
-        /// <returns>int[]</returns>
-        public static int[] ToIntArray(this string str, bool strict = false)
-        {
-            string intStr = strict ? str : str.NumbersOnly(",-");
-            int[] intArray = intStr.Split(',').Select(s => s.Trim().ToInt()).ToArray();
-
-            return intArray;
-        }
-
         /// <summary>Converts strings to long</summary>
         /// <returns>A long value</returns>
         public static long ToLong(this string value, long defaultValue = 0)
@@ -95,7 +82,6 @@ namespace WildHare.Extensions
 
         /// <summary>Converts strings to Decimal if possible</summary>
         /// <returns>An Decimal value or null</returns>
-
         public static decimal? ToDecimalNullable(this string value, decimal? defaultValue = 0.0M)
         {
             return decimal.TryParse(value, out decimal result) ? result : defaultValue;
@@ -115,5 +101,21 @@ namespace WildHare.Extensions
 		{
             return DateTime.TryParse(value, out DateTime result) ? result : defaultValue;
         }
+
+        /// <summary>Converts a string to an array of ints. With {strict} equals false, the default, 
+        /// the method will ignore any characters except for numbers, the negative symbol, or commas.
+        /// With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
+        /// <returns>int[]</returns>
+        public static int[] ToIntArray(this string str, bool strict = false)
+        {
+            string intStr = strict ? str : str.NumbersOnly(",-");
+            var options = strict ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries;
+            var intArray = intStr.Split(",", options).Select(s => s.Trim().ToIntNullable()).ToArray();
+            if (strict && intArray.Any(a => !a.HasValue))
+                throw new Exception("ToIntArray() cannot have null or invalid values when in strict mode.");
+
+            return intArray.Select(w => w.Value).ToArray();
+        }
+
     }
 }

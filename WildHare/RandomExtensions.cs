@@ -1,7 +1,9 @@
 using System;
 
-namespace WildHare.Extensions
+namespace WildHare.Extensions.Xtra
 {
+    // Not sure of the value. Was a possible solution for a Random tree problem.
+    // May remove...
     public static class RandomExtensions
     {
         public static Random Skip(this Random random, int number)

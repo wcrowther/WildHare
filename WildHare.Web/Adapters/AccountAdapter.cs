@@ -18,11 +18,6 @@ namespace WildHare.Web.Adapters
             };
         }
 
-        public static List<AccountModel> ToAccountModelList (this IEnumerable<Account> entityList)
-        {
-            return entityList?.Select(a => a.ToAccountModel()).ToList() ?? new List<AccountModel>();
-        }
-
         public static Account ToAccount (this AccountModel model)
         {
             return model == null ? null : new Account
@@ -34,9 +29,14 @@ namespace WildHare.Web.Adapters
             };
         }
 
+        public static List<AccountModel> ToAccountModelList (this IEnumerable<Account> entityList)
+        {
+            return entityList?.Select(a => a.ToAccountModel()).ToList() ?? new List<AccountModel>();
+        }
+
         public static List<Account> ToAccountList (this IEnumerable<AccountModel> modelList)
         {
-            return modelList?.Select(a => a.ToAccount()).ToList() ?? new List<Account>();
+           return modelList?.Select(a => a.ToAccount()).ToList() ?? new List<Account>();
         }
     }
 }

@@ -137,7 +137,7 @@ namespace WildHare.Web
                 }
                 rowSb.Append($"{start}({valuesSb.ToString().RemoveEnd(", ")}),{end}");
             }
-            return rowSb.ToString().RemoveStartEnd("\t", $",{end}");
+            return rowSb.ToString().RemoveStartEnd(start, "," + end);
         }
 
         private static void LogResult(string fileName, bool isSuccess)

@@ -1,12 +1,19 @@
 using System;
+using System.Globalization;
 
 namespace WildHare.Extensions
 {
     public static class DateTimeExtensions
     {
-        /// <summary>Given a DateTime like {date}, get the next {DayOfWeek}, like Sunday, Monday, etc. as DateTime.</summary>
-        public static DateTime GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek)
+        /// <summary>Given a DateTime like {date}, gets the next {DayOfWeek}, like Sunday, Saturday, etc. as DateTime.
+        /// If {includeDate} is true and {date} is that day of the week, then return that {date}.</summary>
+        /// <example>Given {date} is 1/1/2020 (Wednesday) then date.GetNextDayOfWeek(DayOfTheWeek.Wednesday)
+        /// returns the next Wednesday which is 1/8/2020. If {includeDate} is true then 1/1/2020.</example>
+        public static DateTime GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, bool includeDate = false)
         {
+            if (includeDate && date.DayOfWeek == dayOfWeek)
+                return date;
+
             int daysFromDate = ((int)dayOfWeek - (int)date.DayOfWeek + 7) % 7;
 
             return date.AddDays(daysFromDate);
@@ -50,5 +57,26 @@ namespace WildHare.Extensions
 
             return date.AddDays(7 - (int)date.DayOfWeek);
         }
+
+        public static string MonthName(this DateTime date)
+        {
+            return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(date.Month);
+        }
+
+        public static string MonthName(this int monthInt)
+        {
+            return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthInt);
+        }
+
+        public static string ShortMonthName(this DateTime date)
+        {
+            return CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(date.Month);
+        }
+
+        public static string ShortMonthName(this int monthInt)
+        {
+            return CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(monthInt);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -158,6 +159,44 @@ namespace WildHare.Tests
             sb.ToString().WriteToFile(outputPath, true);
 
             Assert.AreEqual(8, list.Count());
+        }
+
+        [Test]
+        public void Test_FileInfo_GetString_Found()
+        {
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\Directory0\TextFile0.txt";
+
+            var fileToRead = new FileInfo(directoryPath);
+
+            Assert.AreEqual("This is TextFile0.txt.\n", fileToRead.GetString());
+        }
+
+        [Test]
+        public void Test_FileInfo_GetString_Not_Found()
+        {
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\Directory0\DoesNotExist.txt";
+
+            var fileToRead = new FileInfo(directoryPath);
+
+            var ex = Assert.Throws<FileNotFoundException>
+            (
+                () => fileToRead.GetString()
+            );
+
+            Assert.IsTrue(ex.Message.StartsWith("Could not find file"));
+        }
+
+        [Test]
+        public void Test_FileInfo_GetString_Not_Found_But_Not_Strict_Should_Return_Null()
+        {
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string directoryPath = $@"{pathRoot}\Directory0\DoesNotExist.txt";
+
+            var fileToRead = new FileInfo(directoryPath);
+
+            Assert.IsNull(fileToRead.GetString(false));
         }
     }
 }

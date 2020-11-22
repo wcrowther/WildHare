@@ -6,8 +6,9 @@ namespace WildHare.Extensions
 {
     public static class IEnumerableExtensions
     {
-        /// <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
-        /// If no elements in the list, returns an exception.</summary>
+        /// <summary>Takes the element in the list at the position of {index} looping around to the beginning
+        /// of the list if the index is outside of the number of items in the list. Will always return an element
+        /// unless there are no elements in the list, in which case it returns an exception.</summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="source"></param>
         /// <param name="index"></param>
@@ -21,6 +22,8 @@ namespace WildHare.Extensions
 
             if(source.Count() == 0)
                 throw new Exception("ElementIn() source contains no elements.");
+
+            index = Math.Abs(index);
 
             int mod = index % source.Count();
             int position = mod;
@@ -46,8 +49,9 @@ namespace WildHare.Extensions
             throw new Exception("ElementIn() no elements to return.");
         }
 
-        /// <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
-        /// Returns the {TSource} default if no items in the list.</summary>
+        /// <summary>Takes the element in the list at the position of {index} looping around to the beginning
+        /// of the list if the index is outside of the number of items in the list. Will always return an element
+        /// unless there are no elements in the list, in which case it returns the type default value.</summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="source"></param>
         /// <param name="index"></param>
@@ -61,6 +65,9 @@ namespace WildHare.Extensions
 
             if (source.Count() == 0)
                 return default;
+
+            index = Math.Abs(index);
+
 
             int mod = index % source.Count();
             int position = mod;
@@ -115,5 +122,6 @@ namespace WildHare.Extensions
                 }
             }
         }
+
     }
 }

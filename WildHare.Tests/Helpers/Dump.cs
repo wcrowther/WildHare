@@ -20,9 +20,9 @@ namespace WildHare.Tests.Helpers
             Console.WriteLine(str);
         }
 
-        public static void Debugger(this object obj)
+        public static void Debugger(this object obj, string title = null)
         {
-            string name = nameof(obj);
+            string name = title ?? nameof(obj);
             string str = obj switch
             {
                 string s => s,

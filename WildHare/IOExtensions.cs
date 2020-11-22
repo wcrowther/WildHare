@@ -115,15 +115,13 @@ namespace WildHare.Extensions
             }
         }
 
+        /// <summary>Returns bool whether current FileSystemInfo is a directory.</summary>
         public static bool IsDirectory(this FileSystemInfo info)
         {
             return (info.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
         }
 
-        // ==============================================================================
-        // Only Gets Files
-        // ==============================================================================
-
+        /// <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.</summary>
         public static List<FileInfo> GetAllFiles(this string directoryPath, string searchPattern = "*")
         {
             var di = new DirectoryInfo(directoryPath);
@@ -131,6 +129,26 @@ namespace WildHare.Extensions
             var fileList = di.GetFiles(searchPattern, SearchOption.AllDirectories);
 
             return fileList.ToList();
+        }
+
+        /// <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
+        /// will throw an exception if the file is not found. If {strict} is false, will return null.</summary>
+        public static string GetString(this FileInfo fileInfo, bool strict = true)
+        {
+            try
+            {
+                using (StreamReader reader = fileInfo.OpenText())
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (strict)
+                    throw ex;
+                else
+                    return null;
+            }
         }
     }
 }

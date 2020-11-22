@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,18 @@ namespace WildHare.Extensions
             return string.IsNullOrEmpty(s);
         }
 
+        /// <summary>Inline version of string.IsNullOrWhiteSpace()</summary>
+        public static bool IsNullOrSpace(this string s)
+        {
+            return string.IsNullOrWhiteSpace(s);
+        }
+
+        /// <summary>Inline version of to test for null</summary>
+        public static bool IsNull(this string s)
+        {
+            return (s == null);
+        }
+
         /// <summary>A null string returns {replacement} if given, else an empty string.</summary>
         public static string IfNull(this string s, string replacement = "")
         {
@@ -25,12 +38,6 @@ namespace WildHare.Extensions
         public static string IfNullOrEmpty(this string s, string replacement = "")
         {
             return s.IsNullOrEmpty() ? replacement : s;
-        }
-
-        /// <summary>Inline version of string.IsNullOrWhiteSpace()</summary>
-        public static bool IsNullOrSpace(this string s)
-        {
-            return string.IsNullOrWhiteSpace(s);
         }
 
         /// <summary>A Null or whitespace string returns {replacement} if given, else an empty string.</summary>
@@ -134,6 +141,39 @@ namespace WildHare.Extensions
             return string.Join(NewLine, input.Split('\n').Select(a => a.RemoveEnd("\r").RemoveEnd(endArray)));
         }
 
+        /// <summary>Removes the indent from all lines of text in a string using the indent from the
+        /// second line of text in the string as the indent to remove. Removes the first line
+        /// if it is whitespace unless {removeInitialSpaces} is false.</summary>
+        public static string RemoveIndents(this string input, bool removeInitialSpaces = true)
+        {
+            var lines = input.Split("\n",StringSplitOptions.None).ToList();
+            var start = lines.Count >= 2 ? lines[1].GetStartWhitespaces() : "";
+
+            if (removeInitialSpaces && lines[0].IsNullOrSpace())
+                lines.RemoveAt(0);
+
+            return string.Join(NewLine, lines.Select(a => a.RemoveStartEnd(start, "\r")));
+        }
+
+        /// <summary>Gets the all the whitespace at the beginning of a string.</summary>
+        public static string GetStartWhitespaces(this string input)
+        {
+            if (input.IsNullOrEmpty())
+                return input;
+
+            char[] characters = input.ToCharArray(); //.Where(w => char.IsWhiteSpace(w)).ToArray();
+            var sb = new StringBuilder();
+
+            foreach (char character in characters)
+            {
+                if (char.IsWhiteSpace(character))
+                    sb.Append(character);
+                else
+                    break;
+            }
+            return sb.ToString();
+        }
+
         /// <summary>Adds {addToStart} to the beginning of the string if string {s} is not NULL or EMPTY.</summary>
         public static string AddStart(this string s, string addToStart)
         {
@@ -172,9 +212,10 @@ namespace WildHare.Extensions
             return s.EndsWith(addToEnd) ? s : s + addToEnd;
         }
 
-        /// <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
-        /// adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
-        /// is NULL, adds {addToStart} to both the start and end.</summary>
+        /** <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
+            adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
+            is NULL, adds {addToStart} to both the start and end.</summary>
+            <cref></cref>*/
         public static string EnsureStartEnd(this string s, string addToStart, string addToEnd = null)
         {
             if (s == null) return null;
@@ -298,12 +339,6 @@ namespace WildHare.Extensions
             return sb.ToString();
         }
 
-        /// <summary>Returns the character at the position {i}.</summary>
-        public static char CharAt(this string s, int i)
-        {
-            return Convert.ToChar(s.Substring(i, 1));
-        }
-
 		/// <summary>Increments integer +1 on the end of a string</summary>
 		/// <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
 		/// <example>'File6.txt'.IncrementString(1,".txt") = 'File7.txt'</example>
@@ -360,6 +395,17 @@ namespace WildHare.Extensions
             return result;
         }
 
+        /// <summary>An overload of Replace that accepts a Dictionary of string,string.
+        /// For the supplied string, replaces all instances in the matching the dictionary key with the dictionary value
+        /// If {reverse} is true, replaces the matching dictionary value with the dictionary key.</summary>
+        public static string Replace(this string str, Dictionary<string,string> dictionary, bool reverse = false)
+        {
+            if(reverse)
+                return dictionary.Aggregate(str, (current, value) => current.Replace(value.Value, value.Key)); ;
+
+            return dictionary.Aggregate(str, (current, value) => current.Replace(value.Key, value.Value)); ;
+        }
+
         /// <summary>An overload of Replace that accepts a string array.
         /// For the supplied string, replaces all values in the {oldValues} array with those in {newValues} array.</summary>
         /// <example>Shortcut for y.Replace("cat", "frog").Replace("dog", "bird") etc...</example>.
@@ -393,6 +439,37 @@ namespace WildHare.Extensions
         public static string Ignore(this string str, string str2)
         {
             return str != str2 ? str : null;
+        }
+
+        /// <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. For simple cases,
+        /// it will add an "s" to the end  (or an "es" if {singular} ends in "s","x","ch","sh","z", or "o") if {plural} is omitted.</summary>
+        /// <example>1.SingularOrPlural("clown") returns "clown";</example>
+        /// <example>3.SingularOrPlural("clowns") returns "clowns";</example>
+        /// <example>3.SingularOrPlural("fox") returns "foxes";</example>
+        /// <example>5.SingularOrPlural("child","children") returns "children";</example>
+        public static string SingularOrPlural(this int number, string singular, string plural = null)
+        {
+            string[] endings = { "s", "x", "ch", "sh", "z", "o" }; 
+
+            if (number == 1)
+                return singular;
+
+            if (plural is null)
+            {
+                return endings.Any(x => singular.EndsWith(x, StringComparison.OrdinalIgnoreCase) ) ? singular + "es": singular + "s";
+            }
+            return plural;
+        }
+
+        public static string ApplyToAllLines(this string input, Func<string, string> func)
+        {
+            var lines = input.Split("\n", StringSplitOptions.None);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                lines[i] = func(line);
+            }
+            return string.Join(NewLine, lines);
         }
     }
 }

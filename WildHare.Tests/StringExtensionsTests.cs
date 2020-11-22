@@ -96,6 +96,58 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_RemoveIndents_Basic()
+        {
+            string multiLineText = @"This is a 
+			        sentence 
+			        spread across multiple lines.";
+
+            string indentingRemovedText = multiLineText.RemoveIndents();
+
+            Assert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+        }
+
+        [Test]
+        public void Test_RemoveIndents_Basic2()
+        {
+            string multiLineText = @"
+                    This is a 
+                    sentence 
+                    spread across multiple lines.";
+
+            string indentingRemovedText = multiLineText.RemoveIndents();
+
+            Assert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+        }
+
+        [Test]
+        public void Test_RemoveIndents_Basic_Keep_First_Line_Spaces()
+        {
+            string multiLineText = @"
+                    This is a 
+                    sentence 
+                    spread across multiple lines.";
+
+            string indentingRemovedText = multiLineText.RemoveIndents(false);
+
+            Assert.AreEqual($"{NewLine}This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+        }
+
+        [Test]
+        public void Test_RemoveIndents_StringBuilder()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("This is a");
+            sb.AppendLine("            sentence ");
+            sb.AppendLine("            spread across");
+            sb.AppendLine("            multiple lines.");
+
+            string indentingRemovedText = sb.ToString().RemoveIndents();
+
+            Assert.AreEqual($"This is a{NewLine}sentence {NewLine}spread across{NewLine}multiple lines.{NewLine}", indentingRemovedText);
+        }
+
+        [Test]
         public void Test_IsWhiteSpace_Characters()
         {
             char newlineChar    = '\n';
@@ -496,15 +548,80 @@ namespace WildHare.Tests
             Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
 
-
         [Test]
-        public void Test_Dictionary_Aggregate_Replace()
+        public void Test_Replace_With_Array_and_string_Overload()
         {
             string str = "Favorite animals: cat dog rabbit.";
-            var dict = new Dictionary<string, string>{ { "cat", "platypus" }, {"dog", "cheetah"},{"rabbit", "emu" } };
-            var result = dict.Aggregate(str, (current, value) => current.Replace(value.Key, value.Value));
+            string[] old = { "cat", "dog", "rabbit" };
+            var result = str.Replace(old, "dog");
+
+            Assert.AreEqual("Favorite animals: dog dog dog.", result);
+        }
+
+        private static Dictionary<string, string> GetAnimalList()
+        {
+            return new Dictionary<string, string>
+                {
+                    {"cat", "platypus"},
+                    {"dog", "cheetah"},
+                    {"rabbit", "emu"}
+                };
+        }
+
+        [Test]
+        public void Test_Dictionary_Aggregate_Replace_Using_Linq()
+        {
+            string str = "Favorite animals: cat dog rabbit.";
+            var dictionary = GetAnimalList();
+            var result = dictionary.Aggregate(str, (current, value) => current.Replace(value.Key, value.Value));
 
             Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
+        }
+
+
+        [Test]
+        public void Test_Replace_Dictionary_Overload()
+        {
+            string str = "Favorite animals: cat dog rabbit.";
+            var dictionary = GetAnimalList();
+
+            Assert.AreEqual("Favorite animals: platypus cheetah emu.", str.Replace(dictionary));
+        }
+
+        [Test]
+        public void Test_Replace_Dictionary_Overload_Reverse()
+        {
+            string str = "Favorite animals: platypus cheetah emu.";
+            var dictionary = GetAnimalList();
+
+            Assert.AreEqual("Favorite animals: cat dog rabbit.", str.Replace(dictionary, true));
+        }
+
+        [TestCase(-1, "Item", "-1 Items in the list.")]
+        [TestCase(0,  "Item", "0 Items in the list.") ]
+        [TestCase(1,  "Item", "1 Item in the list.") ]
+        [TestCase(10, "Item", "10 Items in the list.")]
+        [TestCase(1,  "dog",  "1 dog in the list.")]
+        [TestCase(10, "dog",  "10 dogs in the list.")]
+        [TestCase(1,  "fox",  "1 fox in the list.")]
+        [TestCase(10, "fox","10 foxes in the list.")]
+        public void Test_SingularOrPlural_With_One_Parameter(int count, string singular, string result)
+        {
+            string message = $"{count} {count.SingularOrPlural(singular)} in the list.";
+
+            Assert.AreEqual(result, message);
+        }
+
+        [TestCase(10, "dog", null, "10 dogs in the list.")]
+        [TestCase(1,  "wolf", "wolves", "1 wolf in the list.")]
+        [TestCase(10, "wolf", "wolves", "10 wolves in the list.")]
+        [TestCase(1, "octopus", "octopi", "1 octopus in the list.")]
+        [TestCase(10, "octopus", "octopi", "10 octopi in the list.")]
+        public void Test_SingularOrPlural_With_Two_Parameters(int count, string singular, string plural, string result)
+        {
+            string message = $"{count} {count.SingularOrPlural(singular, plural)} in the list.";
+
+            Assert.AreEqual(result, message);
         }
     }
 }

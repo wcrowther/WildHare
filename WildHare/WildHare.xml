@@ -4,6 +4,46 @@
         <name>WildHare</name>
     </assembly>
     <members>
+        <member name="M:WildHare.CharExtensions.CharAt(System.String,System.Int32)">
+            <summary>Returns the character at the position {i}.</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsLetter(System.Char)">
+            <summary>Inline version of char.IsLetterOrDigit(ch). ie: A-Z, a-z, and letters of other alphabets</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsLetterOrDigit(System.Char)">
+            <summary>Inline version of char.IsLetterOrDigit(ch). ie: Letters plus digits</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsUpper(System.Char)">
+            <summary>Inline version of char.IsUpper(ch). ie: Uppercase letters</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsLower(System.Char)">
+            <summary>Inline version of char.IsLower(ch). ie: Lowercase letters</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsPunctuation(System.Char)">
+            <summary>Inline version of char.IsPunctuation(ch). ie: Symbols used for punctuation in Western and other alphabets</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsNumber(System.Char)">
+            <summary>Inline version of char.IsNumber(ch). ie: All digits plus Unicode fractions and Roman numeral symbols</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsDigit(System.Char)">
+            <summary>Inline version of char.IsDigit(ch). ie: 0-9 plus digits of other alphabets</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsWhiteSpace(System.Char)">
+            <summary>Inline version of char.IsWhiteSpace(ch). ie: All separators plus \n, \r, \t, \f, and \v </summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsSymbol(System.Char)">
+            <summary>Inline version of char.IsSymbol(ch). ie: Most other printable symbols</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsControl(System.Char)">
+            <summary>Inline version of char.IsControl(ch). ie: Non-printable "control" characters below 0x20, such as \r, \n, \r, and \0,
+            and characters between 0x7F and 0x9A</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.IsSeparator(System.Char)">
+            <summary>Inline version of char.IsSeparator(ch). in: Space plusall Unicode separator characters</summary>
+        </member>
+        <member name="M:WildHare.CharExtensions.GetUnicodeCategory(System.Char)">
+            <summary>Inline version of char.GetUnicodeCategory(ch)</summary>
+        </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToBool(System.String)">
             <summary>Converts string to bool. (case insensitive, defaults to false if string does not parse to true)</summary>
             <returns>An bool value</returns>
@@ -26,12 +66,6 @@
         <member name="M:WildHare.Extensions.ConvertExtensions.ToIntNullable(System.String,System.Nullable{System.Int32})">
             <summary>Converts strings to Int if possible</summary>
             <returns>An int value or null</returns>
-        </member>
-        <member name="M:WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean)">
-            <summary>Conerts a string to an array of ints. With {strict} equals false, the default, 
-            the method will ignore any characters except for numbers, the negative symbol, or commas.
-            With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
-            <returns>int[]</returns>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64)">
             <summary>Converts strings to long</summary>
@@ -66,14 +100,23 @@
             if unsuccessful</summary>
             <returns>A nullable DateTime value</returns>
         </member>
+        <member name="M:WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean)">
+            <summary>Converts a string to an array of ints. With {strict} equals false, the default, 
+            the method will ignore any characters except for numbers, the negative symbol, or commas.
+            With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
+            <returns>int[]</returns>
+        </member>
         <member name="M:WildHare.Extensions.DataTableExtensions.ToList``1(System.Data.DataTable)">
             <summary>Converts a DataTable to a list of T</summary>
             <typeparam name="T"></typeparam>
             <param name="table"></param>
             <returns>List{T}</returns>
         </member>
-        <member name="M:WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek)">
-            <summary>Given a DateTime like {date}, get the next {DayOfWeek}, like Sunday, Monday, etc. as DateTime.</summary>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)">
+            <summary>Given a DateTime like {date}, gets the next {DayOfWeek}, like Sunday, Saturday, etc. as DateTime.
+            If {includeDate} is true and {date} is that day of the week, then return that {date}.</summary>
+            <example>Given {date} is 1/1/2020 (Wednesday) then date.GetNextDayOfWeek(DayOfTheWeek.Wednesday)
+            returns the next Wednesday which is 1/8/2020. If {includeDate} is true then 1/1/2020.</example>
         </member>
         <member name="M:WildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime)">
             <summary>Gets a DateTime for the first day of the month for the given {datetime}.</summary>
@@ -132,16 +175,18 @@
              method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementIn``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
-            <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
-            If no elements in the list, returns an exception.</summary>
+            <summary>Takes the element in the list at the position of {index} looping around to the beginning
+            of the list if the index is outside of the number of items in the list. Will always return an element
+            unless there are no elements in the list, in which case it returns an exception.</summary>
             <typeparam name="TSource"></typeparam>
             <param name="source"></param>
             <param name="index"></param>
             <returns>&lt;TSource&gt;</returns>
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
-            <summary>Takes the element in the list at the position of {index} looping around if it is outside of the list.
-            Returns the {TSource} default if no items in the list.</summary>
+            <summary>Takes the element in the list at the position of {index} looping around to the beginning
+            of the list if the index is outside of the number of items in the list. Will always return an element
+            unless there are no elements in the list, in which case it returns the type default value.</summary>
             <typeparam name="TSource"></typeparam>
             <param name="source"></param>
             <param name="index"></param>
@@ -190,17 +235,30 @@
         <member name="M:WildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32)">
             <summary>Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. Defaults to a depth of 2.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IOExtensions.IsDirectory(System.IO.FileSystemInfo)">
+            <summary>Returns bool whether current FileSystemInfo is a directory.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String)">
+            <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IOExtensions.GetString(System.IO.FileInfo,System.Boolean)">
+            <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
+            will throw an exception if the file is not found. If {strict} is false, will return null.</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String)">
             <summary>Inline version of string.IsNullOrEmpty()</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.IsNullOrSpace(System.String)">
+            <summary>Inline version of string.IsNullOrWhiteSpace()</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.IsNull(System.String)">
+            <summary>Inline version of to test for null</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.IfNull(System.String,System.String)">
             <summary>A null string returns {replacement} if given, else an empty string.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.IfNullOrEmpty(System.String,System.String)">
             <summary>A null or empty string returns {replacement} if given, else an empty string.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.StringExtensions.IsNullOrSpace(System.String)">
-            <summary>Inline version of string.IsNullOrWhiteSpace()</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.IfNullOrSpace(System.String,System.String)">
             <summary>A Null or whitespace string returns {replacement} if given, else an empty string.</summary>
@@ -241,15 +299,23 @@
             <summary>Remove the end of line if it exactly matches any string in the {endArray} for all lines in the string.
             Normalizes all line returns to Environment.NewLine.</summary>
         </member>
+        <member name="M:WildHare.Extensions.StringExtensions.RemoveIndents(System.String,System.Boolean)">
+            <summary>Removes the indent from all lines of text in a string using the indent from the
+            second line of text in the string as the indent to remove. Removes the first line
+            if it is whitespace unless {removeInitialSpaces} is false.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String)">
+            <summary>Gets the all the whitespace at the beginning of a string.</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddStart(System.String,System.String)">
-            <summary>Adds {addToStart} to the beginning of the string if it is not NULL or EMPTY.</summary>
+            <summary>Adds {addToStart} to the beginning of the string if string {s} is not NULL or EMPTY.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddEnd(System.String,System.String)">
-            <summary>Adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
+            <summary>Adds {addToEnd} to the end of the string if string {s} is not NULL or EMPTY.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String)">
-            <summary>Adds {addToEnd} to the beginning of the string if it does not start with that string AND
-            adds {addToEnd} to the end of the string if it is not NULL or EMPTY.</summary>
+            <summary>Adds {addToStart} to the beginning of the string and {addToEnd} to the end of the string {s} if is not NULL or EMPTY.
+            If {addToEnd} is NULL, adds {addToStart} to both the start and end..</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.EnsureStart(System.String,System.String)">
             <summary>Adds {addToStart} to the beginning of the string UNLESS it already starts with that string.</summary>
@@ -259,8 +325,9 @@
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String)">
             <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
-            adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
-            is null, adds {addToStart} to both the start and end.</summary>
+                        adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
+                        is NULL, adds {addToStart} to both the start and end.</summary>
+                        <cref></cref>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.GetStart(System.String,System.String,System.Boolean)">
             <summary>Splits string into an array based on {separator} and returns the start element.
@@ -286,9 +353,6 @@
             If {underscoreCountsAsSpace} is true then also capitalizes the first letter after an underscore '_'.
             </summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.CharAt(System.String,System.Int32)">
-            <summary>Returns the character at the position {i}.</summary>
-        </member>
         <member name="M:WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable{System.Int32},System.String,System.Int32)">
             <summary>Increments integer +1 on the end of a string</summary>
             <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
@@ -307,6 +371,11 @@
             For the supplied string, replaces all values in the {oldValues} array with the {newValue} string.</summary>
             <example>Shortcut for y.Replace("cat", "").Replace("dog", "") etc...</example>.
         </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Replace(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)">
+            <summary>An overload of Replace that accepts a Dictionary of string,string.
+            For the supplied string, replaces all instances in the matching the dictionary key with the dictionary value
+            If {reverse} is true, replaces the matching dictionary value with the dictionary key.</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String[])">
             <summary>An overload of Replace that accepts a string array.
             For the supplied string, replaces all values in the {oldValues} array with those in {newValues} array.</summary>
@@ -319,12 +388,37 @@
             <summary>Ignores string by returning null if the string {str} equals {str2}.</summary>
             <example>string field = "*"; var f = field.Ignore("*") ?? "Empty" ex: return "Empty"</example>
         </member>
+        <member name="M:WildHare.Extensions.StringExtensions.SingularOrPlural(System.Int32,System.String,System.String)">
+            <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. For simple cases,
+            it will add an "s" to the end  (or an "es" if {singular} ends in "s","x","ch","sh","z", or "o") if {plural} is omitted.</summary>
+            <example>1.SingularOrPlural("clown") returns "clown";</example>
+            <example>3.SingularOrPlural("clowns") returns "clowns";</example>
+            <example>3.SingularOrPlural("fox") returns "foxes";</example>
+            <example>5.SingularOrPlural("child","children") returns "children";</example>
+        </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean)">
-            <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
+            <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean)">
-            <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present,</summary>
+            <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present</summary>
         </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String)">
+            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the dictionary 
+            lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary{System.String,System.Object},System.IO.FileInfo,System.String,System.String)">
+            <summary>Returns a string that replaces the placeholder elements {{placeholder}} from the {templateFile} template with the matching the dictionary 
+            lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.String,System.String,System.String)">
+            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the properties  
+            of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.IO.FileInfo,System.String,System.String)">
+            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
+            of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template``1(``0,System.IO.FileInfo,System.String,System.String)" -->
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaModel(System.Type)">
             <summary>Gets a MetaModel that describes the {type} for use in code generation.</summary>
         </member>

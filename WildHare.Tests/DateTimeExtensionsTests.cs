@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
 
@@ -11,7 +12,7 @@ namespace WildHare.Tests
     public class DateTimeExtensionsTests
     {
         [Test]
-        public void DateTime_Next_DayOfWeek()
+        public void NextDayOfWeek_Test()
         {
             var date = DateTime.Parse("3/24/2020 12:15:07 AM");
             var nextSunday = date.NextDayOfWeek(DayOfWeek.Sunday).Date;         
@@ -20,7 +21,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void DateTime_Next_DayOfWeek_When_On_That_Day_And_IncludeCurrentDate_Is_true()
+        public void NextDayOfWeek_When_On_That_Day_And_IncludeCurrentDate_Is_true()
         {
             var date = DateTime.Parse("3/29/2020 12:15:07 AM");
             var nextSunday = date.NextDayOfWeek(DayOfWeek.Sunday, true).Date;
@@ -29,7 +30,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void DateTime_Next_DayOfWeek_When_On_That_Day_And_IncludeCurrentDate_Is_false()
+        public void NextDayOfWeek_When_On_That_Day_And_IncludeCurrentDate_Is_false()
         {
             var date = DateTime.Parse("3/29/2020 12:15:07 AM");
             var nextSunday = date.NextDayOfWeek(DayOfWeek.Sunday).Date;
@@ -49,6 +50,32 @@ namespace WildHare.Tests
             Assert.IsTrue(today.TodayOrBefore());
             Assert.IsTrue(now.TodayOrBefore());
             Assert.IsFalse(tomorrow.TodayOrBefore());
+        }
+
+        [Test]
+        public void MonthName_Test()
+        {
+            // Test will when CurrentCulture is en-US (or similar culture)
+            string currentCulture = CultureInfo.CurrentCulture.DisplayName; // en-US
+
+            int monthOfJulyInt = 7;
+            var date = new DateTime(2020, monthOfJulyInt, 1);
+
+            Assert.AreEqual("July", monthOfJulyInt.MonthName());
+            Assert.AreEqual("July", date.MonthName());
+        }
+
+        [Test]
+        public void ShortMonthName_Test()
+        {
+            // Test will when CurrentCulture is en-US (or similar culture)
+            string currentCulture = CultureInfo.CurrentCulture.DisplayName; // en-US
+
+            int monthOfJulyInt = 7;
+            var date = new DateTime(2020, monthOfJulyInt, 1);
+
+            Assert.AreEqual("Jul", monthOfJulyInt.ShortMonthName());
+            Assert.AreEqual("Jul", date.ShortMonthName());
         }
     }
 }

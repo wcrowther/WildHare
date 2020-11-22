@@ -1,8 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-/// <summary>Namespace Summary</summary>
 namespace WildHare.Extensions
 {
     /// <summary>Class Summary</summary>
@@ -96,5 +96,6 @@ namespace WildHare.Extensions
         {
             return sourceList.TakeNext(1, offset, remove).FirstOrDefault();
         }
+
     }
 }

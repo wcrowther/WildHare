@@ -57,6 +57,9 @@ namespace WildHare.Tests
             var random = new Random(123456);
 
             var itemList = GetTestList();
+
+            Assert.AreEqual(10, itemList.Count);
+
             var randomItem = itemList.TakeRandomOne(random);
 
             Assert.AreEqual(9, itemList.Count);
@@ -153,11 +156,13 @@ namespace WildHare.Tests
             int second = numbers.TakeNext(offset: offset).Single();
             int third = numbers.TakeNext().Single();
             int fourth = numbers.TakeNext().Single();
+            int fifth = numbers.TakeNext().Single();
 
             Assert.AreEqual(1, first);
             Assert.AreEqual(4, second);
             Assert.AreEqual(2, third);
             Assert.AreEqual(3, fourth);
+            Assert.AreEqual(0, fifth);
         }
 
         [Test]
@@ -262,7 +267,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_GroupBy()
+        public void Test_GroupBy_And_ToLookup()
         {
             var people = new List<Person>
             {
@@ -273,15 +278,15 @@ namespace WildHare.Tests
                 new Person { PersonId = 5, FirstName = "Fred", LastName= "Jones" }
             };
 
+            // =======================================================
+            // GroupBy() THEN ToDictionary()
+            // =======================================================
+
+            var familiesList = people.GroupBy(g => g.LastName);
             // familiesList Type is: System.Linq.GroupedEnumerable<Person,string> (not public?)
             // familiesList Interface is: IEnumerable<IGrouping<string, Person>>
 
-            var familiesList = people.GroupBy(g => g.LastName);
-
             var famDictionary = familiesList.ToDictionary(g => g.Key, g => g.ToList());
-
-            // simplest, best performance(?)
-            var famLookUp = people.ToLookup(l => l.LastName);
 
             Assert.AreEqual(5, people.Count());
             Assert.AreEqual(2, familiesList.Count());
@@ -292,10 +297,45 @@ namespace WildHare.Tests
             Assert.AreEqual(2, famDictionary["Smith"].Count());
             Assert.AreEqual(3, famDictionary["Jones"].Count());
 
+            // =======================================================
+            // ToLookup(): simplest, best performance(?)
+            // =======================================================
+
+            var famLookUp = people.ToLookup(l => l.LastName);
+
+
+            foreach (var family in famLookUp)
+            {
+                Debug.WriteLine("-".Repeat(20));
+                Debug.WriteLine($"family: {family.Key} (count: {family.Count()})" );
+
+                foreach (var person in family)
+                {
+                    Debug.WriteLine($"{person}");
+                }
+            }
+            Debug.WriteLine("-".Repeat(20));
+
             Assert.AreEqual(2, famLookUp.Count());
             Assert.AreEqual(2, famLookUp["Smith"].Count());
             Assert.AreEqual(3, famLookUp["Jones"].Count());
-            Assert.AreEqual(0, famLookUp["Crowther"].Count());
+            Assert.AreEqual(0, famLookUp["Crowther"].Count()); // Empty does not throw
+
+            string famLookUpJson = famLookUp.ToJson();
+
+            Assert.IsNotNull(famLookUp);
+
+            // =======================================================
+            // OVERLOAD: ToLookup(l => l.LastName, l => l.FirstName)
+            // only brings back single value for FirstName
+            // =======================================================
+
+            var famLookUp2 = people.ToLookup(l => l.LastName, l => l.FirstName);
+
+            Assert.IsNotNull(famLookUp2);
+
         }
+
     }
+
 }

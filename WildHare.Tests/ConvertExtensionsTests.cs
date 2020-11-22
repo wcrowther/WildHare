@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.IO;
 using System.Reflection;
@@ -52,6 +52,44 @@ namespace WildHare.Tests
 
             newStr = newStr.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file4.txt", newStr);
+        }
+
+        [Test]
+        public void Test_ToIntArray_Not_Strict()
+        {
+            string intString = "-1, 0,1,02,3,sss4,,6,Seven,8, 9 , 10";
+
+            var array = intString.ToIntArray();
+            Assert.AreEqual(10, array.Length);
+        }
+
+        [Test]
+        public void Test_ToIntArray_Strict_Empty_Values()
+        {
+            string intString = "1,2,3,,5";
+
+            var ex = Assert.Throws<Exception>
+            (
+                () => intString.ToIntArray(true)
+            );
+
+            string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
+            Assert.AreEqual(errorMessage, ex.Message);
+        }
+
+
+        [Test]
+        public void Test_ToIntArray_Strict_Invalid_Values()
+        {
+            string intString = "sss4,Seven";
+
+            var ex = Assert.Throws<Exception>
+            (
+                () => intString.ToIntArray(true)
+            );
+
+            string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
+            Assert.AreEqual(errorMessage, ex.Message);
         }
     }
 }

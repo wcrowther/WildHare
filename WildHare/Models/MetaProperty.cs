@@ -59,7 +59,7 @@ namespace WildHare
             // If constructor modelInstance and method argument instance are both null throw error
             if (modelInstance == null)
             {
-                throw new Exception("This method requires a non-null instance in the MetaType or MetaProperty constructor or as an argument.");
+                throw new Exception("This method requires a non-null instance in the MetaModel or MetaProperty constructor or as an argument.");
             }
 
             return propertyInfo.GetValue(modelInstance, null);
@@ -73,7 +73,7 @@ namespace WildHare
             }
             if (modelInstance == null)
             {
-                throw new Exception("This method requires a non-null instance in the MetaType or MetaProperty constructor or as an argument.");
+                throw new Exception("This method requires a non-null instance in the MetaModel or MetaProperty constructor or as an argument.");
             }
 
             propertyInfo.SetValue(modelInstance, value, null);

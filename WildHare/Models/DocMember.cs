@@ -242,7 +242,8 @@ namespace WildHare
 
             foreach (string name in typeNames)
             {
-                types.Add(Type.GetType(name));
+                if(!name.IsNullOrEmpty())
+                    types.Add(Type.GetType(name));
             }
             return types.ToArray();
         }

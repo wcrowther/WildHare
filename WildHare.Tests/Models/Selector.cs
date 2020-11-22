@@ -46,7 +46,6 @@ namespace WildHare.Tests.Models
             }
         }
 
-
         public string Specificity { get; set; }
 
         public string Location { get; set; }

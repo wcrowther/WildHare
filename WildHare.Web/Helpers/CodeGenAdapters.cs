@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,19 +13,20 @@ namespace WildHare.Web
 {
     public static class CodeGenAdapters
     {
-        /* ==========================================================================
-         * DIRECTIONS
-         * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE LIKE STARTUP
-         * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
-         * 
-           WildHare.Web.CodeGenAdapters.Init();
-        ========================================================================== */
+        /* =============================================================================================
+         * DIRECTIONS - PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE LIKE STARTUP
+
+           CodeGenAdapters.Init();
+        ================================================================================================ */
 
         private static readonly string namespaceRoot = "WildHare.Web";
         private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\Adapters\";
+
         private static readonly string mapName1 = "entity";
         private static readonly string mapName2 = "model";
+
+        private static readonly string indent  = "\t".Repeat(4);
+        private static readonly string end = $",{NewLine}";
         private const int pad = -20;
 
         public static string Init()
@@ -35,26 +35,29 @@ namespace WildHare.Web
             Debug.WriteLine("Running CodeGenAdapters");
             Debug.WriteLine("=".Repeat(50));
 
-            // Generate this list from code from a namespace
             string adapterList = GetGeneratorAdapterList();
-            Debug.Write(adapterList);
 
-            // Copy and paste list here if wanted.
+            // Write out the adapterlist to the Debug window generated from a particular namespace
 
-            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), false);
-            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , false);
-            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , false);
+            Debug.Write(adapterList.AddEnd("=".Repeat(50) + NewLine));
+
+            // Copy and paste adapterlist from Debug Output window here if needed.
+
+            // Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
+
+            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), true);
+            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , true);
+            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , true);
 
             Debug.WriteLine("=".Repeat(50));
 
-            return "CodeGen.Init() complete....";
+            return "CodeGenAdapters.Init() complete....";
         }
 
         public static bool GenerateAdapter(Type type1, Type type2, bool overwrite = false)
         {
             string class1 = type1.Name;
             string class2 = type2.Name;
-            string indent = "\t".Repeat(4);
             string adapterName = $"{class1}Adapter.cs";
 
             string output =
@@ -75,11 +78,6 @@ namespace WildHare.Web
                         }};
                     }}
 
-                    public static List<{class2}> To{class2}List (this IEnumerable<{class1}> {mapName1}List)
-                    {{
-                        return {mapName1}List?.Select(a => a.To{class2}()).ToList() ?? new List<{class2}>();
-                    }}
-
                     public static {class1} To{class1} (this {class2} {mapName2})
                     {{
                         return {mapName2} == null ? null : new {class1}
@@ -88,15 +86,20 @@ namespace WildHare.Web
                         }};
                     }}
 
+                    public static List<{class2}> To{class2}List (this IEnumerable<{class1}> {mapName1}List)
+                    {{
+                        return {mapName1}List?.Select(a => a.To{class2}()).ToList() ?? new List<{class2}>();
+                    }}
+
                     public static List<{class1}> To{class1}List (this IEnumerable<{class2}> {mapName2}List)
                     {{
-                        return {mapName2}List?.Select(a => a.To{class1}()).ToList() ?? new List<{class1}>();
+                       return {mapName2}List?.Select(a => a.To{class1}()).ToList() ?? new List<{class1}>();
                     }}
                 }}
             }}";
 
             bool isSuccess = output
-                             .RemoveStartFromAllLines(indent)
+                             .RemoveIndents() 
                              .WriteToFile($"{outputDir}{adapterName}", overwrite);
 
             if (isSuccess)
@@ -105,41 +108,57 @@ namespace WildHare.Web
             return isSuccess;
         }
 
+        // INDENTING NOT CURRENTLY WORKING...
+        // TO USE:  {RenderLists(class2, class1, mapName2, mapName1)}
+        //private static string RenderLists(string class2, string class1, string mapName2, string mapName1)
+        //{
+        //    return     
+        //    $@"
+        //    public static List<{class2}> To{class2}List (this IEnumerable<{class1}> {mapName1}List)
+        //    {{
+        //        return {mapName1}List?.Select(a => a.To{class2}()).ToList() ?? new List<{class2}>();
+        //    }}
+
+        //    public static List<{class1}> To{class1}List (this IEnumerable<{class2}> {mapName2}List)
+        //    {{
+        //       return {mapName2}List?.Select(a => a.To{class1}()).ToList() ?? new List<{class1}>();
+        //    }}".ApplyToAllLines(a => "\t" + a);
+        //}
+
         private static string PropertiesList(Type type, Type toType, string mapName)
         {
-            string output = "";
-            string start = "\t\t\t\t";
-            string end = ",\r\n";
-            int longest = type.GetProperties().Max(m => m.Name.Length) * -1;
+            var sb = new StringBuilder();
 
             foreach (var prop in type.GetProperties())
             {
                 if (toType.GetProperties().Any(a => a.Name.ToLower() == prop.Name.ToLower()))
                 {
-                    output += $"{start}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}";
+                    sb.Append($"{indent}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
                 }
                 else
                 {
-                    output += $"// No Match // {start}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}";
+                    sb.Append($"// No Match // {indent}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
                 }
             }
-            return output.RemoveStartEnd(start, end);
+            return sb.ToString().RemoveStartEnd(indent, end);
         }
 
         private static string UseListAdapter(PropertyInfo prop)
         {
-            string adapterString = "";
+            var sb = new StringBuilder();
+
             if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(string))
             {
                 var itemName = prop.PropertyType?.GenericTypeArguments.ElementAtOrDefault(0)?.Name ?? prop.Name;
-                adapterString = itemName.Contains("Model") ? $".To{itemName.RemoveEnd("Model")}List()" : $".To{itemName}ModelList()";
+                sb.Append(itemName.Contains("Model") ? $".To{itemName.RemoveEnd("Model")}List()" : $".To{itemName}ModelList()");
             }
-            return adapterString;
+            return sb.ToString();
         }
 
         public static string GetGeneratorAdapterList() // Use this string to set up models in CodeGen constructor
         {
-            var sb = new StringBuilder();         
+            var sb = new StringBuilder();
+            
             var assembly = Assembly.Load("WildHare.Web");
             var typeList = assembly.GetTypesInNamespace("WildHare.Web.Entities");
 
@@ -147,8 +166,7 @@ namespace WildHare.Web
             {
                 sb.AppendLine($"GenerateAdapter(typeof({type.Name}), typeof({type.Name}Model), true);");
             }
-
-            return sb.ToString().AddEnd(NewLine);
+            return sb.ToString();
         }
     }
 }

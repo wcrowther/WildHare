@@ -179,7 +179,7 @@ namespace WildHare.Tests
         [Test]
         public void MetaProperty_SetInstanceValue_From_Instance()
         {
-            // THIS IMPORTANT WHEN TYPES ARE DYNAMIC AS TYPED PROPERTIES 
+            // THIS IS IMPORTANT WHEN TYPES ARE DYNAMIC AS TYPED PROPERTIES 
             // CAN BE SET WITHOUT HAVING TO KNOW THE UNDERLYING COMPILE-TIME TYPE
 
             var item = new Item

@@ -20,11 +20,6 @@ namespace WildHare.Web.Adapters
             };
         }
 
-        public static List<InvoiceItemModel> ToInvoiceItemModelList (this IEnumerable<InvoiceItem> entityList)
-        {
-            return entityList?.Select(a => a.ToInvoiceItemModel()).ToList() ?? new List<InvoiceItemModel>();
-        }
-
         public static InvoiceItem ToInvoiceItem (this InvoiceItemModel model)
         {
             return model == null ? null : new InvoiceItem
@@ -38,9 +33,14 @@ namespace WildHare.Web.Adapters
             };
         }
 
+        public static List<InvoiceItemModel> ToInvoiceItemModelList (this IEnumerable<InvoiceItem> entityList)
+        {
+            return entityList?.Select(a => a.ToInvoiceItemModel()).ToList() ?? new List<InvoiceItemModel>();
+        }
+
         public static List<InvoiceItem> ToInvoiceItemList (this IEnumerable<InvoiceItemModel> modelList)
         {
-            return modelList?.Select(a => a.ToInvoiceItem()).ToList() ?? new List<InvoiceItem>();
+           return modelList?.Select(a => a.ToInvoiceItem()).ToList() ?? new List<InvoiceItem>();
         }
     }
 }

@@ -1,11 +1,16 @@
 
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace WildHare.Extensions.ForTemplating
 {
     public static class TemplatingExtensions
     {
-		/// <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present,</summary>
+		/// <summary>Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present</summary>
 		public static string TSqlTypeToCSharpType(this string sqlTypeName, bool isNull = false)
 		{
 			string cstype;
@@ -45,7 +50,7 @@ namespace WildHare.Extensions.ForTemplating
 			return cstype;
 		}
 
-		/// <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present,</summary>
+		/// <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present</summary>
 		public static string DotNetTypeToCSharpType(this string dotNetTypeName, bool isNull = false)
 		{
 			string cstype;
@@ -88,5 +93,121 @@ namespace WildHare.Extensions.ForTemplating
 
             return nullableIgnoreList.Any(cstype.Contains) ? cstype : $"{cstype}{nullable}"; // string? not currently supported
 		}
-	}
+
+        /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the dictionary 
+        /// lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        public static string Template(this Dictionary<string, object> lookups, string template, string startTag = "{{", string endTag = "}}")
+        {
+            var strBuilder = new StringBuilder(template ?? "");
+
+            foreach (var p in lookups)
+            {
+                string replacement = (p.Value is string) ? p.Value as string : p.Value.ToString();
+                strBuilder.Replace(startTag + p.Key + endTag, (replacement ?? ""));
+            }
+            return strBuilder.ToString();
+        }
+
+        /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} from the {templateFile} template with the matching the dictionary 
+        /// lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        public static string Template(this Dictionary<string, object> lookups, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
+        {
+            return lookups.Template(templateFile.GetString(), startTag, endTag);
+        }
+
+        /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the properties  
+        /// of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        public static string Template(this object obj, string template, string startTag = "{{", string endTag = "}}")
+        {
+            var strBuilder = new StringBuilder(template ?? "");
+            Type type = obj.GetType();
+
+            foreach (var t in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                object o = type.GetProperty(t.Name).GetValue(obj, null);
+                string replacement = (o == null || o is string) ? o as string : o.ToString();
+                strBuilder.Replace(startTag + t.Name + endTag, (replacement ?? ""));
+            }
+            return strBuilder.ToString();
+        }
+
+        /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
+        /// of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        public static string Template(this object obj, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
+        {
+            return obj.Template(templateFile.GetString(), startTag, endTag);
+        }
+
+        /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
+        /// of the current object of type <T>. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        public static string Template<T>(this T obj, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
+        {
+            return obj.Template(templateFile.GetString(), startTag, endTag);
+        }
+
+    }
 }
+
+/*
+    // Other possible Template Extensions
+
+    public static string TemplateList<T>(this IEnumerable<T> list, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
+    {
+        string template;
+        var templateBuilder = new StringBuilder("");
+
+        using (StreamReader reader = templateFile.OpenText())
+        {
+            template = reader.ReadToEnd();
+        }
+
+        foreach (var obj in list)
+        {
+            var strBuilder = new StringBuilder(template ?? "");
+            Type type = obj.GetType();
+            foreach (var t in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                object o = type.GetProperty(t.Name).GetValue(obj, null);
+                string replacement = (o is string) ? o as string : (o != null) ? o.ToString() : "";
+                strBuilder.Replace(startTag + t.Name + endTag, (replacement ?? ""));
+            }
+            templateBuilder.Append(strBuilder);
+        }
+        return templateBuilder.ToString();
+    }
+
+    public static bool TemplateToFiles(this Dictionary<string, object> filesList, string template, string templateDir, string extension = ".txt", string startTag = "{{", string endTag = "}}")
+    {
+        foreach (var file in filesList)
+        {
+            FileInfo fileinfo = new FileInfo(templateDir + file.Key + extension);
+            if (fileinfo.Exists)
+            {
+                fileinfo.Delete();
+            }
+            file.Value.Template(template, startTag, endTag).WriteToFile(templateDir + file.Key + extension);
+        }
+        return true;
+    }
+
+    public static bool TemplateToFiles(this Dictionary<string, object> filesList, FileInfo templateFile, string templateDir, string extension = ".txt", string startTag = "{{", string endTag = "}}")
+    {
+        string template;
+        using (StreamReader reader = templateFile.OpenText())
+        {
+            template = reader.ReadToEnd();
+        }
+
+        foreach (var file in filesList)
+        {
+            FileInfo fileinfo = new FileInfo(templateDir + file.Key + extension);
+            if (fileinfo.Exists)
+            {
+                fileinfo.Delete();
+            }
+            file.Value.Template(template, startTag, endTag).WriteToFile(templateDir + file.Key + extension);
+        }
+        return true;
+    }
+
+*/
