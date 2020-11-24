@@ -9,27 +9,15 @@ namespace WildHare
 {
     public class MetaModel
     {
-        // --------------------------------------------------------------
-        // Private properties
-        // --------------------------------------------------------------
-
-        private readonly Type _type;
-        private List<MetaProperty> properties = null;
-        private object _instance;
-
-        // --------------------------------------------------------------
-        // Constructors
-        // --------------------------------------------------------------
-
         public MetaModel(Type type, object instance = null)
         {
             _type = type;
             _instance = instance;
         }
 
-        // --------------------------------------------------------------
-        // Public Properties
-        // --------------------------------------------------------------
+        private readonly Type _type;
+        private List<MetaProperty> properties = null;
+        private object _instance;
 
         public string TypeName
         {
@@ -117,10 +105,6 @@ namespace WildHare
         {
             return $"MetaModel for {TypeName} ({MetaProperties.Count} MetaProperties)";
         }
-
-        // --------------------------------------------------------------
-        // Public Methods
-        // --------------------------------------------------------------
 
         private List<MetaProperty> MetaProperties
         {

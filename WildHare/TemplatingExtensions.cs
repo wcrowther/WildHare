@@ -139,7 +139,7 @@ namespace WildHare.Extensions.ForTemplating
         }
 
         /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
-        /// of the current object of type <T>. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        /// of the current object of type &lt;T&gt;. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         public static string Template<T>(this T obj, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
         {
             return obj.Template(templateFile.GetString(), startTag, endTag);

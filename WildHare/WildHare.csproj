@@ -10,18 +10,22 @@
     -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>0.9.9.5</Version>
+    <Version>0.9.9.7</Version>
     <Authors>Will Crowther</Authors>
     <Product>WildHare Extensions</Product>
-    <Description>BETA  - WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
+    <Description>WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
     <Copyright>Ⓒ 2020 Will Crowther</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://www.seedpacket.net/</PackageProjectUrl>
     <PackageTags>extension methods</PackageTags>
-    <AssemblyVersion>0.9.9.5</AssemblyVersion>
-    <FileVersion>0.9.9.5</FileVersion>
+    <AssemblyVersion>0.9.9.7</AssemblyVersion>
+    <FileVersion>0.9.9.7</FileVersion>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>0.9.9.4 Adds IList.TakeNextOne() and IList.TakeRandomOne()
+    <PackageReleaseNotes>
+0.9.9.7 Added IEnumerable.Sequence and ToCollection
+
+0.9.9.6 Additional Char and Templating extensions
+0.9.9.4 Adds IList.TakeNextOne() and IList.TakeRandomOne()
 0.9.9.3 Adds DateTime extensions
 0.9.9.2 Adds missing  exclude, include params to List&lt;MetaProperty&gt; GetMetaProperties(this Type type) method.
 0.9.9.1 Contains some methods that have been renamed, so some refactoring may need to be done after upgrading to this version. These type of changes are winding down and when WildHare goes out of BETA with 1.0.0.0 (sometime before the end of the year), the only changes from that point on will be additive.</PackageReleaseNotes>
