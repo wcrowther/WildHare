@@ -339,14 +339,13 @@ namespace WildHare.Extensions
             return sb.ToString();
         }
 
-		/// <summary>Increments integer +1 on the end of a string</summary>
-		/// <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
-		/// <example>'File6.txt'.IncrementString(1,".txt") = 'File7.txt'</example>
-		/// <returns>A string with end int incremented +1</returns>
-		public static string IncrementString(this string str, int? seedIfEmpty = 1, string ignoreExtension = "", int increment = 1)
+        /// <summary>Increments integer +1 on the end of a string. IF the string does not contain an integer then
+        /// will use {seedIfEmpty}.  You can specify a file extension at the end to ignore using {ignoreExtension}.
+        /// If needed, you can set a value for {increment} to be other than 1.</summary>
+        public static string IncrementString(this string str, int? seedIfEmpty = null, string ignoreExtension = "", int increment = 1)
 		{
 			str = str.RemoveEnd(ignoreExtension);
-			int? currentnumber = seedIfEmpty;
+			int? currentnumber = seedIfEmpty ?? 1;
 			string numberstring = "";
 
 			numberstring += Regex.Match(str, @"[0-9,-]*$");

@@ -2,6 +2,7 @@ Directory: Directory1a
 Directory: Directory1b
 Directory: Directory2a
 Directory: Directory3a
+File: SimpleTemplate.txt
 File: TextFile0.txt
 File: TestFIle1.txt
 File: TestFile2.txt

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Dynamic;
 
-namespace WildHare.Models
+namespace WildHare
 {
     public class DynamicExpando : DynamicObject
     {

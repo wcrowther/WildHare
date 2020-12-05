@@ -89,6 +89,21 @@ namespace WildHare.Tests
             Assert.AreEqual("Item", metaModel.GetMetaProperties()[4].Name);
         }
 
+
+        [Test]
+        public void GetMetaModel_From_Model_Without_Parameterless_Constructor()
+        {
+            var metaListModel = new List<ClassRequiringCtorParam>().GetMetaModel();
+
+            Assert.AreEqual(1, metaListModel.GetMetaProperties().Count);
+            Assert.AreEqual("ClassName", metaListModel.GetMetaProperties().First().Name);
+
+            var list = new List<ClassRequiringCtorParam> { new ClassRequiringCtorParam("Fred") };
+
+            Assert.AreEqual("ClassRequiringCtorParam", list.GetMetaModel().TypeName);
+            Assert.AreEqual("Fred", list.First().ClassName);
+        }
+
         [Test]
         public void GetMetaProperties_Basic()
         {

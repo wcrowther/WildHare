@@ -22,7 +22,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Gets a MetaModel that describes the {type} for the current instance for use in code generation.</summary>
-        public static MetaModel GetMetaModel<T>(this T instance) where T : class //, new()
+        public static MetaModel GetMetaModel<T>(this T instance) where T : class 
         {
             if (instance is IEnumerable)
             {

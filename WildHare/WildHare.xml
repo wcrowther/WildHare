@@ -354,10 +354,9 @@
             </summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable{System.Int32},System.String,System.Int32)">
-            <summary>Increments integer +1 on the end of a string</summary>
-            <example>'File.txt'.IncrementString(".txt") = 'File1.txt'</example>
-            <example>'File6.txt'.IncrementString(1,".txt") = 'File7.txt'</example>
-            <returns>A string with end int incremented +1</returns>
+            <summary>Increments integer +1 on the end of a string. IF the string does not contain an integer then
+            will use {seedIfEmpty}.  You can specify a file extension at the end to ignore using {ignoreExtension}.
+            If needed, you can set a value for {increment} to be other than 1.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32)">
             <summary>Returns a string {str} x {number} of times</summary>

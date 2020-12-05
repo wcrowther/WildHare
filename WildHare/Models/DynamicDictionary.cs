@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 
-namespace WildHare.Models
+namespace WildHare
 {
     public class DynamicDictionary : DynamicObject
     {

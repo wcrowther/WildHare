@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -50,6 +52,18 @@ namespace WildHare.Extensions.Xtra
 			Debug.WriteLine("entryAssembly: " + entryAssembly);
 
 			return appRoot;
+        }
+
+        // Example Usage:
+        // var list = CreateListOfType(typeof(Category)); // Is IList of object
+        // list.Add(new Category() { CategoryName = "Will"});
+        public static dynamic CreateListOfType(dynamic t)
+        {
+            var listType = typeof(List<>);
+            var constructedListType = listType.MakeGenericType(t);
+            var instance = Activator.CreateInstance(constructedListType);
+
+            return instance;
         }
     }
 }

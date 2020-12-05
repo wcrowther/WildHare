@@ -1,10 +1,13 @@
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
+using WildHare.Tests.Models;
+using System.Collections.Generic;
 
 namespace WildHare.Tests
 {
@@ -49,6 +52,26 @@ namespace WildHare.Tests
             Assert.AreEqual(fileName3, source3);
             Assert.AreEqual(fileName4, source4);
             Assert.AreEqual(fileName4a, source4);
+        }
+
+
+        [Test]
+        public void Test_CreateListOfType()
+        {
+            dynamic list = XtraExtensions.CreateListOfType(typeof(Person));// Is IList of object
+            list.Add(new Person() { FirstName = "Will", LastName="Crowther"});
+
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual("Person", ((IEnumerable) list).GetMetaModel().TypeName);
+
+            var listOfPerson = new List<Person>()
+            {
+                new Person{ FirstName="Patricia", LastName="Crowther"}
+            };
+
+            list.AddRange(listOfPerson);
+
+            Assert.AreEqual(2, list.Count);
         }
     }
 }

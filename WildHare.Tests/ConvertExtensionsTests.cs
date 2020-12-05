@@ -29,10 +29,10 @@ namespace WildHare.Tests
         {
             string file = "file.txt";
 
-            string newStr = file.IncrementString(ignoreExtension: ".txt");
+            string newStr = file.IncrementString(1, ".txt");
             Assert.AreEqual("file1.txt", newStr);
 
-            newStr = newStr.IncrementString(ignoreExtension: ".txt");
+            newStr = newStr.IncrementString(null, ".txt");
             Assert.AreEqual("file2.txt", newStr);
 
             newStr = newStr.IncrementString(ignoreExtension: ".txt");

@@ -240,11 +240,16 @@ namespace WildHare
         {
             var types = new List<Type>();
 
-            foreach (string name in typeNames)
+            if (types != null && types.Count > 0)
             {
-                if(!name.IsNullOrEmpty())
-                    types.Add(Type.GetType(name));
+                foreach (string name in typeNames)
+                {
+                    if(!name.IsNullOrEmpty())
+                        types.Add(Type.GetType(name));
+                }
             }
+
+
             return types.ToArray();
         }
     }
