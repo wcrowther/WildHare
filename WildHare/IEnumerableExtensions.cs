@@ -17,7 +17,7 @@ namespace WildHare.Extensions
                 throw new NullReferenceException("ElementIn() source cannnot be null.");
             }
 
-            if(source.Count() == 0)
+            if (source.Count() == 0)
                 throw new Exception("ElementIn() source contains no elements.");
 
             index = Math.Abs(index);
@@ -89,7 +89,7 @@ namespace WildHare.Extensions
         /// <summary>Given two lists it returns values from first if the {func} is true. If {consecutive} 
         /// is false, continues returning values until one of the lists has no more elements.</summary>
         public static IEnumerable<T1> MatchList<T1, T2>(this IEnumerable<T1> list1, IEnumerable<T2> list2,
-                                                             Func<T1, T2, bool> func, bool consecutive = true )
+                                                             Func<T1, T2, bool> func, bool consecutive = true)
         {
             var ie1 = list1.GetEnumerator();
             var ie2 = list2.GetEnumerator();
@@ -117,6 +117,7 @@ namespace WildHare.Extensions
 
         /// <summary>Given two lists returns the values from first if func is true. 
         /// If {consecutive} is false continues until one of the lists has no  more elements.</summary>
+        [Obsolete("Renamed to MatchList. Will remove in a future version.")]
         public static IEnumerable<TFirst> Sequence<TFirst, TSecond>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second,
                                                                          Func<TFirst, TSecond, bool> func, bool consecutive = true)
         {
@@ -141,6 +142,44 @@ namespace WildHare.Extensions
                     match = false;
                 }
             }
+        }
+
+        public static int InList<TList, TItems>(this IList<TList> list,
+                                                     IList<TItems> items,
+                                                     Func<TList, TItems, bool> func)
+        {
+
+            int index = -1;
+
+            if (list == null || items == null || list.Count < items.Count)
+                return index;
+
+            for (int x = 0; x < list.Count; x++)
+            {
+                int matches = 0;
+                for (int i = 0; i < items.Count; i++)
+                {
+                    var a = list.ElementAtOrDefault(x + i);
+                    var b = items.ElementAtOrDefault(i);
+                    bool match = func(a,b); 
+
+                    if (match)
+                    {
+                        matches++;
+                    }
+                    else
+                    {
+                        matches = 0;
+                        break;
+                    }
+                }
+                if (matches == items.Count)
+                {
+                    index = x;
+                    break;
+                }
+            }
+            return index;
         }
 
         /// <summary>Converts IEnumerable to Collection of type parameter.

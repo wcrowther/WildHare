@@ -169,7 +169,7 @@ namespace WildHare.Tests
 
             var fileToRead = new FileInfo(directoryPath);
 
-            Assert.AreEqual("This is TextFile0.txt.\n", fileToRead.GetString());
+            Assert.AreEqual("This is TextFile0.txt.\n", fileToRead.ReadFile());
         }
 
         [Test]
@@ -182,7 +182,7 @@ namespace WildHare.Tests
 
             var ex = Assert.Throws<FileNotFoundException>
             (
-                () => fileToRead.GetString()
+                () => fileToRead.ReadFile()
             );
 
             Assert.IsTrue(ex.Message.StartsWith("Could not find file"));
@@ -196,7 +196,7 @@ namespace WildHare.Tests
 
             var fileToRead = new FileInfo(directoryPath);
 
-            Assert.IsNull(fileToRead.GetString(false));
+            Assert.IsNull(fileToRead.ReadFile(false));
         }
     }
 }

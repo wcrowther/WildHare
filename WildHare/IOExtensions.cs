@@ -133,7 +133,7 @@ namespace WildHare.Extensions
 
         /// <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
         /// will throw an exception if the file is not found. If {strict} is false, will return null.</summary>
-        public static string GetString(this FileInfo fileInfo, bool strict = true)
+        public static string ReadFile(this FileInfo fileInfo, bool strict = true)
         {
             try
             {

@@ -77,5 +77,29 @@ namespace WildHare.Tests
             Assert.AreEqual("Jul", monthOfJulyInt.ShortMonthName());
             Assert.AreEqual("Jul", date.ShortMonthName());
         }
+
+        [Test]
+        public void YearMonth_Test()
+        {
+            var december_1_2020 = new DateTime(2020, 12, 1);
+
+            Assert.AreEqual("202012", december_1_2020.YearMonth());
+
+            var april_5_2020 = new DateTime(2020, 4, 5);
+
+            Assert.AreEqual("202004", april_5_2020.YearMonth());
+        }
+
+        [Test]
+        public void YearMonthDay_Test()
+        {
+            var december_1_2020 = new DateTime(2020, 12, 1);
+
+            Assert.AreEqual("20201201", december_1_2020.YearMonthDay());
+
+            var april_5_2020 = new DateTime(2020, 4, 5);
+
+            Assert.AreEqual("20200405", april_5_2020.YearMonthDay());
+        }
     }
 }

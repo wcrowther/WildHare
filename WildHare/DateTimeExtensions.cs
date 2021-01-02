@@ -78,5 +78,14 @@ namespace WildHare.Extensions
             return CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(monthInt);
         }
 
+        public static string YearMonth(this DateTime date)
+        {
+            return $"{date.Year}{date.Month:00}";
+        }
+
+        public static string YearMonthDay(this DateTime date)
+        {
+            return $"{date.Year}{date.Month:00}{date.Day:00}";
+        }
     }
 }

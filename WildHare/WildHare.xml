@@ -241,7 +241,7 @@
         <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String)">
             <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IOExtensions.GetString(System.IO.FileInfo,System.Boolean)">
+        <member name="M:WildHare.Extensions.IOExtensions.ReadFile(System.IO.FileInfo,System.Boolean)">
             <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
             will throw an exception if the file is not found. If {strict} is false, will return null.</summary>
         </member>

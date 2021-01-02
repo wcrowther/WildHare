@@ -94,7 +94,62 @@ namespace WildHare.Tests
             Assert.AreEqual("the president of the united states", string.Join(' ', matches));
         }
 
+        [Test]
+        public void Test_MatchList_Advanced()
+        {
+            var wordList_A = new List<Word>
+            {
+                new Word{ WordId = 1, WordName="the" },
+                new Word{ WordId = 2, WordName="president" },
+                new Word{ WordId = 3, WordName="of" },
+                new Word{ WordId = 1, WordName="the" },
+                new Word{ WordId = 4, WordName="united" },
+                new Word{ WordId = 5, WordName="states" },
+                new Word{ WordId = 6, WordName="is" },
+                new Word{ WordId = 7, WordName="a" },
+                new Word{ WordId = 8, WordName="politician" },
 
+            };
+            var wordList_B = new List<Word>
+            {
+                new Word{ WordId = 1, WordName="the" },
+                new Word{ WordId = 2, WordName="president" },
+                new Word{ WordId = 3, WordName="of" },
+                new Word{ WordId = 1, WordName="the" },
+                new Word{ WordId = 4, WordName="united" },
+                new Word{ WordId = 5, WordName="states" }
 
+            };
+            var wordList_C = new List<Word>
+            {
+                new Word{ WordId = 4, WordName="united" },
+                new Word{ WordId = 5, WordName="states" }
+
+            };
+
+            var matches = wordList_A.MatchList(wordList_B, (a, b) => a.WordName == b.WordName).ToArray();
+
+            Assert.AreEqual(6, matches.Count());
+            Assert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.WordName)));
+
+            var matches2 = wordList_A.MatchList(wordList_C, (a, b) => a.WordName == b.WordName).ToArray();
+
+            Assert.AreEqual(0, matches2.Count());
+
+            var matches3 = wordList_A.MatchList(wordList_C, (a, b) => a.WordName == b.WordName).ToArray();
+
+            Assert.AreEqual(0, matches2.Count());
+        }
+
+        [Test]
+        public void Test_InList_Basic()
+        {
+            string[] phraseArray = { "the", "president", "of", "the", "united", "states", "is", "a", "politician" };
+            var splitSentence = "the united states".Split(' ');
+
+            int index = phraseArray.InList(splitSentence, (a, b) => a == b);
+
+            Assert.AreEqual(3, index);
+        }
     }
 }

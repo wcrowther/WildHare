@@ -112,7 +112,7 @@ namespace WildHare.Extensions.ForTemplating
         /// lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         public static string Template(this Dictionary<string, object> lookups, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
         {
-            return lookups.Template(templateFile.GetString(), startTag, endTag);
+            return lookups.Template(templateFile.ReadFile(), startTag, endTag);
         }
 
         /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the properties  
@@ -135,14 +135,14 @@ namespace WildHare.Extensions.ForTemplating
         /// of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         public static string Template(this object obj, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
         {
-            return obj.Template(templateFile.GetString(), startTag, endTag);
+            return obj.Template(templateFile.ReadFile(), startTag, endTag);
         }
 
         /// <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
         /// of the current object of type &lt;T&gt;. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         public static string Template<T>(this T obj, FileInfo templateFile, string startTag = "{{", string endTag = "}}")
         {
-            return obj.Template(templateFile.GetString(), startTag, endTag);
+            return obj.Template(templateFile.ReadFile(), startTag, endTag);
         }
 
     }

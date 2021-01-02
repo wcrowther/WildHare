@@ -57,7 +57,7 @@ namespace WildHare.Extensions.Xtra
         // Example Usage:
         // var list = CreateListOfType(typeof(Category)); // Is IList of object
         // list.Add(new Category() { CategoryName = "Will"});
-        public static dynamic CreateListOfType(dynamic t)
+        public static dynamic DynamicListOfType(dynamic t)
         {
             var listType = typeof(List<>);
             var constructedListType = listType.MakeGenericType(t);
@@ -65,5 +65,22 @@ namespace WildHare.Extensions.Xtra
 
             return instance;
         }
+
+        // Alternative to DynamicListOfType. Not sure which is better.
+        // Example Usage:
+        // var list = CreateListOfType(typeof(Category)); // Is IList of object
+        // list.Add(new Category() { CategoryName = "Will"});
+        public static dynamic[] DynamicArrayOfType(dynamic t)
+        {
+            var listType = typeof(List<>);
+            var constructedListType = listType.MakeGenericType(t);
+            var instance = Activator.CreateInstance(constructedListType);
+
+            return (dynamic[])instance.ToArray();
+        }
+
+        // DOES NOT WORK: IQueryable 3.1 can no longer be cast to DbSet per:
+        // https ://stackoverflow.com/questions/21533506/find-a-specified-generic-dbset-in-a-dbcontext-dynamically-when-i-have-an-entity
+
     }
 }
