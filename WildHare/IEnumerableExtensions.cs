@@ -144,15 +144,14 @@ namespace WildHare.Extensions
             }
         }
 
-        public static int InList<TList, TItems>(this IList<TList> list,
+        public static int[] InList<TList, TItems>(this IList<TList> list,
                                                      IList<TItems> items,
                                                      Func<TList, TItems, bool> func)
         {
-
-            int index = -1;
+            var indexes = new List<int>();
 
             if (list == null || items == null || list.Count < items.Count)
-                return index;
+                return indexes.ToArray();
 
             for (int x = 0; x < list.Count; x++)
             {
@@ -175,11 +174,10 @@ namespace WildHare.Extensions
                 }
                 if (matches == items.Count)
                 {
-                    index = x;
-                    break;
+                    indexes.Add(x);
                 }
             }
-            return index;
+            return indexes.ToArray();
         }
 
         /// <summary>Converts IEnumerable to Collection of type parameter.

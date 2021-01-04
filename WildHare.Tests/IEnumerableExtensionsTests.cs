@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
@@ -147,9 +148,68 @@ namespace WildHare.Tests
             string[] phraseArray = { "the", "president", "of", "the", "united", "states", "is", "a", "politician" };
             var splitSentence = "the united states".Split(' ');
 
-            int index = phraseArray.InList(splitSentence, (a, b) => a == b);
+            int[] indexes = phraseArray.InList(splitSentence, (a, b) => a == b);
 
-            Assert.AreEqual(3, index);
+            Assert.AreEqual(3, indexes.First());
+        }
+
+
+        [Test]
+        public void Test_InList_Advanced()
+        {
+            string[] phraseArray = { "the", "president", "of", "the", "United", "States", "lives", "in", "the", "united", "states" };
+            var splitSentence = "the united states".Split(' ');
+
+            int[] indexes = phraseArray.InList(splitSentence, (a, b) => a.ToLower() == b.ToLower());
+
+            Assert.AreEqual(3, indexes.ElementAt(0));
+            Assert.AreEqual(8, indexes.ElementAt(1));
+        }
+
+        [Test]
+        public void Test_InList_Advanced_ListTest_InList_Advanced_List()
+        {
+            string[] phraseArray = { "the", "president", "of", "the", "United", "States", "lives", "in", "the", "united", "states" };
+
+            var wordList = new List<string[]>
+            {
+                new string[]{ "the", "president", "of", "the", "United", "States" },
+                new string[]{ "the", "president"},
+                new string[]{ "the", "united", "states" },
+                new string[]{ "the"},
+                new string[]{ "not", "found" },
+                new string[]{ "other", "strings" },
+
+            };
+
+            var lookupList = new Collection<(int Index, string[] List)>();
+            foreach (var list in wordList)
+            {
+                int[] indexes = phraseArray.InList(list, (a, b) => a.ToLower() == b.ToLower());
+                foreach (var index in indexes)
+                {
+                    if (index > -1)
+                        lookupList.Add((index, list));
+                }
+            }
+
+            Assert.AreEqual(7, lookupList.Count);
+
+            Assert.AreEqual(0, lookupList[0].Index);
+
+            Assert.AreEqual(0, lookupList[1].Index);
+            Assert.AreEqual("the president", string.Join(" ", lookupList[1].List));
+
+            Assert.AreEqual(3, lookupList[2].Index);
+            Assert.AreEqual("the united states", string.Join(" ", lookupList[2].List));
+
+            Assert.AreEqual(8, lookupList[3].Index);
+            Assert.AreEqual("the united states", string.Join(" ", lookupList[3].List));
+
+            Assert.AreEqual(0, lookupList[4].Index);
+            Assert.AreEqual(3, lookupList[5].Index);
+            Assert.AreEqual(8, lookupList[6].Index);
+
         }
     }
 }
