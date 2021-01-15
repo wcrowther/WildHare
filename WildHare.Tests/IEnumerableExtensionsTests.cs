@@ -18,7 +18,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_ElementIn_IEnumerable_Single_Element()
         {
-            var numbers = new string[]{ "zero" };
+            var numbers = new string[] { "zero" };
 
             Assert.AreEqual("zero", numbers.ElementIn(11));
             Assert.AreEqual("zero", numbers.ElementIn(4456));
@@ -31,10 +31,10 @@ namespace WildHare.Tests
             var numbers = new string[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
             Assert.AreEqual("zero", numbers.ElementInOrDefault(0));
-            Assert.AreEqual("two",  numbers.ElementInOrDefault(2));
+            Assert.AreEqual("two", numbers.ElementInOrDefault(2));
             Assert.AreEqual("zero", numbers.ElementInOrDefault(10));
             Assert.AreEqual("five", numbers.ElementInOrDefault(15));
-            Assert.AreEqual("six",  numbers.ElementInOrDefault(106));
+            Assert.AreEqual("six", numbers.ElementInOrDefault(106));
             Assert.AreEqual("six", numbers.ElementInOrDefault(1606));
             Assert.AreEqual("two", numbers.ElementInOrDefault(-2));
             Assert.AreEqual("five", numbers.ElementInOrDefault(-15));
@@ -57,7 +57,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_ElementInOrDefault_IList_Ints()
         {
-            int[] numbers = { 0,1,2,3,4,5,6,7,8,9 };
+            int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
             Assert.AreEqual(0, numbers.ElementInOrDefault(0));
             Assert.AreEqual(2, numbers.ElementInOrDefault(2));
@@ -86,11 +86,11 @@ namespace WildHare.Tests
         [Test]
         public void Test_MatchList_Basic()
         {
-            string[] phraseArray = {"the", "president", "of", "the", "united", "states", "is", "a", "politician" };
-            var splitSentence    = "the president of the united states".Split(' ');
+            string[] phraseArray = { "the", "president", "of", "the", "united", "states", "is", "a", "politician" };
+            var splitSentence = "the president of the united states".Split(' ');
 
             var matches = phraseArray.MatchList(splitSentence, (a, b) => a == b).ToList();
-            
+
             Assert.AreEqual(6, matches.Count);
             Assert.AreEqual("the president of the united states", string.Join(' ', matches));
         }
@@ -153,7 +153,6 @@ namespace WildHare.Tests
             Assert.AreEqual(3, indexes.First());
         }
 
-
         [Test]
         public void Test_InList_Advanced()
         {
@@ -211,5 +210,70 @@ namespace WildHare.Tests
             Assert.AreEqual(8, lookupList[6].Index);
 
         }
+
+        [Test]
+        public void Test_InList_Advanced_ListTest_InList_Advanced_List2()
+        {
+            Word[] wordArray = {
+            new Word{WordId=1, WordName="the" },
+            new Word{WordId=2, WordName="president" },
+            new Word{WordId=3, WordName="of" },
+            new Word{WordId=1, WordName="the" },
+            new Word{WordId=4, WordName="United" },
+            new Word{WordId=5, WordName="States" },
+            new Word{WordId=6, WordName="lives" },
+            new Word{WordId=7, WordName="in" },
+            new Word{WordId=1, WordName="the" },
+            new Word{WordId=4, WordName="united" },
+            new Word{WordId=5, WordName="states" }
+        };
+
+            var wordList = new List<Word[]>
+            {
+                new Word[]{ new Word{ WordId=1, WordName="the"   }, new Word{ WordId=2, WordName="president" },
+                            new Word{ WordId=3, WordName="of"    }, new Word{ WordId=1, WordName="the" },
+                            new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"} },
+
+                new Word[]{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=2, WordName="president"} },
+
+                new Word[]{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"} },
+
+                new Word[]{ new Word{ WordId=1, WordName="the" } },
+
+                new Word[]{ new Word{ WordId=8, WordName="not" }, new Word{ WordId=9, WordName="found" } },
+
+                new Word[]{ new Word{ WordId=10, WordName="other" }, new Word{ WordId=11, WordName= "strings" }  },
+            };
+
+            var lookupList = new Collection<(int Index, Word[] List)>();
+            foreach (var list in wordList)
+            {
+                int[] indexes = wordArray.InList(list, (a, b) => a.WordId == b.WordId);
+                foreach (var index in indexes)
+                {
+                    if (index > -1)
+                        lookupList.Add((index, list));
+                }
+            }
+
+            Assert.AreEqual(7, lookupList.Count);
+
+            Assert.AreEqual(0, lookupList[0].Index);
+
+            Assert.AreEqual(0, lookupList[1].Index);
+            Assert.AreEqual("the president", string.Join(" ", lookupList[1].List.Select(s => s.WordName)));
+
+            Assert.AreEqual(3, lookupList[2].Index);
+            Assert.AreEqual("the united states", string.Join(" ", lookupList[2].List.Select(s => s.WordName)));
+
+            Assert.AreEqual(8, lookupList[3].Index);
+            Assert.AreEqual("the united states", string.Join(" ", lookupList[3].List.Select(s => s.WordName)));
+
+            Assert.AreEqual(0, lookupList[4].Index);
+            Assert.AreEqual(3, lookupList[5].Index);
+            Assert.AreEqual(8, lookupList[6].Index);
+
+        }
+
     }
 }

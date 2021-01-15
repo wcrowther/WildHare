@@ -42,7 +42,7 @@ namespace WildHare
         /// and characters between 0x7F and 0x9A</summary>
         public static bool IsControl(this char ch) { return char.IsControl(ch); }
 
-        /// <summary>Inline version of char.IsSeparator(ch). in: Space plusall Unicode separator characters</summary>
+        /// <summary>Inline version of char.IsSeparator(ch). in: Space plus all Unicode separator characters</summary>
         public static bool IsSeparator(this char ch) { return char.IsSeparator(ch); }
 
         /// <summary>Inline version of char.GetUnicodeCategory(ch)</summary>

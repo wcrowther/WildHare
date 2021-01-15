@@ -39,7 +39,7 @@
             and characters between 0x7F and 0x9A</summary>
         </member>
         <member name="M:WildHare.CharExtensions.IsSeparator(System.Char)">
-            <summary>Inline version of char.IsSeparator(ch). in: Space plusall Unicode separator characters</summary>
+            <summary>Inline version of char.IsSeparator(ch). in: Space plus all Unicode separator characters</summary>
         </member>
         <member name="M:WildHare.CharExtensions.GetUnicodeCategory(System.Char)">
             <summary>Inline version of char.GetUnicodeCategory(ch)</summary>

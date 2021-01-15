@@ -144,9 +144,9 @@ namespace WildHare.Extensions
             }
         }
 
-        public static int[] InList<TList, TItems>(this IList<TList> list,
-                                                     IList<TItems> items,
-                                                     Func<TList, TItems, bool> func)
+        public static int[] InList<T>(this IList<T> list,
+                                           IList<T> items,
+                                           Func<T, T, bool> func)
         {
             var indexes = new List<int>();
 
