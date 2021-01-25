@@ -578,7 +578,6 @@ namespace WildHare.Tests
             Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
 
-
         [Test]
         public void Test_Replace_Dictionary_Overload()
         {

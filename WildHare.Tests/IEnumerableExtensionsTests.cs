@@ -215,38 +215,41 @@ namespace WildHare.Tests
         public void Test_InList_Advanced_ListTest_InList_Advanced_List2()
         {
             Word[] wordArray = {
-            new Word{WordId=1, WordName="the" },
-            new Word{WordId=2, WordName="president" },
-            new Word{WordId=3, WordName="of" },
-            new Word{WordId=1, WordName="the" },
-            new Word{WordId=4, WordName="United" },
-            new Word{WordId=5, WordName="States" },
-            new Word{WordId=6, WordName="lives" },
-            new Word{WordId=7, WordName="in" },
-            new Word{WordId=1, WordName="the" },
-            new Word{WordId=4, WordName="united" },
-            new Word{WordId=5, WordName="states" }
-        };
-
-            var wordList = new List<Word[]>
-            {
-                new Word[]{ new Word{ WordId=1, WordName="the"   }, new Word{ WordId=2, WordName="president" },
-                            new Word{ WordId=3, WordName="of"    }, new Word{ WordId=1, WordName="the" },
-                            new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"} },
-
-                new Word[]{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=2, WordName="president"} },
-
-                new Word[]{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"} },
-
-                new Word[]{ new Word{ WordId=1, WordName="the" } },
-
-                new Word[]{ new Word{ WordId=8, WordName="not" }, new Word{ WordId=9, WordName="found" } },
-
-                new Word[]{ new Word{ WordId=10, WordName="other" }, new Word{ WordId=11, WordName= "strings" }  },
+                new Word{WordId=1, WordName="the" },
+                new Word{WordId=2, WordName="president" },
+                new Word{WordId=3, WordName="of" },
+                new Word{WordId=1, WordName="the" },
+                new Word{WordId=4, WordName="United" },
+                new Word{WordId=5, WordName="States" },
+                new Word{WordId=6, WordName="lives" },
+                new Word{WordId=7, WordName="in" },
+                new Word{WordId=1, WordName="the" },
+                new Word{WordId=4, WordName="united" },
+                new Word{WordId=5, WordName="states" }
             };
 
-            var lookupList = new Collection<(int Index, Word[] List)>();
-            foreach (var list in wordList)
+            var wordList = new List<List<Word>>
+            {
+                new List<Word>(){
+                    new Word{ WordId=1, WordName="the"   }, new Word{ WordId=2, WordName="president" },
+                    new Word{ WordId=3, WordName="of"    }, new Word{ WordId=1, WordName="the" },
+                    new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"}
+                },
+
+                new List<Word>{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=2, WordName="president"} },
+
+                new List<Word>{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"} },
+
+                new List<Word>{ new Word{ WordId=1, WordName="the" } },
+
+                new List<Word>{ new Word{ WordId=8, WordName="not" }, new Word{ WordId=9, WordName="found" } },
+
+                new List<Word>{ new Word{ WordId=10, WordName="other" }, new Word{ WordId=11, WordName= "strings" }  },
+            };
+
+            var lookupList = new Collection<(int Index, List<Word> List)>();
+
+            foreach (List<Word> list in wordList)
             {
                 int[] indexes = wordArray.InList(list, (a, b) => a.WordId == b.WordId);
                 foreach (var index in indexes)
