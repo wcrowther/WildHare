@@ -86,5 +86,20 @@ namespace WildHare.Extensions
 
             return types.OrderBy(t => t.Name).ToArray();
         }
+
+        public static Type[] GetDerivedClasses(this Type type, string[] ignoreTypeNames = null) 
+        {
+            ignoreTypeNames = ignoreTypeNames ?? new string[0];
+
+            return Assembly.GetAssembly(type)
+                            .GetTypes()
+                            .Where
+                            (
+                                t => t.IsSubclassOf(type) &&
+                                (!ignoreTypeNames?.Any(t.Name.Contains) ?? false)
+                            )
+                            .OrderBy(o => o.Name)
+                            .ToArray();
+        }
     }
 }

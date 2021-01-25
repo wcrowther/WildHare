@@ -144,9 +144,9 @@ namespace WildHare.Extensions
             }
         }
 
-        public static int[] InList<T>(this IList<T> list,
-                                           IList<T> items,
-                                           Func<T, T, bool> func)
+        public static int[] InList<TList, TItems>(this IList<TList> list,
+                                                       IList<TItems> items,
+                                                       Func<TList, TItems, bool> func)
         {
             var indexes = new List<int>();
 
@@ -157,7 +157,7 @@ namespace WildHare.Extensions
             {
                 int matches = 0;
                 for (int i = 0; i < items.Count; i++)
-                {
+                {   
                     var a = list.ElementAtOrDefault(x + i);
                     var b = items.ElementAtOrDefault(i);
                     bool match = func(a,b); 
