@@ -622,5 +622,58 @@ namespace WildHare.Tests
 
             Assert.AreEqual(result, message);
         }
+
+        [Test]
+        public void Test_Left_Mid_Right_Basic()
+        {
+            string str = "LeftMiddleRight";
+
+            Assert.AreEqual("Left", str.Left(4));
+            Assert.AreEqual("Middle", str.Mid(4, 6));
+            Assert.AreEqual("MiddleRight", str.Mid(4));
+            Assert.AreEqual("Right", str.Right(5));
+        }
+
+        [Test]
+        public void Test_Left_Mid_Right_When_Null()
+        {
+            string str = null;
+
+            Assert.AreEqual("", str.Left(4));
+            Assert.AreEqual("", str.Mid(4, 6));
+            Assert.AreEqual("", str.Mid(4));
+            Assert.AreEqual("", str.Right(5));
+        }
+
+        [Test]
+        public void Test_Left_Mid_Right_When_Empty()
+        {
+            string str = "";
+
+            Assert.AreEqual("", str.Left(4));
+            Assert.AreEqual("", str.Mid(4, 6));
+            Assert.AreEqual("", str.Mid(4));
+            Assert.AreEqual("", str.Right(5));
+        }
+
+        [Test]
+        public void Test_Left_Mid_Right_When_Shorter_Than_String()
+        {
+            string str = "string";
+
+            Assert.AreEqual("stri", str.Left(4));
+            Assert.AreEqual("ring", str.Mid(2, 6));
+            Assert.AreEqual("ring", str.Mid(2));
+            Assert.AreEqual("ing",  str.Right(3));
+        }
+
+        [Test]
+        public void Test_ApplyToAllLines_Basic()
+        {
+            string str = $"line1\r\nline2\r\nline3";
+            string expected = $"x_line1_x\r\nx_line2_x\r\nx_line3_x";
+
+            Assert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x") );
+        }
     }
 }

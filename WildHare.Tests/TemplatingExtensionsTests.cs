@@ -6,6 +6,8 @@ using WildHare.Tests.Models;
 using WildHare.Extensions.ForTemplating;
 using System.IO;
 using WildHare.Extensions.Xtra;
+using static System.Environment;
+using System.Text;
 
 namespace WildHare.Tests
 {
@@ -81,5 +83,43 @@ namespace WildHare.Tests
 
             Assert.AreEqual("InvoiceId 222 for AccountId 1000.\n", result);
         }
+
+        [Test]
+        public void Test_TemplateList_With_String_Basic()
+        {
+            var invoice = new Invoice
+            {
+                InvoiceId = 1000,
+                AccountId = 9999,
+                InvoiceItems = new List<InvoiceItem>
+                {
+                    new InvoiceItem { InvoiceItemId = 1, Product = "DooHickey",      Fee = 1.00m },
+                    new InvoiceItem { InvoiceItemId = 2, Product = "WhatZit",        Fee = 2.00m  },
+                    new InvoiceItem { InvoiceItemId = 3, Product = "WhatDoYaCallIt", Fee = 3.00m  },
+                    new InvoiceItem { InvoiceItemId = 4, Product = "ThingaMaGig",    Fee = 4.00m  }
+                }
+            };
+
+            string lineTemplate = "    <div>ItemId: [InvoiceItemId] Product: [Product] Fee: [Fee]</div>";
+            string docTemplate = $@"
+<div>InvoiceId: [InvoiceId] AccountId: [AccountId]
+{invoice.InvoiceItems.TemplateList(lineTemplate, "\n")}
+</div>";
+
+            var expected = @"
+<div>InvoiceId: 1000 AccountId: 9999
+    <div>ItemId: 1 Product: DooHickey Fee: 1.00</div>
+    <div>ItemId: 2 Product: WhatZit Fee: 2.00</div>
+    <div>ItemId: 3 Product: WhatDoYaCallIt Fee: 3.00</div>
+    <div>ItemId: 4 Product: ThingaMaGig Fee: 4.00</div>
+</div>";
+
+            // GET .RemoveIndents() working correctly with this sample
+
+            string getInvoiceHtml = invoice.Template(docTemplate);
+
+            Assert.AreEqual(expected, getInvoiceHtml);
+        }
+
     }
 }

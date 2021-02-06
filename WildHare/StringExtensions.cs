@@ -124,7 +124,7 @@ namespace WildHare.Extensions
         /// returns to Environment.NewLine. This can be useful for programmatically removing indents from long strings.</summary>
         public static string RemoveStartFromAllLines(this string input, string[] startArray)
         {
-            return string.Join(NewLine, input.Split("\n").Select(a => a.RemoveStartEnd(startArray, new[]{"\r"})));
+            return string.Join(NewLine, input.Split("\n").Select(a => a.RemoveStartEnd(startArray, new[] { "\r" }) ));
         }
 
         /// <summary>Remove the end of line if it exactly matches {end} for all lines in the string.
@@ -460,12 +460,41 @@ namespace WildHare.Extensions
             return plural;
         }
 
-        public static string ApplyToAllLines(this string input, Func<string, string> func)
+        public static string Left(this string str, int length)
+        {
+            if (str.IsNullOrEmpty())
+                return "";
+
+            return str.Substring(0, Math.Min(str.Length, length));
+        }
+
+        public static string Mid(this string str, int start, int? count = null)
+        {
+            if (str.IsNullOrEmpty())
+                return "";
+
+            int strRemainder = str.Length - start;
+            int trimmedCount = count.HasValue && count <= strRemainder ? count.Value : strRemainder;
+
+            return str.Substring(Math.Min(start, str.Length), trimmedCount);
+        }
+
+        public static string Right(this string str, int length)
+        {
+            if (str.IsNullOrEmpty())
+                return "";
+
+            return (str.Length > length) ? str.Substring(str.Length - length, length) : str;
+        }
+
+        public static string ForEachLine(this string input, Func<string, string> func)
         {
             var lines = input.Split("\n", StringSplitOptions.None);
+            var returnChars = new[] { "\n", "\r", "\n\r" };
+
             for (int i = 0; i < lines.Length; i++)
             {
-                string line = lines[i];
+                string line = lines[i].RemoveEnd(returnChars);
                 lines[i] = func(line);
             }
             return string.Join(NewLine, lines);

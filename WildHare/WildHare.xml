@@ -402,23 +402,23 @@
             <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String)">
-            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the dictionary 
+            <summary>Returns a string that replaces the placeholder elements [placeholder] in the {string} template with the matching the dictionary 
             lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary{System.String,System.Object},System.IO.FileInfo,System.String,System.String)">
-            <summary>Returns a string that replaces the placeholder elements {{placeholder}} from the {templateFile} template with the matching the dictionary 
+            <summary>Returns a string that replaces the placeholder elements [placeholder] from the {templateFile} template with the matching the dictionary 
             lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.String,System.String,System.String)">
-            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {string} template with the matching the properties  
+            <summary>Returns a string that replaces the placeholder elements [placeholder] in the {string} template with the matching the properties  
             of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.IO.FileInfo,System.String,System.String)">
-            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
+            <summary>Returns a string that replaces the placeholder elements [placeholder] in the {templateFile} template with the matching the properties  
             of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template``1(``0,System.IO.FileInfo,System.String,System.String)">
-            <summary>Returns a string that replaces the placeholder elements {{placeholder}} in the {templateFile} template with the matching the properties  
+            <summary>Returns a string that replaces the placeholder elements [placeholder] in the {templateFile} template with the matching the properties  
             of the current object of type &lt;T&gt;. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaModel(System.Type)">
