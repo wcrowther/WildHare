@@ -333,9 +333,44 @@ namespace WildHare.Tests
             var famLookUp2 = people.ToLookup(l => l.LastName, l => l.FirstName);
 
             Assert.IsNotNull(famLookUp2);
-
         }
 
-    }
+        [Test]
+        public void Test_Next_Previous_Basic_Numeric()
+        {
+            var itemList = new[]{ 2, 3, 4, 2, 6 };
 
+            // Next
+            Assert.AreEqual(3, 2.NextIn(itemList));
+            Assert.AreEqual(4, 3.NextIn(itemList));
+            Assert.AreEqual(0, 6.NextIn(itemList));
+
+            // Previous
+            Assert.AreEqual(0, 2.PreviousIn(itemList));
+            Assert.AreEqual(2, 3.PreviousIn(itemList));
+            Assert.AreEqual(2, 6.PreviousIn(itemList));
+        }
+
+        [Test]
+        public void Test_Next_Previous_Basic_Objects()
+        {
+            var people = new List<Person>
+            {
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" },
+                new Person { PersonId = 2, FirstName = "Joe", LastName= "Jones" },
+                new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" },
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" }
+            };
+
+            // Next 
+            Assert.AreEqual(null, people[3].NextIn(people));
+            Assert.AreEqual(2, people[0].NextIn(people).PersonId);
+            Assert.AreEqual("Patty", people.First(f => f.FirstName == "Joe").NextIn(people).FirstName);
+
+            // Previous
+            Assert.AreEqual(null, people[0].PreviousIn(people));
+            Assert.AreEqual(2, people[2].PreviousIn(people).PersonId);
+            Assert.AreEqual("Will", people.First(f => f.FirstName == "Joe").PreviousIn(people).FirstName);
+        }
+    }
 }

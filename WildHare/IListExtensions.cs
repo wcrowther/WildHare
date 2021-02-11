@@ -97,5 +97,31 @@ namespace WildHare.Extensions
             return sourceList.TakeNext(1, offset, remove).FirstOrDefault();
         }
 
+        /// <summary>Given an item in a list, it will return the next item in the list
+        /// or the default for that type (usually null if non-numeric). Uses IndexOf, which
+        /// will return the first element for simple numeric types</summary>
+        public static T NextIn<T>(this T item, IList<T> itemList)
+        {
+            if (itemList?.Count == 0 || item == null)
+                return default;
+
+            int itemIndex = itemList.IndexOf(item);
+
+            return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex + 1) : default;
+        }
+
+        /// <summary>Given an item in a list, it will return the Prevous item in the list
+        /// or the default for that type (usually null if non-numeric). Uses IndexOf, which
+        /// will return the first element for simple numeric types</summary>
+        public static T PreviousIn<T>(this T item, IList<T> itemList)
+        {
+            if (itemList?.Count == 0 || item == null)
+                return default;
+
+            int itemIndex = itemList.IndexOf(item);
+
+            return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex - 1) : default;
+        }
+
     }
 }

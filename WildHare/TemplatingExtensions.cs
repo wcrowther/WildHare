@@ -148,6 +148,10 @@ namespace WildHare.Extensions.ForTemplating
             return obj.Template(templateFile.ReadFile(), startTag, endTag);
         }
 
+        /// <summary>Returns a string that replaces the placeholder elements '[placeholder]' in the string {template} matching the properties  
+        /// for each item of type &lt;T&gt; in the {list}. It will call .ToString() on non-string objects values in the dictionary if necessary.
+        /// If not null, {lineEnd} is added after each line of text, except for the last line. {startTag} and {endTag} default to '[' and ']' 
+        /// respectively, wrapping the placeholder text but can be customized to the users preferences.</summary>
         public static string TemplateList<T>(this IEnumerable<T> list, string template, string lineEnd = null, string startTag = startTag, string endTag = endTag)
         {
             var templateBuilder = new StringBuilder("");
@@ -167,6 +171,10 @@ namespace WildHare.Extensions.ForTemplating
             return templateBuilder.ToString().RemoveEnd(lineEnd);
         }
 
+        /// <summary>Returns a string that replaces the placeholder elements '[placeholder]' in the string returned from the fileInfo {template}
+        /// matching the properties for each item of type &lt;T&gt; in the {list}. It will call .ToString() on non-string objects values
+        /// in the dictionary if necessary. If not null, {lineEnd} is added after each line of text, except for the last line. {startTag} and {endTag}
+        /// default to '[' and ']' respectively, wrapping the placeholder text but can be customized to the users preferences.</summary>
         public static string TemplateList<T>(this IEnumerable<T> list, FileInfo templateFile, string lineEnd = null, string startTag = startTag, string endTag = endTag)
         {
             return list.TemplateList(templateFile.ReadFile(), lineEnd, startTag, endTag);
@@ -177,30 +185,6 @@ namespace WildHare.Extensions.ForTemplating
 /*
     // Other possible Template Extensions
 
-    public static string TemplateList<T>(this IEnumerable<T> list, FileInfo templateFile, string startTag = startTag, string endTag = endTag)
-    {
-        string template;
-        var templateBuilder = new StringBuilder("");
-
-        using (StreamReader reader = templateFile.OpenText())
-        {
-            template = reader.ReadToEnd();
-        }
-
-        foreach (var obj in list)
-        {
-            var strBuilder = new StringBuilder(template ?? "");
-            Type type = obj.GetType();
-            foreach (var t in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                object o = type.GetProperty(t.Name).GetValue(obj, null);
-                string replacement = (o is string) ? o as string : (o != null) ? o.ToString() : "";
-                strBuilder.Replace(startTag + t.Name + endTag, (replacement ?? ""));
-            }
-            templateBuilder.Append(strBuilder);
-        }
-        return templateBuilder.ToString();
-    }
 
     public static bool TemplateToFiles(this Dictionary<string, object> filesList, string template, string templateDir, string extension = ".txt", string startTag = startTag, string endTag = endTag)
     {

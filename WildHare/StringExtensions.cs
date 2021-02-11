@@ -141,9 +141,10 @@ namespace WildHare.Extensions
             return string.Join(NewLine, input.Split('\n').Select(a => a.RemoveEnd("\r").RemoveEnd(endArray)));
         }
 
-        /// <summary>Removes the indent from all lines of text in a string using the indent from the
-        /// second line of text in the string as the indent to remove. Removes the first line
-        /// if it is whitespace unless {removeInitialSpaces} is false.</summary>
+        /// <summary>Removes the indent from all lines of text in a string using the indent from the second line
+        /// of text in the string as the indent to remove. The first line is typically where the verbatim and/or
+        /// interpolation is declared and does not have an indent and so is skipped. If {removeInitialSpaces} is true
+        /// (the default), it removes the first line if it only contains whitespace.</summary>
         public static string RemoveIndents(this string input, bool removeInitialSpaces = true)
         {
             var lines = input.Split("\n",StringSplitOptions.None).ToList();

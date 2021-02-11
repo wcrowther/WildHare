@@ -218,6 +218,16 @@
             is removed from the {sourceList}. If {offset} > 0, it will skip this number of records
             but will loop back to the beginning if necessary and elements exist.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IListExtensions.NextIn``1(``0,System.Collections.Generic.IList{``0})">
+            <summary>Given an item in a list, it will return the next item in the list
+            or the default for that type (usually null if non-numeric). Uses IndexOf, which
+            will return the first element for simple numeric types</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.PreviousIn``1(``0,System.Collections.Generic.IList{``0})">
+            <summary>Given an item in a list, it will return the Prevous item in the list
+            or the default for that type (usually null if non-numeric). Uses IndexOf, which
+            will return the first element for simple numeric types</summary>
+        </member>
         <member name="M:WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)">
             <summary>Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will
             overwrite existing file returning a success boolean. It will create the file if it does not existe.</summary>
@@ -300,9 +310,10 @@
             Normalizes all line returns to Environment.NewLine.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveIndents(System.String,System.Boolean)">
-            <summary>Removes the indent from all lines of text in a string using the indent from the
-            second line of text in the string as the indent to remove. Removes the first line
-            if it is whitespace unless {removeInitialSpaces} is false.</summary>
+            <summary>Removes the indent from all lines of text in a string using the indent from the second line
+            of text in the string as the indent to remove. The first line is typically where the verbatim and/or
+            interpolation is declared and does not have an indent and so is skipped. If {removeInitialSpaces} is true
+            (the default), it removes the first line if it only contains whitespace.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String)">
             <summary>Gets the all the whitespace at the beginning of a string.</summary>
@@ -420,6 +431,18 @@
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template``1(``0,System.IO.FileInfo,System.String,System.String)">
             <summary>Returns a string that replaces the placeholder elements [placeholder] in the {templateFile} template with the matching the properties  
             of the current object of type &lt;T&gt;. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+            <summary>Returns a string that replaces the placeholder elements '[placeholder]' in the string {template} matching the properties  
+            for each item of type &lt;T&gt; in the {list}. It will call .ToString() on non-string objects values in the dictionary if necessary.
+            If not null, {lineEnd} is added after each line of text, except for the last line. {startTag} and {endTag} default to '[' and ']' 
+            respectively, wrapping the placeholder text but can be customized to the users preferences.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList``1(System.Collections.Generic.IEnumerable{``0},System.IO.FileInfo,System.String,System.String,System.String)">
+            <summary>Returns a string that replaces the placeholder elements '[placeholder]' in the string returned from the fileInfo {template}
+            matching the properties for each item of type &lt;T&gt; in the {list}. It will call .ToString() on non-string objects values
+            in the dictionary if necessary. If not null, {lineEnd} is added after each line of text, except for the last line. {startTag} and {endTag}
+            default to '[' and ']' respectively, wrapping the placeholder text but can be customized to the users preferences.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaModel(System.Type)">
             <summary>Gets a MetaModel that describes the {type} for use in code generation.</summary>
