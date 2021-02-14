@@ -4,44 +4,44 @@
         <name>WildHare</name>
     </assembly>
     <members>
-        <member name="M:WildHare.CharExtensions.CharAt(System.String,System.Int32)">
+        <member name="M:WildHare.Extensions.CharExtensions.CharAt(System.String,System.Int32)">
             <summary>Returns the character at the position {i}.</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsLetter(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsLetter(System.Char)">
             <summary>Inline version of char.IsLetterOrDigit(ch). ie: A-Z, a-z, and letters of other alphabets</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsLetterOrDigit(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsLetterOrDigit(System.Char)">
             <summary>Inline version of char.IsLetterOrDigit(ch). ie: Letters plus digits</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsUpper(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsUpper(System.Char)">
             <summary>Inline version of char.IsUpper(ch). ie: Uppercase letters</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsLower(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsLower(System.Char)">
             <summary>Inline version of char.IsLower(ch). ie: Lowercase letters</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsPunctuation(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsPunctuation(System.Char)">
             <summary>Inline version of char.IsPunctuation(ch). ie: Symbols used for punctuation in Western and other alphabets</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsNumber(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsNumber(System.Char)">
             <summary>Inline version of char.IsNumber(ch). ie: All digits plus Unicode fractions and Roman numeral symbols</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsDigit(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsDigit(System.Char)">
             <summary>Inline version of char.IsDigit(ch). ie: 0-9 plus digits of other alphabets</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsWhiteSpace(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)">
             <summary>Inline version of char.IsWhiteSpace(ch). ie: All separators plus \n, \r, \t, \f, and \v </summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsSymbol(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsSymbol(System.Char)">
             <summary>Inline version of char.IsSymbol(ch). ie: Most other printable symbols</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsControl(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsControl(System.Char)">
             <summary>Inline version of char.IsControl(ch). ie: Non-printable "control" characters below 0x20, such as \r, \n, \r, and \0,
             and characters between 0x7F and 0x9A</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.IsSeparator(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.IsSeparator(System.Char)">
             <summary>Inline version of char.IsSeparator(ch). in: Space plus all Unicode separator characters</summary>
         </member>
-        <member name="M:WildHare.CharExtensions.GetUnicodeCategory(System.Char)">
+        <member name="M:WildHare.Extensions.CharExtensions.GetUnicodeCategory(System.Char)">
             <summary>Inline version of char.GetUnicodeCategory(ch)</summary>
         </member>
         <member name="M:WildHare.Extensions.ConvertExtensions.ToBool(System.String)">
@@ -472,6 +472,15 @@
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])">
+            <summary>GetDerivedClasses has been renamed to GetDerivedTypes. Please update to the new 
+            method signature. This warning will be removed in a future version.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[])">
+            <summary>Gets an array of derived Types that are a subclass of {type}, excluding any
+            types named in the {ingnoreTypeNames} list.</summary>
+            <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
         </member>
         <member name="T:WildHare.MetaProperty">
             <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>

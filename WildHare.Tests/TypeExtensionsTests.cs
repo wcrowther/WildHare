@@ -238,7 +238,7 @@ namespace WildHare.Tests
         [Test]
         public void GetDerivedClasses_Basic()
         {
-            var typesDerivedFromTeam = typeof(Team).GetDerivedClasses().ToList();
+            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes().ToList();
 
             Assert.AreEqual(4, typesDerivedFromTeam.Count());
             Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[0].Name);
@@ -251,7 +251,7 @@ namespace WildHare.Tests
         public void GetDerivedClasses_Empty_Array()
         {
             // Has no derived classes
-            var typesDerivedFromTeam = typeof(BaseballTeam).GetDerivedClasses().ToList();
+            var typesDerivedFromTeam = typeof(BaseballTeam).GetDerivedTypes().ToList();
 
             Assert.AreEqual(0, typesDerivedFromTeam.Count());
         }
@@ -259,7 +259,7 @@ namespace WildHare.Tests
         [Test]
         public void GetDerivedClasses_Ignore_Types()
         {
-            var typesDerivedFromTeam = typeof(Team).GetDerivedClasses(new[]{ "BaseballTeam", "NflTeam" }).ToList();
+            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(new[]{ "BaseballTeam", "NflTeam" }).ToList();
 
             Assert.AreEqual(2, typesDerivedFromTeam.Count());
             Assert.AreEqual("FootballTeam", typesDerivedFromTeam[0].Name);

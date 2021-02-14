@@ -22,7 +22,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Gets a MetaModel that describes the {type} for the current instance for use in code generation.</summary>
-        public static MetaModel GetMetaModel<T>(this T instance) where T : class 
+        public static MetaModel GetMetaModel<T>(this T instance) where T : class
         {
             if (instance is IEnumerable)
             {
@@ -87,19 +87,31 @@ namespace WildHare.Extensions
             return types.OrderBy(t => t.Name).ToArray();
         }
 
-        public static Type[] GetDerivedClasses(this Type type, string[] ignoreTypeNames = null) 
+        /// <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes
+        /// and will be removed in a future version.</summary>
+        [Obsolete("GetDerivedClasses() has been renamed to GetDerivedTypes() and will be removed in a future version.")]
+        public static Type[] GetDerivedClasses(this Type type, string[] ignoreTypeNames = null)
+        {
+            return type.GetDerivedClasses(ignoreTypeNames);
+        }
+
+        /// <summary>Gets an array of derived Types that are a subclass of {type}, excluding any
+        /// types named in the {ingnoreTypeNames} list.</summary>
+        /// <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
+        public static Type[] GetDerivedTypes(this Type type, string[] ignoreTypeNames = null)
         {
             ignoreTypeNames = ignoreTypeNames ?? new string[0];
 
             return Assembly.GetAssembly(type)
-                            .GetTypes()
-                            .Where
-                            (
-                                t => t.IsSubclassOf(type) &&
-                                (!ignoreTypeNames?.Any(t.Name.Contains) ?? false)
-                            )
-                            .OrderBy(o => o.Name)
-                            .ToArray();
+                           .GetTypes()
+                           .Where
+                           (
+                              t => t.IsSubclassOf(type) &&
+                              (!ignoreTypeNames?.Any(t.Name.Contains) ?? false)
+                           )
+                           .OrderBy(o => o.Name)
+                           .ToArray();
         }
+
     }
 }

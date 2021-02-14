@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace WildHare
+namespace WildHare.Extensions
 {
     public static class CharExtensions
     {
