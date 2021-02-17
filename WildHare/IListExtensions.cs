@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace WildHare.Extensions
@@ -91,7 +92,6 @@ namespace WildHare.Extensions
         /// <summary>Will return a single item from the {sourceList}  If {remove} is true, the item
         /// is removed from the {sourceList}. If {offset} > 0, it will skip this number of records
         /// but will loop back to the beginning if necessary and elements exist.</summary>
-
         public static T TakeNextOne<T>(this IList<T> sourceList, int offset = 0, bool remove = true)
         {
             return sourceList.TakeNext(1, offset, remove).FirstOrDefault();
@@ -123,5 +123,172 @@ namespace WildHare.Extensions
             return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex - 1) : default;
         }
 
+        public static void ReplaceItem<T>(this IList<T> itemList, int index, T newItem)
+        {
+            if (itemList == null)
+            {
+                throw new ArgumentNullException(nameof(itemList), "The paramenter is null");
+            }
+
+            if (newItem == null)
+            {
+                throw new ArgumentNullException(nameof(newItem), "The paramenter is null");
+            }
+
+            if (index < 0 || index >= itemList.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), index, "Invalid index");
+            }
+
+            itemList.RemoveAt(index);
+
+            itemList.Insert(index, newItem);
+        }
+
+        public static void CombineItems<T>(this IList<T> itemList, int index, int count, T newItem)
+        {
+            if (itemList == null)
+            {
+                throw new ArgumentNullException(nameof(itemList), "The paramenter is null");
+            }
+
+            if (newItem == null)
+            {
+                throw new ArgumentNullException(nameof(newItem), "The parameter is null.");
+            }
+
+            if (index < 0 || index >= itemList.Count)
+            {
+                throw new ArgumentOutOfRangeException( nameof(index), index, "The Index is out of the array bounds.");
+            }
+
+            if (itemList.Count - index < count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(count), count, "The count is out of range for the index and theIList");
+            }
+
+            if (itemList is List<T> list)
+            {
+                list.RemoveRange(index, count);
+                itemList.Insert(index, newItem);
+
+                return;
+            }
+
+            for (int i = count; i > 0; i--)
+            {
+                itemList.RemoveAt(index);
+            }
+
+            itemList.Insert(index, newItem);
+        }
     }
 }
+
+
+
+// TODO - REVIEW BELOW AND ADD?
+// TAKEN FROM : https ://github.com/Emilien-M/IListExtension/blob/master/src/IListExtension/IListExtension.cs
+
+//public static IList<T> GetRange<T>(this IList<T> source, int index, int count)
+//{
+//    if (source == null)
+//    {
+//        throw new ArgumentNullException(nameof(source));
+//    }
+
+//    if (index < 0)
+//    {
+//        throw new ArgumentNullException(nameof(index));
+//    }
+
+//    if (count < 0)
+//    {
+//        throw new ArgumentNullException(nameof(count));
+//    }
+
+//    if (source.Count - index < count)
+//    {
+//        throw new ArgumentNullException("invalid length");
+//    }
+
+//    if (source is List<T> concreteList)
+//    {
+//        return concreteList.GetRange(index, count);
+//    }
+
+//    IList<T> results = new List<T>(count);
+
+//    Array.Copy(source.ToArray(), index, results.ToArray(), 0, count);
+
+//    return results;
+//}
+
+//public static void InsertRange<T>(this IList<T> source, int index, IEnumerable<T> collection)
+//{
+//    if (source == null)
+//    {
+//        throw new ArgumentNullException(nameof(source));
+//    }
+
+//    if (index < 0 || index >= source.Count)
+//    {
+//        throw new ArgumentOutOfRangeException(nameof(index), index, "Invalid index");
+//    }
+
+//    if (collection == null)
+//    {
+//        throw new ArgumentNullException(nameof(collection));
+//    }
+
+//    if (source is List<T> concreteList)
+//    {
+//        concreteList.InsertRange(index, collection);
+//        return;
+//    }
+
+//    for (int i = index; i <= collection.Count() + 1; i++)
+//    {
+//        source.Insert(i, collection.ElementAt(i - index));
+//    }
+//}
+
+//public static void RemoveRange<T>(this IList<T> source, int index, int count)
+//{
+//    if (source == null)
+//    {
+//        throw new ArgumentNullException(nameof(source));
+//    }
+
+//    if (index < 0 || index >= source.Count)
+//    {
+//        throw new ArgumentOutOfRangeException(nameof(count), count, "Invalid index");
+//    }
+
+//    if (count < 0)
+//    {
+//        throw new ArgumentOutOfRangeException(nameof(count), count, "Can't be less than 0");
+//    }
+
+//    if (source.Count - index < count)
+//    {
+//        throw new ArgumentOutOfRangeException(nameof(count), count, "Count is to big for the IList and the index");
+//    }
+
+//    if (count == 0)
+//    {
+//        return;
+//    }
+
+//    if (source is List<T> concreteList)
+//    {
+//        concreteList.RemoveRange(index, count);
+//        return;
+//    }
+
+//    for (int i = count; i > 0; i--)
+//    {
+//        source.RemoveAt(index);
+//    }
+//}
+

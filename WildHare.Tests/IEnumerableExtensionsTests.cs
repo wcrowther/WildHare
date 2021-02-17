@@ -100,44 +100,44 @@ namespace WildHare.Tests
         {
             var wordList_A = new List<Word>
             {
-                new Word{ WordId = 1, WordName="the" },
-                new Word{ WordId = 2, WordName="president" },
-                new Word{ WordId = 3, WordName="of" },
-                new Word{ WordId = 1, WordName="the" },
-                new Word{ WordId = 4, WordName="united" },
-                new Word{ WordId = 5, WordName="states" },
-                new Word{ WordId = 6, WordName="is" },
-                new Word{ WordId = 7, WordName="a" },
-                new Word{ WordId = 8, WordName="politician" },
+                new Word{ WordId = 1, Text="the" },
+                new Word{ WordId = 2, Text="president" },
+                new Word{ WordId = 3, Text="of" },
+                new Word{ WordId = 1, Text="the" },
+                new Word{ WordId = 4, Text="united" },
+                new Word{ WordId = 5, Text="states" },
+                new Word{ WordId = 6, Text="is" },
+                new Word{ WordId = 7, Text="a" },
+                new Word{ WordId = 8, Text="politician" },
 
             };
             var wordList_B = new List<Word>
             {
-                new Word{ WordId = 1, WordName="the" },
-                new Word{ WordId = 2, WordName="president" },
-                new Word{ WordId = 3, WordName="of" },
-                new Word{ WordId = 1, WordName="the" },
-                new Word{ WordId = 4, WordName="united" },
-                new Word{ WordId = 5, WordName="states" }
+                new Word{ WordId = 1, Text="the" },
+                new Word{ WordId = 2, Text="president" },
+                new Word{ WordId = 3, Text="of" },
+                new Word{ WordId = 1, Text="the" },
+                new Word{ WordId = 4, Text="united" },
+                new Word{ WordId = 5, Text="states" }
 
             };
             var wordList_C = new List<Word>
             {
-                new Word{ WordId = 4, WordName="united" },
-                new Word{ WordId = 5, WordName="states" }
+                new Word{ WordId = 4, Text="united" },
+                new Word{ WordId = 5, Text="states" }
 
             };
 
-            var matches = wordList_A.MatchList(wordList_B, (a, b) => a.WordName == b.WordName).ToArray();
+            var matches = wordList_A.MatchList(wordList_B, (a, b) => a.Text == b.Text).ToArray();
 
             Assert.AreEqual(6, matches.Count());
-            Assert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.WordName)));
+            Assert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.Text)));
 
-            var matches2 = wordList_A.MatchList(wordList_C, (a, b) => a.WordName == b.WordName).ToArray();
+            var matches2 = wordList_A.MatchList(wordList_C, (a, b) => a.Text == b.Text).ToArray();
 
             Assert.AreEqual(0, matches2.Count());
 
-            var matches3 = wordList_A.MatchList(wordList_C, (a, b) => a.WordName == b.WordName).ToArray();
+            var matches3 = wordList_A.MatchList(wordList_C, (a, b) => a.Text == b.Text).ToArray();
 
             Assert.AreEqual(0, matches2.Count());
         }
@@ -151,6 +151,17 @@ namespace WildHare.Tests
             int[] indexes = phraseArray.InList(splitSentence, (a, b) => a == b);
 
             Assert.AreEqual(3, indexes.First());
+        }
+
+        [Test]
+        public void Test_InList_Not_Found()
+        {
+            string[] phraseArray = { "the", "president", "of", "the", "united", "states", "is", "a", "politician" };
+            var splitSentence = "nothing to find".Split(' ');
+
+            int[] indexes = phraseArray.InList(splitSentence, (a, b) => a == b);
+
+            Assert.AreEqual(-1, indexes.First());
         }
 
         [Test]
@@ -215,36 +226,36 @@ namespace WildHare.Tests
         public void Test_InList_Advanced_ListTest_InList_Advanced_List2()
         {
             Word[] wordArray = {
-                new Word{WordId=1, WordName="the" },
-                new Word{WordId=2, WordName="president" },
-                new Word{WordId=3, WordName="of" },
-                new Word{WordId=1, WordName="the" },
-                new Word{WordId=4, WordName="United" },
-                new Word{WordId=5, WordName="States" },
-                new Word{WordId=6, WordName="lives" },
-                new Word{WordId=7, WordName="in" },
-                new Word{WordId=1, WordName="the" },
-                new Word{WordId=4, WordName="united" },
-                new Word{WordId=5, WordName="states" }
+                new Word{WordId=1, Text="the" },
+                new Word{WordId=2, Text="president" },
+                new Word{WordId=3, Text="of" },
+                new Word{WordId=1, Text="the" },
+                new Word{WordId=4, Text="United" },
+                new Word{WordId=5, Text="States" },
+                new Word{WordId=6, Text="lives" },
+                new Word{WordId=7, Text="in" },
+                new Word{WordId=1, Text="the" },
+                new Word{WordId=4, Text="united" },
+                new Word{WordId=5, Text="states" }
             };
 
             var wordList = new List<List<Word>>
             {
                 new List<Word>(){
-                    new Word{ WordId=1, WordName="the"   }, new Word{ WordId=2, WordName="president" },
-                    new Word{ WordId=3, WordName="of"    }, new Word{ WordId=1, WordName="the" },
-                    new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"}
+                    new Word{ WordId=1, Text="the"   }, new Word{ WordId=2, Text="president" },
+                    new Word{ WordId=3, Text="of"    }, new Word{ WordId=1, Text="the" },
+                    new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"}
                 },
 
-                new List<Word>{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=2, WordName="president"} },
+                new List<Word>{ new Word{ WordId=1, Text="the" },   new Word{ WordId=2, Text="president"} },
 
-                new List<Word>{ new Word{ WordId=1, WordName="the" },   new Word{ WordId=4, WordName="united"}, new Word{ WordId=5, WordName="states"} },
+                new List<Word>{ new Word{ WordId=1, Text="the" },   new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"} },
 
-                new List<Word>{ new Word{ WordId=1, WordName="the" } },
+                new List<Word>{ new Word{ WordId=1, Text="the" } },
 
-                new List<Word>{ new Word{ WordId=8, WordName="not" }, new Word{ WordId=9, WordName="found" } },
+                new List<Word>{ new Word{ WordId=8, Text="not" }, new Word{ WordId=9, Text="found" } },
 
-                new List<Word>{ new Word{ WordId=10, WordName="other" }, new Word{ WordId=11, WordName= "strings" }  },
+                new List<Word>{ new Word{ WordId=10, Text="other" }, new Word{ WordId=11, Text= "strings" }  },
             };
 
             var lookupList = new Collection<(int Index, List<Word> List)>();
@@ -264,19 +275,17 @@ namespace WildHare.Tests
             Assert.AreEqual(0, lookupList[0].Index);
 
             Assert.AreEqual(0, lookupList[1].Index);
-            Assert.AreEqual("the president", string.Join(" ", lookupList[1].List.Select(s => s.WordName)));
+            Assert.AreEqual("the president", string.Join(" ", lookupList[1].List.Select(s => s.Text)));
 
             Assert.AreEqual(3, lookupList[2].Index);
-            Assert.AreEqual("the united states", string.Join(" ", lookupList[2].List.Select(s => s.WordName)));
+            Assert.AreEqual("the united states", string.Join(" ", lookupList[2].List.Select(s => s.Text)));
 
             Assert.AreEqual(8, lookupList[3].Index);
-            Assert.AreEqual("the united states", string.Join(" ", lookupList[3].List.Select(s => s.WordName)));
+            Assert.AreEqual("the united states", string.Join(" ", lookupList[3].List.Select(s => s.Text)));
 
             Assert.AreEqual(0, lookupList[4].Index);
             Assert.AreEqual(3, lookupList[5].Index);
             Assert.AreEqual(8, lookupList[6].Index);
-
         }
-
     }
 }

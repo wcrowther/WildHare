@@ -52,7 +52,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_Template_For_Object_With_String_Template()
         {
-            string template = "InvoiceId {{InvoiceId}} for AccountId {{AccountId}}.";
+            string template = "InvoiceId [InvoiceId] for AccountId [AccountId].";
 
             var invoice = new Invoice
             {

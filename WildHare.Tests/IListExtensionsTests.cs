@@ -336,7 +336,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_Next_Previous_Basic_Numeric()
+        public void Test_NextIn_Previous_Basic_Numeric()
         {
             var itemList = new[]{ 2, 3, 4, 2, 6 };
 
@@ -352,7 +352,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_Next_Previous_Basic_Objects()
+        public void Test_NextIn_Previous_Basic_Objects()
         {
             var people = new List<Person>
             {
@@ -371,6 +371,61 @@ namespace WildHare.Tests
             Assert.AreEqual(null, people[0].PreviousIn(people));
             Assert.AreEqual(2, people[2].PreviousIn(people).PersonId);
             Assert.AreEqual("Will", people.First(f => f.FirstName == "Joe").PreviousIn(people).FirstName);
+        }
+
+        [Test]
+        public void Test_IList_Replace_Basic()
+        {
+            var words = "This is the old item.".Split(' ').ToList();
+
+            words.ReplaceItem(3, "new");
+
+            Assert.AreEqual(5, words.Count());
+            Assert.AreEqual("This is the new item.", string.Join(' ', words));
+        }
+
+        [Test]
+        public void Test_IList_Replace_Objects()
+        {
+            var people = new List<Person>
+            {
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" },
+                new Person { PersonId = 2, FirstName = "Joe", LastName= "Jones" },
+                new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" },
+            };
+
+            var person = new Person { PersonId = 4, FirstName = "Joe", LastName = "Blogs" };
+
+            people.ReplaceItem(2, person);
+
+            Assert.AreEqual(3, people.Count());
+            Assert.AreEqual($"Joe Blogs",  $"{people[2].FirstName} {people[2].LastName}");
+        }
+
+
+        [Test]
+        public void Test_IList_CombineItems_Objects()
+        {
+            var tokens = new List<Token>
+            {
+                new Word { Text = "the",        WordId = 1 },
+                new Word { Text = "president",  WordId = 2 },
+                new Word { Text = "of",         WordId = 3 },
+                new Word { Text = "the",        WordId = 4 },
+                new Word { Text = "united",     WordId = 5 },
+                new Word { Text = "states",     WordId = 6 }
+            };
+
+            var phrase = new Phrase()
+            {
+                Words = tokens.GetRange(3, 3).OfType<Word>().ToList()
+            };
+
+            tokens.CombineItems(3, 3, phrase);
+
+            Assert.AreEqual(4, tokens.Count());
+            Assert.AreEqual(3, ((Phrase)tokens[3]).Words.Count);
+            Assert.AreEqual("the president of the united states", string.Join(" ", tokens.Select(s => s.Text)));
         }
     }
 }

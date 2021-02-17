@@ -1,1 +1,1 @@
-InvoiceId {{InvoiceId}} for AccountId {{AccountId}}.
+InvoiceId [InvoiceId] for AccountId [AccountId].

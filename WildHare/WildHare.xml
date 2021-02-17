@@ -192,6 +192,10 @@
             <summary>Given two lists returns the values from first if func is true. 
             If {consecutive} is false continues until one of the lists has no  more elements.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.InList``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1},System.Func{``0,``1,System.Boolean})">
+            <summary>Compares 2 lists and using the {comparer} toreturns an array of int positions
+            where the items</summary>
+        </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.ToCollection``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts IEnumerable to Collection of type parameter.
             Returns an empty Collection rather than failing if enumerable is null.</summary>
@@ -474,8 +478,8 @@
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])">
-            <summary>GetDerivedClasses has been renamed to GetDerivedTypes. Please update to the new 
-            method signature. This warning will be removed in a future version.</summary>
+            <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes
+            and will be removed in a future version.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[])">
             <summary>Gets an array of derived Types that are a subclass of {type}, excluding any

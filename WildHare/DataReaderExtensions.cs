@@ -18,5 +18,7 @@ namespace WildHare.Extensions
 
             return (T)Convert.ChangeType(value, typeof(T));
         }
+
+
     }
 }

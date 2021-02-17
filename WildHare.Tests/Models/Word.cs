@@ -1,14 +1,14 @@
 namespace WildHare.Tests.Models
 {
-    public class Word
+    public class Word : Token
     {
         public int WordId { get; set; }
 
-        public string WordName { get; set; }
+        public override string Text { get; set; }
 
         public override string ToString()
         {
-            return $"{WordName} {WordId}";
+            return $"{Text} {WordId}";
         }
     }
 }

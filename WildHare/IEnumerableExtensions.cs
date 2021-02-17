@@ -144,9 +144,12 @@ namespace WildHare.Extensions
             }
         }
 
+
+        /// <summary>Compares 2 lists and using the {comparer} toreturns an array of int positions
+        /// where the items</summary>
         public static int[] InList<TList, TItems>(this IList<TList> list,
                                                        IList<TItems> items,
-                                                       Func<TList, TItems, bool> func)
+                                                       Func<TList, TItems, bool> comparer)
         {
             var indexes = new List<int>();
 
@@ -160,7 +163,7 @@ namespace WildHare.Extensions
                 {   
                     var a = list.ElementAtOrDefault(x + i);
                     var b = items.ElementAtOrDefault(i);
-                    bool match = func(a,b); 
+                    bool match = comparer(a,b); 
 
                     if (match)
                     {
@@ -177,6 +180,12 @@ namespace WildHare.Extensions
                     indexes.Add(x);
                 }
             }
+
+            if (indexes.Count == 0)
+            {
+                indexes.Add(-1);
+            }
+
             return indexes.ToArray();
         }
 
