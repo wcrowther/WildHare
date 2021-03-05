@@ -29,7 +29,6 @@ namespace WildHare.Tests
 			Assert.AreEqual("$12345.00", numbersOnlyString);
 		}
 
-
         [Test]
         public void Test_Truncate_Basic()
         {
@@ -38,6 +37,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual("1234567890...", result);
         }
+
         [Test]
         public void Test_Truncate_Custom_More()
         {
@@ -340,7 +340,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_EnsureEnd_If_String_Does_Not_Start_With_AddToStart()
+        public void Test_EnsureEnd_If_String_Does_Not_End_With_StrToAdd()
         {
             string str = "Test";
             string strToAdd = "xxx";
@@ -350,7 +350,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_EnsureEnd_If_String_Starts_With_AddToStart()
+        public void Test_EnsureEnd_If_String_End_With_StrToAdd()
         {
             string str = "Testxxx";
             string strToAdd = "xxx";
@@ -552,8 +552,8 @@ namespace WildHare.Tests
         public void Test_Replace_With_Array_and_string_Overload()
         {
             string str = "Favorite animals: cat dog rabbit.";
-            string[] old = { "cat", "dog", "rabbit" };
-            var result = str.Replace(old, "dog");
+            string[] oldArray = { "cat", "dog", "rabbit" };
+            var result = str.Replace(oldArray, "dog");
 
             Assert.AreEqual("Favorite animals: dog dog dog.", result);
         }
@@ -665,6 +665,19 @@ namespace WildHare.Tests
             Assert.AreEqual("ring", str.Mid(2, 6));
             Assert.AreEqual("ring", str.Mid(2));
             Assert.AreEqual("ing",  str.Right(3));
+        }
+
+        [Test]
+        public void Test_Left_Mid_Right_When_One_Character_Each()
+        {
+            // start is zero-based position
+
+            string str = "LMR";
+
+            Assert.AreEqual("L", str.Left(1));
+            Assert.AreEqual("M", str.Mid(1,1));
+            Assert.AreEqual("R", str.Mid(2));
+
         }
 
         [Test]

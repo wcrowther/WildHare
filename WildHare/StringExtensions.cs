@@ -500,6 +500,16 @@ namespace WildHare.Extensions
             }
             return string.Join(NewLine, lines);
         }
+
+        /// Succinct overload of Equals() that compares the {str} to the {compareTo} and returns a bool true if equal.
+        /// Takes an optional bool {ignoreCase} which uses StringComparison.Ordinal if
+        /// false (the default) or StringComparison.OrdinalIgnoreCase if true.
+        public static bool Equals(this string str, string compareTo, bool ignoreCase = false)
+        {
+            var strComparison = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+
+            return str.Equals(compareTo, strComparison);
+        }
     }
 }
 

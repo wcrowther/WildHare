@@ -28,7 +28,6 @@ namespace WildHare
 
         private static object GetDefault(Type type)
         {
-
             if (type.IsValueType)
             {
                 return Activator.CreateInstance(type);

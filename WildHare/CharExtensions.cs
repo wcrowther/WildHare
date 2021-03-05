@@ -38,12 +38,13 @@ namespace WildHare.Extensions
         /// <summary>Inline version of char.IsSymbol(ch). ie: Most other printable symbols</summary>
         public static bool IsSymbol(this char ch) { return char.IsSymbol(ch); }
 
-        /// <summary>Inline version of char.IsControl(ch). ie: Non-printable "control" characters below 0x20, such as \r, \n, \r, and \0,
+        /// <summary>Inline version of char.IsControl(ch). ie: Non-printable "control" characters below 0x20, such as \r, \n, and \0,
         /// and characters between 0x7F and 0x9A</summary>
         public static bool IsControl(this char ch) { return char.IsControl(ch); }
 
-        /// <summary>Inline version of char.IsSeparator(ch). in: Space plus all Unicode separator characters</summary>
+        /// <summary>Inline version of char.IsSeparator(ch). ie: Space plus all Unicode separator characters</summary>
         public static bool IsSeparator(this char ch) { return char.IsSeparator(ch); }
+
 
         /// <summary>Inline version of char.GetUnicodeCategory(ch)</summary>
         public static UnicodeCategory GetUnicodeCategory(this char ch) { return char.GetUnicodeCategory(ch); }

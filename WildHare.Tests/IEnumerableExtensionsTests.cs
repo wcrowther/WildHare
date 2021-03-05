@@ -225,36 +225,34 @@ namespace WildHare.Tests
         [Test]
         public void Test_InList_Advanced_ListTest_InList_Advanced_List2()
         {
+            // the president of the united states lives in the United States (of America)
+
             Word[] wordArray = {
-                new Word{WordId=1, Text="the" },
-                new Word{WordId=2, Text="president" },
-                new Word{WordId=3, Text="of" },
-                new Word{WordId=1, Text="the" },
-                new Word{WordId=4, Text="United" },
-                new Word{WordId=5, Text="States" },
-                new Word{WordId=6, Text="lives" },
-                new Word{WordId=7, Text="in" },
-                new Word{WordId=1, Text="the" },
-                new Word{WordId=4, Text="united" },
-                new Word{WordId=5, Text="states" }
+                new Word{ WordId=1, Text="the" },
+                new Word{ WordId=2, Text="president" },
+                new Word{ WordId=3, Text="of" },
+                new Word{ WordId=1, Text="the" },
+                new Word{ WordId=4, Text="United" },
+                new Word{ WordId=5, Text="States" },
+                new Word{ WordId=6, Text="lives" },
+                new Word{ WordId=7, Text="in" },
+                new Word{ WordId=1, Text="the" },
+                new Word{ WordId=4, Text="united" },
+                new Word{ WordId=5, Text="states" }
             };
 
             var wordList = new List<List<Word>>
             {
-                new List<Word>(){
+                new List<Word>
+                {
                     new Word{ WordId=1, Text="the"   }, new Word{ WordId=2, Text="president" },
                     new Word{ WordId=3, Text="of"    }, new Word{ WordId=1, Text="the" },
                     new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"}
                 },
-
-                new List<Word>{ new Word{ WordId=1, Text="the" },   new Word{ WordId=2, Text="president"} },
-
-                new List<Word>{ new Word{ WordId=1, Text="the" },   new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"} },
-
+                new List<Word>{ new Word{ WordId=1, Text="the" },  new Word{ WordId=2, Text="president"} },
+                new List<Word>{ new Word{ WordId=1, Text="the" },  new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"} },
                 new List<Word>{ new Word{ WordId=1, Text="the" } },
-
                 new List<Word>{ new Word{ WordId=8, Text="not" }, new Word{ WordId=9, Text="found" } },
-
                 new List<Word>{ new Word{ WordId=10, Text="other" }, new Word{ WordId=11, Text= "strings" }  },
             };
 
@@ -287,5 +285,38 @@ namespace WildHare.Tests
             Assert.AreEqual(3, lookupList[5].Index);
             Assert.AreEqual(8, lookupList[6].Index);
         }
+
+        [Test]
+        public void Test_Dictionary_of_Funcs_Basic()
+        {
+            var funcs = new Dictionary<string, Func<int, int, int>>
+            {
+                { "add", Add },
+                { "subtract", Subtract },
+                { "multiply", Multiply },
+                { "divide", null }
+            };
+
+            funcs["divide"] = Divide;
+
+            Assert.AreEqual(10, funcs["add"].DynamicInvoke(5, 5));
+            Assert.AreEqual(0, funcs["subtract"].DynamicInvoke(5, 5));
+            Assert.AreEqual(25, funcs["multiply"].DynamicInvoke(5, 5));
+            Assert.AreEqual(1, funcs["divide"].DynamicInvoke(5, 5));
+        }
+
+
+
+        // ================================================================================================
+
+        private int Add(int arg1, int arg2) => arg1 + arg2;
+
+        private int Subtract(int arg1, int arg2) => arg1 - arg2;
+
+        private int Multiply(int arg1, int arg2) => arg1 * arg2;
+
+        private int Divide(int arg1, int arg2) => arg1 / arg2;
+
+
     }
 }

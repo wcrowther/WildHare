@@ -37,8 +37,11 @@ namespace WildHare.Web
             return "CodeGenSqlRowInsert.Init() complete....";
 		}
 
-        public static bool GenereateSQLInserts<T>( int count, string tableName = null, string schema = null, string excludeColumns = null, 
-                                                   bool identityInsertOn = false, bool overwrite = true)
+        public static bool GenereateSQLInserts<T>(  int count, string tableName = null,
+                                                    string schema = null,
+                                                    string excludeColumns = null, 
+                                                    bool identityInsertOn = false,
+                                                    bool overwrite = true )
         {
             var metaModel = typeof(T).GetMetaModel();
             var metaProperties = typeof(T).GetMetaProperties(excludeColumns);
@@ -52,7 +55,7 @@ namespace WildHare.Web
             string identity_insert     = identityInsertOn ? $"SET IDENTITY_INSERT [{schema}].[{tableName}]" : "";
             string identity_insert_ON  = identity_insert.AddEnd(" ON");
             string identity_insert_OFF = identity_insert.AddEnd(" OFF");
-            string indent = " ".Repeat(12);
+            string indent              = " ".Repeat(12);
 
             string output =
             $@"
@@ -124,7 +127,7 @@ namespace WildHare.Web
 
                     if (prop.PropertyType == typeof(string))
                     {
-                        valuesSb.Append($"N'{val}', ");
+                        valuesSb.Append($"N'{val.ToString().Trim()}', ");
                     }
                     else if (prop.PropertyType == typeof(DateTime))
                     {

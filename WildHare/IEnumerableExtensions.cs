@@ -145,8 +145,8 @@ namespace WildHare.Extensions
         }
 
 
-        /// <summary>Compares 2 lists and using the {comparer} toreturns an array of int positions
-        /// where the items</summary>
+        /// <summary>Compares 2 lists and using the {comparer} to return an array of int positions
+        /// where the items match.</summary>
         public static int[] InList<TList, TItems>(this IList<TList> list,
                                                        IList<TItems> items,
                                                        Func<TList, TItems, bool> comparer)
@@ -204,6 +204,18 @@ namespace WildHare.Extensions
                 collection.Add(i);
             }
             return collection;
+        }
+
+        /// <summary>Provides an index to a foreach loop using a tuple.</summary>
+        /// <example>
+        /// foreach (var (item, index) in collection.WithIndex() )
+        /// {
+        ///     Debug.WriteLine($"{index} : {item}");
+        /// }
+        /// </example>
+        public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> list)
+        {
+            return list?.Select((item, index) => (item, index)) ?? new Collection<(T,int)>();
         }
 
     }

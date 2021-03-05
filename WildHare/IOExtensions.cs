@@ -131,6 +131,27 @@ namespace WildHare.Extensions
             return fileList.ToList();
         }
 
+        // / <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.
+        // / Overload with an array of searchPatterns</summary>
+        //  public static List<FileInfo> GetAllFiles(this string directoryPath, string[] searchPattern = null )
+        //  {
+        //    searchPattern = searchPattern ?? new[] { "*" };
+
+        //    var di = new DirectoryInfo(directoryPath);
+
+        //    var fileList = di.GetFiles(searchPattern, SearchOption.AllDirectories);
+
+        //    // SOMETHING LIKE THIS
+        //    var filteredFiles = Directory
+        //    .EnumerateFiles(path) //<--- .NET 4.5
+        //    .Where(file => file.ToLower().EndsWith("aspx") || file.ToLower().EndsWith("ascx"))
+        //    .ToList();
+
+        //    return fileList.ToList();
+        //  }
+
+
+
         /// <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
         /// will throw an exception if the file is not found. If {strict} is false, will return null.</summary>
         public static string ReadFile(this FileInfo fileInfo, bool strict = true)

@@ -64,7 +64,7 @@ namespace WildHare.Tests
         public void Test_GetAllCssFiles()
         {
             string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
-            string pathToWriteTo = $@"{pathRoot}\AllCssFiles.txt";
+            string pathToWriteTo = $@"{pathRoot}\Analytics\AllCssFiles.txt";
             var sb = new StringBuilder();
 
             var allFiles = pathRoot.GetAllFiles("*.css");
@@ -85,8 +85,8 @@ namespace WildHare.Tests
             // Only gets 1 level of hierarchy
 
             string pathRoot = XtraExtensions.GetApplicationRoot();
-            string directoryPath = $@"{pathRoot}\Directory0";
-            string outputPath = $@"{pathRoot}\TextFiles\TestDirectories.txt";
+            string directoryPath = $@"{pathRoot}\Analytics";
+            string outputPath = $@"{pathRoot}\Analytics\TextFiles\TestDirectories.txt";
             var files = new StringBuilder();
             var folders = new StringBuilder();
 

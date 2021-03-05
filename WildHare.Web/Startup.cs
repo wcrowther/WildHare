@@ -48,7 +48,9 @@ namespace WildHare.Web
         {
             if (env.IsDevelopment())
             {
-                CodeGenAdapters.Init();
+                CodeGenCssMap.Init(env);
+
+                //CodeGenAdapters.Init();
                 //CodeGenFromSql.Init();
                 //CodeGenNewtonFromSql.Init();
                 //CodeGenSqlRowInsert.Init();
