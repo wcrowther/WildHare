@@ -131,26 +131,20 @@ namespace WildHare.Extensions
             return fileList.ToList();
         }
 
-        // / <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.
-        // / Overload with an array of searchPatterns</summary>
-        //  public static List<FileInfo> GetAllFiles(this string directoryPath, string[] searchPattern = null )
-        //  {
-        //    searchPattern = searchPattern ?? new[] { "*" };
+        /// <summary>This overload gets a list of all files matching a string array of {fileExtensions}
+        /// in current directory and all subdirectories, and does NOT use a searchPattern.
+        /// Example: new[] { ".cshtml", ".razor" }</summary>
+        public static List<FileInfo> GetAllFiles(this string directoryPath, string[] fileExtensions)
+        {
+            // https ://stackoverflow.com/questions/7039580/multiple-file-extensions-searchpattern-for-system-io-directory-getfiles
 
-        //    var di = new DirectoryInfo(directoryPath);
+            var fileList = new DirectoryInfo(directoryPath)
+                                .GetFiles(directoryPath)
+                                .Where(file => fileExtensions
+                                .Any(a => file.Name.EndsWith(a, StringComparison.OrdinalIgnoreCase)));
 
-        //    var fileList = di.GetFiles(searchPattern, SearchOption.AllDirectories);
-
-        //    // SOMETHING LIKE THIS
-        //    var filteredFiles = Directory
-        //    .EnumerateFiles(path) //<--- .NET 4.5
-        //    .Where(file => file.ToLower().EndsWith("aspx") || file.ToLower().EndsWith("ascx"))
-        //    .ToList();
-
-        //    return fileList.ToList();
-        //  }
-
-
+            return fileList.ToList();
+        }
 
         /// <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
         /// will throw an exception if the file is not found. If {strict} is false, will return null.</summary>

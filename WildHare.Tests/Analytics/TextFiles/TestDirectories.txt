@@ -1,0 +1,4 @@
+Directory: Directory1a
+Directory: Directory1b
+File: SimpleTemplate.txt
+File: TextFile0.txt

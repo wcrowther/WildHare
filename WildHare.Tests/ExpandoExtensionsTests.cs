@@ -11,19 +11,7 @@ namespace WildHare.Tests
 {
     // REFERENCE: https ://stackoverflow.com/questions/1653046/what-are-the-true-benefits-of-expandoobject
 
-    // Example using ExpandoObject as a cache
-    public class Dummy  
-    {
-        private ExpandoObject cache = new ExpandoObject();
-
-        public dynamic Cache
-        {
-            get { return cache ?? null; }
-            set { cache = value; }
-        }
-    }
-
-    [TestFixture]
+   [TestFixture]
     public class TestsForExpando
     {
         [Test]
@@ -172,6 +160,23 @@ namespace WildHare.Tests
             Assert.AreEqual(3, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceId).Count());
             Assert.AreEqual(1234, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceItemId).First());
             Assert.AreEqual(3, itemsList.Count());
+        }
+
+
+        // =================================================================
+        // Example using ExpandoObject as a cache
+        // =================================================================
+
+
+        public class Dummy
+        {
+            private ExpandoObject cache = new ExpandoObject();
+
+            public dynamic Cache
+            {
+                get => cache ?? null;
+                set => cache = value;
+            }
         }
 
     }

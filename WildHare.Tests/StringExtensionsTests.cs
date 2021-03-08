@@ -11,23 +11,23 @@ namespace WildHare.Tests
     [TestFixture]
     public class StringExtensionsTests
     {
-		[Test]
-		public void Test_NumbersOnly()
-		{
-			string numbersAndWords = "123SomeWord456";
-			string numbersOnlyString = numbersAndWords.NumbersOnly();
+        [Test]
+        public void Test_NumbersOnly()
+        {
+            string numbersAndWords = "123SomeWord456";
+            string numbersOnlyString = numbersAndWords.NumbersOnly();
 
-			Assert.AreEqual("123456", numbersOnlyString);
-		}
+            Assert.AreEqual("123456", numbersOnlyString);
+        }
 
-		[Test]
-		public void Test_NumbersOnly_With_Other_Characters()
-		{
-			string numbersAndWords = "$12345.SomeWord00";
-			string numbersOnlyString = numbersAndWords.NumbersOnly("$.");
+        [Test]
+        public void Test_NumbersOnly_With_Other_Characters()
+        {
+            string numbersAndWords = "$12345.SomeWord00";
+            string numbersOnlyString = numbersAndWords.NumbersOnly("$.");
 
-			Assert.AreEqual("$12345.00", numbersOnlyString);
-		}
+            Assert.AreEqual("$12345.00", numbersOnlyString);
+        }
 
         [Test]
         public void Test_Truncate_Basic()
@@ -150,9 +150,9 @@ namespace WildHare.Tests
         [Test]
         public void Test_IsWhiteSpace_Characters()
         {
-            char newlineChar    = '\n';
-            char tabChar        = '\t';
-            char returnChar     = '\r';
+            char newlineChar = '\n';
+            char tabChar = '\t';
+            char returnChar = '\r';
 
             Assert.IsTrue(char.IsWhiteSpace(newlineChar));
             Assert.IsTrue(char.IsWhiteSpace(tabChar));
@@ -276,6 +276,39 @@ namespace WildHare.Tests
 
             Assert.AreEqual("xxxTest", result);
         }
+
+
+        [Test]
+        public void Test_AddStart_Optional_QueryString()
+        {
+            string expected = "https://www.will.com?one=1&three=3";
+
+            string url = "https://www.will.com";
+            string qs1 = "1";
+            string qs2 = "";
+            string qs3 = "3";
+            string querystring = $"{qs1.AddStartEnd("one=","&")}{qs2.AddStartEnd("two=", "&")}{qs3.AddStart("three=")}".RemoveEnd("&");
+
+            string urlWithQuerystring = $"{url}{querystring.AddStart("?")}";
+
+            Assert.AreEqual(expected, urlWithQuerystring);
+        }
+
+        [Test]
+        public void Test_AddStart_Optional_QueryString_Version_2()
+        {
+            string expected = "https://www.will.com?one=1&three=3";
+
+            string url = "https://www.will.com";
+            string qs1 = "1";
+            string qs2 = "";
+            string qs3 = "3";
+
+            string querystring = qs1.AddStart("&one=") + qs2.AddStart("&two=") + qs3.AddStart("&three=");
+
+            Assert.AreEqual(expected, url + querystring.RemoveStart("&").AddStart("?") );
+        }
+
 
         [Test]
         public void Test_EnsureStart_IfEmpty()

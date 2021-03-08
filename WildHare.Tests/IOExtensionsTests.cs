@@ -85,7 +85,7 @@ namespace WildHare.Tests
             // Only gets 1 level of hierarchy
 
             string pathRoot = XtraExtensions.GetApplicationRoot();
-            string directoryPath = $@"{pathRoot}\Analytics";
+            string directoryPath = $@"{pathRoot}\Directory0";
             string outputPath = $@"{pathRoot}\Analytics\TextFiles\TestDirectories.txt";
             var files = new StringBuilder();
             var folders = new StringBuilder();

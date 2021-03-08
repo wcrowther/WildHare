@@ -94,7 +94,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Removes the start of a string if it exactly matches any of the strings in the {startArray} 
-        /// and removse the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
+        /// and removes the end of a string if it exactly matches any of the strings in the {endArray}.</summary>
         public static string RemoveStartEnd(this string input, string[] startArray, string[] endArray = null)
         {
             string s = input.IfNullOrEmpty();
