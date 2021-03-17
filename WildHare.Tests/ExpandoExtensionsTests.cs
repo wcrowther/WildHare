@@ -11,9 +11,27 @@ namespace WildHare.Tests
 {
     // REFERENCE: https ://stackoverflow.com/questions/1653046/what-are-the-true-benefits-of-expandoobject
 
-   [TestFixture]
+    // https ://docs.microsoft.com/en-us/dotnet/api/system.dynamic.dynamicobject.trysetmember?view=net-5.0
+
+    [TestFixture]
     public class TestsForExpando
     {
+        // ==============================================================================
+        // Example using ExpandoObject as a cache
+        // SEE DynamicExpando as a better solution now that it has an indexer 3/2021
+        // ==============================================================================
+
+        public class Dummy
+        {
+            private ExpandoObject cache = new ExpandoObject();
+
+            public dynamic Cache
+            {
+                get => cache ?? null;
+                set => cache = value;
+            }
+        }
+
         [Test]
         public void GetByItemName_Basic()
         {
@@ -30,31 +48,31 @@ namespace WildHare.Tests
                 }
             };
 
-            Assert.AreEqual(1,      dummy.Cache.Invoice.InvoiceId);
-            Assert.AreEqual(7890,   dummy.Cache.Invoice.AccountId);
+            Assert.AreEqual(1, dummy.Cache.Invoice.InvoiceId);
+            Assert.AreEqual(7890, dummy.Cache.Invoice.AccountId);
             Assert.AreEqual(99.99M, dummy.Cache.Invoice.InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   dummy.Cache.Invoice.InvoiceItems[1].InvoiceItemId);
-            Assert.AreEqual(3,      dummy.Cache.Invoice.InvoiceItems.Count);
+            Assert.AreEqual(5678, dummy.Cache.Invoice.InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(3, dummy.Cache.Invoice.InvoiceItems.Count);
 
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
 
-            Assert.AreEqual(1,      cache.Get<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890,   cache.Get<Invoice>("Invoice").AccountId);
+            Assert.AreEqual(1, cache.Get<Invoice>("Invoice").InvoiceId);
+            Assert.AreEqual(7890, cache.Get<Invoice>("Invoice").AccountId);
             Assert.AreEqual(99.99M, cache.Get<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(5678, cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Inline cast to ExpandoObject alternative
-            Assert.AreEqual(1,      ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890,   ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").AccountId);
+            Assert.AreEqual(1, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
+            Assert.AreEqual(7890, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").AccountId);
             Assert.AreEqual(99.99M, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(5678, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Invoke with non-extension method syntax alternative (with ex using statement above)
-            Assert.AreEqual(1,      ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
-            Assert.AreEqual(7890,   ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
+            Assert.AreEqual(1, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
+            Assert.AreEqual(7890, ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
             Assert.AreEqual(99.99M, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678,   ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(5678, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
         }
 
         [Test]
@@ -162,22 +180,41 @@ namespace WildHare.Tests
             Assert.AreEqual(3, itemsList.Count());
         }
 
-
-        // =================================================================
-        // Example using ExpandoObject as a cache
-        // =================================================================
-
-
-        public class Dummy
+        [Test]
+        public void Dynamic_List_Add_Items()
         {
-            private ExpandoObject cache = new ExpandoObject();
-
-            public dynamic Cache
+            var dummy = new Dummy();
+            dummy.Cache.InvoiceItems = new List<InvoiceItem>
             {
-                get => cache ?? null;
-                set => cache = value;
-            }
+                new InvoiceItem{ InvoiceItemId = 1234 , Fee = 99.99M, Product = "Doodad" },
+                new InvoiceItem{ InvoiceItemId = 5678 , Fee = 2.22M,  Product = "Thingamajig" },
+                new InvoiceItem{ InvoiceItemId = 9000 , Fee = 100.00M,Product = "Thing" }
+            };
+
+            var invoiceItem = new InvoiceItem { InvoiceItemId = 1000, Fee = 10.00M, Product = "Extra" };
+
+            dummy.Cache.InvoiceItems.Add(invoiceItem);
+
+            Assert.AreEqual(4, dummy.Cache.InvoiceItems.Count);
         }
 
+
+        [Test]
+        public void Dynamic_List_()
+        {
+            var dummy = new Dummy();
+            dummy.Cache.InvoiceItems = new List<InvoiceItem>
+            {
+                new InvoiceItem{ InvoiceItemId = 1234 , Fee = 99.99M, Product = "Doodad" },
+                new InvoiceItem{ InvoiceItemId = 5678 , Fee = 2.22M,  Product = "Thingamajig" },
+                new InvoiceItem{ InvoiceItemId = 9000 , Fee = 100.00M,Product = "Thing" }
+            };
+
+            var invoiceItem = new InvoiceItem { InvoiceItemId = 1000, Fee = 10.00M, Product = "Extra" };
+
+            dummy.Cache.InvoiceItems.Add(invoiceItem);
+
+            Assert.AreEqual(4, dummy.Cache.InvoiceItems.Count);
+        }
     }
 }

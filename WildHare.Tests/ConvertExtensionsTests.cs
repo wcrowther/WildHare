@@ -1,7 +1,5 @@
 using NUnit.Framework;
 using System;
-using System.IO;
-using System.Reflection;
 using WildHare.Extensions;
 
 namespace WildHare.Tests
@@ -9,6 +7,63 @@ namespace WildHare.Tests
     [TestFixture]
     public class ConvertExtensionsTests
     {
+        [Test]
+        public void Test_ToBool_Basic()
+        {
+            string boolStringTrue = "true";
+            Assert.AreEqual(true, boolStringTrue.ToBool());
+
+            string boolStringFalse = "false";
+            Assert.AreEqual(false, boolStringFalse.ToBool());
+
+            string boolStringFred = "Fred";
+            Assert.AreEqual(false, boolStringFred.ToBool());
+
+            string boolStringNull = null;
+            Assert.AreEqual(false, boolStringNull.ToBool());
+        }
+
+        [Test]
+        public void Test_ToBoolNullable_Basic()
+        {
+            string boolStringTrue = "true";
+            Assert.AreEqual(true, boolStringTrue.ToBoolNullable());
+
+            string boolStringFalse = "false";
+            Assert.AreEqual(false, boolStringFalse.ToBoolNullable());
+
+            string boolStringFred = "Fred";
+            Assert.AreEqual(null, boolStringFred.ToBoolNullable());
+
+            string boolStringNull = null;
+            Assert.AreEqual(null, boolStringNull.ToBoolNullable());
+            Assert.AreEqual(true, boolStringNull.ToBoolNullable(true));
+        }
+
+        [Test]
+        public void Test_ToBool_With_trueValue()
+        {
+            string boolStringTrue = "Yes";
+            Assert.AreEqual(true, boolStringTrue.ToBool("Yes"));
+
+            string boolStringFalse = "No";
+            Assert.AreEqual(false, boolStringFalse.ToBool("Yes"));
+
+            string boolStringFred = "Fred";
+            Assert.AreEqual(false, boolStringFred.ToBool("Yes"));
+
+            string boolStringNull = null;
+            Assert.AreEqual(false, boolStringNull.ToBool("Yes"));
+            Assert.AreEqual(false, boolStringNull.ToBool("No"));
+
+            string boolStringTrueLowercase = "yes";
+            Assert.AreEqual(true, boolStringTrueLowercase.ToBool("Yes", true));
+
+            string boolStringFalseLowercase = "yes";
+            Assert.AreEqual(false, boolStringFalseLowercase.ToBool("Yes", false));
+        }
+
+
         [Test]
         public void Test_IncrementString_Without_Number_And_Extension()
         {

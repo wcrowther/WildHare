@@ -9,17 +9,12 @@ namespace WildHare.Extensions
         /// <returns>An bool value</returns>
         public static bool ToBool(this string value)
 		{
-			bool.TryParse(value.ToLower(), out bool result);
+            if (value is null)
+                return false;
+
+            bool.TryParse(value.ToLower(), out bool result);
 
 			return result;
-		}
-
-        /// <summary>Converts string to bool. Can be null. (case insensitive)</summary>
-        /// <returns>An bool value</returns>
-        /// <documentation>Test1</documentation>
-        public static bool? ToBoolNullable(this string value, bool? defaultValue)
-		{
-			return bool.TryParse(value.ToLower(), out bool result) ? result : defaultValue;
 		}
 
         /// <summary>Converts string to bool by comparing to the trueValue. Ignores case by default.</summary>
@@ -27,8 +22,22 @@ namespace WildHare.Extensions
         /// <example>"Yes".ToBool("yes", false) return false.</example>
         /// <returns>An bool value</returns>
         public static bool ToBool(this string value, string trueValue, bool ignoreCase = true)
+        {
+            if (value is null || trueValue is null)
+                return false;
+
+            return (ignoreCase ? value.ToLower() : value) == (ignoreCase ? trueValue.ToLower() : trueValue);
+        }
+
+        /// <summary>Converts string to bool. Can be null. (case insensitive)</summary>
+        /// <returns>An bool value</returns>
+        /// <documentation>Test1</documentation>
+        public static bool? ToBoolNullable(this string value, bool? defaultValue = default)
 		{
-			return (ignoreCase ? value.ToLower() : value) == (ignoreCase ? trueValue.ToLower() : trueValue);
+            if (value is null)
+                return defaultValue;
+
+            return bool.TryParse(value.ToLower(), out bool result) ? result : defaultValue;
 		}
 
         /// <summary>Converts strings to Int.</summary>
@@ -82,7 +91,7 @@ namespace WildHare.Extensions
 
         /// <summary>Converts strings to Decimal if possible</summary>
         /// <returns>An Decimal value or null</returns>
-        public static decimal? ToDecimalNullable(this string value, decimal? defaultValue = 0.0M)
+        public static decimal? ToDecimalNullable(this string value, decimal? defaultValue = null)
         {
             return decimal.TryParse(value, out decimal result) ? result : defaultValue;
         }

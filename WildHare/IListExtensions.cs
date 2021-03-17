@@ -97,30 +97,50 @@ namespace WildHare.Extensions
             return sourceList.TakeNext(1, offset, remove).FirstOrDefault();
         }
 
-        /// <summary>Given an item in a list, it will return the next item in the list
-        /// or the default for that type (usually null if non-numeric). Uses IndexOf, which
-        /// will return the first element for simple numeric types</summary>
-        public static T NextIn<T>(this T item, IList<T> itemList)
+        /// <summary>Given an item in a list, it will return the next item in the list or the
+        /// default for that type (null if non-numeric). The {distance} is an int with 1 for the
+        /// next item (the default). 2 for the next item after that, and so on... </summary>
+        public static T NextIn<T>(this T item, IList<T> itemList, int distance = 1)
         {
             if (itemList?.Count == 0 || item == null)
                 return default;
 
             int itemIndex = itemList.IndexOf(item);
 
-            return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex + 1) : default;
+            return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex + distance) : default;
         }
 
-        /// <summary>Given an item in a list, it will return the Prevous item in the list
-        /// or the default for that type (usually null if non-numeric). Uses IndexOf, which
-        /// will return the first element for simple numeric types</summary>
-        public static T PreviousIn<T>(this T item, IList<T> itemList)
+        /// <summary>Given an item in a list, it will return the previous item in the list or the 
+        /// default for that type (null if non-numeric). The {distance} is an int with 1 for the 
+        /// previous item (the default). 2 for the previous item before that, and so on... </summary>
+        public static T PreviousIn<T>(this T item, IList<T> itemList, int distance = 1)
         {
             if (itemList?.Count == 0 || item == null)
                 return default;
 
             int itemIndex = itemList.IndexOf(item);
 
-            return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex - 1) : default;
+            return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex - distance) : default;
+        }
+
+        /// <summary>Given an item in a list, returns true if the item is 
+        /// the first element in the list.</summary>
+        public static bool IsFirstIn<T>(this T item, IList<T> itemList)
+        {
+            if (itemList?.Count == 0 || item == null)
+                return default;
+
+            return itemList.IndexOf(item) == 0;
+        }
+
+        /// <summary>Given an item in a list, returns true if the item is 
+        /// the last element in the list.</summary>
+        public static bool IsLastIn<T>(this T item, IList<T> itemList)
+        {
+            if (itemList?.Count == 0 || item == null)
+                return default;
+
+            return itemList.IndexOf(item) == itemList.Count - 1;
         }
 
         public static void ReplaceItem<T>(this IList<T> itemList, int index, T newItem)

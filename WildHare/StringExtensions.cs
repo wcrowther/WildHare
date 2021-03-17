@@ -46,6 +46,13 @@ namespace WildHare.Extensions
             return s.IsNullOrSpace() ? replacement : s;
         }
 
+        /// <summary>Ignores string by returning null if the string {str} equals {str2}.</summary>
+        /// <example>string field = "*"; var f = field.NullIf("*") ?? "Empty" ex: return "Empty"</example>
+        public static string NullIf(this string str, string str2)
+        {
+            return str != str2 ? str : null;
+        }
+
         /// <summary>Remove the start of a string if it exactly matches {start}.</summary>
         public static string RemoveStart(this string input, string start)
         {
@@ -432,13 +439,6 @@ namespace WildHare.Extensions
             string[] s = new string[] { separator };
             
             return str.Split(s, options);
-        }
-
-        /// <summary>Ignores string by returning null if the string {str} equals {str2}.</summary>
-        /// <example>string field = "*"; var f = field.Ignore("*") ?? "Empty" ex: return "Empty"</example>
-        public static string Ignore(this string str, string str2)
-        {
-            return str != str2 ? str : null;
         }
 
         /// <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. For simple cases,

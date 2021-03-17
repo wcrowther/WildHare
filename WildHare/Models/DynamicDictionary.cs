@@ -3,6 +3,9 @@ using System.Dynamic;
 
 namespace WildHare
 {
+
+    // REMOVE - USE DynamicExpando ???
+
     public class DynamicDictionary : DynamicObject
     {
         private readonly Dictionary<string, object> values = new Dictionary<string, object>();

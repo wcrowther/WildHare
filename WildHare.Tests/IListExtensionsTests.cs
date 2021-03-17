@@ -336,7 +336,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_NextIn_Previous_Basic_Numeric()
+        public void Test_NextIn_PreviousIn_Basic_Numeric()
         {
             var itemList = new[]{ 2, 3, 4, 2, 6 };
 
@@ -352,7 +352,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_NextIn_Previous_Basic_Objects()
+        public void Test_NextIn_PreviousIn_Basic_Objects()
         {
             var people = new List<Person>
             {
@@ -371,6 +371,37 @@ namespace WildHare.Tests
             Assert.AreEqual(null, people[0].PreviousIn(people));
             Assert.AreEqual(2, people[2].PreviousIn(people).PersonId);
             Assert.AreEqual("Will", people.First(f => f.FirstName == "Joe").PreviousIn(people).FirstName);
+        }
+
+
+        [Test]
+        public void Test_IsFirstIn_Objects()
+        {
+            var people = new List<Person>
+            {
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" },
+                new Person { PersonId = 2, FirstName = "Joe", LastName= "Jones" },
+                new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" }
+            };
+
+            Assert.AreEqual(true, people[0].IsFirstIn(people));
+            Assert.AreEqual(false, people[1].IsFirstIn(people));
+            Assert.AreEqual(false, people[2].IsFirstIn(people));
+        }
+
+        [Test]
+        public void Test_IsLastIn_Objects()
+        {
+            var people = new List<Person>
+            {
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" },
+                new Person { PersonId = 2, FirstName = "Joe", LastName= "Jones" },
+                new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" }
+            };
+
+            Assert.AreEqual(false, people[0].IsLastIn(people));
+            Assert.AreEqual(false, people[1].IsLastIn(people));
+            Assert.AreEqual(true,  people[2].IsLastIn(people));
         }
 
         [Test]
