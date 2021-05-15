@@ -113,6 +113,10 @@ namespace WildHare.Tests
             Assert.AreEqual(7890,       item.Tags.Invoice.AccountId);
             Assert.AreEqual(99.99M,     item.Tags.Invoice.InvoiceItems[0].Fee);
             Assert.AreEqual(5678,       item.Tags.Invoice.InvoiceItems[1].InvoiceItemId);
+
+            //List<InvoiceItem> items = item.Tags.Invoice.InvoiceItems.ToList();
+            //Assert.AreEqual(202.21M,  items.Sum(s => s.Fee));
+
         }
     }
 }

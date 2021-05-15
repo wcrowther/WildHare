@@ -439,24 +439,57 @@ namespace WildHare.Tests
         {
             var tokens = new List<Token>
             {
-                new Word { Text = "the",        WordId = 1 },
-                new Word { Text = "president",  WordId = 2 },
-                new Word { Text = "of",         WordId = 3 },
-                new Word { Text = "the",        WordId = 4 },
-                new Word { Text = "united",     WordId = 5 },
-                new Word { Text = "states",     WordId = 6 }
+                new Word { Text = "the president",      WordId = 2 },
+                new Word { Text = "of",                 WordId = 3 },
+                new Word { Text = "the united states",  WordId = 4 }
             };
 
-            var phrase = new Phrase()
+            var newTokens = new List<Token>
             {
-                Words = tokens.GetRange(3, 3).OfType<Word>().ToList()
+                new Word { Text = "a",          WordId = 14 },
+                new Word { Text = "foreign",    WordId = 15 },
+                new Word { Text = "country",    WordId = 16 }
             };
 
-            tokens.CombineItems(3, 3, phrase);
 
-            Assert.AreEqual(4, tokens.Count());
-            Assert.AreEqual(3, ((Phrase)tokens[3]).Words.Count);
-            Assert.AreEqual("the president of the united states", string.Join(" ", tokens.Select(s => s.Text)));
+            tokens.ReplaceItems(2, newTokens);  // replace token "the united states" with "a foreign country"
+
+            Assert.AreEqual(5, tokens.Count());
+            Assert.AreEqual("the president of a foreign country", string.Join(" ", tokens.Select(s => s.Text)));
         }
+
+
+
+        [Test]
+        public void Test_IList_Left_Outer_Join_With_Selected_Ints()
+        {
+            var words = new List<Word>
+            {
+                new Word { Text = "a",  WordId = 1, Info = "First Letter"},
+                new Word { Text = "b",  WordId = 2, Info = "Second Letter"},
+                new Word { Text = "c",  WordId = 3, Info = "Third Letter"},
+                new Word { Text = "d",  WordId = 4, Info = "Fourth Letter"},
+                new Word { Text = "e",  WordId = 5, Info = "Fifth Letter"}
+            };
+
+            int[] ids = { 2, 3, 4 }; // 1 and 5 NOT selected
+
+            var results =   from w in words
+                            join i in ids
+                                on w.WordId equals i into idList
+                            from num in idList.DefaultIfEmpty()
+                            select new
+                            {
+                                w.Text,
+                                num,
+                                selected = num == 0 ? false : true
+                            };
+
+            Assert.AreEqual(5, results.Count());
+            Assert.AreEqual(3, results.Count(c => c.selected == true));
+            Assert.AreEqual(2, results.Count(c => c.selected == false));
+
+        }
+
     }
 }

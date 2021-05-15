@@ -265,5 +265,19 @@ namespace WildHare.Tests
             Assert.AreEqual("FootballTeam", typesDerivedFromTeam[0].Name);
             Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[1].Name);
         }
+
+        [Test]
+        public void GetDerivedClasses_IncludeBaseType()
+        {
+            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(includeBaseType: true).ToList();
+
+            Assert.AreEqual(5, typesDerivedFromTeam.Count());
+            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("NflTeam", typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("Team", typesDerivedFromTeam[4].Name);
+
+        }
     }
 }

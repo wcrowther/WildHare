@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using WildHare.Extensions;
 
 namespace WildHare.Tests
@@ -145,6 +146,66 @@ namespace WildHare.Tests
 
             string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
             Assert.AreEqual(errorMessage, ex.Message);
+        }
+
+        [Test]
+        public void Test_IntArray_AsString_Basic()
+        {
+            int[] intArray = { 1,2,3,4,9 };
+
+            string intArrayString = intArray.AsString();  
+
+            Assert.AreEqual("1,2,3,4,9", intArrayString);
+        }
+
+        [Test]
+        public void Test_IntArray_AsString_Empty()
+        {
+            int[] intArray = new int[0];
+
+            string intArrayString = intArray.AsString();
+
+            Assert.AreEqual("", intArrayString);
+        }
+
+        [Test]
+        public void Test_IntArray_AsString_Null()
+        {
+            int[] intArray = null;
+
+            string intArrayString = intArray.AsString();
+
+            Assert.AreEqual(null, intArrayString);
+        }
+
+        [Test]
+        public void Test_IEnumerable_Int_AsString_Basic()
+        {
+            IEnumerable<int> intList = new List<int>{ 1, 2, 3, 4, 9 };
+
+            string intListString = intList.AsString();
+
+            Assert.AreEqual("1,2,3,4,9", intListString);
+        }
+
+        [Test]
+        public void Test_IEnumerable_Int_AsString_Empty()
+        {
+            IEnumerable<int> intList = new int[0];
+
+            string intListString = intList.AsString();
+
+            Assert.AreEqual("", intListString);
+        }
+
+        [Test]
+        public void Test_IEnumerable_Int_AsString_Null()
+        {
+            IEnumerable<int> intList = null;
+
+            string intListString = intList.AsString();
+
+            Assert.AreEqual(null, intListString);
         }
     }
 }

@@ -59,6 +59,15 @@ namespace WildHare
             return _properties.FirstOrDefault();
         }
 
+        public object ToList()
+        {
+            return _properties.ToList();
+        }
+        public Dictionary<string, object> ToDictionary()
+        {
+            return _properties;
+        }
+
         private static object GetDefault(Type type)
         {
             if (type.IsValueType)

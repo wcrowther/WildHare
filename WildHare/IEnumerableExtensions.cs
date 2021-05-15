@@ -218,5 +218,18 @@ namespace WildHare.Extensions
             return list?.Select((item, index) => (item, index)) ?? new Collection<(T,int)>();
         }
 
+        /// <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
+        /// when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
+        public static string AsString(this IEnumerable<int> intList, bool strict = false)
+        {
+            if (intList is null && strict)
+                throw new Exception("IntList.AsString() cannot be null when in strict mode.");
+
+            if (intList is null)
+                return null;
+
+            return string.Join(",", intList);
+        }
+
     }
 }

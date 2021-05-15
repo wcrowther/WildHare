@@ -104,7 +104,10 @@
             <summary>Converts a string to an array of ints. With {strict} equals false, the default, 
             the method will ignore any characters except for numbers, the negative symbol, or commas.
             With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
-            <returns>int[]</returns>
+        </member>
+        <member name="M:WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean)">
+            <summary>Converts an array of ints to a string. The method will return null if the {intArray} parameter is null 
+            when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
         </member>
         <member name="M:WildHare.Extensions.DataTableExtensions.ToList``1(System.Data.DataTable)">
             <summary>Converts a DataTable to a list of T</summary>
@@ -208,6 +211,10 @@
                 Debug.WriteLine($"{index} : {item}");
             }
             </example>
+        </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.Int32},System.Boolean)">
+            <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
+            when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
         </member>
         <member name="T:WildHare.Extensions.IListExtensions">
             <summary>Class Summary</summary>
@@ -508,7 +515,7 @@
             <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes
             and will be removed in a future version.</summary>
         </member>
-        <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[])">
+        <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean)">
             <summary>Gets an array of derived Types that are a subclass of {type}, excluding any
             types named in the {ingnoreTypeNames} list.</summary>
             <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
