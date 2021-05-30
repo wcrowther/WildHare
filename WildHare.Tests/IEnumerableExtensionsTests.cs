@@ -1,7 +1,12 @@
 using NUnit.Framework;
+using SeedPacket.DataSources;
+using SeedPacket.Extensions;
+using SeedPacket.Functions;
+using SeedPacket.Generators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
@@ -141,6 +146,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(0, matches2.Count());
         }
+
 
         [Test]
         public void Test_InList_Basic()
@@ -307,6 +313,90 @@ namespace WildHare.Tests
 
 
 
+        [Test]
+        public void Test_MatchList_Int_SpeedTest()
+        {
+            List<int[]> randomPatterns = GetRandomIntList(10000, 21, 1234);
+
+            var stopwatch = Stopwatch.StartNew();
+
+            int[] pattern = { 3, 4, 5 };
+            var matches = new List<IEnumerable<int>>();
+
+            foreach (var randomPattern in randomPatterns)
+            {
+                IEnumerable<int> patternMatch = randomPattern.MatchList(pattern, (a, b) => a == b, false);
+
+                // 8ms for 10,000 records  41ms for 100,000 records
+                if (patternMatch.Count() >= 3)
+                {
+                    // Debug.WriteLine($"Pattern: {string.Join(", ", patternMatch)} RandomPattern: {string.Join(", ", randomPattern)}");
+                    matches.Add(randomPattern);
+                }
+
+                // EXACT VERSION -- QUICKER 1ms for 10,000 records - 16ms for 100,000 records
+                // Only returns boolean
+                // if (randomPattern.SequenceEqual(pattern))
+                // {
+                //    matches.Add(randomPattern);
+                // }
+            }
+
+            stopwatch.Stop();
+
+            Debug.WriteLine("Elapsed time: " + stopwatch.ElapsedMilliseconds + " ms");
+
+            Assert.AreEqual(13, matches.Count);
+
+            Assert.IsTrue(matches[0].SequenceEqual(new[] { 3, 4, 0, 3, 5 }));
+            Assert.IsTrue(matches[1].SequenceEqual(new[] { 3, 4, 5, 18, 4 }));
+            Assert.IsTrue(matches[2].SequenceEqual(new[] { 3, 4, 20, 6, 5 }));
+            Assert.IsTrue(matches[3].SequenceEqual(new[] { 3, 10, 10, 4, 5 }));
+            Assert.IsTrue(matches[4].SequenceEqual(new[] { 14, 3, 3, 4, 5 }));
+            Assert.IsTrue(matches[5].SequenceEqual(new[] { 18, 3, 4, 5, 15 }));
+
+        }
+
+        [Test]
+        public void Test_MatchList_String_SpeedTest()
+        {
+            var stopwatch = Stopwatch.StartNew();
+
+            // Get 100,000 sequences of 5 random names in .38 to .64 seconds.
+            IEnumerable<string[]> randomNames = GetRandomNameList(10000, 34567);
+
+            stopwatch.Stop();
+            Debug.WriteLine("GetRandomNameList Elapsed time: " + stopwatch.ElapsedMilliseconds + " ms");
+
+            stopwatch.Restart();
+
+            string[] pattern = { "Janice", "Jesse", "John" };
+            var matches = new List<IEnumerable<string>>();
+
+            foreach (var randomPattern in randomNames)
+            {
+                IEnumerable<string> match = randomPattern.MatchList(pattern, (a, b) => a == b, false);
+
+                // 13ms,16ms,23ms,24ms for 10,000 records | 188ms for 100,000 records (Debug)
+                if (match.Count() >= 3)
+                {
+                    matches.Add(randomPattern);
+                }
+            }
+
+            stopwatch.Stop();
+            Debug.WriteLine("MatchList Elapsed time: " + stopwatch.ElapsedMilliseconds + " ms");
+
+            Assert.AreEqual(5, matches.Count);
+
+            Assert.IsTrue(matches[0].SequenceEqual( new[] { "Janice", "Jesse", "John", "Denise", "Robert" }));
+            Assert.IsTrue(matches[2].SequenceEqual( new[] { "Janice", "Christian", "Jesse", "Peter", "John"    }));
+            Assert.IsTrue(matches[4].SequenceEqual( new[] { "Janice", "Juan", "Zoey", "Jesse", "John" }));
+
+        }
+
+        // ================================================================================================
+        // PRIVATE FUNCTIONS
         // ================================================================================================
 
         private int Add(int arg1, int arg2) => arg1 + arg2;
@@ -317,6 +407,46 @@ namespace WildHare.Tests
 
         private int Divide(int arg1, int arg2) => arg1 / arg2;
 
+        private List<int[]> GetRandomIntList(int count, int maxInt, int seed)
+        {
+            var list = new List<int[]>();
+            var random = new Random(seed);
 
+            for (int i = 0; i < count; i++)
+            {
+                int a = random.Next(maxInt);
+                int b = random.Next(maxInt);
+                int c = random.Next(maxInt);
+                int d = random.Next(maxInt);
+                int e = random.Next(maxInt);
+
+                int[] ints = new int[5];
+                ints[0] = a;
+                ints[1] = b;
+                ints[2] = c;
+                ints[3] = d;
+                ints[4] = e;
+
+                list.Add(ints);
+            }
+
+            return list;
+        }
+
+        private IEnumerable<string[]> GetRandomNameList(int count, int seed)
+        {
+            var randomNameList = new List<string[]>();
+
+            var generator               = new MultiGenerator();
+            generator.Cache.NameList    = new List<string>().Seed(1, 100, generator, "FirstName");
+
+            for (int i = 0; i < count; i++)
+            {
+                var arrayOfNames = Funcs.GetListFromCacheRandom<string>(generator, "NameList", 5, 5, false).ToArray();
+                randomNameList.Add(arrayOfNames);
+            }
+
+            return randomNameList;
+        }
     }
 }

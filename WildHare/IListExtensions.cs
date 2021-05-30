@@ -100,7 +100,7 @@ namespace WildHare.Extensions
         /// <summary>Given an item in a list, it will return the next item in the list or the
         /// default for that type (null if non-numeric). The {distance} is an int with 1 for the
         /// next item (the default). 2 for the next item after that, and so on... </summary>
-        public static T NextIn<T>(this T item, IList<T> itemList, int distance = 1)
+        public static T NextIn<T>(this T item, IList<T> itemList, int distance = 1)  // Constrain?  where T : class, new()
         {
             if (itemList?.Count == 0 || item == null)
                 return default;
@@ -113,7 +113,7 @@ namespace WildHare.Extensions
         /// <summary>Given an item in a list, it will return the previous item in the list or the 
         /// default for that type (null if non-numeric). The {distance} is an int with 1 for the 
         /// previous item (the default). 2 for the previous item before that, and so on... </summary>
-        public static T PreviousIn<T>(this T item, IList<T> itemList, int distance = 1)
+        public static T PreviousIn<T>(this T item, IList<T> itemList, int distance = 1) 
         {
             if (itemList?.Count == 0 || item == null)
                 return default;
@@ -135,7 +135,7 @@ namespace WildHare.Extensions
 
         /// <summary>Given an item in a list, returns true if the item is 
         /// the last element in the list.</summary>
-        public static bool IsLastIn<T>(this T item, IList<T> itemList)
+        public static bool IsLastIn<T>(this T item, IList<T> itemList) 
         {
             if (itemList?.Count == 0 || item == null)
                 return default;

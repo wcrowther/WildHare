@@ -10,7 +10,7 @@
     -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.4.1</Version>
+    <Version>1.0.4.2</Version>
     <Authors>Will Crowther</Authors>
     <Product>WildHare Extensions</Product>
     <Description>WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
@@ -18,10 +18,11 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://www.seedpacket.net/</PackageProjectUrl>
     <PackageTags>extension methods</PackageTags>
-    <AssemblyVersion>1.0.4.1</AssemblyVersion>
-    <FileVersion>1.0.4.1</FileVersion>
+    <AssemblyVersion>1.0.4.2</AssemblyVersion>
+    <FileVersion>1.0.4.2</FileVersion>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>1.0.4.1 Added IEnumerable int method .AsString()
+    <PackageReleaseNotes>1.0.4.2 Added GetDerivedTypes() new includeBaseType bool parameter
+1.0.4.1 Added IEnumerable int method .AsString()
 1.0.4.0 Added int array method .AsString()
 1.0.3.9 Added IDictionary.FromQueryFormat and ToQueryFormat. Added ToLIst to DynamicExpando.
 1.0.3.8 Additions to IListExtensions
