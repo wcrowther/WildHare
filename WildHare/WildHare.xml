@@ -216,6 +216,12 @@
             <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
             when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.PatternMatch``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
+            returns the list item if the {func} returns true for the match to the pattern item.
+            The list enumerates to the next item regardless of a match or not, but pattern does not
+            enumerate to the next pattern unless it matched.</summary>
+        </member>
         <member name="T:WildHare.Extensions.IListExtensions">
             <summary>Class Summary</summary>
         </member>

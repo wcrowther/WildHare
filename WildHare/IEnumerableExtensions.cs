@@ -231,5 +231,40 @@ namespace WildHare.Extensions
             return string.Join(",", intList);
         }
 
+
+        /// <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
+        /// returns the list item if the {func} returns true for the match to the pattern item.
+        /// The list enumerates to the next item regardless of a match or not, but pattern does not
+        /// enumerate to the next pattern unless it matched.</summary>
+        public static IEnumerable<T> PatternMatch<T>(this IEnumerable<T> list,
+                                                          IEnumerable<T> pattern,
+                                                          Func<T, T, bool> func
+                                                     )
+        {
+            var listEnumerator      = list.GetEnumerator();
+            var patternEnumerator   = pattern.GetEnumerator();
+
+            bool patternHasMoreItems = patternEnumerator.MoveNext(); // init outside loop
+
+            while (listEnumerator.MoveNext() && patternHasMoreItems)
+            {
+                if (func(listEnumerator.Current, patternEnumerator.Current))
+                {
+                    yield return listEnumerator.Current;
+
+                    patternHasMoreItems = patternEnumerator.MoveNext();
+                }
+            }
+        }
+
+        public enum MatchEnum
+        {
+            Exact,
+            Contains,
+            Reordered,
+            ContainsReordered,
+            Default
+        }
+
     }
 }

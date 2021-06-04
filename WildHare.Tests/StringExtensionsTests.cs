@@ -707,9 +707,11 @@ namespace WildHare.Tests
 
             string str = "LMR";
 
-            Assert.AreEqual("L", str.Left(1));
-            Assert.AreEqual("M", str.Mid(1,1));
-            Assert.AreEqual("R", str.Mid(2));
+            Assert.AreEqual("L", str.Left(1));   // get 1
+            Assert.AreEqual("M", str.Mid(1,1));  // start at 1 (position 2) get 1
+            Assert.AreEqual("R", str.Mid(2));    // start at 2 (position 3) get 1
+            Assert.AreEqual("R", str.Right(1));  // get 1 from right end   
+            Assert.AreEqual("MR", str.Right(2)); // get 2 from right end   
 
         }
 

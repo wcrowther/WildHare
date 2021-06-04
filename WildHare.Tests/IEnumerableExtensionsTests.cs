@@ -147,7 +147,6 @@ namespace WildHare.Tests
             Assert.AreEqual(0, matches2.Count());
         }
 
-
         [Test]
         public void Test_InList_Basic()
         {
@@ -311,8 +310,6 @@ namespace WildHare.Tests
             Assert.AreEqual(1, funcs["divide"].DynamicInvoke(5, 5));
         }
 
-
-
         [Test]
         public void Test_MatchList_Int_SpeedTest()
         {
@@ -394,6 +391,55 @@ namespace WildHare.Tests
             Assert.IsTrue(matches[4].SequenceEqual( new[] { "Janice", "Juan", "Zoey", "Jesse", "John" }));
 
         }
+
+        [Test]
+        public void Test_PatternMatch_Basic()
+        {
+            string[] phraseList = { "is", "the", "president", "of", "the", "united", "states", "a", "politician" };
+            var pattern = "president of the united states".Split(' ');
+
+            var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
+
+            Assert.AreEqual(5, matches.Count);
+            Assert.AreEqual("president of the united states", string.Join(' ', matches));
+        }
+
+        [Test]
+        public void Test_PatternMatch_Basic2()
+        {
+            string[] phraseList = { "is", "the", "president", "of", "the", "united", "states", "a", "politician" };
+            var pattern = "a politician".Split(' ');
+
+            var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
+
+            Assert.AreEqual(2, matches.Count);
+            Assert.AreEqual("a politician", string.Join(' ', matches));
+        }
+
+        [Test]
+        public void Test_PatternMatch_Basic3()
+        {
+            string[] phraseList = { "the", "president", "of", "the", "united", "states" };
+            var pattern = "prime minister".Split(' ');
+
+            var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
+
+            Assert.AreEqual(0, matches.Count);
+            Assert.AreEqual("", string.Join(' ', matches));
+        }
+
+        [Test]
+        public void Test_PatternMatch_List_Is_Empty()
+        {
+            string[] phraseList = { };
+            var pattern = "the president".Split(' ');
+
+            var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
+
+            Assert.AreEqual(0, matches.Count);
+            Assert.AreEqual("", string.Join(' ', matches));
+        }
+
 
         // ================================================================================================
         // PRIVATE FUNCTIONS
