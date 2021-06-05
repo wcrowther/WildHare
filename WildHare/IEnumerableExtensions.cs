@@ -256,15 +256,5 @@ namespace WildHare.Extensions
                 }
             }
         }
-
-        public enum MatchEnum
-        {
-            Exact,
-            Contains,
-            Reordered,
-            ContainsReordered,
-            Default
-        }
-
     }
 }
