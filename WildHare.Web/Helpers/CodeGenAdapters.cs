@@ -16,11 +16,12 @@ namespace WildHare.Web
         /* =============================================================================================
          * DIRECTIONS - PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE LIKE STARTUP
 
-           CodeGenAdapters.Init();
+           CodeGenAdapters.Init(rootPath);  \\ where rootPath like  @"c:\Code"
         ================================================================================================ */
 
         private static readonly string namespaceRoot = "WildHare.Web";
-        private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\Adapters\";
+        private static string rootPath;
+        private static string outputDir = $@"{rootPath}\WildHare\WildHare.Web\Adapters\";
 
         private static readonly string mapName1 = "entity";
         private static readonly string mapName2 = "model";
@@ -29,8 +30,10 @@ namespace WildHare.Web
         private static readonly string end = $",{NewLine}";
         private const int pad = -20;
 
-        public static string Init()
+        public static string Init(string projectRoot)
         {
+            rootPath = projectRoot;
+
             Debug.WriteLine("=".Repeat(50));
             Debug.WriteLine("Running CodeGenAdapters");
             Debug.WriteLine("=".Repeat(50));
@@ -51,7 +54,7 @@ namespace WildHare.Web
 
             Debug.WriteLine("=".Repeat(50));
 
-            return "CodeGenAdapters.Init() complete....";
+            return "CodeGenAdapters.Init() complete...";
         }
 
         public static bool GenerateAdapter(Type type1, Type type2, bool overwrite = false)
@@ -107,23 +110,6 @@ namespace WildHare.Web
 
             return isSuccess;
         }
-
-        // INDENTING NOT CURRENTLY WORKING...
-        // TO USE:  {RenderLists(class2, class1, mapName2, mapName1)}
-        //private static string RenderLists(string class2, string class1, string mapName2, string mapName1)
-        //{
-        //    return     
-        //    $@"
-        //    public static List<{class2}> To{class2}List (this IEnumerable<{class1}> {mapName1}List)
-        //    {{
-        //        return {mapName1}List?.Select(a => a.To{class2}()).ToList() ?? new List<{class2}>();
-        //    }}
-
-        //    public static List<{class1}> To{class1}List (this IEnumerable<{class2}> {mapName2}List)
-        //    {{
-        //       return {mapName2}List?.Select(a => a.To{class1}()).ToList() ?? new List<{class1}>();
-        //    }}".ApplyToAllLines(a => "\t" + a);
-        //}
 
         private static string PropertiesList(Type type, Type toType, string mapName)
         {

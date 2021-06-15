@@ -126,8 +126,8 @@ namespace WildHare.Extensions
             return intArray.Select(w => w.Value).ToArray();
         }
 
-        /// <summary>Converts an array of ints to a string. The method will return null if the {intArray} parameter is null 
-        /// when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
+        /// <summary>Converts an array of ints to a comma separated string. The method will return null if the {intArray} parameter is null 
+        /// when {strict} is false. When {strict} is true the method will throw an exception if the {intArray} is null.</summary>
         public static string AsString(this int[] intArray, bool strict = false)
         {
             if(intArray is null && strict)

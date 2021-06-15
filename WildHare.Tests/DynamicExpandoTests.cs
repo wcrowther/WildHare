@@ -58,6 +58,33 @@ namespace WildHare.Tests
             Assert.IsNull(item.Tags.IntegerValue);
         }
 
+        public void DynamicExpando_Test_Basic_2()
+        {
+            var item = new Item();
+
+
+            item.Tags["Fruit"] = new List<string> { "apple", "orange", "pear" };
+
+            Assert.AreEqual(3, item.Tags.Fruit.Count);
+
+            item.Tags.Fruit.Add("kiwi");
+
+            Assert.AreEqual(4, item.Tags.Fruit.Count);
+
+            // THIS DOES NOT WORK: 
+            // Assert.AreEqual("kiwi",       item.Tags.Fruit.ElementAt(3));
+
+            var ex = Assert.Throws<Exception>
+            (
+                () => item.Tags.Fruit.ElementAt(3)
+            );
+
+            // ... as extension methods cannot be called on Dynamic, but can be 
+            // called using (klunky) non-extension method syntax as:
+
+            Assert.AreEqual("kiwi", Enumerable.ElementAt(item.Tags.Fruit, 3));
+        }
+
         [Test]
         public void DynamicExpando_Test_Functions()
         {

@@ -51,7 +51,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>C:\Code\Trunk\WildHare\WildHare\WildHare.xml</DocumentationFile>
+    <DocumentationFile>C:\Git\WildHare\WildHare\WildHare.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 

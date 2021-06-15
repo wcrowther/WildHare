@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
 
@@ -9,17 +8,19 @@ namespace WildHare.Tests
     [TestFixture]
     public class ObjectExtensionsTests
     {
-        // [SetUp]
-        // public void Setup()
-        // { }
 
-        //[Test]
-        //public void GetMetaModel_Basic()
-        //{
-        //    Type itemType = typeof(Item);
-        //    var metaModel = itemType.GetMetaModel();
+        [Test]
+        public void GetMetaModel_Basic()
+        {
+            Type itemType = typeof(Item);
+            var metaModel = itemType.GetMetaModel();
 
-        //    Assert.AreEqual("Item", metaModel.TypeName);
-        //}
+            Assert.AreEqual("Item", metaModel.TypeName);
+            Assert.AreEqual(4, metaModel.GetMetaProperties().Count);
+            Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
+            Assert.AreEqual(typeof(int), metaModel.PrimaryKeyMeta.PropertyType);
+            Assert.AreEqual("Int32", metaModel.PrimaryKeyMeta.PropertyType.Name);  
+            // note: Reflection returns .net name not c# alias name ie: Int32 instead of int
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace WildHare.Extensions
             string s = input.IfNullOrEmpty();
             string t = start.IfNullOrEmpty();
 
-            return s.StartsWith(t) ? s.Remove(0, t.Length) : s; 
+            return s.StartsWith(t) ? s.Remove(0, t.Length) : s;
         }
 
         /// <summary>Remove the end of a string if it exactly matches {end}.</summary>
@@ -73,7 +73,7 @@ namespace WildHare.Extensions
 
         /// <summary>Remove the start of a string if it matches {start} and end of a string if it matches {end}.
         /// If {end} is not specified use {start} for both values.</summary>
-        public static string RemoveStartEnd(this string input, string start, string end =  null)
+        public static string RemoveStartEnd(this string input, string start, string end = null)
         {
             return input.RemoveStart(start).RemoveEnd(end ?? start);
         }
@@ -131,7 +131,7 @@ namespace WildHare.Extensions
         /// returns to Environment.NewLine. This can be useful for programmatically removing indents from long strings.</summary>
         public static string RemoveStartFromAllLines(this string input, string[] startArray)
         {
-            return string.Join(NewLine, input.Split("\n").Select(a => a.RemoveStartEnd(startArray, new[] { "\r" }) ));
+            return string.Join(NewLine, input.Split("\n").Select(a => a.RemoveStartEnd(startArray, new[] { "\r" })));
         }
 
         /// <summary>Remove the end of line if it exactly matches {end} for all lines in the string.
@@ -154,7 +154,7 @@ namespace WildHare.Extensions
         /// (the default), it removes the first line if it only contains whitespace.</summary>
         public static string RemoveIndents(this string input, bool removeInitialSpaces = true)
         {
-            var lines = input.Split("\n",StringSplitOptions.None).ToList();
+            var lines = input.Split("\n", StringSplitOptions.None).ToList();
             var start = lines.Count >= 2 ? lines[1].GetStartWhitespaces() : "";
 
             if (removeInitialSpaces && lines[0].IsNullOrSpace())
@@ -201,7 +201,7 @@ namespace WildHare.Extensions
         public static string AddStartEnd(this string s, string addToStart, string addToEnd = null)
         {
             string str = s ?? "";
-            return (str.Trim().Length > 0) ? (addToStart + str + (addToEnd ?? addToStart) ) : s;
+            return (str.Trim().Length > 0) ? (addToStart + str + (addToEnd ?? addToStart)) : s;
         }
 
         /// <summary>Adds {addToStart} to the beginning of the string UNLESS it already starts with that string.</summary>
@@ -236,7 +236,7 @@ namespace WildHare.Extensions
 
         /// <summary>Splits string into an array based on {separator} and returns the start element.
         /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
-        public static string GetStart(this string s, string separator, bool includeSeparator = false)
+        public static string GetStartBefore(this string s, string separator, bool includeSeparator = false)
         {
             if (s == null)
                 return null;
@@ -249,7 +249,7 @@ namespace WildHare.Extensions
 
         /// <summary>Splits string into an array based on {separator} and returns the end element.
         /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
-        public static string GetEnd(this string s, string separator, bool includeSeparator = false)
+        public static string GetEndAfter(this string s, string separator, bool includeSeparator = false)
         {
             if (s == null || s.IndexOf(separator) == -1)
                 return null;
@@ -259,6 +259,18 @@ namespace WildHare.Extensions
             int last = array.Length - 1;
 
             return includeSeparator && s.Contains(separator) ? separator + array[last] : array[last];
+        }
+
+        [Obsolete("GetStart has been renamed to GetStartBefore and will be removed in a future version.")]
+        public static string GetStart(this string s, string separator, bool includeSeparator = false)
+        {
+            return s.GetStartBefore(separator, includeSeparator);
+        }
+
+        [Obsolete("GetEnd has been renamed to GetEndAfter and will be removed in a future version.")]
+        public static string GetEnd(this string s, string separator, bool includeSeparator = false)
+        {
+            return s.GetEndAfter(separator, includeSeparator);
         }
 
         /// <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>

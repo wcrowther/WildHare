@@ -4,6 +4,7 @@ using AngleSharp.Css.Parser;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using AngleSharp.Io;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,17 @@ namespace WildHare.Tests
     public class AnalyticsTests
     {
         const int columnWidth = -10;
+        string approot = "";
+
+        [SetUp]
+        public void Setup()
+        {
+            var config = new ConfigurationBuilder()
+                            .AddJsonFile("appSettings.json")
+                            .Build();
+
+            approot = config["App:Root"];
+        }
 
         [Test]
         public void Test_GetAll_CsHtml_Files_And_Parse_With_AngleSharp()
@@ -27,10 +39,10 @@ namespace WildHare.Tests
             // string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web\Pages";
             // string pathToWriteTo = $@"{pathRoot}\AllCsHtmlFiles.txt";
 
-            string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\Analytics\SeedPacketCss.txt";
-            string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
-
-            var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
+            string pathToWriteTo = $@"{approot}\WildHare\WildHare.Web\Analytics\SeedPacketCss.txt";
+            string pathRoot      = $@"{approot}\SeedPacket\Examples\Views";
+            var allFiles         = $@"{pathRoot}"
+                                    .GetAllFiles("*.cshtml");
 
             var sb = new StringBuilder();
             sb.AppendLine("=".Repeat(100));
@@ -55,9 +67,11 @@ namespace WildHare.Tests
         [Test]
         public void Test_GetAll_Css_Stylesheets()
         {
-            string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\Analytics\SeedPacket_Stylesheets.txt";
-            string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Content";
-            var allFiles = $@"{pathRoot}".GetAllFiles("*.css").Where(w => !w.Name.Contains("bootstrap", StringComparison.OrdinalIgnoreCase));
+            string pathToWriteTo = $@"{approot}\WildHare\WildHare.Web\Analytics\SeedPacket_Stylesheets.txt";
+            string pathRoot      = $@"{approot}\SeedPacket\Examples\Content";
+            var allFiles         = $@"{pathRoot}"
+                                    .GetAllFiles("*.css")
+                                    .Where(w => !w.Name.Contains("bootstrap", StringComparison.OrdinalIgnoreCase));
 
             var sb = new StringBuilder();
             sb.AppendLine("=".Repeat(100) + "\nCSS Stylesheets (generated from AnalyticsTests.cs)\n");
@@ -78,9 +92,10 @@ namespace WildHare.Tests
         [Test]
         public void Test_Get_ClassTag_List()
         {
-            string pathToWriteTo = @"C:\Code\Trunk\WildHare\WildHare.Web\Analytics\ClassTagList.txt";
-            string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
-            var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
+            string pathToWriteTo    = $@"{approot}\WildHare\WildHare.Web\Analytics\ClassTagList.txt";
+            string pathRoot         = $@"{approot}\SeedPacket\Examples\Views";
+            var allFiles            = $@"{pathRoot}"
+                                        .GetAllFiles("*.cshtml");
 
             var classTags = new List<ClassTag>();
 

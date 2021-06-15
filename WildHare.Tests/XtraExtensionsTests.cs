@@ -9,12 +9,25 @@ using WildHare.Extensions.Xtra;
 using WildHare.Tests.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace WildHare.Tests
 {
     [TestFixture]
     public class XtraExtensionsTests
     {
+        string approot = "";
+
+        [SetUp]
+        public void Setup()
+        {
+            var config = new ConfigurationBuilder()
+                            .AddJsonFile("appSettings.json")
+                            .Build();
+
+            approot = config["App:Root"];
+        }
+
         [Test]
         public void Test_WriteToFile_Get_Base_Directory_Alternatives()
         {
@@ -24,11 +37,11 @@ namespace WildHare.Tests
             string applicationRoot	= XtraExtensions.GetApplicationRoot();
 			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-			Assert.AreEqual(@"file:\C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", codeBase);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", localPath);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", location);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests", applicationRoot);
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", entryAssembly);
+			Assert.AreEqual($@"file:\{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", codeBase);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", localPath);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", location);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests", applicationRoot);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", entryAssembly);
         }
 
         [Test]
@@ -37,22 +50,20 @@ namespace WildHare.Tests
             // Thanks to Tim Brown
             // http://codebuckets.com/2017/10/19/getting-the-root-directory-path-for-net-core-applications/
 
-            string source1 = @"\TestFile.txt".ToMapPath();
-            string source2 = @"\Helpers\TestFile.txt".ToMapPath();
-            string source3 = @"~\Helpers\TestFile.txt".ToMapPath();
-            string source4 = @"~/SourceFiles/xmlSeedSourcePlus.xml".ToMapPath();
+            string source1 = $@"\TestFile.txt".ToMapPath();
+            string source2 = $@"\Helpers\TestFile.txt".ToMapPath();
+            string source3 = $@"~\Helpers\TestFile.txt".ToMapPath();
+            string source4 = $@"~/SourceFiles/xmlSeedSourcePlus.xml".ToMapPath();
 
-            string fileName1 = @"C:\Code\Trunk\WildHare\WildHare.Tests\TestFile.txt";
-            string fileName2 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
-            string fileName3 = @"C:\Code\Trunk\WildHare\WildHare.Tests\Helpers\TestFile.txt";
-            string fileName4 = @"C:\Code\Trunk\WildHare\WildHare.Tests\SourceFiles\xmlSeedSourcePlus.xml";
-            string fileName4a = "C:\\Code\\Trunk\\WildHare\\WildHare.Tests\\SourceFiles\\xmlSeedSourcePlus.xml";
+            string fileName1 = $@"{approot}\WildHare\WildHare.Tests\TestFile.txt";
+            string fileName2 = $@"{approot}\WildHare\WildHare.Tests\Helpers\TestFile.txt";
+            string fileName3 = $@"{approot}\WildHare\WildHare.Tests\Helpers\TestFile.txt";
+            string fileName4 = $@"{approot}\WildHare\WildHare.Tests\SourceFiles\xmlSeedSourcePlus.xml";
 
             Assert.AreEqual(fileName1, source1);
             Assert.AreEqual(fileName2, source2);
             Assert.AreEqual(fileName3, source3);
             Assert.AreEqual(fileName4, source4);
-            Assert.AreEqual(fileName4a, source4);
         }
 
 

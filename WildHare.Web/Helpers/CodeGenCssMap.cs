@@ -22,7 +22,8 @@ namespace WildHare.Web
         {
             string pathToWriteTo = $@"{env.ContentRootPath}\Analytics\ClassTagList.txt";
             string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
-            var allFiles = $@"{pathRoot}".GetAllFiles("*.cshtml");
+            var allFiles = $@"{pathRoot}"
+                            .GetAllFiles("*.cshtml");
 
             var classTags = new List<ClassTag>();
 

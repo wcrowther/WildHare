@@ -13,7 +13,7 @@ namespace WildHare.Extensions.Xtra
         /// Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
         /// an XML file is generated to the file location with all the /// comments (like this one)
         /// that have been written in the your code.</summary>
-        /// <example>@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml"</example>
+        /// <example>@"C:Git\WildHare\WildHare\WildHare.xml"</example>
         public static List<DocMember> GetXmlDocumentation(this string xmlDocPath, Assembly assemblyToDocument = null)
         {
             var docXml = XElement.Load(xmlDocPath);

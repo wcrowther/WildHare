@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,18 @@ namespace WildHare.Tests
     [TestFixture]
     public class IOExtensionsTests
     {
+        string approot = "";
+
+        [SetUp]
+        public void Setup()
+        {
+            var config = new ConfigurationBuilder()
+                            .AddJsonFile("appSettings.json")
+                            .Build();
+
+            approot = config["App:Root"];
+        }
+
         [Test]
         public void Test_WriteToFile_TextFile1()
         {
@@ -63,7 +76,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_GetAllCssFiles()
         {
-            string pathRoot = @"C:\Code\Trunk\WildHare\WildHare.Web";
+            string pathRoot = $@"{approot}\WildHare\WildHare.Web";
             string pathToWriteTo = $@"{pathRoot}\Analytics\AllCssFiles.txt";
             var sb = new StringBuilder();
 
@@ -169,7 +182,7 @@ namespace WildHare.Tests
 
             var fileToRead = new FileInfo(directoryPath);
 
-            Assert.AreEqual("This is TextFile0.txt.\n", fileToRead.ReadFile());
+            Assert.AreEqual("This is TextFile0.txt.\r\n", fileToRead.ReadFile());
         }
 
         [Test]

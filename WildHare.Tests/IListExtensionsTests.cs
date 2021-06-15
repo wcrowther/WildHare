@@ -25,6 +25,14 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_CurrentDomain_BaseDirectory_GetStart_For_Tests()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory.GetStart("bin");
+
+            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", baseDirectory);
+        }
+
+        [Test]
         public void Test_TakeRandom_With_Remove_True()
         {
             var random = new Random(123456);
@@ -482,7 +490,7 @@ namespace WildHare.Tests
                             {
                                 w.Text,
                                 num,
-                                selected = num == 0 ? false : true
+                                selected = num != 0
                             };
 
             Assert.AreEqual(5, results.Count());

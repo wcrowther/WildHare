@@ -32,42 +32,27 @@ namespace WildHare
 
         public string PrimaryKeyName
         {
-            get
-            {
-                return PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : "";
-            }
+            get { return PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; }
         }
 
         public bool IsDictionary
         {
-            get
-            {
-                return _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
-            }
+            get { return _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); }
         }
 
         public Type DictionaryKeyType
         {
-            get
-            {
-                return IsDictionary ? _type.GetGenericArguments()[0] : null;
-            }
+            get { return IsDictionary ? _type.GetGenericArguments()[0] : null; }
         }
 
         public Type DictionaryValueType
         {
-            get
-            {
-                return IsDictionary ? _type.GetGenericArguments()[1] : null;
-            }
+            get { return IsDictionary ? _type.GetGenericArguments()[1] : null; }
         }
 
         public MetaProperty PrimaryKeyMeta
         {
-            get
-            {
-                return properties.FirstOrDefault(a => a.IsKey == true);
-            }
+            get  { return properties.FirstOrDefault(a => a.IsKey == true); }
         }
 
         // --------------------------------------------------------------

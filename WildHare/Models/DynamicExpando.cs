@@ -59,10 +59,15 @@ namespace WildHare
             return _properties.FirstOrDefault();
         }
 
+        // Exension methods used on directly on Dynamic do not work.
+        // but can be called using non-extension invocation
+        // Instead add LINQ extension methods in this class as so:
+
         public object ToList()
         {
             return _properties.ToList();
         }
+
         public Dictionary<string, object> ToDictionary()
         {
             return _properties;

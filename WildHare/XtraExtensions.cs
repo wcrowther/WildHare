@@ -54,9 +54,10 @@ namespace WildHare.Extensions.Xtra
 			return appRoot;
         }
 
-        // Example Usage:
-        // var list = CreateListOfType(typeof(Category)); // Is IList of object
-        // list.Add(new Category() { CategoryName = "Will"});
+        /// <example>
+        /// var list = CreateListOfType(typeof(Category)); // Is IList of object
+        /// list.Add(new Category() { CategoryName = "Will"});
+        /// </example>
         public static dynamic DynamicListOfType(dynamic t)
         {
             var listType = typeof(List<>);
@@ -66,10 +67,11 @@ namespace WildHare.Extensions.Xtra
             return instance;
         }
 
-        // Alternative to DynamicListOfType. Not sure which is better.
-        // Example Usage:
-        // var list = CreateListOfType(typeof(Category)); // Is IList of object
-        // list.Add(new Category() { CategoryName = "Will"});
+        /// Alternative to DynamicListOfType. Not sure which is better.
+        /// <example>
+        /// var list = CreateListOfType(typeof(Category)); // Is IList of object
+        /// list.Add(new Category() { CategoryName = "Will"});
+        /// </example>
         public static dynamic[] DynamicArrayOfType(dynamic t)
         {
             var listType = typeof(List<>);

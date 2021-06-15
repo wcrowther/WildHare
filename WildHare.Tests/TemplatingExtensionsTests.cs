@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
@@ -7,7 +6,6 @@ using WildHare.Extensions.ForTemplating;
 using System.IO;
 using WildHare.Extensions.Xtra;
 using static System.Environment;
-using System.Text;
 
 namespace WildHare.Tests
 {
@@ -81,7 +79,7 @@ namespace WildHare.Tests
 
             string result = invoice.Template(fileToRead);
 
-            Assert.AreEqual("InvoiceId 222 for AccountId 1000.\n", result);
+            Assert.AreEqual("InvoiceId 222 for AccountId 1000.\r\n", result);
         }
 
         [Test]

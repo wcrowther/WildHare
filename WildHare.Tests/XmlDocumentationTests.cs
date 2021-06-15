@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,22 @@ namespace WildHare.Tests
     [TestFixture]
     public class XmlDocumentationTests
     {
+        string approot = "";
+
+        [SetUp]
+        public void Setup()
+        {
+            var config = new ConfigurationBuilder()
+                            .AddJsonFile("appSettings.json")
+                            .Build();
+
+            approot = config["App:Root"];
+        }
+
         [Test]
         public void Test_Getting_XML_Documentation()
         {
-            string pathToDocumentation = @"C:\Code\Trunk\WildHare\WildHare\WildHare.xml";
+            string pathToDocumentation = $@"{approot}\WildHare\WildHare\WildHare.xml";
 
             var docXml = XElement.Load(pathToDocumentation);
             var assemblyName = docXml.Element("assembly").Element("name").Value;
@@ -28,7 +41,7 @@ namespace WildHare.Tests
                     summary: g.Element("summary").Value
                 ));
 
-            Assert.AreEqual(@"C:\Code\Trunk\WildHare\WildHare\WildHare.xml", pathToDocumentation);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare\WildHare.xml", pathToDocumentation);
             Assert.IsNotNull(docXml);
         }
     }
