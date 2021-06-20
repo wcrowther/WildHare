@@ -12,31 +12,34 @@ namespace WildHare.Web
 {
 	public static class CodeGenFromSql
     {
-		/* ==========================================================================
-         * DIRECTIONS
+        /* ==========================================================================
+         * DIRECTIONS:
          * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPLIE
-         * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
-         * 
-           WildHare.Web.CodeGenFromSql.Init();
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
+         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
+         
+           WildHare.Web.CodeGenFromSql.Init(c:\github\WildHare, dbConnString);
         ========================================================================== */
 
-		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
+        // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
-		private static readonly string namespaceRoot = "WildHare.Web";
-		private static readonly string outputDir     = @"C:\Code\Trunk\WildHare\WildHare.Web\GeneratedModels\";
-		private static readonly string sqlConnString = "Data Source=Behemoth;Initial Catalog=Tevents;Connect Timeout=30;Persist Security Info=True;MultipleActiveResultSets=True;User ID=Tevents_User;Password=!london!";
+        private static string rootPath;
+        private static string sqlConnString;
+        private static readonly string namespaceRoot = "WildHare.Web";
+		private static readonly string outputDir     = $@"{rootPath}\Trunk\WildHare\WildHare.Web\GeneratedModels\";
 
 		private static readonly string start = "\t\t"; // Indentation
         private static readonly string end = NewLine;
 
         private static ILookup<string, ColumnsSchema> sqlTables;
 
-		public static string Init()
+		public static string Init(string projectRoot, string dbConnString)
         {
+            rootPath = projectRoot;
+            sqlConnString = dbConnString;
 
-			// Get list of table from SQL database
-			sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
+            // Get list of table from SQL database
+            sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
 
             // 1) Loop through the tables
             // ============================================================

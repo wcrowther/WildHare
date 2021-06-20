@@ -1,6 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>bce71bbc-0b7c-4fb3-bd9f-77582fdf3b51</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="SchemaModels - Copy\**" />

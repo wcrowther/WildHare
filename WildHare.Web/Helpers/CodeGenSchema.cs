@@ -11,18 +11,19 @@ namespace WildHare.Web
 	public static class CodeGenSchema
     {
 		/* ==========================================================================
-         * DIRECTIONS
+         * DIRECTIONS:
          * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE
-         * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
-         * 
-           WildHare.Web.CodeGenSchema.Init();
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
+         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
+         
+           WildHare.Web.CodeGenSchema.Init(c:\github\WildHare);
         ========================================================================== */
 
 		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
+		private static string rootPath;
 		private static readonly string namespaceRoot = "WildHare.Web";
-		private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\SchemaModels\";
+		private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SchemaModels\";
 
 
 		public static SqlConnection GetConnection()
@@ -31,8 +32,10 @@ namespace WildHare.Web
 			return new SqlConnection(sqlConnString);
 		}
 
-		public static string Init()
+		public static string Init(string projectRoot)
         {
+			rootPath = projectRoot;
+			
 			// List of Various Schemas
 			CreateSqlServerSchemaModel("MetaDataCollections", true);
 

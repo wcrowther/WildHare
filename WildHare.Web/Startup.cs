@@ -12,6 +12,8 @@ namespace WildHare.Web
 {
     public class Startup
     {
+        private string _dbConnString = null;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +27,8 @@ namespace WildHare.Web
             services.AddMvc();
 
             services.AddSingleton(Configuration.GetSection("App").Get<AppSettings>());
+
+            _dbConnString = Configuration["ConnectionStrings:ExampleDB"];
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,13 +55,12 @@ namespace WildHare.Web
         {
             if (env.IsDevelopment())
             {
-                CodeGenCssMap.Init(env);
-
-                //CodeGenAdapters.Init();
-                //CodeGenFromSql.Init();
-                //CodeGenNewtonFromSql.Init();
-                //CodeGenSqlRowInsert.Init();
-                //CodeGenSchema.Init();
+                // CodeGenCssMap.Init(env.ContentRootPath);
+                // CodeGenAdapters.Init(env.ContentRootPath);
+                // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
+                // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString);
+                // CodeGenSqlRowInsert.Init(env.ContentRootPath);
+                // CodeGenSchema.Init(env.ContentRootPath);
             }
         }
     }

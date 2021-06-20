@@ -13,15 +13,19 @@ namespace WildHare.Web
 
     public static class CodeGenCssMap
     {
-        public static void Init(IHostingEnvironment environment)
-        {
-            MapCssInCshtmlFiles(environment);
-        }
+        /* ==========================================================================
+         * DIRECTIONS:
+         * 
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
+         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
 
-        public static bool MapCssInCshtmlFiles(IHostingEnvironment env)
+           WildHare.Web.CodeGenCssMap.Init(c:\github\WildHare);
+        ========================================================================== */
+
+        public static bool Init(string projectRoot)
         {
-            string pathToWriteTo = $@"{env.ContentRootPath}\Analytics\ClassTagList.txt";
-            string pathRoot = @"C:\Code\Trunk\SeedPacket\Examples\Views";
+            string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
+            string pathRoot = @"C:\GitHub\SeedPacket\Examples\Views";
             var allFiles = $@"{pathRoot}"
                             .GetAllFiles("*.cshtml");
 

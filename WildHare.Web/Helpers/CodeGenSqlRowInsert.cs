@@ -13,23 +13,25 @@ namespace WildHare.Web
     public static class CodeGenSqlRowInsert
     {
         /* ==========================================================================
-         * DIRECTIONS
+         * DIRECTIONS:
          * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE
-         * OR ALTERNATIVELY RUN IN THE IMMEDIATE WINDOW:
-         * 
-           WildHare.Web.CodeGenSqlRowInsert.Init();
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
+         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
+         
+           WildHare.Web.CodeGenSqlRowInsert.Init(c:\github\WildHare);
         ========================================================================== */
 
-		private static readonly string outputDir = @"C:\Code\Trunk\WildHare\WildHare.Web\SqlInserts\";
+        private static string rootPath;
+        private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SqlInserts\";
 		private static readonly string start = "\t"; // Indentation
 		private static readonly string end = NewLine;
         private static readonly int randomSeed = 34335;
         private static readonly int batchSize = 1000;
 
-
-        public static string Init()
+        public static string Init(string projectRoot)
         {
+            rootPath = projectRoot;
+
             GenereateSQLInserts<InvoiceModel>(10000, "Invoices", "dbo", "InvoiceItems", true, true);
             GenereateSQLInserts<User>(2000, excludeColumns: "Created", identityInsertOn: true, overwrite: false);   // Example using temporary private class below
             //GenereateSQLInserts<ControlValue>(5002, "ControlValues", "dbo", "ControlValueId", true, false);

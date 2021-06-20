@@ -13,11 +13,14 @@ namespace WildHare.Web
 {
     public static class CodeGenAdapters
     {
-        /* =============================================================================================
-         * DIRECTIONS - PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE LIKE STARTUP
-
-           CodeGenAdapters.Init(rootPath);  \\ where rootPath like  @"c:\Code"
-        ================================================================================================ */
+        /* ==========================================================================
+         * DIRECTIONS:
+         * 
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
+         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
+         
+           WildHare.Web.CodeGenAdapters.Init(c:\github\WildHare);
+        ========================================================================== */
 
         private static readonly string namespaceRoot = "WildHare.Web";
         private static string rootPath;
