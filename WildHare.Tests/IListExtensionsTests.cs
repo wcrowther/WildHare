@@ -27,7 +27,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_CurrentDomain_BaseDirectory_GetStart_For_Tests()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory.GetStart("bin");
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory.GetStartBefore("bin");
 
             Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", baseDirectory);
         }
@@ -381,6 +381,41 @@ namespace WildHare.Tests
             Assert.AreEqual("Will", people.First(f => f.FirstName == "Joe").PreviousIn(people).FirstName);
         }
 
+
+        [Test]
+        public void Test_NextWhile_Basic_Ints()
+        {
+            var numbers = new List<int>{ 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 9, 10, 440, 322 };
+
+            var four = numbers.ElementAt(3); // zero-based
+            var nums = four.NextInWhile(numbers, p => p <= 8);
+
+            Assert.AreEqual(6, nums.Count); // stops when it gets to last 8
+            Assert.AreEqual(42, nums.Sum()); // sum of 5, 6, 7, 8, 8, 8
+        }
+
+        [Test]
+        public void Test_NextInWhile_Basic_Objects()
+        {
+            var people = new List<Person>
+            {
+                new Person { PersonId = 1, FirstName = "Will", LastName= "Smith" },
+                new Person { PersonId = 2, FirstName = "Joe",  LastName= "Smith" },
+                new Person { PersonId = 3, FirstName = "Patty",LastName= "Smith" },
+                new Person { PersonId = 4, FirstName = "John", LastName= "Jones" },
+                new Person { PersonId = 5, FirstName = "Frank",LastName= "Smith" }
+            };
+
+            var will = people[0];
+            var kin = will.NextInWhile(people, p => p.LastName == "Smith");
+
+            Assert.AreEqual(2, kin.Count); // stops when it gets to Jone Jones
+
+            var john = people[3];
+            var smiths = john.NextInWhile(people, p => p.LastName == "Smith", -1);
+
+            Assert.AreEqual(3, smiths.Count); // stops when it gets to Will Smith
+        }
 
         [Test]
         public void Test_IsFirstIn_Objects()

@@ -267,6 +267,15 @@
             default for that type (null if non-numeric). The {distance} is an int with 1 for the 
             previous item (the default). 2 for the previous item before that, and so on... </summary>
         </member>
+        <member name="M:WildHare.Extensions.IListExtensions.NextInWhile``1(``0,System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean},System.Int32)">
+            <summary>Given an item in a list, it will return the next items in the list while {func} 
+            returns true. The {step} parameter can be used to take every nth item in a positive 
+            or a negative direction. The step default is 1 to take the next and subsequent items.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.PreviousInWhile``1(``0,System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean})">
+            <summary>Given an item in a list, it will return the previous items in the list while {func} 
+            returns true. This method is a convenience and does the same thing as NextInWhile with a -1 step.</summary>
+        </member>
         <member name="M:WildHare.Extensions.IListExtensions.IsFirstIn``1(``0,System.Collections.Generic.IList{``0})">
             <summary>Given an item in a list, returns true if the item is 
             the first element in the list.</summary>
@@ -274,6 +283,19 @@
         <member name="M:WildHare.Extensions.IListExtensions.IsLastIn``1(``0,System.Collections.Generic.IList{``0})">
             <summary>Given an item in a list, returns true if the item is 
             the last element in the list.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.AddRange``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>Adds a AddRange to the IList&gt;T&gt; interface. List&gt;T&gt; already has a version,
+            which this method will use if available.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.ReplaceItem``1(System.Collections.Generic.IList{``0},System.Int32,``0)">
+            <summary>Removes an item at the {index} in the {itemList} and replaces with the {newItem}. </summary>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.ReplaceItems``1(System.Collections.Generic.IList{``0},System.Int32,System.Collections.Generic.IList{``0})">
+            <summary>Replaces a list of {newItems} starting with the {index} with the same number of items in the {itemList}.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IListExtensions.CombineItems``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,``0)">
+            <summary>Combines a {count} of items at the {index} in the {itemList} into a single {newItem}.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)">
             <summary>Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will
@@ -396,11 +418,11 @@
                         is NULL, adds {addToStart} to both the start and end.</summary>
                         <cref></cref>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.GetStart(System.String,System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.StringExtensions.GetStartBefore(System.String,System.String,System.Boolean)">
             <summary>Splits string into an array based on {separator} and returns the start element.
             Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.GetEnd(System.String,System.String,System.Boolean)">
+        <member name="M:WildHare.Extensions.StringExtensions.GetEndAfter(System.String,System.String,System.Boolean)">
             <summary>Splits string into an array based on {separator} and returns the end element.
             Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         </member>

@@ -452,7 +452,7 @@ namespace WildHare.Tests
         public void Test_GetStart_Basic()
         {
             string str = "Begin_Finish";
-            string start = str.GetStart("_");
+            string start = str.GetStartBefore("_");
 
             Assert.AreEqual("Begin", start);
         }
@@ -461,7 +461,7 @@ namespace WildHare.Tests
         public void Test_GetStart_Basic_IncludeSeparator()
         {
             string str = "Begin_Finish";
-            string start = str.GetStart("_", true);
+            string start = str.GetStartBefore("_", true);
 
             Assert.AreEqual("Begin_", start);
         }
@@ -470,7 +470,7 @@ namespace WildHare.Tests
         public void Test_GetStart_No_Separator()
         {
             string str = "Begin_Finish";
-            string start = str.GetStart("x");
+            string start = str.GetStartBefore("x");
 
             Assert.AreEqual(str, start);
         }
@@ -479,7 +479,7 @@ namespace WildHare.Tests
         public void Test_GetStart_Null()
         {
             string str = null;
-            string start = str.GetStart("_");
+            string start = str.GetStartBefore("_");
 
             Assert.IsNull(start);
         }
@@ -488,7 +488,7 @@ namespace WildHare.Tests
         public void Test_GetEnd_Basic()
         {
             string str = "Begin_Finish";
-            string end = str.GetEnd("_");
+            string end = str.GetEndAfter("_");
 
             Assert.AreEqual("Finish", end);
         }
@@ -497,7 +497,7 @@ namespace WildHare.Tests
         public void Test_GetEnd_Basic_IncludeSeparator()
         {
             string str = "Begin_Finish";
-            string end = str.GetEnd("_", true);
+            string end = str.GetEndAfter("_", true);
 
             Assert.AreEqual("_Finish", end);
         }

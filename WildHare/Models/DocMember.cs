@@ -169,7 +169,7 @@ namespace WildHare
 
         private string SetGenerics(string temp)
         {
-            string generics = temp.GetEnd("``", true);
+            string generics = temp.GetEndAfter("``", true);
             if (generics == null)
                 return temp;
 

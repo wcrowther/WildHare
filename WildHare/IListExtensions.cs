@@ -113,7 +113,7 @@ namespace WildHare.Extensions
         /// <summary>Given an item in a list, it will return the previous item in the list or the 
         /// default for that type (null if non-numeric). The {distance} is an int with 1 for the 
         /// previous item (the default). 2 for the previous item before that, and so on... </summary>
-        public static T PreviousIn<T>(this T item, IList<T> itemList, int distance = 1) 
+        public static T PreviousIn<T>(this T item, IList<T> itemList, int distance = 1)
         {
             if (itemList?.Count == 0 || item == null)
                 return default;
@@ -121,6 +121,50 @@ namespace WildHare.Extensions
             int itemIndex = itemList.IndexOf(item);
 
             return (itemIndex >= 0) ? itemList.ElementAtOrDefault(itemIndex - distance) : default;
+        }
+
+        /// <summary>Given an item in a list, it will return the next items in the list while {func} 
+        /// returns true. The {step} parameter can be used to take every nth item in a positive 
+        /// or a negative direction. The step default is 1 to take the next and subsequent items.</summary>
+        public static IList<T> NextInWhile<T>(this T item, IList<T> itemList, Func<T,bool> func, int step = 1)  
+        {         
+            if (itemList?.Count == 0 || item == null)
+                return default;
+
+            int itemIndex = itemList.IndexOf(item);
+
+            if (itemIndex == -1)
+                return default;
+
+            bool moreItems = true; // start true
+            var returnList = new List<T>();
+
+            while (moreItems)
+            {
+                var nextItem = itemList.ElementAtOrDefault(itemIndex + step);
+                if (nextItem == null)
+                {
+                    moreItems = false;
+                    continue;
+                }
+                if (func(nextItem))
+                {
+                    returnList.Add(nextItem);
+                    itemIndex += step;
+                }
+                else 
+                {
+                    moreItems = false;
+                }
+            }
+            return returnList;
+        }
+
+        /// <summary>Given an item in a list, it will return the previous items in the list while {func} 
+        /// returns true. This method is a convenience and does the same thing as NextInWhile with a -1 step.</summary>
+        public static IList<T> PreviousInWhile<T>(this T item, IList<T> itemList, Func<T, bool> func)
+        {
+            return item.NextInWhile(itemList, func, -1);
         }
 
         /// <summary>Given an item in a list, returns true if the item is 
@@ -135,7 +179,7 @@ namespace WildHare.Extensions
 
         /// <summary>Given an item in a list, returns true if the item is 
         /// the last element in the list.</summary>
-        public static bool IsLastIn<T>(this T item, IList<T> itemList) 
+        public static bool IsLastIn<T>(this T item, IList<T> itemList)
         {
             if (itemList?.Count == 0 || item == null)
                 return default;
@@ -143,6 +187,8 @@ namespace WildHare.Extensions
             return itemList.IndexOf(item) == itemList.Count - 1;
         }
 
+        /// <summary>Adds a AddRange to the IList&gt;T&gt; interface. List&gt;T&gt; already has a version,
+        /// which this method will use if available.</summary>
         public static void AddRange<T>(this IList<T> itemList, IEnumerable<T> newItems)
         {
             if (itemList is null)
@@ -164,6 +210,7 @@ namespace WildHare.Extensions
             }
         }
 
+        /// <summary>Removes an item at the {index} in the {itemList} and replaces with the {newItem}. </summary>
         public static void ReplaceItem<T>(this IList<T> itemList, int index, T newItem)
         {
             if (itemList == null)
@@ -180,6 +227,7 @@ namespace WildHare.Extensions
             itemList.Insert(index, newItem);
         }
 
+        /// <summary>Replaces a list of {newItems} starting with the {index} with the same number of items in the {itemList}.</summary>
         public static void ReplaceItems<T>(this IList<T> itemList, int index, IList<T> newItems)
         {
             if (itemList == null)
@@ -202,6 +250,7 @@ namespace WildHare.Extensions
             }
         }
 
+        /// <summary>Combines a {count} of items at the {index} in the {itemList} into a single {newItem}.</summary>
         public static void CombineItems<T>(this IList<T> itemList, int index, int count, T newItem)
         {
             if (itemList == null)
@@ -214,7 +263,7 @@ namespace WildHare.Extensions
                 throw new ArgumentOutOfRangeException(nameof(index), "The ReplaceItem() index is outside of the valid range for the itemList.");
 
             if (itemList.Count - index < count)
-                throw new ArgumentOutOfRangeException(nameof(count), count, "The RelplaceItem() count is out of range of the itemList");
+                throw new ArgumentOutOfRangeException(nameof(count), count, "The ReplaceItem() count is out of range of the itemList");
 
             if (itemList is List<T> list)
             {

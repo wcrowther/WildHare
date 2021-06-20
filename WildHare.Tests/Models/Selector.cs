@@ -17,7 +17,7 @@ namespace WildHare.Tests.Models
         {
             get
             {
-                return RawText.GetStart(" ", true).RemoveStart(new[] { ".", "#" });
+                return RawText.GetStartBefore(" ", true).RemoveStart(new[] { ".", "#" });
             }
         }
 
@@ -25,7 +25,7 @@ namespace WildHare.Tests.Models
         {
             get
             {
-                string start = RawText.GetStart(" ", true);
+                string start = RawText.GetStartBefore(" ", true);
                 return RawText.RemoveStart(start);
             }
         }

@@ -114,7 +114,6 @@ namespace WildHare.Extensions
             }
         }
 
-
         /// <summary>Given two lists returns the values from first if func is true. 
         /// If {consecutive} is false continues until one of the lists has no  more elements.</summary>
         [Obsolete("Renamed to MatchList. Will remove in a future version.")]
@@ -143,7 +142,6 @@ namespace WildHare.Extensions
                 }
             }
         }
-
 
         /// <summary>Compares 2 lists and using the {comparer} to return an array of int positions
         /// where the items match.</summary>
@@ -191,7 +189,6 @@ namespace WildHare.Extensions
 
         /// <summary>Converts IEnumerable to Collection of type parameter.
         /// Returns an empty Collection rather than failing if enumerable is null.</summary>
-
         public static Collection<T> ToCollection<T>(this IEnumerable<T> enumerable)
         {
             var collection = new Collection<T>();
