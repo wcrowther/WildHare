@@ -522,6 +522,38 @@ namespace WildHare.Extensions
 
             return str.Equals(compareTo, strComparison);
         }
+
+        // public static string Format(this string format, object arg0)
+        // {
+        //     if (!format.Contains("{0"))
+        //         throw new ArgumentException("The format string must contain an argument placeholder for {0}.");
+             
+        //     return string.Format(format, arg0);
+        // }
+           
+        // public static string Format(this string format, object arg0, object arg1)
+        // {
+        //     if (!format.Contains("{0") || !format.Contains("{1"))
+        //         throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
+             
+        //     return string.Format(format, arg0, arg1);
+        // }
+           
+        // public static string Format(this string format, object arg0, object arg1, object arg2)
+        // {
+        //     if (!format.Contains("{0") || !format.Contains("{1") || !format.Contains("{2"))
+        //         throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
+           
+        //     return string.Format(format, arg0, arg1, arg2);
+        // }
+           
+        // public static string Format(this string format, params object[] args)
+        // {
+        //     if (format.Count(c => c == '{') != args.Count() || format.Count(c => c == '}') != args.Count())
+        //         throw new ArgumentException("The format string must contain arguments matching the number of placeholders.");
+           
+        //     return string.Format(format, args);
+        // }
     }
 }
 

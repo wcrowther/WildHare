@@ -209,7 +209,7 @@ namespace WildHare.Tests
             sb.AppendLine("This is a ");
             sb.AppendLine("\t\tsentence ");
             sb.AppendLine("\t\tspread across ");
-            sb.AppendLine("\t\tmultiple lines.");
+            sb.Append("\t\tmultiple lines.");
 
             string sbText = sb.ToString().RemoveStartFromAllLines(new[] { "\t\t", "            " });
             string expected = $"This is a {NewLine}sentence {NewLine}spread across {NewLine}multiple lines.";
@@ -723,5 +723,18 @@ namespace WildHare.Tests
 
             Assert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x") );
         }
+
+        //[Test]
+        //public void Test_Format_With_One_Arg()
+        //{
+        //    string str = "https://{0}.test.com/";
+        //    string subDomain1 = "www";
+        //    string subDomain2 = "admin";
+        //    string subDomain3 = "shop";
+
+        //    Assert.AreEqual("https://www.test.com/",    str.Format(subDomain1));
+        //    Assert.AreEqual("https://admin.test.com/",  str.Format(subDomain2));
+        //    Assert.AreEqual("https://shop.test.com/",   str.Format(subDomain3));
+        //}
     }
 }

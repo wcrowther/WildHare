@@ -87,5 +87,14 @@ namespace WildHare.Extensions
         {
             return $"{date.Year}{date.Month:00}{date.Day:00}";
         }
+
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+
+            return dt.AddDays(-1 * diff).Date;
+        }
+
+        // SOURCE: https ://stackoverflow.com/questions/38039/how-can-i-get-the-datetime-for-the-start-of-the-week
     }
 }

@@ -114,11 +114,11 @@ namespace WildHare.Extensions
         /// <summary>Converts a string to an array of ints. With {strict} equals false, the default, 
         /// the method will ignore any characters except for numbers, the negative symbol, or commas.
         /// With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
-        public static int[] ToIntArray(this string str, bool strict = false)
+        public static int[] ToIntArray(this string str, string separator = ",", bool strict = false)
         {
-            string intStr = strict ? str : str.NumbersOnly(",-");
+            string intStr = strict ? str : str.NumbersOnly(separator + "-");
             var options = strict ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries;
-            var intArray = intStr.Split(",", options).Select(s => s.Trim().ToIntNullable()).ToArray();
+            var intArray = intStr.Split(separator, options).Select(s => s.Trim().ToIntNullable()).ToArray();
 
             if (strict && intArray.Any(a => !a.HasValue))
                 throw new Exception("ToIntArray() cannot have null or invalid values when in strict mode.");

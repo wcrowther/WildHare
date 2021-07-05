@@ -28,6 +28,35 @@ namespace WildHare.Tests
 
         }
 
+        [Test]
+        public void Test_ToQueryDictionary()
+        {
+            string queryString = "?name=fred&email=fred@fred.com&customer=true";
+            var qDictionary = queryString.RemoveStart("?").ToQueryDictionary();
+
+            Assert.AreEqual(3, qDictionary.Count);
+            Assert.AreEqual("fred", qDictionary["name"]);
+            Assert.AreEqual("fred@fred.com", qDictionary["email"]);
+            Assert.AreEqual("true", qDictionary["customer"]);
+        }
+
+        [Test]
+        public void Test_ToQueryString()
+        {
+            var queryDictionary = new Dictionary<string, string>
+            {
+                {"name", "fred"},
+                {"email", "fred@fred.com"},
+                {"customer", "true"}
+            };
+            string expected = "?name=fred&email=fred@fred.com&customer=true";
+
+            var qDictionary = queryDictionary.ToQueryString().EnsureStart("?");
+
+            Assert.AreEqual(expected, qDictionary);
+        }
+
+
         //[Test]
         //public void Test_Dictionary_Get_Extension()
         //{
