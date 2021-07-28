@@ -100,7 +100,7 @@ namespace WildHare.Extensions
         /// <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
         public static Type[] GetDerivedTypes(this Type type, string[] ignoreTypeNames = null, bool includeBaseType = false)
         {
-            ignoreTypeNames = ignoreTypeNames ?? new string[0];
+            ignoreTypeNames = ignoreTypeNames ?? Array.Empty<string>();
 
             var types =  Assembly.GetAssembly(type)
                         .GetTypes()
@@ -113,5 +113,70 @@ namespace WildHare.Extensions
             return types.OrderBy(o => o.Name).ToArray();
         }
 
+
+        public static Type GetCommonBaseType(this Type[] types)
+        {
+            // From: https: //stackoverflow.com/questions/353430/easiest-way-to-get-a-common-base-class-from-a-collection-of-types
+
+            if (types.Length == 0)
+            {
+                return (typeof(object));
+            }
+            else if (types.Length == 1)
+            { 
+                return (types[0]);            
+            }
+
+            bool hasBeenChecked = false;
+            Type hasBeenTested = null;
+
+            var typeList = new Type[types.Length];
+
+            for (int i = 0; i < types.Length; i++)
+            {
+                typeList[i] = types[i];
+            }
+
+            while (!hasBeenChecked)
+            {
+                hasBeenTested = typeList[0];
+                hasBeenChecked = true;
+
+                for (int i = 1; i < typeList.Length; i++)
+                {
+                    if (hasBeenTested.Equals(typeList[i]))
+                        continue;
+                    else
+                    {
+                        if (hasBeenTested.Equals(typeList[i].BaseType))
+                        {
+                            typeList[i] = typeList[i].BaseType;
+                            continue;
+                        }
+                        else if (hasBeenTested.BaseType.Equals(typeList[i]))
+                        {
+                            for (int j = 0; j <= i - 1; j++)
+                            {
+                                typeList[j] = typeList[j].BaseType;
+                            }
+
+                            hasBeenChecked = false;
+                            break;
+                        }
+                        else
+                        {
+                            for (int j = 0; j <= i; j++)
+                            {
+                                typeList[j] = typeList[j].BaseType;
+                            }
+
+                            hasBeenChecked = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            return hasBeenTested;
+        }
     }
 }

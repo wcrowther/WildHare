@@ -111,10 +111,10 @@ namespace WildHare.Extensions
             return DateTime.TryParse(value, out DateTime result) ? result : defaultValue;
         }
 
-        /// <summary>Converts a string to an array of ints. With {strict} equals false, the default, 
-        /// the method will ignore any characters except for numbers, the negative symbol, or commas.
-        /// With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
-        public static int[] ToIntArray(this string str, string separator = ",", bool strict = false)
+        /// <summary>Converts a string to an array of ints, using the {separator} as the divider (defaulting to a comma).
+        /// With {strict} equals false, the default, the method will ignore any characters except for numbers, the negative symbol,
+        /// or commas. With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
+        public static int[] ToIntArray(this string str, bool strict = false, string separator = ",")
         {
             string intStr = strict ? str : str.NumbersOnly(separator + "-");
             var options = strict ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries;
@@ -126,9 +126,10 @@ namespace WildHare.Extensions
             return intArray.Select(w => w.Value).ToArray();
         }
 
-        /// <summary>Converts an array of ints to a comma separated string. The method will return null if the {intArray} parameter is null 
-        /// when {strict} is false. When {strict} is true the method will throw an exception if the {intArray} is null.</summary>
-        public static string AsString(this int[] intArray, bool strict = false)
+        /// <summary>Converts an array of ints to a string separated by {separator} (defaulting to a comma). The method will 
+        /// return null if the {intArray} parameter is null when {strict} is false. When {strict} is true the method
+        /// will throw an exception if the {intArray} is null.</summary>
+        public static string AsString(this int[] intArray, bool strict = false, string separator = ",")
         {
             if(intArray is null && strict)
                 throw new Exception("IntArray.AsString() cannot be null when in strict mode.");
@@ -136,7 +137,7 @@ namespace WildHare.Extensions
             if (intArray is null)
                 return null;
 
-            return string.Join(",", intArray);
+            return string.Join(separator, intArray);
         }
     }
 }

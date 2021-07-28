@@ -120,6 +120,20 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_ToIntArray_Not_Strict_With_Space_Separator()
+        {
+            string intString = "-1 12 abc 6    8";
+
+            var array = intString.ToIntArray(separator: " ");
+
+            Assert.AreEqual(4, array.Length);
+            Assert.AreEqual(-1, array[0]);
+            Assert.AreEqual(12, array[1]);
+            Assert.AreEqual(6, array[2]);
+            Assert.AreEqual(8, array[3]);
+        }
+
+        [Test]
         public void Test_ToIntArray_Strict_Empty_Values()
         {
             string intString = "1,2,3,,5";
@@ -147,6 +161,7 @@ namespace WildHare.Tests
             string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
             Assert.AreEqual(errorMessage, ex.Message);
         }
+
 
         [Test]
         public void Test_IntArray_AsString_Basic()

@@ -240,11 +240,13 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(4, typesDerivedFromTeam.Count());
-            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("NflTeam", typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[3].Name);
+            Assert.AreEqual(6,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
+            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
         }
 
         [Test]
@@ -261,9 +263,13 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(new[]{ "BaseballTeam", "NflTeam" }).ToList();
 
-            Assert.AreEqual(2, typesDerivedFromTeam.Count());
-            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[1].Name);
+            Assert.AreEqual(4,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[3].Name);
+            // BaseballTeam     excluded
+            // NflTeam          excluded
         }
 
         [Test]
@@ -271,13 +277,78 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(includeBaseType: true).ToList();
 
-            Assert.AreEqual(5, typesDerivedFromTeam.Count());
-            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("NflTeam", typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("Team", typesDerivedFromTeam[4].Name);
+            Assert.AreEqual(7,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
+            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
+            Assert.AreEqual("Team",             typesDerivedFromTeam[6].Name); // Included
+        }
 
+        [Test]
+        public void GetCommonBaseClass_SoccerTeam()
+        {
+            var manUnited       = new ManUnitedTeam();
+            var arsenal         = new ArsenalTeam();
+            var manCity         = new SoccerTeam();
+            var teams = new List<Team>
+            {
+                manUnited,
+                arsenal,
+                manCity
+            };
+
+            var teamTypes       = teams.Select(s => s.GetType()).ToArray();
+            var commonType      = teamTypes.GetCommonBaseType();
+
+            Assert.AreEqual("SoccerTeam", commonType.Name);
+        }
+
+        [Test]
+        public void GetCommonBaseClass_Team()
+        {
+            var manUnited   = new ManUnitedTeam();
+            var arsenal     = new ArsenalTeam();
+            var manCity     = new SoccerTeam();
+            var falcons     = new NflTeam();
+            var teams       = new List<Team>
+            {
+                manUnited,
+                arsenal,
+                manCity,
+                falcons
+            };
+
+            var teamTypes = teams.Select(s => s.GetType()).ToArray();
+            var commonType = teamTypes.GetCommonBaseType();
+
+            Assert.AreEqual("Team", commonType.Name);
+        }
+
+
+        [Test]
+        public void GetCommonBaseClass_object()
+        {
+            var manUnited   = new ManUnitedTeam();
+            var arsenal     = new ArsenalTeam();
+            var manCity     = new SoccerTeam();
+            var falcons     = new NflTeam();
+            var word        = new Word();
+            var teams       = new List<object>
+            {
+                manUnited,
+                arsenal,
+                manCity,
+                falcons,
+                word
+            };
+
+            var teamTypes = teams.Select(s => s.GetType()).ToArray();
+            var commonType = teamTypes.GetCommonBaseType();
+
+            Assert.AreEqual("Object", commonType.Name);
         }
     }
 }
