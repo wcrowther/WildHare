@@ -453,22 +453,31 @@ namespace WildHare.Extensions
             return str.Split(s, options);
         }
 
-        /// <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. For simple cases,
-        /// it will add an "s" to the end  (or an "es" if {singular} ends in "s","x","ch","sh","z", or "o") if {plural} is omitted.</summary>
-        /// <example>1.SingularOrPlural("clown") returns "clown";</example>
-        /// <example>3.SingularOrPlural("clowns") returns "clowns";</example>
-        /// <example>3.SingularOrPlural("fox") returns "foxes";</example>
-        /// <example>5.SingularOrPlural("child","children") returns "children";</example>
+        [Obsolete("SingularOrPlural has been renamed to Pluralize and will be removed in a future version.")]
         public static string SingularOrPlural(this int number, string singular, string plural = null)
         {
-            string[] endings = { "s", "x", "ch", "sh", "z", "o" }; 
+            return number.Pluralize(singular, plural);
+        }
+
+        /// <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. If the parameter
+        /// {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").</summary>
+        /// <example>1.Pluralize("clown") returns "clown";</example>
+        /// <example>3.Pluralize("clowns") returns "clowns";</example>
+        /// <example>3.Pluralize("fox") returns "foxes";</example>
+        /// <example>5.Pluralize("child","children") returns "children";</example>
+        public static string Pluralize(this int number, string singular, string plural = null)
+        {
+            string[] endings = { "s", "x", "ch", "sh", "z", "o" };
+
+            if (singular.IsNullOrSpace())
+                throw new ArgumentException("The argument 'singular' cannot be null, empty, or whitespace for the Pluralize method.");
 
             if (number == 1)
                 return singular;
 
             if (plural is null)
             {
-                return endings.Any(x => singular.EndsWith(x, StringComparison.OrdinalIgnoreCase) ) ? singular + "es": singular + "s";
+                return endings.Any(x => singular.EndsWith(x, StringComparison.OrdinalIgnoreCase)) ? singular + "es" : singular + "s";
             }
             return plural;
         }
@@ -476,7 +485,7 @@ namespace WildHare.Extensions
         public static string Left(this string str, int length)
         {
             if (str.IsNullOrEmpty())
-                return "";
+                return str;
 
             return str.Substring(0, Math.Min(str.Length, length));
         }
@@ -484,7 +493,7 @@ namespace WildHare.Extensions
         public static string Mid(this string str, int start, int? count = null)
         {
             if (str.IsNullOrEmpty())
-                return "";
+                return str;
 
             int strRemainder = str.Length - start;
             int trimmedCount = count.HasValue && count <= strRemainder ? count.Value : strRemainder;
@@ -495,7 +504,7 @@ namespace WildHare.Extensions
         public static string Right(this string str, int length)
         {
             if (str.IsNullOrEmpty())
-                return "";
+                return str;
 
             return (str.Length > length) ? str.Substring(str.Length - length, length) : str;
         }
@@ -523,37 +532,100 @@ namespace WildHare.Extensions
             return str.Equals(compareTo, strComparison);
         }
 
-        // public static string Format(this string format, object arg0)
-        // {
-        //     if (!format.Contains("{0"))
-        //         throw new ArgumentException("The format string must contain an argument placeholder for {0}.");
-             
-        //     return string.Format(format, arg0);
-        // }
-           
-        // public static string Format(this string format, object arg0, object arg1)
-        // {
-        //     if (!format.Contains("{0") || !format.Contains("{1"))
-        //         throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
-             
-        //     return string.Format(format, arg0, arg1);
-        // }
-           
-        // public static string Format(this string format, object arg0, object arg1, object arg2)
-        // {
-        //     if (!format.Contains("{0") || !format.Contains("{1") || !format.Contains("{2"))
-        //         throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
-           
-        //     return string.Format(format, arg0, arg1, arg2);
-        // }
-           
-        // public static string Format(this string format, params object[] args)
-        // {
-        //     if (format.Count(c => c == '{') != args.Count() || format.Count(c => c == '}') != args.Count())
-        //         throw new ArgumentException("The format string must contain arguments matching the number of placeholders.");
-           
-        //     return string.Format(format, args);
-        // }
+
+        // ======================================================================================================
+        // Inline Format
+        // ======================================================================================================
+
+        public static string Format(this string format, object arg0)
+        {
+            if (!format.Contains("{0"))
+                throw new ArgumentException("The format string must contain an argument placeholder for {0}.");
+
+            return string.Format(format, arg0);
+        }
+
+        public static string Format(this string format, object arg0, object arg1)
+        {
+            if (!format.Contains("{0") )
+                throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
+
+            if (!format.Contains("{1") )
+                throw new ArgumentException("The format string must contain an argument placeholder like {1}.");
+
+            return string.Format(format, arg0, arg1);
+        }
+
+        public static string Format(this string format, object arg0, object arg1, object arg2)
+        {
+            if (!format.Contains("{0") )
+                throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
+
+            if (!format.Contains("{1") )
+                throw new ArgumentException("The format string must contain an argument placeholder like {1}.");
+
+            if (!format.Contains("{2") )
+                throw new ArgumentException("The format string must contain an argument placeholder like {2}.");
+
+            return string.Format(format, arg0, arg1, arg2);
+        }
+
+        public static string Format(this string format, params object[] args)
+        {
+            if (format.Count(c => c == '{') != args.Count() || format.Count(c => c == '}') != args.Count())
+            {
+                throw new ArgumentException("The format string must contain arguments matching the number of placeholders.");
+            }
+
+            return string.Format(format, args);
+        }
+
+        // ======================================================================================================
+        // TODO WJC BELOW NOT YET FINISHED
+        // ======================================================================================================
+
+        public static string Format(this string format, IFormatProvider provider,  object arg0)
+        {
+            if (!format.Contains("{0"))
+                throw new ArgumentException("The format string must contain an argument placeholder for {0}.");
+
+            return string.Format(provider, format, arg0);
+        }
+
+        public static string Format(this string format, IFormatProvider provider, object arg0, object arg1)
+        {
+            if (!format.Contains("{0"))
+                throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
+
+            if (!format.Contains("{1"))
+                throw new ArgumentException("The format string must contain an argument placeholder like {1}.");
+
+            return string.Format(provider, format, arg0, arg1);
+        }
+
+        public static string Format(this string format, IFormatProvider provider, object arg0, object arg1, object arg2)
+        {
+            if (!format.Contains("{0"))
+                throw new ArgumentException("The format string must contain an argument placeholder like {0}.");
+
+            if (!format.Contains("{1"))
+                throw new ArgumentException("The format string must contain an argument placeholder like {1}.");
+
+            if (!format.Contains("{2"))
+                throw new ArgumentException("The format string must contain an argument placeholder like {2}.");
+
+            return string.Format(provider, format, arg0, arg1, arg2);
+        }
+
+        public static string Format(this string format, IFormatProvider provider, params object[] args)
+        {
+            if (format.Count(c => c == '{') != args.Count() || format.Count(c => c == '}') != args.Count())
+            {
+                throw new ArgumentException("The format string must contain arguments matching the number of placeholders.");
+            }
+
+            return string.Format(provider, format, args);
+        }
     }
 }
 

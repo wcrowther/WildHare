@@ -113,7 +113,6 @@ namespace WildHare.Extensions
             return types.OrderBy(o => o.Name).ToArray();
         }
 
-
         public static Type GetCommonBaseType(this Type[] types)
         {
             // From: https: //stackoverflow.com/questions/353430/easiest-way-to-get-a-common-base-class-from-a-collection-of-types
@@ -177,6 +176,29 @@ namespace WildHare.Extensions
                 }
             }
             return hasBeenTested;
+        }
+
+        public static Type[] GetCommonInterfaces(this object[] objects)
+        {
+            var interfaces = new Type[0];
+            
+            foreach (var o in objects)
+            {
+                var typeInterfaces = o.GetType().GetInterfaces();
+
+                if (typeInterfaces.Length == 0)
+                    return new Type[0];
+
+                if (interfaces.Length == 0)
+                {
+                    interfaces = typeInterfaces;
+                }
+                else
+                {
+                    interfaces = typeInterfaces.Intersect(interfaces).ToArray();
+                }
+            }
+            return interfaces;
         }
     }
 }

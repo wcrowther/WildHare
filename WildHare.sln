@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildHare", "WildHare\WildHare.csproj", "{870E459E-AC16-406E-93F5-B91864C5FC2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildHare.Tests", "WildHare.Tests\WildHare.Tests.csproj", "{A19BC9B8-6650-4785-885E-21A230A75BA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildHare.Web", "WildHare.Web\WildHare.Web.csproj", "{361776AC-CF28-41B8-AA11-135642B93173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WildHare.Web", "WildHare.Web\WildHare.Web.csproj", "{361776AC-CF28-41B8-AA11-135642B93173}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20F091BD-BC55-43AF-8A86-EBB7C05AB9E4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

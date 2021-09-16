@@ -253,5 +253,18 @@ namespace WildHare.Extensions
                 }
             }
         }
+
+        /// <summary>Will return the {singular} form of a word if the count of list is equal to 1, otherwise returns {plural}. If the parmeter 
+        /// {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").</summary>
+        /// <example>When a list contains 1 element: list.Pluralize("clown") returns "clown";</example>
+        /// <example>When a list contains 0 element: list.Pluralize("clowns") returns "clowns";</example>
+        /// <example>When a list contains 3 element: list.Pluralize("fox") returns "foxes";</example>
+        /// <example>When a list contains 5 element: list.Pluralize("child", "children") returns "children";</example>
+        public static string Pluralize<T>(this IEnumerable<T> list, string singular, string plural = null)
+        {
+            int count = list?.Count() ?? default;
+
+            return count.Pluralize(singular, plural);
+        }
     }
 }

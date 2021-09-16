@@ -672,10 +672,10 @@ namespace WildHare.Tests
         {
             string str = null;
 
-            Assert.AreEqual("", str.Left(4));
-            Assert.AreEqual("", str.Mid(4, 6));
-            Assert.AreEqual("", str.Mid(4));
-            Assert.AreEqual("", str.Right(5));
+            Assert.AreEqual(null, str.Left(4));
+            Assert.AreEqual(null, str.Mid(4, 6));
+            Assert.AreEqual(null, str.Mid(4));
+            Assert.AreEqual(null, str.Right(5));
         }
 
         [Test]
@@ -724,17 +724,37 @@ namespace WildHare.Tests
             Assert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x") );
         }
 
-        //[Test]
-        //public void Test_Format_With_One_Arg()
-        //{
-        //    string str = "https://{0}.test.com/";
-        //    string subDomain1 = "www";
-        //    string subDomain2 = "admin";
-        //    string subDomain3 = "shop";
+        [Test]
+        public void Test_Format_With_One_Arg()
+        {
+            string example = "https://{0}.test.com/";
+            string subDomain1   = "www";
+            string subDomain2   = "admin";
+            string subDomain3   = "shop";
+            string domain       = "test";
+            string extension    = "com";
 
-        //    Assert.AreEqual("https://www.test.com/",    str.Format(subDomain1));
-        //    Assert.AreEqual("https://admin.test.com/",  str.Format(subDomain2));
-        //    Assert.AreEqual("https://shop.test.com/",   str.Format(subDomain3));
-        //}
+            Assert.AreEqual("https://www.test.com/",    example.Format(subDomain1));
+            Assert.AreEqual("https://admin.test.com/",  example.Format(subDomain2));
+            Assert.AreEqual("https://shop.test.com/",   example.Format(subDomain3));
+
+            Assert.AreEqual("https://www.test.com/",    "https://{0}.test.com/".Format(subDomain1));
+            Assert.AreEqual("https://admin.test.com/",  "https://{0}.test.com/".Format(subDomain2));
+            Assert.AreEqual("https://shop.test.com/",   "https://{0}.test.com/".Format(subDomain3));
+            
+            Assert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
+        }
+
+        [Test]
+        public void Test_Format_With_Multiple_Args()
+        {
+            string example = "https://{0}.{1}.{2}/";
+            string subDomain1 = "www";
+            string domain = "test";
+            string extension = "com";
+
+            Assert.AreEqual("https://www.test.com/", example.Format(subDomain1, domain, extension));
+            Assert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
+using WildHare.Tests.Interfaces;
 using WildHare.Tests.Models;
 
 namespace WildHare.Tests
@@ -327,7 +328,6 @@ namespace WildHare.Tests
             Assert.AreEqual("Team", commonType.Name);
         }
 
-
         [Test]
         public void GetCommonBaseClass_object()
         {
@@ -350,5 +350,141 @@ namespace WildHare.Tests
 
             Assert.AreEqual("Object", commonType.Name);
         }
+
+        [Test]
+        public void GetCommonInterfaces_All_Fruit()
+        {
+            var objects = new List<object>
+            {
+                new Bannana(),
+                new Apple(),
+                new Pear(),
+                new Orange(), 
+                new Fruit()
+            }
+            .ToArray();
+
+            var interfaces = objects.GetCommonInterfaces();
+
+            Assert.AreEqual(3, interfaces?.Count() ?? 0);
+            Assert.AreEqual("I_Fruit", interfaces[0].Name);
+        }
+
+        [Test]
+        public void GetCommonInterfaces_With_Common_I_Object()
+        {
+            var objects = new List<object>
+            {
+                new Fruit(),
+                new Boat(),
+                new Automobile()
+            }
+            .ToArray();
+
+            var interfaces = objects.GetCommonInterfaces();
+
+            Assert.AreEqual(1, interfaces?.Count() ?? 1);
+            Assert.AreEqual("I_Object", interfaces[0].Name);
+        }
+
+        [Test]
+        public void GetCommonInterfaces_With_Common_I_Object_GetSpecificity()
+        {
+            var objects = new List<object>
+            {
+                new Fruit(),
+                new Boat(),
+                new Automobile()
+            }
+            .ToArray();
+
+            var interfaces = objects.GetCommonInterfaces();
+
+            Assert.AreEqual(1, interfaces?.Count() ?? 1);
+            Assert.AreEqual("I_Object", interfaces[0].Name);
+            Assert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null) );
+        }
+
+
+        [Test]
+        public void GetCommonInterfaces_With_Common_I_Fruit_GetSpecificity()
+        {
+            var fruits = new List<object>
+            {
+                new Fruit(),
+                new Apple(),
+                new Pear()
+            }
+            .ToArray();
+
+            var interfaces = fruits.GetCommonInterfaces();
+
+            Assert.AreEqual(3, interfaces?.Count() ?? 3);
+            Assert.AreEqual("I_Fruit", interfaces[0].Name);
+            Assert.AreEqual(3m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
+        }
+
+
+        [Test]
+        public void GetCommonInterfaces_With_Common_I_Fruit_Sorted_By_Specificity()
+        {
+            var fruits = new List<object>
+            {
+                new Fruit(),
+                new Apple(),
+                new Pear()
+            }
+            .ToArray();
+
+            var interfaces =  fruits.GetCommonInterfaces()
+                                    .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
+                                    .ToArray();
+
+            Assert.AreEqual(3, interfaces?.Count() ?? 0);
+            Assert.AreEqual("I_Object", interfaces[0].Name);
+            Assert.AreEqual("I_Food", interfaces[1].Name);
+            Assert.AreEqual("I_Fruit", interfaces[2].Name);
+        }
+
+
+        [Test]
+        public void GetCommonInterfaces_With_Common_I_Fruit_With_Where_Sorted_By_Specificity()
+        {
+            var fruits = new List<object>
+            {
+                new Fruit(),
+                new Apple(),
+                new Pear()
+            }
+            .ToArray();
+
+            var interfaces = fruits.GetCommonInterfaces()
+                                    .Where(w => typeof(I_Object).IsAssignableFrom(w))
+                                    .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
+                                    .ToArray();
+
+            Assert.AreEqual(3, interfaces?.Count() ?? 0);
+            Assert.AreEqual("I_Object", interfaces[0].Name);
+            Assert.AreEqual("I_Food", interfaces[1].Name);
+            Assert.AreEqual("I_Fruit", interfaces[2].Name);
+        }
+
+        //[Test]
+        //public void Test_This()
+        //{
+        //    var fruit = new Fruit();
+
+        //    var interfaces = fruit.GetType().GetInterfaces();
+        //    var inter = interfaces.FirstOrDefault();
+        //    var interfaceName = inter.Name.RemoveStart("I_");
+
+        //    var i_object = (I_Object)fruit;
+
+        //    Assert.AreEqual("Fruit", interfaceName);
+        //    Assert.AreEqual( inter, typeof(I_Object));
+        //    Assert.IsNotNull(i_object);
+
+        //    // NOT WORKING YET - is I_Object but not I_Fruit
+        //}
     }
 }
