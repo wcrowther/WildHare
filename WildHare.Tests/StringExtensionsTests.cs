@@ -637,9 +637,12 @@ namespace WildHare.Tests
         [TestCase(10, "dog",  "10 dogs in the list.")]
         [TestCase(1,  "fox",  "1 fox in the list.")]
         [TestCase(10, "fox","10 foxes in the list.")]
+        [TestCase(1, "clown", "1 clown in the list.")]
+        [TestCase(3, "clown", "3 clowns in the list.")]
+        [TestCase(3, "fox", "3 foxes in the list.")]
         public void Test_SingularOrPlural_With_One_Parameter(int count, string singular, string result)
         {
-            string message = $"{count} {count.SingularOrPlural(singular)} in the list.";
+            string message = $"{count} {count.Pluralize(singular)} in the list.";
 
             Assert.AreEqual(result, message);
         }
@@ -649,9 +652,10 @@ namespace WildHare.Tests
         [TestCase(10, "wolf", "wolves", "10 wolves in the list.")]
         [TestCase(1, "octopus", "octopi", "1 octopus in the list.")]
         [TestCase(10, "octopus", "octopi", "10 octopi in the list.")]
+        [TestCase(5, "child", "children", "5 children in the list.")]
         public void Test_SingularOrPlural_With_Two_Parameters(int count, string singular, string plural, string result)
         {
-            string message = $"{count} {count.SingularOrPlural(singular, plural)} in the list.";
+            string message = $"{count} {count.Pluralize(singular, plural)} in the list.";
 
             Assert.AreEqual(result, message);
         }

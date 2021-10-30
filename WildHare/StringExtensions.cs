@@ -462,7 +462,7 @@ namespace WildHare.Extensions
         /// <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. If the parameter
         /// {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").</summary>
         /// <example>1.Pluralize("clown") returns "clown";</example>
-        /// <example>3.Pluralize("clowns") returns "clowns";</example>
+        /// <example>3.Pluralize("clown") returns "clowns";</example>
         /// <example>3.Pluralize("fox") returns "foxes";</example>
         /// <example>5.Pluralize("child","children") returns "children";</example>
         public static string Pluralize(this int number, string singular, string plural = null)
