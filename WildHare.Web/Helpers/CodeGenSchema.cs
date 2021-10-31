@@ -21,10 +21,10 @@ namespace WildHare.Web
 
 		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
+		private static bool overWrite;
 		private static string rootPath;
 		private static readonly string namespaceRoot = "WildHare.Web";
 		private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SchemaModels\";
-
 
 		public static SqlConnection GetConnection()
 		{
@@ -58,14 +58,15 @@ namespace WildHare.Web
 			CreateSqlServerSchemaModel("ViewColumns", false);
 			CreateSqlServerSchemaModel("UserDefinedTypes", false);
 
-			return "CodeGenSchema.Init() complete....";
+			string result = $"{nameof(CodeGenSchema)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: varied";
+			Debug.WriteLine(result);
+
+			return result;
 		}
 
 		private static bool CreateSqlServerSchemaModel(string schemaName, bool overwrite = true)
 		{
 			string output;
-            string indent = "\t".Repeat(4);
-
 			using (var conn = GetConnection())
 			{
 				conn.Open();
@@ -89,7 +90,7 @@ namespace WildHare.Web
 			};
 
 			bool isSuccess = output
-                            .RemoveStartFromAllLines(indent)
+                            .RemoveIndents()
                             .WriteToFile(($"{outputDir}{schemaName}Schema.cs"), overwrite);
 
 			return isSuccess;

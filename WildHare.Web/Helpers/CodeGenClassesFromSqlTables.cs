@@ -24,6 +24,7 @@ namespace WildHare.Web
 
         // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
+        private static bool overWrite = false;
         private static string rootPath;
         private static string sqlConnString;
         private static readonly string namespaceRoot = "Me.Logic";
@@ -36,6 +37,12 @@ namespace WildHare.Web
 
 		public static string Init(string projectRoot, string dbConnString)
         {
+            if (projectRoot.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} projectRoot is null or empty.");
+
+            if (dbConnString.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} dbConnString is null or empty.");
+
             rootPath = projectRoot;
             sqlConnString = dbConnString;
 
@@ -83,8 +90,11 @@ namespace WildHare.Web
             //CreateModelFromSQLTable("Word", overwrite:  false);
             //CreateModelFromSQLTable("WordToken", overwrite:  false);
 
-            return "CodeGenFromSql.Init() complete....";
-		}
+            string result = $"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
+            Debug.WriteLine(result);
+
+            return result;
+        }
 
 		private static ILookup<string, ColumnsSchema> GetTablesFromSQL(string exclude = "")
 		{
@@ -106,7 +116,6 @@ namespace WildHare.Web
 		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
 		{
             modelName = modelName ?? tableName.RemoveEnd("s");;
-            string indent = " ".Repeat(12);
 
             string output =  
             $@"using System;
@@ -123,7 +132,7 @@ namespace WildHare.Web
             }}";
 
             bool isSuccess = output
-                             .RemoveStartFromAllLines(indent)
+                             .RemoveIndents()
                              .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
 
             return isSuccess;

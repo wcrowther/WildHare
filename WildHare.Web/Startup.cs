@@ -55,7 +55,7 @@ namespace WildHare.Web
         {
             if (env.IsDevelopment())
             {
-                // CodeGenCssMap.Init(env.ContentRootPath);
+                CodeGenCssMap.Init(env.ContentRootPath);
                 // CodeGenAdapters.Init(env.ContentRootPath);
                 // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
                 // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString);

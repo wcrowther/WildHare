@@ -21,6 +21,7 @@ namespace WildHare.Web
            WildHare.Web.CodeGenSqlRowInsert.Init(c:\github\WildHare);
         ========================================================================== */
 
+        private static bool overWrite = false;
         private static string rootPath;
         private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SqlInserts\";
 		private static readonly string start = "\t"; // Indentation
@@ -36,8 +37,11 @@ namespace WildHare.Web
             GenereateSQLInserts<User>(2000, excludeColumns: "Created", identityInsertOn: true, overwrite: false);   // Example using temporary private class below
             //GenereateSQLInserts<ControlValue>(5002, "ControlValues", "dbo", "ControlValueId", true, false);
 
-            return "CodeGenSqlRowInsert.Init() complete....";
-		}
+            string result = $"{nameof(CodeGenSqlRowInsert)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: varied";
+            Debug.WriteLine(result);
+
+            return result;
+        }
 
         public static bool GenereateSQLInserts<T>(  int count, string tableName = null,
                                                     string schema = null,
@@ -57,7 +61,6 @@ namespace WildHare.Web
             string identity_insert     = identityInsertOn ? $"SET IDENTITY_INSERT [{schema}].[{tableName}]" : "";
             string identity_insert_ON  = identity_insert.AddEnd(" ON");
             string identity_insert_OFF = identity_insert.AddEnd(" OFF");
-            string indent              = " ".Repeat(12);
 
             string output =
             $@"
@@ -76,7 +79,7 @@ namespace WildHare.Web
 
             string fileName = $"{tableName}_Insert.sql";
             bool isSuccess = output
-                             .RemoveStartFromAllLines(indent)
+                             .RemoveIndents()
                              .WriteToFile($"{outputDir}{fileName}", overwrite);
 
             LogResult (fileName, isSuccess);

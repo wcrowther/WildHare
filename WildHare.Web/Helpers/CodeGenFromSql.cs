@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
@@ -23,6 +24,7 @@ namespace WildHare.Web
 
         // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
+        private static bool overWrite =  false;
         private static string rootPath;
         private static string sqlConnString;
         private static readonly string namespaceRoot = "WildHare.Web";
@@ -35,6 +37,12 @@ namespace WildHare.Web
 
 		public static string Init(string projectRoot, string dbConnString)
         {
+            if (projectRoot.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenFromSql)}.{nameof(Init)} projectRoot is null or empty.");
+
+            if (dbConnString.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenFromSql)}.{nameof(Init)} dbConnString is null or empty.");
+
             rootPath = projectRoot;
             sqlConnString = dbConnString;
 
@@ -59,19 +67,22 @@ namespace WildHare.Web
 
             // var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
 
-            CreateModelFromSQLTable("Acts", overwrite:true);
-            CreateModelFromSQLTable("Controls", overwrite: true);
-            CreateModelFromSQLTable("ControlValues", overwrite: true);
-            CreateModelFromSQLTable("Description", overwrite: true);
-            CreateModelFromSQLTable("Layouts", overwrite: true);
-            CreateModelFromSQLTable("Locations", overwrite: true);
-            CreateModelFromSQLTable("Tags", overwrite: true);
-            CreateModelFromSQLTable("Tevents", overwrite: true);
-            CreateModelFromSQLTable("Timelines", "Timeline", overwrite: true);
-            CreateModelFromSQLTable("Users", "User", overwrite: true);
+            CreateModelFromSQLTable("Acts",                     overwrite: overWrite);
+            CreateModelFromSQLTable("Controls",                 overwrite: overWrite);
+            CreateModelFromSQLTable("ControlValues",            overwrite: overWrite);
+            CreateModelFromSQLTable("Description",              overwrite: overWrite);
+            CreateModelFromSQLTable("Layouts",                  overwrite: overWrite);
+            CreateModelFromSQLTable("Locations",                overwrite: overWrite);
+            CreateModelFromSQLTable("Tags",                     overwrite: overWrite);
+            CreateModelFromSQLTable("Tevents",                  overwrite: overWrite);
+            CreateModelFromSQLTable("Timelines", "Timeline",    overwrite: overWrite);
+            CreateModelFromSQLTable("Users", "User",            overwrite: overWrite);
 
-            return "CodeGenFromSql.Init() complete....";
-		}
+            string result = $"{nameof(CodeGenFromSql)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
+            Debug.WriteLine(result);
+
+            return result;
+        }
 
 		private static ILookup<string, ColumnsSchema> GetTablesFromSQL(string exclude = "")
 		{
@@ -93,7 +104,6 @@ namespace WildHare.Web
 		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
 		{
             modelName = modelName ?? tableName.RemoveEnd("s");
-            string indent = " ".Repeat(12);
 
             string output =  
             $@"using System;
@@ -110,7 +120,7 @@ namespace WildHare.Web
             }}";
 
             bool isSuccess = output
-                             .RemoveStartFromAllLines(indent)
+                             .RemoveIndents()
                              .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
 
             return isSuccess;

@@ -22,6 +22,8 @@ namespace WildHare.Web
            WildHare.Web.CodeGenAdapters.Init(c:\github\WildHare);
         ========================================================================== */
 
+
+        private static bool overWrite = false;
         private static readonly string namespaceRoot = "WildHare.Web";
         private static string rootPath;
         private static string outputDir = $@"{rootPath}\WildHare\WildHare.Web\Adapters\";
@@ -35,6 +37,9 @@ namespace WildHare.Web
 
         public static string Init(string projectRoot)
         {
+            if (projectRoot.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenAdapters)}.{nameof(Init)} projectRoot is null or empty.");
+
             rootPath = projectRoot;
 
             Debug.WriteLine("=".Repeat(50));
@@ -51,13 +56,16 @@ namespace WildHare.Web
 
             // Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
-            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), true);
-            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , true);
-            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , true);
+            GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), overWrite);
+            GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , overWrite);
+            GenerateAdapter(typeof(Account),    typeof(AccountModel)    , overWrite);
 
             Debug.WriteLine("=".Repeat(50));
 
-            return "CodeGenAdapters.Init() complete...";
+            string result = $"{nameof(CodeGenAdapters)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
+            Debug.WriteLine(result);
+
+            return result;
         }
 
         public static bool GenerateAdapter(Type type1, Type type2, bool overwrite = false)

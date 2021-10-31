@@ -2,6 +2,7 @@ using AngleSharp.Html.Parser;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,10 +23,14 @@ namespace WildHare.Web
            WildHare.Web.CodeGenCssMap.Init(c:\github\WildHare);
         ========================================================================== */
 
-        public static bool Init(string projectRoot)
+        public static string Init(string projectRoot)
         {
+            if (projectRoot.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenCssMap)}.{nameof(Init)} projectRoot is null or empty.");
+            
+            bool overWrite = false;
             string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
-            string pathRoot = @"C:\GitHub\SeedPacket\Examples\Views";
+            string pathRoot = @"C:\Git\SeedPacket\SeedPacket.Examples\Pages";
             var allFiles = $@"{pathRoot}"
                             .GetAllFiles("*.cshtml");
 
@@ -57,19 +62,20 @@ namespace WildHare.Web
                 sb.AppendLine(start + "-".Repeat(90));
             }
 
-
             foreach (var classTag in groupedClassTags)
             {
                 sb.AppendLine($"{start}{classTag.Name,-40} count: {classTag.References.Count} ");
             }
 
-
             if (groupedClassTags.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            sb.ToString().WriteToFile(pathToWriteTo, true);
+            sb.ToString().WriteToFile(pathToWriteTo, overWrite);
 
-            return true;
+            string result = $"{nameof(CodeGenCssMap)}.{nameof(Init)} code written to '{pathToWriteTo}'. Overwrite: {overWrite}";
+            Debug.WriteLine(result);
+
+            return result;
         }
 
 
