@@ -25,7 +25,7 @@ namespace WildHare.CodeGen
             {
                 Console.WriteLine("Begin Generating Code...");
 
-                CodeGenCssMap.Init(contentRootPath);
+                // CodeGenCssMap.Init(contentRootPath);
                 // CodeGenAdapters.Init(contentRootPath);
                 // CodeGenFromSql.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
                 // CodeGenClassesFromSqlTables.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
+using WildHare.Models;
 using WildHare.Tests.Interfaces;
 using WildHare.Tests.Models;
 
@@ -286,6 +287,32 @@ namespace WildHare.Tests
             Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
             Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
             Assert.AreEqual("Team",             typesDerivedFromTeam[6].Name); // Included
+        }
+
+        [Test]
+        public void GetDerivedClasses_From_Different_Assembly()
+        {
+            // Type is in WildHare dll but find derived classes in current assembly
+            var thisAssembly = Assembly.GetExecutingAssembly(); 
+            var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(otherAssembly: thisAssembly).ToList();
+
+            Assert.AreEqual(2, typesDerivedFromTest.Count());
+            Assert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
+            Assert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
+        }
+
+
+        [Test]
+        public void GetDerivedClasses_From_Different_Assembly_IncludeBaseType()
+        {
+            // Type is in WildHare dll but find derived classes in current assembly
+            var thisAssembly = Assembly.GetExecutingAssembly();
+            var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(includeBaseType: true, otherAssembly: thisAssembly).ToList();
+
+            Assert.AreEqual(3, typesDerivedFromTest.Count());
+            Assert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
+            Assert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
+            Assert.AreEqual("TestModel", typesDerivedFromTest[2].Name);
         }
 
         [Test]
