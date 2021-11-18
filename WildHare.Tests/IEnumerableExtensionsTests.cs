@@ -89,6 +89,14 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_ElementInOrDefault_IList_Ints_DefaultItem()
+        {
+            int[] numbers = { };
+
+            Assert.AreEqual(25, numbers.ElementInOrDefault(0, 25));
+        }
+
+        [Test]
         public void Test_MatchList_Basic()
         {
             string[] phraseArray = { "the", "president", "of", "the", "united", "states", "is", "a", "politician" };
@@ -138,13 +146,13 @@ namespace WildHare.Tests
             Assert.AreEqual(6, matches.Count());
             Assert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.Text)));
 
-            var matches2 = wordList_A.MatchList(wordList_C, (a, b) => a.Text == b.Text).ToArray();
+            var matches2 = wordList_A.MatchList(wordList_C, (a, c) => a.Text == c.Text).ToArray();
 
             Assert.AreEqual(0, matches2.Count());
 
-            var matches3 = wordList_A.MatchList(wordList_C, (a, b) => a.Text == b.Text).ToArray();
+            var matches3 = wordList_B.MatchList(wordList_C, (b, c) => b.Text == c.Text).ToArray();
 
-            Assert.AreEqual(0, matches2.Count());
+            Assert.AreEqual(0, matches3.Count());
         }
 
         [Test]

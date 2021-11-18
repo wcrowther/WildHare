@@ -305,7 +305,7 @@ namespace WildHare.Tests
         [Test]
         public void GetDerivedClasses_From_Different_Assembly_IncludeBaseType()
         {
-            // Type is in WildHare dll but find derived classes in current assembly
+            // Type TestModel is in WildHare dll but finds derived classes in current assembly
             var thisAssembly = Assembly.GetExecutingAssembly();
             var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(includeBaseType: true, otherAssembly: thisAssembly).ToList();
 

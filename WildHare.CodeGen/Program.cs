@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.IO;
+using WildHare.Web.Interfaces;
 using WildHare.Web.Models;
 
 namespace WildHare.CodeGen
@@ -31,11 +32,11 @@ namespace WildHare.CodeGen
 
             // add services
             serviceCollection.AddSingleton(configuration)
-                                .AddSingleton(configuration.GetSection("App").Get<AppSettings>())
-                                .AddSingleton<IHostEnvironment, HostingEnvironment>()
-                                //.AddScoped<ICodeGenManager, CodeGenManager>()
-                                //.AddScoped<IDataRepo, DataRepo>()
-                                .AddScoped<CodeGen>();
+                             .AddSingleton(configuration.GetSection("App").Get<AppSettings>())
+                             .AddSingleton<IHostEnvironment, HostingEnvironment>()
+                              //.AddScoped<ICodeGenManager, CodeGenManager>()
+                              //.AddScoped<IDataRepo, DataRepo>()
+                             .AddScoped<CodeGen>();
 
             return serviceCollection;
         }

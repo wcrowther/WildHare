@@ -8,7 +8,7 @@ namespace WildHare.Extensions
     public static class IEnumerableExtensions
     {
         /// <summary>Takes the element in the list at the position of {index} looping around to the beginning
-        /// of the list if the index is outside of the number of items in the list. Will always return an element
+        /// of the list if the (zero-base) index is outside of the number of items in the list. Will always return an element
         /// unless there are no elements in the list, in which case it returns an exception.</summary>
         public static TSource ElementIn<TSource>(this IEnumerable<TSource> source, int index)
         {
@@ -47,9 +47,9 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Takes the element in the list at the position of {index} looping around to the beginning
-        /// of the list if the index is outside of the number of items in the list. Will always return an element
-        /// unless there are no elements in the list, in which case it returns the type default value.</summary>
-        public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index)
+        /// of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
+        /// unless there are no elements in the list, in which case it returns the {defaultItem} of type TSource.</summary>
+        public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index, TSource defaultItem)
         {
             if (source == null)
             {
@@ -57,7 +57,7 @@ namespace WildHare.Extensions
             }
 
             if (source.Count() == 0)
-                return default;
+                return defaultItem;
 
             index = Math.Abs(index);
 
@@ -83,7 +83,17 @@ namespace WildHare.Extensions
                     }
                 }
             }
-            return default;
+            return defaultItem;
+        }
+
+        /// <summary>Takes the element in the list at the position of {index} looping around to the beginning
+        /// of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
+        /// unless there are no elements in the list, in which case it returns the type default value.</summary>
+        public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index)
+        {
+            var defaultItem = default(TSource);
+            
+            return source.ElementInOrDefault(index, defaultItem);
         }
 
         /// <summary>Given two lists it returns values from first if the {func} is true. If {consecutive} 
@@ -120,27 +130,7 @@ namespace WildHare.Extensions
         public static IEnumerable<TFirst> Sequence<TFirst, TSecond>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second,
                                                                          Func<TFirst, TSecond, bool> func, bool consecutive = true)
         {
-            var ie1 = first.GetEnumerator();
-            var ie2 = second.GetEnumerator();
-            bool match = true; // initialize as true
-            bool next = true;
-
-            while (ie1.MoveNext() && next)
-            {
-                if (consecutive || match)
-                {
-                    next = ie2.MoveNext();
-                }
-                if (next && func(ie1.Current, ie2.Current))
-                {
-                    match = true;
-                    yield return ie1.Current;
-                }
-                else
-                {
-                    match = false;
-                }
-            }
+            return first.MatchList<TFirst, TSecond>(second, func, consecutive);
         }
 
         /// <summary>Compares 2 lists and using the {comparer} to return an array of int positions

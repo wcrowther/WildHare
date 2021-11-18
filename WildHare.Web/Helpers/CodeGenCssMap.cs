@@ -36,7 +36,7 @@ namespace WildHare.Web
 
             var classTags = new List<ClassTag>();
 
-            string start = "\t\t   ";
+            string start = "\t";
             var sb = new StringBuilder();
 
             sb.AppendLine("=".Repeat(100));
@@ -70,9 +70,9 @@ namespace WildHare.Web
             if (groupedClassTags.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            sb.ToString().WriteToFile(pathToWriteTo, overWrite);
+            bool success = sb.ToString().WriteToFile(pathToWriteTo, overWrite);
 
-            string result = $"{nameof(CodeGenCssMap)}.{nameof(Init)} code written to '{pathToWriteTo}'. Overwrite: {overWrite}";
+            string result = $"{nameof(CodeGenCssMap)}.{nameof(Init)} code written to '{pathToWriteTo}'. Success: {success} Overwrite: {overWrite}";
             Debug.WriteLine(result);
 
             return result;

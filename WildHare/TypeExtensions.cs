@@ -96,9 +96,11 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Gets an array of derived Types that are a subclass of {type}, excluding any types named in
-        /// the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.</summary>
+        /// the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.
+        /// Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
         /// <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
-        public static Type[] GetDerivedTypes(this Type type, string[] ignoreTypeNames = null, bool includeBaseType = false, Assembly otherAssembly = null)
+        public static Type[] GetDerivedTypes(this Type type, string[] ignoreTypeNames = null, 
+                                                  bool includeBaseType = false, Assembly otherAssembly = null)
         {
             ignoreTypeNames = ignoreTypeNames ?? Array.Empty<string>();
 
