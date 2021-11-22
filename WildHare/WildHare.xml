@@ -100,14 +100,15 @@
             if unsuccessful</summary>
             <returns>A nullable DateTime value</returns>
         </member>
-        <member name="M:WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean)">
-            <summary>Converts a string to an array of ints. With {strict} equals false, the default, 
-            the method will ignore any characters except for numbers, the negative symbol, or commas.
-            With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
+        <member name="M:WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String)">
+            <summary>Converts a string to an array of ints, using the {separator} as the divider (defaulting to a comma).
+            With {strict} equals false, the default, the method will ignore any characters except for numbers, the negative symbol,
+            or commas. With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
         </member>
-        <member name="M:WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean)">
-            <summary>Converts an array of ints to a comma separated string. The method will return null if the {intArray} parameter is null 
-            when {strict} is false. When {strict} is true the method will throw an exception if the {intArray} is null.</summary>
+        <member name="M:WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String)">
+            <summary>Converts an array of ints to a string separated by {separator} (defaulting to a comma). The method will 
+            return null if the {intArray} parameter is null when {strict} is false. When {strict} is true the method
+            will throw an exception if the {intArray} is null.</summary>
         </member>
         <member name="M:WildHare.Extensions.DataTableExtensions.ToList``1(System.Data.DataTable)">
             <summary>Converts a DataTable to a list of T</summary>
@@ -192,12 +193,17 @@
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementIn``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>Takes the element in the list at the position of {index} looping around to the beginning
-            of the list if the index is outside of the number of items in the list. Will always return an element
+            of the list if the (zero-base) index is outside of the number of items in the list. Will always return an element
             unless there are no elements in the list, in which case it returns an exception.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32,``0)">
+            <summary>Takes the element in the list at the position of {index} looping around to the beginning
+            of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
+            unless there are no elements in the list, in which case it returns the {defaultItem} of type TSource.</summary>
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>Takes the element in the list at the position of {index} looping around to the beginning
-            of the list if the index is outside of the number of items in the list. Will always return an element
+            of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
             unless there are no elements in the list, in which case it returns the type default value.</summary>
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.MatchList``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
@@ -234,6 +240,14 @@
             returns the list item if the {func} returns true for the match to the pattern item.
             The list enumerates to the next item regardless of a match or not, but pattern does not
             enumerate to the next pattern unless it matched.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.Pluralize``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>Will return the {singular} form of a word if the count of list is equal to 1, otherwise returns {plural}. If the parmeter 
+            {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").</summary>
+            <example>When a list contains 1 element: list.Pluralize("clown") returns "clown";</example>
+            <example>When a list contains 0 element: list.Pluralize("clowns") returns "clowns";</example>
+            <example>When a list contains 3 element: list.Pluralize("fox") returns "foxes";</example>
+            <example>When a list contains 5 element: list.Pluralize("child", "children") returns "children";</example>
         </member>
         <member name="T:WildHare.Extensions.IListExtensions">
             <summary>Class Summary</summary>
@@ -472,13 +486,13 @@
         <member name="M:WildHare.Extensions.StringExtensions.Split(System.String,System.String,System.StringSplitOptions)">
             <summary>An overload of Split that accepts a single string as separator.</summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.SingularOrPlural(System.Int32,System.String,System.String)">
-            <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. For simple cases,
-            it will add an "s" to the end  (or an "es" if {singular} ends in "s","x","ch","sh","z", or "o") if {plural} is omitted.</summary>
-            <example>1.SingularOrPlural("clown") returns "clown";</example>
-            <example>3.SingularOrPlural("clowns") returns "clowns";</example>
-            <example>3.SingularOrPlural("fox") returns "foxes";</example>
-            <example>5.SingularOrPlural("child","children") returns "children";</example>
+        <member name="M:WildHare.Extensions.StringExtensions.Pluralize(System.Int32,System.String,System.String)">
+            <summary>Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. If the parameter
+            {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").</summary>
+            <example>1.Pluralize("clown") returns "clown";</example>
+            <example>3.Pluralize("clown") returns "clowns";</example>
+            <example>3.Pluralize("fox") returns "foxes";</example>
+            <example>5.Pluralize("child","children") returns "children";</example>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Equals(System.String,System.String,System.Boolean)">
             Succinct overload of Equals() that compares the {str} to the {compareTo} and returns a bool true if equal.
@@ -552,17 +566,40 @@
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
         </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])">
             <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes
             and will be removed in a future version.</summary>
         </member>
-        <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean)">
+        <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly)">
             <summary>Gets an array of derived Types that are a subclass of {type}, excluding any types named in
-            the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.</summary>
+            the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.
+            Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
             <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
+        </member>
+        <member name="T:WildHare.MetaMethod">
+            <summary>Simplified MethodInfo with custom methods</summary>
         </member>
         <member name="T:WildHare.MetaProperty">
             <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
+        </member>
+        <member name="T:WildHare.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WildHare.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WildHare.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
         </member>
     </members>
 </doc>

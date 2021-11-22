@@ -24,27 +24,15 @@ namespace WildHare
             modelInstance = modelinstance;
         }
 
-        public string Name { get; set; }
+        public string Name  { get => propertyInfo.Name; }
 
-        public Type PropertyType
-        {
-            get { return propertyInfo.PropertyType; }
-        }
+        public Type PropertyType { get => propertyInfo.PropertyType;  }
 
-        public bool IsKey
-        {
-            get { return propertyInfo.IsDefined(typeof(KeyAttribute), false); }
-        }
+        public bool IsKey { get => propertyInfo.IsDefined(typeof(KeyAttribute), false); }
 
-        public bool CanWrite
-        {
-            get { return propertyInfo.CanWrite; }
-        }
+        public bool CanWrite { get => propertyInfo.CanWrite; }
 
-        public bool Implements(string interfaceName)
-        {
-            return PropertyType.GetInterfaces().Any(a => a.Name == interfaceName);
-        }
+        public bool Implements(string interfaceName) => PropertyType.GetInterfaces().Any(a => a.Name == interfaceName);
 
         // Public Methods
         public dynamic GetInstanceValue(object instance = null)
@@ -79,9 +67,6 @@ namespace WildHare
             propertyInfo.SetValue(modelInstance, value, null);
         }
 
-        public override string ToString()
-        {
-            return $"Property: {Name} ({PropertyType})";
-        }
+        public override string ToString() => $"Property: {Name} ({PropertyType})";
     }
 }

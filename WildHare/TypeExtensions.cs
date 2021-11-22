@@ -87,6 +87,15 @@ namespace WildHare.Extensions
             return types.OrderBy(t => t.Name).ToArray();
         }
 
+
+        /// <summary></summary>
+        public static MetaAssembly GetMetaAssembly(this Assembly assembly)
+        {
+            var metaAssembly = new MetaAssembly(assembly);
+
+            return metaAssembly;
+        }
+
         /// <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes
         /// and will be removed in a future version.</summary>
         [Obsolete("GetDerivedClasses() has been renamed to GetDerivedTypes() and will be removed in a future version.")]
@@ -204,5 +213,6 @@ namespace WildHare.Extensions
             }
             return interfaces;
         }
+
     }
 }

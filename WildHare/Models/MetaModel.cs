@@ -11,53 +11,59 @@ namespace WildHare
     {
         public MetaModel(Type type, object instance = null)
         {
+            if (type == null)
+                throw new Exception("MetaModel type cannot be null.");
+
             _type = type;
             _instance = instance;
         }
 
         private readonly Type _type;
         private List<MetaProperty> properties = null;
+        private List<MetaMethod>  methods = null;
         private object _instance;
 
-        public string TypeName
+        public string TypeName { get => _type.Name; }
+
+        public string TypeNamespace { get => _type.Namespace; }
+
+        public string PrimaryKeyName { get => PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; }
+
+        public bool IsDictionary { get => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); }
+
+        public Type DictionaryKeyType { get => IsDictionary ? _type.GetGenericArguments()[0] : null; }
+
+        public Type DictionaryValueType { get => IsDictionary ? _type.GetGenericArguments()[1] : null; }
+
+        public bool IsAnonymousType { get => TypeName.StartsWith( new[]{"<", "_" } ); }
+
+        public MetaProperty PrimaryKeyMeta { get  => properties.FirstOrDefault(a => a.IsKey == true); }
+
+        public bool Implements(string interfaceName) => _type.GetInterfaces().Any(a => a.Name == interfaceName);
+
+        public List<MetaMethod> GetMetaMethods(string exclude = null, string include = null, bool includeInherited = false)
         {
-            get
+            if (!exclude.IsNullOrEmpty() && !include.IsNullOrEmpty())
             {
-                if (_type == null)
-                    throw new Exception("MetaModel type cannot be null.");
-
-                return _type.Name;
+                throw new Exception("The GetMetaMethods method only accepts the exclude OR the include list.");
             }
-        }
 
-        public string PrimaryKeyName
-        {
-            get { return PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; }
-        }
+            var metaMethodList = includeInherited ? MetaMethods : MetaMethods.Where(w => w.DeclaringType.Name == this.TypeName);
 
-        public bool IsDictionary
-        {
-            get { return _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); }
-        }
+            if (!exclude.IsNullOrEmpty())
+            {
+                var excludeList = exclude.Split(',').Select(a => a.Trim());
+                return metaMethodList.Where(w => !excludeList.Any(e => w.Name == e)).ToList();
+            }
 
-        public Type DictionaryKeyType
-        {
-            get { return IsDictionary ? _type.GetGenericArguments()[0] : null; }
-        }
+            if (!include.IsNullOrEmpty())
+            {
+                var includeList = include.Split(',').Select(a => a.Trim());
+                return metaMethodList.Where(w => includeList.Any(e => w.Name == e)).ToList(); // returns fields not in list;
+            }
 
-        public Type DictionaryValueType
-        {
-            get { return IsDictionary ? _type.GetGenericArguments()[1] : null; }
+            return metaMethodList.ToList();
         }
-
-        public MetaProperty PrimaryKeyMeta
-        {
-            get  { return properties.FirstOrDefault(a => a.IsKey == true); }
-        }
-
-        // --------------------------------------------------------------
-        // Public Methods
-        // --------------------------------------------------------------
 
         public List<MetaProperty> GetMetaProperties(string exclude = null, string include = null)
         {
@@ -81,15 +87,13 @@ namespace WildHare
             return MetaProperties.ToList();
         }
 
-        public bool Implements(string interfaceName)
-        {
-            return _type.GetInterfaces().Any(a => a.Name == interfaceName);
-        }
+        public override string ToString() => $"{TypeNamespace.AddEnd(".")}{TypeName} Properties: {MetaProperties.Count} Methods: {MetaMethods.Count}";
 
-        public override string ToString()
-        {
-            return $"MetaModel for {TypeName} ({MetaProperties.Count} MetaProperties)";
-        }
+
+        // =========================================================================================================
+        // Private
+        // =========================================================================================================
+
 
         private List<MetaProperty> MetaProperties
         {
@@ -106,16 +110,43 @@ namespace WildHare
                     foreach (var propertyInfo in _type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
                     {
 
-                        properties.Add(new MetaProperty(propertyInfo, _instance)
-                        {
-                            Name = propertyInfo.Name
-                        });
+                        properties.Add(new MetaProperty(propertyInfo, _instance));
                     }
                 }
                 return properties;
             }
         }
 
+        private List<MetaMethod> MetaMethods
+        {
+            // Includes inherited Methods but they are excluded by default in public GetMetaMethods()
+            get
+            {
+                if (methods == null)
+                    methods = new List<MetaMethod>();
+
+                if (methods.Count == 0)
+                {
+                    foreach (var methodInfo in _type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public) )
+                    {
+                        methods.Add(new MetaMethod(methodInfo));                     
+                    }
+                }
+                return methods;
+            }
+        }
+
+        private List<MetaParameter> GetMetaParameters(MethodInfo methodInfo)
+        {
+            var metaParmeters = new List<MetaParameter>();
+
+            foreach (var parameterInfo in methodInfo.GetParameters())
+            {
+                metaParmeters.Add(new MetaParameter(parameterInfo));
+            }
+
+            return metaParmeters;
+        }
 
     }
 }

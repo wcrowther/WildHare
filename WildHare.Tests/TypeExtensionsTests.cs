@@ -496,6 +496,37 @@ namespace WildHare.Tests
             Assert.AreEqual("I_Fruit", interfaces[2].Name);
         }
 
+        [Test]
+        public void GetMethodsFromClass()
+        {
+            var testMethods = new TestMethods(1, 2);
+            var metaModel = testMethods.GetMetaModel();
+
+            var metaMethods = metaModel.GetMetaMethods(); // includeInherited: false
+
+            Assert.AreEqual(4,              metaMethods.Count);
+            Assert.AreEqual("Add",          metaMethods.ElementAt(0).Name);
+            Assert.AreEqual("Subtract",     metaMethods.ElementAt(1).Name);
+            Assert.AreEqual("Multiply",     metaMethods.ElementAt(2).Name);
+            Assert.AreEqual("first",        metaMethods.ElementAt(2).Parameters[0].Name);
+            Assert.AreEqual("Int32",        metaMethods.ElementAt(2).Parameters[0].ParameterType.Name);
+            Assert.AreEqual("second",       metaMethods.ElementAt(2).Parameters[1].Name);
+            Assert.AreEqual("Int32",        metaMethods.ElementAt(2).Parameters[1].ParameterType.Name);
+            Assert.AreEqual("Divide",       metaMethods.ElementAt(3).Name);
+
+            var allMetaMethods = metaModel.GetMetaMethods(includeInherited: true);
+
+            Assert.AreEqual(8, allMetaMethods.Count);
+        }
+
+        [Test]
+        public void GetMetaAssembly()
+        {
+            var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
+  
+            Assert.AreEqual(62, metaAssembly.GetMetaModels().Count);
+        }
+
         //[Test]
         //public void Test_This()
         //{
@@ -513,5 +544,7 @@ namespace WildHare.Tests
 
         //    // NOT WORKING YET - is I_Object but not I_Fruit
         //}
+
+
     }
 }
