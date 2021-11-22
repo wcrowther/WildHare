@@ -35,7 +35,9 @@ namespace WildHare
 
         public Type DictionaryValueType { get => IsDictionary ? _type.GetGenericArguments()[1] : null; }
 
-        public bool IsAnonymousType { get => TypeName.StartsWith( new[]{"<", "_" } ); }
+        public bool IsAnonymousType { get => TypeName.StartsWith(new[] { "<", "_" }); }
+
+        public bool IsStaticType { get => _type.IsAbstract && _type.IsSealed; }
 
         public MetaProperty PrimaryKeyMeta { get  => properties.FirstOrDefault(a => a.IsKey == true); }
 
