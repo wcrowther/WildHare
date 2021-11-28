@@ -87,13 +87,10 @@ namespace WildHare.Extensions
             return types.OrderBy(t => t.Name).ToArray();
         }
 
-
         /// <summary></summary>
         public static MetaAssembly GetMetaAssembly(this Assembly assembly)
         {
-            var metaAssembly = new MetaAssembly(assembly);
-
-            return metaAssembly;
+            return new MetaAssembly(assembly);
         }
 
         /// <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes

@@ -27,6 +27,12 @@ namespace WildHare
 
         public bool IsStaticMethod { get => methodInfo.IsStatic; }
 
+        public bool IsGetter { get => Name.StartsWith("get_") && methodInfo.IsSpecialName; }
+
+        public bool IsSetter { get => Name.StartsWith("set_") && methodInfo.IsSpecialName; }
+
+        public bool IsInherited(string typeName) => DeclaringType.Name == typeName;
+
         public List<MetaParameter> Parameters
         {
             get 
@@ -44,10 +50,11 @@ namespace WildHare
                 return metaParameters;
             }
         }
+        public string Summary { get; set; }
 
         public override string ToString()
         {
-            return $"Method: '{Name}' Parameter Count: {Parameters.Count}";
+            return $"Method: '{Name}' Parameters: {Parameters.Count}";
         }
     }
 }

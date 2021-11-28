@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
@@ -89,6 +90,8 @@ namespace WildHare
             return MetaProperties.ToList();
         }
 
+        public string Summary { get; set; }
+
         public override string ToString() => $"{TypeNamespace.AddEnd(".")}{TypeName} Properties: {MetaProperties.Count} Methods: {MetaMethods.Count}";
 
 
@@ -131,7 +134,18 @@ namespace WildHare
                 {
                     foreach (var methodInfo in _type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public) )
                     {
-                        methods.Add(new MetaMethod(methodInfo));                     
+                        var metaMethod = new MetaMethod(methodInfo);
+
+
+                        Debug.WriteLine("Name: " + metaMethod.Name);
+                        Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
+                        Debug.WriteLine("TypeName: " + this.TypeName);
+                        Debug.WriteLine("=".Repeat(25));
+
+                        //if (!metaMethod.IsInherited(this.TypeName))
+                        //{ 
+                        methods.Add(metaMethod);                            
+                        //}
                     }
                 }
                 return methods;

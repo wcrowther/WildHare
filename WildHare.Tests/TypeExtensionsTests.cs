@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
+using WildHare.Extensions.Xtra;
 using WildHare.Models;
 using WildHare.Tests.Interfaces;
 using WildHare.Tests.Models;
@@ -522,9 +523,13 @@ namespace WildHare.Tests
         [Test]
         public void GetMetaAssembly()
         {
-            var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
+            var metaAssembly    = Assembly.Load("WildHare").GetMetaAssembly();
+            string pathRoot     = XtraExtensions.GetApplicationRoot();
+            string path         = $@"{pathRoot}\Directory0";
+            string xmlDocPath   = $@"c:\Git\WildHare\WildHare\WildHare.xml";
+            metaAssembly.WriteMetaAssemblyToFile(path, xmlDocPath, true);
   
-            Assert.AreEqual(62, metaAssembly.GetMetaModels().Count);
+            Assert.AreEqual(26, metaAssembly.GetMetaModels().Count);
         }
 
         //[Test]
