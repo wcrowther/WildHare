@@ -20,6 +20,7 @@ namespace WildHare
         }
 
         private readonly Type _type;
+        private List<MetaField> fields = null;
         private List<MetaProperty> properties = null;
         private List<MetaMethod>  methods = null;
         private object _instance;
@@ -45,7 +46,7 @@ namespace WildHare
         public bool Implements(string interfaceName) => _type.GetInterfaces().Any(a => a.Name == interfaceName);
 
         public List<MetaMethod> GetMetaMethods(string exclude = null, string include = null, bool includeInherited = false)
-        {
+        {            
             if (!exclude.IsNullOrEmpty() && !include.IsNullOrEmpty())
             {
                 throw new Exception("The GetMetaMethods method only accepts the exclude OR the include list.");
@@ -104,11 +105,7 @@ namespace WildHare
         {
             get
             {
-                if (_type == null)
-                    throw new Exception("MetaModel type cannot be null.");
-
-                if (properties == null)
-                    properties = new List<MetaProperty>();
+                properties = properties ?? new List<MetaProperty>();
 
                 if (properties.Count == 0)
                 {
@@ -125,10 +122,11 @@ namespace WildHare
         private List<MetaMethod> MetaMethods
         {
             // Includes inherited Methods but they are excluded by default in public GetMetaMethods()
+            // Getters and Setters are encapulated in MetaProperties and are excluded here.
+
             get
             {
-                if (methods == null)
-                    methods = new List<MetaMethod>();
+                methods = methods ?? new List<MetaMethod>();
 
                 if (methods.Count == 0)
                 {
@@ -136,19 +134,35 @@ namespace WildHare
                     {
                         var metaMethod = new MetaMethod(methodInfo);
 
+                        if ( !metaMethod.IsGetter && !metaMethod.IsSetter)
+                        { 
+                            Debug.WriteLine("Name: " + metaMethod.Name);
+                            Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
+                            Debug.WriteLine("TypeName: " + this.TypeName);
+                            Debug.WriteLine("=".Repeat(25));
 
-                        Debug.WriteLine("Name: " + metaMethod.Name);
-                        Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
-                        Debug.WriteLine("TypeName: " + this.TypeName);
-                        Debug.WriteLine("=".Repeat(25));
-
-                        //if (!metaMethod.IsInherited(this.TypeName))
-                        //{ 
-                        methods.Add(metaMethod);                            
-                        //}
+                            methods.Add(metaMethod);                     
+                        }
                     }
                 }
                 return methods;
+            }
+        }
+
+        private List<MetaField> MetaFields
+        {
+            get
+            {
+                fields = fields ?? new List<MetaField>();
+
+                if (fields.Count == 0)
+                {
+                    foreach (var fieldInfo in _type.GetFields(BindingFlags.Public | BindingFlags.Instance))
+                    {
+                        fields.Add(new MetaField(fieldInfo));
+                    }
+                }
+                return fields;
             }
         }
 

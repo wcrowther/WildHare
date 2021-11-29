@@ -13,9 +13,6 @@ namespace WildHare
         private MethodInfo getterMethodInfo;
         private MethodInfo setterMethodInfo;
 
-
-        private readonly string namespaceName;
-
         public MetaGetterSetter(MethodInfo getterMethodInfo, MethodInfo setterMethodInfo)
         {
             this.getterMethodInfo = getterMethodInfo;

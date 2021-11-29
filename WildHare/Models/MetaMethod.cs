@@ -16,6 +16,9 @@ namespace WildHare
 
         public MetaMethod(MethodInfo methodInfo)
         {
+            if (methodInfo == null)
+                throw new NullReferenceException("The MetaMethod constructor requires a non-null MethodInfo.");
+            
             this.methodInfo = methodInfo;
         }
 
