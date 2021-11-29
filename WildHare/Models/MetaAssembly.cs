@@ -14,55 +14,61 @@ namespace WildHare
     public class MetaAssembly
     {
         private readonly Assembly _assembly;
-        private List<MetaModel> metaTypes = null;
+        private string _xmlDocPath = null;
+        private List<MetaModel> _metaTypes = null;
+        private List<MetaDocumentation> _documentMemberList = null;
 
-
-        public MetaAssembly(Assembly assembly)
+        public MetaAssembly(Assembly assembly, string xmlDocPath = null)
         {
             if (assembly == null)
                 throw new Exception("MetaAssembly assembly cannot be null.");
-            _assembly = assembly;
+
+            _assembly   = assembly;
+            _xmlDocPath = xmlDocPath;
+
+            _metaTypes  = GetAllMetaModels();
+            _documentMemberList = GetMetaDocumentationList();
         }
 
         public string AssemblyName { get => _assembly.GetName().Name; }
 
         public List<MetaModel> GetMetaModels()
         {
-            if (metaTypes == null)
-                metaTypes = new List<MetaModel>();
-
-            if (metaTypes.Count == 0)
-            {
-                foreach (var type in _assembly.GetTypes())
-                {
-                    if (!type.Name.StartsWith(new[]{"<", "_"}))
-                    { 
-                        metaTypes.Add(new MetaModel(type));                    
-                    }
-                }
-            }
-            return metaTypes;
-
+            return GetAllMetaModels().Where(w => !w.TypeName.StartsWith("<")).ToList();
         }
 
-        public override string ToString() => $"MetaAssembly: {AssemblyName} Type count: {GetMetaModels().Count}";
-
-        public bool WriteMetaAssemblyToFile(string outputDirectory, string xmlDocPath = null, bool overwrite = false)
+        public List<MetaModel> GetMetaModelsForAnonymousTypes()
         {
-            if (!xmlDocPath.IsNullOrSpace())
+            return GetAllMetaModels().Where(w => w.TypeName.StartsWith("<")).ToList();
+        }
+
+        public List<MetaDocumentation> GetMetaDocumentationList()
+        {
+            if (!_xmlDocPath.IsNullOrSpace() && _documentMemberList == null)
             {
-                var docXml = XElement.Load(xmlDocPath);
+                var docXml = XElement.Load(_xmlDocPath);
 
                 if (docXml == null)
                     throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
 
-                var memberList = docXml.Element("members").Elements()
-                                .Select(g => new MetaDocumentation(g.Attribute("name").Value)
-                                {
-                                    Documentation = g.Element("documentation")?.Value,
-                                    Summary = g.Element("summary")?.Value
-                                }).ToList();
+                _documentMemberList =  docXml.Element("members").Elements()
+                                    .Select(g => new MetaDocumentation(g.Attribute("name").Value)
+                                    {
+                                        Documentation = g.Element("documentation")?.Value,
+                                        Summary = g.Element("summary")?.Value
+
+                                    }).ToList();
             }
+
+            return _documentMemberList ?? new List<MetaDocumentation>(); 
+        }    
+
+        public override string ToString() => $"MetaAssembly: {AssemblyName} Type count: {GetMetaModels().Count}";
+
+        public bool WriteMetaAssemblyToFile(string outputDirectory, bool overwrite = false)
+        {
+            int spacerLength = 50;
+            int tab = 5;
 
             string title = 
                     $@"{this.AssemblyName} Assembly
@@ -74,10 +80,14 @@ namespace WildHare
 
             foreach (var model in metaModels)
             {
-                sb.Append(model.TypeNamespace.AddEnd(": ") + model.TypeName + NewLine);
+                sb.AppendLine("-".Repeat(spacerLength));
+                sb.AppendLine(model.TypeNamespace.AddEnd(": ") + model.TypeName);
+                sb.AppendLine("-".Repeat(spacerLength));
+
                 foreach (var method in model.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
                 {
-                    sb.AppendLine($"{method.Name.AddStart("   ")}{GetParamString(method)}");
+                    sb.AppendLine($"{method.Name.AddStart(" ".Repeat(tab))}{GetParamString(method)}");
+                    sb.AppendLine("-".Repeat(spacerLength - tab));
                 }
             }
 
@@ -86,6 +96,10 @@ namespace WildHare
 
             return isSuccess;
         }
+
+        // ==============================================================================================
+        // PRIVATE
+        // ==============================================================================================
 
         private string GetParamString(MetaMethod method)
         {
@@ -98,6 +112,21 @@ namespace WildHare
             }
 
             return sb.ToString().RemoveEnd(commaSpace).EnsureStartEnd("(", ")");
+        }
+
+        private List<MetaModel> GetAllMetaModels()
+        {
+            _metaTypes = _metaTypes ?? new List<MetaModel>();
+
+            if (_metaTypes.Count == 0)
+            {
+                foreach (var type in _assembly.GetTypes())
+                {
+                    _metaTypes.Add(new MetaModel(type));
+                }
+            }
+
+            return _metaTypes;
         }
     }
 }

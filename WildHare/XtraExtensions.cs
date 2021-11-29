@@ -37,11 +37,11 @@ namespace WildHare.Extensions.Xtra
             return Path.Combine(appRoot, filePath);
         }
 
-        /// <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings it
+        /// <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings in
         /// different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
         public static string GetApplicationRoot()
         {
-            var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			Debug.WriteLine("exePath: " + exePath);
 
 			var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");

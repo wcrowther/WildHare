@@ -154,7 +154,7 @@
             <summary>(EXPERIMENTAL) Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot">
-            <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings it
+            <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings in
             different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.DynamicListOfType(System.Object)">
@@ -566,7 +566,7 @@
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
         </member>
-        <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly)">
+        <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)">
             <summary></summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])">
@@ -578,6 +578,9 @@
             the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.
             Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
             <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
+        </member>
+        <member name="T:WildHare.MetaField">
+            <summary>Simplified FieldInfo meta data </summary>
         </member>
         <member name="T:WildHare.MetaMethod">
             <summary>Simplified MethodInfo with custom methods</summary>

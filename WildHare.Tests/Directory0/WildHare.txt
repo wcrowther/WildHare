@@ -2,298 +2,518 @@ WildHare Assembly
 -------------------------
 
 
+--------------------------------------------------
 WildHare: DocMember
-   get_ClassName()
-   get_ClassProperties()
-   get_ClassType()
-   get_CodeElement()
-   get_Display()
-   get_Documentation()
-   get_Examples()
-   get_Generics()
-   get_IsExtensionMethod()
-   get_IsStaticMethod()
-   get_Member()
-   get_MethodInfo()
-   get_MethodParams()
-   get_Namespace()
-   get_RawName()
-   get_Reference()
-   get_Summary()
-   set_Display(System.Boolean value)
-   set_Documentation(System.String value)
-   set_Examples(System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] value)
-   set_RawName(System.String value)
-   set_Reference(System.String value)
-   set_Summary(System.String value)
-   ToString()
+--------------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
 WildHare: DynamicDictionary
-   Clear()
-   get_Item(System.String key)
-   set_Item(System.String key, System.Object value)
-   TryGetMember(System.Dynamic.GetMemberBinder binder, System.Object& result)
-   TrySetMember(System.Dynamic.SetMemberBinder binder, System.Object value)
+--------------------------------------------------
+     Clear()
+---------------------------------------------
+     TryGetMember(GetMemberBinder binder, Object& result)
+---------------------------------------------
+     TrySetMember(SetMemberBinder binder, Object value)
+---------------------------------------------
+--------------------------------------------------
 WildHare: DynamicExpando
-   Clear()
-   First()
-   FirstOrDefault()
-   get_Count()
-   get_Item(System.String key)
-   Remove(System.String key)
-   set_Item(System.String key, System.Object value)
-   ToDictionary()
-   ToList()
-   TryGetMember(System.Dynamic.GetMemberBinder binder, System.Object& result)
-   TrySetMember(System.Dynamic.SetMemberBinder binder, System.Object value)
+--------------------------------------------------
+     Clear()
+---------------------------------------------
+     First()
+---------------------------------------------
+     FirstOrDefault()
+---------------------------------------------
+     Remove(String key)
+---------------------------------------------
+     ToDictionary()
+---------------------------------------------
+     ToList()
+---------------------------------------------
+     TryGetMember(GetMemberBinder binder, Object& result)
+---------------------------------------------
+     TrySetMember(SetMemberBinder binder, Object value)
+---------------------------------------------
+--------------------------------------------------
 WildHare: MetaAssembly
-   get_AssemblyName()
-   GetMetaModels()
-   ToString()
-   WriteMetaAssemblyToFile(System.String outputDirectory, System.String xmlDocPath, System.Boolean overwrite)
+--------------------------------------------------
+     GetMetaDocumentationList()
+---------------------------------------------
+     GetMetaModels()
+---------------------------------------------
+     GetMetaModelsForAnonymousTypes()
+---------------------------------------------
+     ToString()
+---------------------------------------------
+     WriteMetaAssemblyToFile(String outputDirectory, Boolean overwrite)
+---------------------------------------------
+--------------------------------------------------
 WildHare: MetaDocumentation
-   get_Documentation()
-   get_MemberName()
-   get_Summary()
-   MemberId()
-   MemberType()
-   set_Documentation(System.String value)
-   set_Summary(System.String value)
-   ToString()
+--------------------------------------------------
+     MemberId()
+---------------------------------------------
+     MemberType()
+---------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
+WildHare: MetaField
+--------------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
+WildHare: MetaGetterSetter
+--------------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
 WildHare: MetaMethod
-   get_DeclaringType()
-   get_IsExtensionMethod()
-   get_IsGetter()
-   get_IsSetter()
-   get_IsStaticMethod()
-   get_Name()
-   get_Parameters()
-   get_Summary()
-   IsInherited(System.String typeName)
-   set_Summary(System.String value)
-   ToString()
+--------------------------------------------------
+     IsInherited(String typeName)
+---------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
 WildHare: MetaModel
-   get_DictionaryKeyType()
-   get_DictionaryValueType()
-   get_IsAnonymousType()
-   get_IsDictionary()
-   get_IsStaticType()
-   get_PrimaryKeyMeta()
-   get_PrimaryKeyName()
-   get_Summary()
-   get_TypeName()
-   get_TypeNamespace()
-   GetMetaMethods(System.String exclude, System.String include, System.Boolean includeInherited)
-   GetMetaProperties(System.String exclude, System.String include)
-   Implements(System.String interfaceName)
-   set_Summary(System.String value)
-   ToString()
+--------------------------------------------------
+     GetMetaMethods(String exclude, String include, Boolean includeInherited)
+---------------------------------------------
+     GetMetaProperties(String exclude, String include)
+---------------------------------------------
+     Implements(String interfaceName)
+---------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
+WildHare: MetaNamespace
+--------------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
 WildHare: MetaParameter
-   get_Name()
-   get_ParameterType()
-   ToString()
+--------------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
 WildHare: MetaProperty
-   get_CanWrite()
-   get_IsKey()
-   get_Name()
-   get_PropertyType()
-   GetInstanceValue(System.Object instance)
-   Implements(System.String interfaceName)
-   SetInstanceValue(System.Object value, System.Object instance)
-   ToString()
+--------------------------------------------------
+     GetInstanceValue(Object instance)
+---------------------------------------------
+     Implements(String interfaceName)
+---------------------------------------------
+     SetInstanceValue(Object value, Object instance)
+---------------------------------------------
+     ToString()
+---------------------------------------------
+--------------------------------------------------
 WildHare.Properties: Resources
+--------------------------------------------------
+--------------------------------------------------
 WildHare.Models: TestModel
-   get_Name()
-   set_Name(System.String value)
+--------------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: CharExtensions
-   CharAt(System.String s, System.Int32 i)
-   GetUnicodeCategory(System.Char ch)
-   IsControl(System.Char ch)
-   IsDigit(System.Char ch)
-   IsLetter(System.Char ch)
-   IsLetterOrDigit(System.Char ch)
-   IsLower(System.Char ch)
-   IsNumber(System.Char ch)
-   IsPunctuation(System.Char ch)
-   IsSeparator(System.Char ch)
-   IsSymbol(System.Char ch)
-   IsUpper(System.Char ch)
-   IsWhiteSpace(System.Char ch)
+--------------------------------------------------
+     CharAt(String s, Int32 i)
+---------------------------------------------
+     GetUnicodeCategory(Char ch)
+---------------------------------------------
+     IsControl(Char ch)
+---------------------------------------------
+     IsDigit(Char ch)
+---------------------------------------------
+     IsLetter(Char ch)
+---------------------------------------------
+     IsLetterOrDigit(Char ch)
+---------------------------------------------
+     IsLower(Char ch)
+---------------------------------------------
+     IsNumber(Char ch)
+---------------------------------------------
+     IsPunctuation(Char ch)
+---------------------------------------------
+     IsSeparator(Char ch)
+---------------------------------------------
+     IsSymbol(Char ch)
+---------------------------------------------
+     IsUpper(Char ch)
+---------------------------------------------
+     IsWhiteSpace(Char ch)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: ConvertExtensions
-   AsString(System.Int32[] intArray, System.Boolean strict, System.String separator)
-   ToBool(System.String value)
-   ToBool(System.String value, System.String trueValue, System.Boolean ignoreCase)
-   ToBoolNullable(System.String value, System.Nullable`1[[System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue)
-   ToDateTime(System.String value, System.DateTime defaultValue)
-   ToDateTime(System.String value, System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue)
-   ToDecimal(System.String value, System.Decimal defaultValue)
-   ToDecimalNullable(System.String value, System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue)
-   ToDouble(System.String value, System.Double defaultValue)
-   ToDoubleNullable(System.String value, System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue)
-   ToInt(System.String value, System.Int32 defaultValue)
-   ToIntArray(System.String str, System.Boolean strict, System.String separator)
-   ToIntNullable(System.String value, System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue)
-   ToLong(System.String value, System.Int64 defaultValue)
-   ToLongNullable(System.String value, System.Nullable`1[[System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue)
+--------------------------------------------------
+     AsString(Int32[] intArray, Boolean strict, String separator)
+---------------------------------------------
+     ToBool(String value)
+---------------------------------------------
+     ToBool(String value, String trueValue, Boolean ignoreCase)
+---------------------------------------------
+     ToBoolNullable(String value, Nullable`1 defaultValue)
+---------------------------------------------
+     ToDateTime(String value, DateTime defaultValue)
+---------------------------------------------
+     ToDateTime(String value, Nullable`1 defaultValue)
+---------------------------------------------
+     ToDecimal(String value, Decimal defaultValue)
+---------------------------------------------
+     ToDecimalNullable(String value, Nullable`1 defaultValue)
+---------------------------------------------
+     ToDouble(String value, Double defaultValue)
+---------------------------------------------
+     ToDoubleNullable(String value, Nullable`1 defaultValue)
+---------------------------------------------
+     ToInt(String value, Int32 defaultValue)
+---------------------------------------------
+     ToIntArray(String str, Boolean strict, String separator)
+---------------------------------------------
+     ToIntNullable(String value, Nullable`1 defaultValue)
+---------------------------------------------
+     ToLong(String value, Int64 defaultValue)
+---------------------------------------------
+     ToLongNullable(String value, Nullable`1 defaultValue)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: DataReaderExtensions
-   Get(System.Data.IDataReader row, System.String fieldName,  defaultValue)
-   Get(System.Data.IDataReader row, System.Int32 ordinal,  defaultValue)
+--------------------------------------------------
+     Get(IDataReader row, String fieldName, T defaultValue)
+---------------------------------------------
+     Get(IDataReader row, Int32 ordinal, T defaultValue)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: DataTableExtensions
-   ToList(System.Data.DataTable table)
+--------------------------------------------------
+     ToList(DataTable table)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: DateTimeExtensions
-   FirstDayOfNextMonth(System.DateTime datetime)
-   FirstDayOfTheMonth(System.DateTime datetime)
-   GetNextDayOfWeek(System.DateTime date, System.DayOfWeek dayOfWeek, System.Boolean includeDate)
-   IsInTheSameMonth(System.DateTime datetime, System.DateTime target)
-   LastDayOfTheMonth(System.DateTime datetime)
-   MonthName(System.DateTime date)
-   MonthName(System.Int32 monthInt)
-   NextDayOfWeek(System.DateTime date, System.DayOfWeek dayOfWeek, System.Boolean includeCurrentDate)
-   ShortMonthName(System.DateTime date)
-   ShortMonthName(System.Int32 monthInt)
-   StartOfWeek(System.DateTime dt, System.DayOfWeek startOfWeek)
-   TodayOrBefore(System.DateTime datetime)
-   YearMonth(System.DateTime date)
-   YearMonthDay(System.DateTime date)
+--------------------------------------------------
+     FirstDayOfNextMonth(DateTime datetime)
+---------------------------------------------
+     FirstDayOfTheMonth(DateTime datetime)
+---------------------------------------------
+     GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeDate)
+---------------------------------------------
+     IsInTheSameMonth(DateTime datetime, DateTime target)
+---------------------------------------------
+     LastDayOfTheMonth(DateTime datetime)
+---------------------------------------------
+     MonthName(DateTime date)
+---------------------------------------------
+     MonthName(Int32 monthInt)
+---------------------------------------------
+     NextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeCurrentDate)
+---------------------------------------------
+     ShortMonthName(DateTime date)
+---------------------------------------------
+     ShortMonthName(Int32 monthInt)
+---------------------------------------------
+     StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
+---------------------------------------------
+     TodayOrBefore(DateTime datetime)
+---------------------------------------------
+     YearMonth(DateTime date)
+---------------------------------------------
+     YearMonthDay(DateTime date)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: DictionaryExtensions
-   Get(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.String key)
-   Set(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.String key, System.Object value)
-   ToQueryDictionary(System.String query)
-   ToQueryString(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dict)
-   TryGet(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.String key,  value)
+--------------------------------------------------
+     Get(IDictionary`2 dictionary, String key)
+---------------------------------------------
+     Set(IDictionary`2 dictionary, String key, Object value)
+---------------------------------------------
+     ToQueryDictionary(String query)
+---------------------------------------------
+     ToQueryString(IDictionary`2 dict)
+---------------------------------------------
+     TryGet(IDictionary`2 dictionary, String key, T& value)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: ExpandoExtensions
-   Add(System.Dynamic.ExpandoObject expando, System.String name,  value)
-   Add(System.Dynamic.ExpandoObject expando, System.String name, System.String value)
-   Get(System.Dynamic.ExpandoObject expando, System.String name)
-   Get(System.Dynamic.ExpandoObject expando, System.String name)
-   Get( dictionary,  key,  defaultVal)
-   Remove(System.Dynamic.ExpandoObject expando, System.String name)
+--------------------------------------------------
+     Add(ExpandoObject expando, String name, T value)
+---------------------------------------------
+     Add(ExpandoObject expando, String name, String value)
+---------------------------------------------
+     Get(ExpandoObject expando, String name)
+---------------------------------------------
+     Get(ExpandoObject expando, String name)
+---------------------------------------------
+     Get(Dictionary`2 dictionary, TKey key, TVal defaultVal)
+---------------------------------------------
+     Remove(ExpandoObject expando, String name)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: IEnumerableExtensions
-   AsString(System.Collections.Generic.IEnumerable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] intList, System.Boolean strict)
-   ElementIn( source, System.Int32 index)
-   ElementInOrDefault( source, System.Int32 index,  defaultItem)
-   ElementInOrDefault( source, System.Int32 index)
-   InList( list,  items,  comparer)
-   MatchList( list1,  list2,  func, System.Boolean consecutive)
-   PatternMatch( list,  pattern,  func)
-   Pluralize( list, System.String singular, System.String plural)
-   Sequence( first,  second,  func, System.Boolean consecutive)
-   ToCollection( enumerable)
-   WithIndex( list)
+--------------------------------------------------
+     AsString(IEnumerable`1 intList, Boolean strict)
+---------------------------------------------
+     ElementIn(IEnumerable`1 source, Int32 index)
+---------------------------------------------
+     ElementInOrDefault(IEnumerable`1 source, Int32 index, TSource defaultItem)
+---------------------------------------------
+     ElementInOrDefault(IEnumerable`1 source, Int32 index)
+---------------------------------------------
+     InList(IList`1 list, IList`1 items, Func`3 comparer)
+---------------------------------------------
+     MatchList(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)
+---------------------------------------------
+     PatternMatch(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)
+---------------------------------------------
+     Pluralize(IEnumerable`1 list, String singular, String plural)
+---------------------------------------------
+     Sequence(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, Boolean consecutive)
+---------------------------------------------
+     ToCollection(IEnumerable`1 enumerable)
+---------------------------------------------
+     WithIndex(IEnumerable`1 list)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: IListExtensions
-   AddRange( itemList,  newItems)
-   CombineItems( itemList, System.Int32 index, System.Int32 count,  newItem)
-   IsFirstIn( item,  itemList)
-   IsLastIn( item,  itemList)
-   NextIn( item,  itemList, System.Int32 distance)
-   NextInWhile( item,  itemList,  func, System.Int32 step)
-   PreviousIn( item,  itemList, System.Int32 distance)
-   PreviousInWhile( item,  itemList,  func)
-   ReplaceItem( itemList, System.Int32 index,  newItem)
-   ReplaceItems( itemList, System.Int32 index,  newItems)
-   TakeNext( sourceList, System.Int32 count, System.Int32 offset, System.Boolean remove)
-   TakeNextOne( sourceList, System.Int32 offset, System.Boolean remove)
-   TakeRandom( sourceList, System.Int32 count, System.Random random, System.Boolean remove)
-   TakeRandomOne( sourceList, System.Random random, System.Boolean remove)
+--------------------------------------------------
+     AddRange(IList`1 itemList, IEnumerable`1 newItems)
+---------------------------------------------
+     CombineItems(IList`1 itemList, Int32 index, Int32 count, T newItem)
+---------------------------------------------
+     IsFirstIn(T item, IList`1 itemList)
+---------------------------------------------
+     IsLastIn(T item, IList`1 itemList)
+---------------------------------------------
+     NextIn(T item, IList`1 itemList, Int32 distance)
+---------------------------------------------
+     NextInWhile(T item, IList`1 itemList, Func`2 func, Int32 step)
+---------------------------------------------
+     PreviousIn(T item, IList`1 itemList, Int32 distance)
+---------------------------------------------
+     PreviousInWhile(T item, IList`1 itemList, Func`2 func)
+---------------------------------------------
+     ReplaceItem(IList`1 itemList, Int32 index, T newItem)
+---------------------------------------------
+     ReplaceItems(IList`1 itemList, Int32 index, IList`1 newItems)
+---------------------------------------------
+     TakeNext(IList`1 sourceList, Int32 count, Int32 offset, Boolean remove)
+---------------------------------------------
+     TakeNextOne(IList`1 sourceList, Int32 offset, Boolean remove)
+---------------------------------------------
+     TakeRandom(IList`1 sourceList, Int32 count, Random random, Boolean remove)
+---------------------------------------------
+     TakeRandomOne(IList`1 sourceList, Random random, Boolean remove)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: IOExtensions
-   AppendToFile(System.String stringToWrite, System.String fileName)
-   AppendToFile(System.String stringToWrite, System.IO.FileInfo file)
-   GetAllDirectoriesAndFiles(System.IO.DirectoryInfo directory, System.Int32 maxDepth)
-   GetAllFiles(System.String directoryPath, System.String searchPattern)
-   GetAllFiles(System.String directoryPath, System.String[] fileExtensions)
-   IsDirectory(System.IO.FileSystemInfo info)
-   ReadFile(System.IO.FileInfo fileInfo, System.Boolean strict)
-   WriteToFile(System.String stringToWrite, System.String fileName, System.Boolean overwrite)
-   WriteToFile(System.String stringToWrite, System.IO.FileInfo file, System.Boolean overwrite)
+--------------------------------------------------
+     AppendToFile(String stringToWrite, String fileName)
+---------------------------------------------
+     AppendToFile(String stringToWrite, FileInfo file)
+---------------------------------------------
+     GetAllDirectoriesAndFiles(DirectoryInfo directory, Int32 maxDepth)
+---------------------------------------------
+     GetAllFiles(String directoryPath, String searchPattern)
+---------------------------------------------
+     GetAllFiles(String directoryPath, String[] fileExtensions)
+---------------------------------------------
+     IsDirectory(FileSystemInfo info)
+---------------------------------------------
+     ReadFile(FileInfo fileInfo, Boolean strict)
+---------------------------------------------
+     WriteToFile(String stringToWrite, String fileName, Boolean overwrite)
+---------------------------------------------
+     WriteToFile(String stringToWrite, FileInfo file, Boolean overwrite)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: IQueryableExtensions
-   OrderBy( items, System.String propertyName, System.Boolean desc, System.String defaultProperty)
+--------------------------------------------------
+     OrderBy(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: StringExtensions
-   AddEnd(System.String s, System.String addToEnd)
-   AddStart(System.String s, System.String addToStart)
-   AddStartEnd(System.String s, System.String addToStart, System.String addToEnd)
-   EnsureEnd(System.String s, System.String addToEnd)
-   EnsureStart(System.String s, System.String addToStart)
-   EnsureStartEnd(System.String s, System.String addToStart, System.String addToEnd)
-   Equals(System.String str, System.String compareTo, System.Boolean ignoreCase)
-   ForEachLine(System.String input, System.Func`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] func)
-   Format(System.String format, System.Object arg0)
-   Format(System.String format, System.Object arg0, System.Object arg1)
-   Format(System.String format, System.Object arg0, System.Object arg1, System.Object arg2)
-   Format(System.String format, System.Object[] args)
-   Format(System.String format, System.IFormatProvider provider, System.Object arg0)
-   Format(System.String format, System.IFormatProvider provider, System.Object arg0, System.Object arg1)
-   Format(System.String format, System.IFormatProvider provider, System.Object arg0, System.Object arg1, System.Object arg2)
-   Format(System.String format, System.IFormatProvider provider, System.Object[] args)
-   GetEnd(System.String s, System.String separator, System.Boolean includeSeparator)
-   GetEndAfter(System.String s, System.String separator, System.Boolean includeSeparator)
-   GetStart(System.String s, System.String separator, System.Boolean includeSeparator)
-   GetStartBefore(System.String s, System.String separator, System.Boolean includeSeparator)
-   GetStartWhitespaces(System.String input)
-   IfNull(System.String s, System.String replacement)
-   IfNullOrEmpty(System.String s, System.String replacement)
-   IfNullOrSpace(System.String s, System.String replacement)
-   IncrementString(System.String str, System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] seedIfEmpty, System.String ignoreExtension, System.Int32 increment)
-   IsNull(System.String s)
-   IsNullOrEmpty(System.String s)
-   IsNullOrSpace(System.String s)
-   Left(System.String str, System.Int32 length)
-   LettersOnly(System.String input, System.String otherCharacters)
-   Mid(System.String str, System.Int32 start, System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] count)
-   NullIf(System.String str, System.String str2)
-   NumbersOnly(System.String input, System.String otherCharacters)
-   Pluralize(System.Int32 number, System.String singular, System.String plural)
-   ProperCase(System.String input, System.Boolean underscoreCountsAsSpace)
-   RemoveEnd(System.String input, System.String end)
-   RemoveEnd(System.String input, System.String[] endArray)
-   RemoveEndFromAllLines(System.String input, System.String end)
-   RemoveEndFromAllLines(System.String input, System.String[] endArray)
-   RemoveIndents(System.String input, System.Boolean removeInitialSpaces)
-   RemoveStart(System.String input, System.String start)
-   RemoveStart(System.String input, System.String[] startArray)
-   RemoveStartEnd(System.String input, System.String start, System.String end)
-   RemoveStartEnd(System.String input, System.String[] startArray, System.String[] endArray)
-   RemoveStartFromAllLines(System.String input, System.String start)
-   RemoveStartFromAllLines(System.String input, System.String[] startArray)
-   Repeat(System.String str, System.Int32 number)
-   Replace(System.String str, System.String[] oldValues, System.String newValue)
-   Replace(System.String str, System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.Boolean reverse)
-   Replace(System.String str, System.String[] oldValues, System.String[] newValues)
-   Right(System.String str, System.Int32 length)
-   SingularOrPlural(System.Int32 number, System.String singular, System.String plural)
-   Split(System.String str, System.String separator, System.StringSplitOptions options)
-   StartsWith(System.String str, System.String[] valuesArray, System.Boolean ignoreCase, System.Globalization.CultureInfo culture)
-   Truncate(System.String input, System.Int32 maxCharacters, System.String more, System.Int32 wordcut)
+--------------------------------------------------
+     AddEnd(String s, String addToEnd)
+---------------------------------------------
+     AddStart(String s, String addToStart)
+---------------------------------------------
+     AddStartEnd(String s, String addToStart, String addToEnd)
+---------------------------------------------
+     EnsureEnd(String s, String addToEnd)
+---------------------------------------------
+     EnsureStart(String s, String addToStart)
+---------------------------------------------
+     EnsureStartEnd(String s, String addToStart, String addToEnd)
+---------------------------------------------
+     Equals(String str, String compareTo, Boolean ignoreCase)
+---------------------------------------------
+     ForEachLine(String input, Func`2 func)
+---------------------------------------------
+     Format(String format, Object arg0)
+---------------------------------------------
+     Format(String format, Object arg0, Object arg1)
+---------------------------------------------
+     Format(String format, Object arg0, Object arg1, Object arg2)
+---------------------------------------------
+     Format(String format, Object[] args)
+---------------------------------------------
+     Format(String format, IFormatProvider provider, Object arg0)
+---------------------------------------------
+     Format(String format, IFormatProvider provider, Object arg0, Object arg1)
+---------------------------------------------
+     Format(String format, IFormatProvider provider, Object arg0, Object arg1, Object arg2)
+---------------------------------------------
+     Format(String format, IFormatProvider provider, Object[] args)
+---------------------------------------------
+     GetEnd(String s, String separator, Boolean includeSeparator)
+---------------------------------------------
+     GetEndAfter(String s, String separator, Boolean includeSeparator)
+---------------------------------------------
+     GetStart(String s, String separator, Boolean includeSeparator)
+---------------------------------------------
+     GetStartBefore(String s, String separator, Boolean includeSeparator)
+---------------------------------------------
+     GetStartWhitespaces(String input)
+---------------------------------------------
+     IfNull(String s, String replacement)
+---------------------------------------------
+     IfNullOrEmpty(String s, String replacement)
+---------------------------------------------
+     IfNullOrSpace(String s, String replacement)
+---------------------------------------------
+     IncrementString(String str, Nullable`1 seedIfEmpty, String ignoreExtension, Int32 increment)
+---------------------------------------------
+     IsNull(String s)
+---------------------------------------------
+     IsNullOrEmpty(String s)
+---------------------------------------------
+     IsNullOrSpace(String s)
+---------------------------------------------
+     Left(String str, Int32 length)
+---------------------------------------------
+     LettersOnly(String input, String otherCharacters)
+---------------------------------------------
+     Mid(String str, Int32 start, Nullable`1 count)
+---------------------------------------------
+     NullIf(String str, String str2)
+---------------------------------------------
+     NumbersOnly(String input, String otherCharacters)
+---------------------------------------------
+     Pluralize(Int32 number, String singular, String plural)
+---------------------------------------------
+     ProperCase(String input, Boolean underscoreCountsAsSpace)
+---------------------------------------------
+     RemoveEnd(String input, String end)
+---------------------------------------------
+     RemoveEnd(String input, String[] endArray)
+---------------------------------------------
+     RemoveEndFromAllLines(String input, String end)
+---------------------------------------------
+     RemoveEndFromAllLines(String input, String[] endArray)
+---------------------------------------------
+     RemoveIndents(String input, Boolean removeInitialSpaces)
+---------------------------------------------
+     RemoveStart(String input, String start)
+---------------------------------------------
+     RemoveStart(String input, String[] startArray)
+---------------------------------------------
+     RemoveStartEnd(String input, String start, String end)
+---------------------------------------------
+     RemoveStartEnd(String input, String[] startArray, String[] endArray)
+---------------------------------------------
+     RemoveStartFromAllLines(String input, String start)
+---------------------------------------------
+     RemoveStartFromAllLines(String input, String[] startArray)
+---------------------------------------------
+     Repeat(String str, Int32 number)
+---------------------------------------------
+     Replace(String str, String[] oldValues, String newValue)
+---------------------------------------------
+     Replace(String str, Dictionary`2 dictionary, Boolean reverse)
+---------------------------------------------
+     Replace(String str, String[] oldValues, String[] newValues)
+---------------------------------------------
+     Right(String str, Int32 length)
+---------------------------------------------
+     SingularOrPlural(Int32 number, String singular, String plural)
+---------------------------------------------
+     Split(String str, String separator, StringSplitOptions options)
+---------------------------------------------
+     StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture)
+---------------------------------------------
+     Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions: TypeExtensions
-   GetCommonBaseType(System.Type[] types)
-   GetCommonInterfaces(System.Object[] objects)
-   GetDerivedClasses(System.Type type, System.String[] ignoreTypeNames)
-   GetDerivedTypes(System.Type type, System.String[] ignoreTypeNames, System.Boolean includeBaseType, System.Reflection.Assembly otherAssembly)
-   GetMetaAssembly(System.Reflection.Assembly assembly)
-   GetMetaModel(System.Type type)
-   GetMetaModel( enumerable)
-   GetMetaModel( instance)
-   GetMetaModel( dictionary)
-   GetMetaProperties(System.Type type)
-   GetMetaProperties(System.Type type, System.String exclude, System.String include)
-   GetMetaProperties( enumerable, System.String exclude, System.String include)
-   GetMetaProperties( instance, System.String exclude, System.String include)
-   GetTypesInNamespace(System.Reflection.Assembly assembly, System.String nameSpace)
+--------------------------------------------------
+     GetCommonBaseType(Type[] types)
+---------------------------------------------
+     GetCommonInterfaces(Object[] objects)
+---------------------------------------------
+     GetDerivedClasses(Type type, String[] ignoreTypeNames)
+---------------------------------------------
+     GetDerivedTypes(Type type, String[] ignoreTypeNames, Boolean includeBaseType, Assembly otherAssembly)
+---------------------------------------------
+     GetMetaAssembly(Assembly assembly, String xmlDocumentationPath)
+---------------------------------------------
+     GetMetaModel(Type type)
+---------------------------------------------
+     GetMetaModel(IEnumerable`1 enumerable)
+---------------------------------------------
+     GetMetaModel(T instance)
+---------------------------------------------
+     GetMetaModel(Dictionary`2 dictionary)
+---------------------------------------------
+     GetMetaProperties(Type type)
+---------------------------------------------
+     GetMetaProperties(Type type, String exclude, String include)
+---------------------------------------------
+     GetMetaProperties(IEnumerable`1 enumerable, String exclude, String include)
+---------------------------------------------
+     GetMetaProperties(T instance, String exclude, String include)
+---------------------------------------------
+     GetTypesInNamespace(Assembly assembly, String nameSpace)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions.ForTemplating: TemplatingExtensions
-   DotNetTypeToCSharpType(System.String dotNetTypeName, System.Boolean isNull)
-   Template(System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] lookups, System.String template, System.String startTag, System.String endTag)
-   Template(System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] lookups, System.IO.FileInfo templateFile, System.String startTag, System.String endTag)
-   Template(System.Object obj, System.String template, System.String startTag, System.String endTag)
-   Template(System.Object obj, System.IO.FileInfo templateFile, System.String startTag, System.String endTag)
-   Template( obj, System.IO.FileInfo templateFile, System.String startTag, System.String endTag)
-   TemplateList( list, System.String template, System.String lineEnd, System.String startTag, System.String endTag)
-   TemplateList( list, System.IO.FileInfo templateFile, System.String lineEnd, System.String startTag, System.String endTag)
-   TSqlTypeToCSharpType(System.String sqlTypeName, System.Boolean isNull)
+--------------------------------------------------
+     DotNetTypeToCSharpType(String dotNetTypeName, Boolean isNull)
+---------------------------------------------
+     Template(Dictionary`2 lookups, String template, String startTag, String endTag)
+---------------------------------------------
+     Template(Dictionary`2 lookups, FileInfo templateFile, String startTag, String endTag)
+---------------------------------------------
+     Template(Object obj, String template, String startTag, String endTag)
+---------------------------------------------
+     Template(Object obj, FileInfo templateFile, String startTag, String endTag)
+---------------------------------------------
+     Template(T obj, FileInfo templateFile, String startTag, String endTag)
+---------------------------------------------
+     TemplateList(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)
+---------------------------------------------
+     TemplateList(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)
+---------------------------------------------
+     TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions.Xtra: XtraExtensions
-   DynamicArrayOfType(System.Object t)
-   DynamicListOfType(System.Object t)
-   GetApplicationRoot()
-   GetXmlDocumentation(System.String xmlDocPath, System.Reflection.Assembly assemblyToDocument)
-   Is(System.Object obj)
-   IsNull(System.Object obj)
-   ToMapPath(System.String fileName)
+--------------------------------------------------
+     DynamicArrayOfType(Object t)
+---------------------------------------------
+     DynamicListOfType(Object t)
+---------------------------------------------
+     GetApplicationRoot()
+---------------------------------------------
+     GetXmlDocumentation(String xmlDocPath, Assembly assemblyToDocument)
+---------------------------------------------
+     Is(Object obj)
+---------------------------------------------
+     IsNull(Object obj)
+---------------------------------------------
+     ToMapPath(String fileName)
+---------------------------------------------
+--------------------------------------------------
 WildHare.Extensions.Xtra: RandomExtensions
-   Skip(System.Random random, System.Int32 number)
+--------------------------------------------------
+     Skip(Random random, Int32 number)
+---------------------------------------------
+--------------------------------------------------
+__StaticArrayInitTypeSize=6
+--------------------------------------------------

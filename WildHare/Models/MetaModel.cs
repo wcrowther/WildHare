@@ -93,7 +93,7 @@ namespace WildHare
 
         public string Summary { get; set; }
 
-        public override string ToString() => $"{TypeNamespace.AddEnd(".")}{TypeName} Properties: {MetaProperties.Count} Methods: {MetaMethods.Count}";
+        public override string ToString() => $"{TypeNamespace.AddEnd(".")}{TypeName} Properties: {MetaProperties.Count} Methods: {MetaMethods.Count} Fields: {MetaFields.Count}";
 
 
         // =========================================================================================================

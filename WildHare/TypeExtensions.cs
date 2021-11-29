@@ -88,9 +88,9 @@ namespace WildHare.Extensions
         }
 
         /// <summary></summary>
-        public static MetaAssembly GetMetaAssembly(this Assembly assembly)
+        public static MetaAssembly GetMetaAssembly(this Assembly assembly, string xmlDocumentationPath =  null)
         {
-            return new MetaAssembly(assembly);
+            return new MetaAssembly(assembly, xmlDocumentationPath);
         }
 
         /// <summary>[OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes
