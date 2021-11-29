@@ -24,6 +24,8 @@ namespace WildHare
 
         public string Name { get => methodInfo.Name; }
 
+        public string DocMemberName { get => $"{Name}({ParametersString()})"; }
+
         public Type DeclaringType { get => methodInfo.DeclaringType; }
 
         public bool IsExtensionMethod { get => methodInfo.IsDefined(typeof(ExtensionAttribute)); } 
@@ -53,6 +55,11 @@ namespace WildHare
                 return metaParameters;
             }
         }
+        private string ParametersString()
+        {
+            return string.Join(",", Parameters.Select(s => s.ParameterType));
+        }
+
         public string Summary { get; set; }
 
         public override string ToString()

@@ -119,7 +119,7 @@ namespace WildHare.Tests
             string filesAndFolders = folders.ToString() + files.ToString();
             filesAndFolders.WriteToFile(outputPath, true);
 
-            Assert.AreEqual(5, allFilesAndFolders.Count());
+            Assert.AreEqual(6, allFilesAndFolders.Count());
         }
 
         [Test]
@@ -149,7 +149,7 @@ namespace WildHare.Tests
             string filesAndFolders = folders.ToString() + files.ToString();
             filesAndFolders.WriteToFile(outputPath, true);
 
-            Assert.AreEqual(12, allFilesAndFolders.Count());
+            Assert.AreEqual(13, allFilesAndFolders.Count());
         }
 
         [Test]
@@ -171,7 +171,7 @@ namespace WildHare.Tests
 
             sb.ToString().WriteToFile(outputPath, true);
 
-            Assert.AreEqual(10, list.Count());
+            Assert.AreEqual(11, list.Count());
         }
 
         [Test]

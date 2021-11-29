@@ -5,6 +5,7 @@ Directory: Directory3a
 File: SimpleTemplate.txt
 File: TextFile0.txt
 File: WildHare.txt
+File: WildHare.txt.old
 File: TestFIle1.txt
 File: TestFile2.txt
 File: TestFile3.txt

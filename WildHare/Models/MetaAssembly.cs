@@ -15,8 +15,9 @@ namespace WildHare
     {
         private readonly Assembly _assembly;
         private string _xmlDocPath = null;
-        private List<MetaModel> _metaTypes = null;
+        private List<MetaModel> _metaModels = null;
         private List<MetaDocumentation> _documentMemberList = null;
+        private string[] anonStartArray = { "<", "_" };
 
         public MetaAssembly(Assembly assembly, string xmlDocPath = null)
         {
@@ -26,7 +27,7 @@ namespace WildHare
             _assembly   = assembly;
             _xmlDocPath = xmlDocPath;
 
-            _metaTypes  = GetAllMetaModels();
+            _metaModels  = GetAllMetaModels();
             _documentMemberList = GetMetaDocumentationList();
         }
 
@@ -34,12 +35,12 @@ namespace WildHare
 
         public List<MetaModel> GetMetaModels()
         {
-            return GetAllMetaModels().Where(w => !w.TypeName.StartsWith("<")).ToList();
+            return GetAllMetaModels().Where(w => !w.TypeName.StartsWith(anonStartArray)).ToList();
         }
 
         public List<MetaModel> GetMetaModelsForAnonymousTypes()
         {
-            return GetAllMetaModels().Where(w => w.TypeName.StartsWith("<")).ToList();
+            return GetAllMetaModels().Where(w => w.TypeName.StartsWith(anonStartArray)).ToList();
         }
 
         public List<MetaDocumentation> GetMetaDocumentationList()
@@ -67,12 +68,14 @@ namespace WildHare
 
         public bool WriteMetaAssemblyToFile(string outputDirectory, bool overwrite = false)
         {
-            int spacerLength = 50;
-            int tab = 5;
+            string spacer = "-".Repeat(100);
+            string tab = " ".Repeat(5);
 
             string title = 
-                    $@"{this.AssemblyName} Assembly
-                    {"-".Repeat(25)}
+                    $@"
+                    {spacer}
+                    {this.AssemblyName} ASSEMBLY
+                    {spacer}
                     {NewLine.Repeat(2)}";
 
             var sb = new StringBuilder(title.RemoveIndents());
@@ -80,18 +83,26 @@ namespace WildHare
 
             foreach (var model in metaModels)
             {
-                sb.AppendLine("-".Repeat(spacerLength));
-                sb.AppendLine(model.TypeNamespace.AddEnd(": ") + model.TypeName);
-                sb.AppendLine("-".Repeat(spacerLength));
+                sb.AppendLine(model.TypeFullName);
+                sb.AppendLine(spacer);
 
                 foreach (var method in model.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
                 {
-                    sb.AppendLine($"{method.Name.AddStart(" ".Repeat(tab))}{GetParamString(method)}");
-                    sb.AppendLine("-".Repeat(spacerLength - tab));
+                    sb.AppendLine($"{tab}{method.Name}{GetParamString(method)}");
+                    sb.AppendLine($"{tab}{tab}{model.TypeFullName}.{method.DocMemberName}");
+                    var doc = this._documentMemberList.FirstOrDefault(f => f.MemberName.StartsWith($"{ model.TypeFullName}.{ method.Name}"));
+
+                    if (doc != null)
+                    {
+                        // sb.AppendLine($"{tab}{tab}{doc.Summary}");
+                        sb.AppendLine($"{tab}{tab}***");
+                    }
+
+                    sb.AppendLine(spacer);
                 }
             }
 
-            string path = $"{outputDirectory}/{AssemblyName}.txt";
+            string path = $@"{outputDirectory}\{AssemblyName}.txt";
             bool isSuccess = sb.ToString().WriteToFile(path, overwrite);
 
             return isSuccess;
@@ -116,17 +127,17 @@ namespace WildHare
 
         private List<MetaModel> GetAllMetaModels()
         {
-            _metaTypes = _metaTypes ?? new List<MetaModel>();
+            _metaModels = _metaModels ?? new List<MetaModel>();
 
-            if (_metaTypes.Count == 0)
+            if (_metaModels.Count == 0)
             {
                 foreach (var type in _assembly.GetTypes())
                 {
-                    _metaTypes.Add(new MetaModel(type));
+                    _metaModels.Add(new MetaModel(type));
                 }
             }
 
-            return _metaTypes;
+            return _metaModels;
         }
     }
 }

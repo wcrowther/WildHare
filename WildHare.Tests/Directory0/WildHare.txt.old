@@ -1,14 +1,15 @@
+
 ----------------------------------------------------------------------------------------------------
-WildHare ASSEMBLY
-----------------------------------------------------------------------------------------------------
+                    WildHare ASSEMBLY
+                    ----------------------------------------------------------------------------------------------------
 
 
-WildHare.DocMember
+WildHare: DocMember
 ----------------------------------------------------------------------------------------------------
      ToString()
           WildHare.DocMember.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.DynamicDictionary
+WildHare: DynamicDictionary
 ----------------------------------------------------------------------------------------------------
      Clear()
           WildHare.DynamicDictionary.Clear()
@@ -19,7 +20,7 @@ WildHare.DynamicDictionary
      TrySetMember(SetMemberBinder binder, Object value)
           WildHare.DynamicDictionary.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
 ----------------------------------------------------------------------------------------------------
-WildHare.DynamicExpando
+WildHare: DynamicExpando
 ----------------------------------------------------------------------------------------------------
      Clear()
           WildHare.DynamicExpando.Clear()
@@ -45,7 +46,7 @@ WildHare.DynamicExpando
      TrySetMember(SetMemberBinder binder, Object value)
           WildHare.DynamicExpando.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaAssembly
+WildHare: MetaAssembly
 ----------------------------------------------------------------------------------------------------
      GetMetaDocumentationList()
           WildHare.MetaAssembly.GetMetaDocumentationList()
@@ -62,7 +63,7 @@ WildHare.MetaAssembly
      WriteMetaAssemblyToFile(String outputDirectory, Boolean overwrite)
           WildHare.MetaAssembly.WriteMetaAssemblyToFile(System.String,System.Boolean)
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaDocumentation
+WildHare: MetaDocumentation
 ----------------------------------------------------------------------------------------------------
      MemberId()
           WildHare.MetaDocumentation.MemberId()
@@ -73,12 +74,17 @@ WildHare.MetaDocumentation
      ToString()
           WildHare.MetaDocumentation.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaField
+WildHare: MetaField
 ----------------------------------------------------------------------------------------------------
      ToString()
           WildHare.MetaField.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaMethod
+WildHare: MetaGetterSetter
+----------------------------------------------------------------------------------------------------
+     ToString()
+          WildHare.MetaGetterSetter.ToString()
+----------------------------------------------------------------------------------------------------
+WildHare: MetaMethod
 ----------------------------------------------------------------------------------------------------
      IsInherited(String typeName)
           WildHare.MetaMethod.IsInherited(System.String)
@@ -86,7 +92,7 @@ WildHare.MetaMethod
      ToString()
           WildHare.MetaMethod.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaModel
+WildHare: MetaModel
 ----------------------------------------------------------------------------------------------------
      GetMetaMethods(String exclude, String include, Boolean includeInherited)
           WildHare.MetaModel.GetMetaMethods(System.String,System.String,System.Boolean)
@@ -100,17 +106,17 @@ WildHare.MetaModel
      ToString()
           WildHare.MetaModel.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaNamespace
+WildHare: MetaNamespace
 ----------------------------------------------------------------------------------------------------
      ToString()
           WildHare.MetaNamespace.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaParameter
+WildHare: MetaParameter
 ----------------------------------------------------------------------------------------------------
      ToString()
           WildHare.MetaParameter.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.MetaProperty
+WildHare: MetaProperty
 ----------------------------------------------------------------------------------------------------
      GetInstanceValue(Object instance)
           WildHare.MetaProperty.GetInstanceValue(System.Object)
@@ -124,127 +130,99 @@ WildHare.MetaProperty
      ToString()
           WildHare.MetaProperty.ToString()
 ----------------------------------------------------------------------------------------------------
-WildHare.Properties.Resources
+WildHare.Properties: Resources
 ----------------------------------------------------------------------------------------------------
-WildHare.Models.TestModel
+WildHare.Models: TestModel
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.CharExtensions
+WildHare.Extensions: CharExtensions
 ----------------------------------------------------------------------------------------------------
      CharAt(String s, Int32 i)
           WildHare.Extensions.CharExtensions.CharAt(System.String,System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetUnicodeCategory(Char ch)
           WildHare.Extensions.CharExtensions.GetUnicodeCategory(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsControl(Char ch)
           WildHare.Extensions.CharExtensions.IsControl(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsDigit(Char ch)
           WildHare.Extensions.CharExtensions.IsDigit(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsLetter(Char ch)
           WildHare.Extensions.CharExtensions.IsLetter(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsLetterOrDigit(Char ch)
           WildHare.Extensions.CharExtensions.IsLetterOrDigit(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsLower(Char ch)
           WildHare.Extensions.CharExtensions.IsLower(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsNumber(Char ch)
           WildHare.Extensions.CharExtensions.IsNumber(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsPunctuation(Char ch)
           WildHare.Extensions.CharExtensions.IsPunctuation(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsSeparator(Char ch)
           WildHare.Extensions.CharExtensions.IsSeparator(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsSymbol(Char ch)
           WildHare.Extensions.CharExtensions.IsSymbol(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsUpper(Char ch)
           WildHare.Extensions.CharExtensions.IsUpper(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsWhiteSpace(Char ch)
           WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.ConvertExtensions
+WildHare.Extensions: ConvertExtensions
 ----------------------------------------------------------------------------------------------------
      AsString(Int32[] intArray, Boolean strict, String separator)
           WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToBool(String value)
           WildHare.Extensions.ConvertExtensions.ToBool(System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToBool(String value, String trueValue, Boolean ignoreCase)
           WildHare.Extensions.ConvertExtensions.ToBool(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToBoolNullable(String value, Nullable`1 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToBoolNullable(System.String,System.Nullable`1[System.Boolean])
-          ***
 ----------------------------------------------------------------------------------------------------
      ToDateTime(String value, DateTime defaultValue)
           WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.DateTime)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToDateTime(String value, Nullable`1 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.Nullable`1[System.DateTime])
-          ***
 ----------------------------------------------------------------------------------------------------
      ToDecimal(String value, Decimal defaultValue)
           WildHare.Extensions.ConvertExtensions.ToDecimal(System.String,System.Decimal)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToDecimalNullable(String value, Nullable`1 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToDecimalNullable(System.String,System.Nullable`1[System.Decimal])
-          ***
 ----------------------------------------------------------------------------------------------------
      ToDouble(String value, Double defaultValue)
           WildHare.Extensions.ConvertExtensions.ToDouble(System.String,System.Double)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToDoubleNullable(String value, Nullable`1 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToDoubleNullable(System.String,System.Nullable`1[System.Double])
-          ***
 ----------------------------------------------------------------------------------------------------
      ToInt(String value, Int32 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToInt(System.String,System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToIntArray(String str, Boolean strict, String separator)
           WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToIntNullable(String value, Nullable`1 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToIntNullable(System.String,System.Nullable`1[System.Int32])
-          ***
 ----------------------------------------------------------------------------------------------------
      ToLong(String value, Int64 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToLongNullable(String value, Nullable`1 defaultValue)
           WildHare.Extensions.ConvertExtensions.ToLongNullable(System.String,System.Nullable`1[System.Int64])
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.DataReaderExtensions
+WildHare.Extensions: DataReaderExtensions
 ----------------------------------------------------------------------------------------------------
      Get(IDataReader row, String fieldName, T defaultValue)
           WildHare.Extensions.DataReaderExtensions.Get(System.Data.IDataReader,System.String,T)
@@ -252,33 +230,27 @@ WildHare.Extensions.DataReaderExtensions
      Get(IDataReader row, Int32 ordinal, T defaultValue)
           WildHare.Extensions.DataReaderExtensions.Get(System.Data.IDataReader,System.Int32,T)
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.DataTableExtensions
+WildHare.Extensions: DataTableExtensions
 ----------------------------------------------------------------------------------------------------
      ToList(DataTable table)
           WildHare.Extensions.DataTableExtensions.ToList(System.Data.DataTable)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.DateTimeExtensions
+WildHare.Extensions: DateTimeExtensions
 ----------------------------------------------------------------------------------------------------
      FirstDayOfNextMonth(DateTime datetime)
           WildHare.Extensions.DateTimeExtensions.FirstDayOfNextMonth(System.DateTime)
-          ***
 ----------------------------------------------------------------------------------------------------
      FirstDayOfTheMonth(DateTime datetime)
           WildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeDate)
           WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsInTheSameMonth(DateTime datetime, DateTime target)
           WildHare.Extensions.DateTimeExtensions.IsInTheSameMonth(System.DateTime,System.DateTime)
-          ***
 ----------------------------------------------------------------------------------------------------
      LastDayOfTheMonth(DateTime datetime)
           WildHare.Extensions.DateTimeExtensions.LastDayOfTheMonth(System.DateTime)
-          ***
 ----------------------------------------------------------------------------------------------------
      MonthName(DateTime date)
           WildHare.Extensions.DateTimeExtensions.MonthName(System.DateTime)
@@ -300,7 +272,6 @@ WildHare.Extensions.DateTimeExtensions
 ----------------------------------------------------------------------------------------------------
      TodayOrBefore(DateTime datetime)
           WildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime)
-          ***
 ----------------------------------------------------------------------------------------------------
      YearMonth(DateTime date)
           WildHare.Extensions.DateTimeExtensions.YearMonth(System.DateTime)
@@ -308,7 +279,7 @@ WildHare.Extensions.DateTimeExtensions
      YearMonthDay(DateTime date)
           WildHare.Extensions.DateTimeExtensions.YearMonthDay(System.DateTime)
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.DictionaryExtensions
+WildHare.Extensions: DictionaryExtensions
 ----------------------------------------------------------------------------------------------------
      Get(IDictionary`2 dictionary, String key)
           WildHare.Extensions.DictionaryExtensions.Get(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String)
@@ -325,208 +296,161 @@ WildHare.Extensions.DictionaryExtensions
      TryGet(IDictionary`2 dictionary, String key, T& value)
           WildHare.Extensions.DictionaryExtensions.TryGet(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String,T&)
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.ExpandoExtensions
+WildHare.Extensions: ExpandoExtensions
 ----------------------------------------------------------------------------------------------------
      Add(ExpandoObject expando, String name, T value)
           WildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,T)
-          ***
 ----------------------------------------------------------------------------------------------------
      Add(ExpandoObject expando, String name, String value)
           WildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Get(ExpandoObject expando, String name)
           WildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Get(ExpandoObject expando, String name)
           WildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Get(Dictionary`2 dictionary, TKey key, TVal defaultVal)
           WildHare.Extensions.ExpandoExtensions.Get(System.Collections.Generic.Dictionary`2[TKey,TVal],TKey,TVal)
-          ***
 ----------------------------------------------------------------------------------------------------
      Remove(ExpandoObject expando, String name)
           WildHare.Extensions.ExpandoExtensions.Remove(System.Dynamic.ExpandoObject,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.IEnumerableExtensions
+WildHare.Extensions: IEnumerableExtensions
 ----------------------------------------------------------------------------------------------------
      AsString(IEnumerable`1 intList, Boolean strict)
           WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable`1[System.Int32],System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      ElementIn(IEnumerable`1 source, Int32 index)
           WildHare.Extensions.IEnumerableExtensions.ElementIn(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      ElementInOrDefault(IEnumerable`1 source, Int32 index, TSource defaultItem)
           WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32,TSource)
-          ***
 ----------------------------------------------------------------------------------------------------
      ElementInOrDefault(IEnumerable`1 source, Int32 index)
           WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      InList(IList`1 list, IList`1 items, Func`3 comparer)
           WildHare.Extensions.IEnumerableExtensions.InList(System.Collections.Generic.IList`1[TList],System.Collections.Generic.IList`1[TItems],System.Func`3[TList,TItems,System.Boolean])
-          ***
 ----------------------------------------------------------------------------------------------------
      MatchList(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)
           WildHare.Extensions.IEnumerableExtensions.MatchList(System.Collections.Generic.IEnumerable`1[T1],System.Collections.Generic.IEnumerable`1[T2],System.Func`3[T1,T2,System.Boolean],System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      PatternMatch(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)
           WildHare.Extensions.IEnumerableExtensions.PatternMatch(System.Collections.Generic.IEnumerable`1[T],System.Collections.Generic.IEnumerable`1[T],System.Func`3[T,T,System.Boolean])
-          ***
 ----------------------------------------------------------------------------------------------------
      Pluralize(IEnumerable`1 list, String singular, String plural)
           WildHare.Extensions.IEnumerableExtensions.Pluralize(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Sequence(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, Boolean consecutive)
           WildHare.Extensions.IEnumerableExtensions.Sequence(System.Collections.Generic.IEnumerable`1[TFirst],System.Collections.Generic.IEnumerable`1[TSecond],System.Func`3[TFirst,TSecond,System.Boolean],System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToCollection(IEnumerable`1 enumerable)
           WildHare.Extensions.IEnumerableExtensions.ToCollection(System.Collections.Generic.IEnumerable`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
      WithIndex(IEnumerable`1 list)
           WildHare.Extensions.IEnumerableExtensions.WithIndex(System.Collections.Generic.IEnumerable`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.IListExtensions
+WildHare.Extensions: IListExtensions
 ----------------------------------------------------------------------------------------------------
      AddRange(IList`1 itemList, IEnumerable`1 newItems)
           WildHare.Extensions.IListExtensions.AddRange(System.Collections.Generic.IList`1[T],System.Collections.Generic.IEnumerable`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
      CombineItems(IList`1 itemList, Int32 index, Int32 count, T newItem)
           WildHare.Extensions.IListExtensions.CombineItems(System.Collections.Generic.IList`1[T],System.Int32,System.Int32,T)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsFirstIn(T item, IList`1 itemList)
           WildHare.Extensions.IListExtensions.IsFirstIn(T,System.Collections.Generic.IList`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
      IsLastIn(T item, IList`1 itemList)
           WildHare.Extensions.IListExtensions.IsLastIn(T,System.Collections.Generic.IList`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
      NextIn(T item, IList`1 itemList, Int32 distance)
           WildHare.Extensions.IListExtensions.NextIn(T,System.Collections.Generic.IList`1[T],System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      NextInWhile(T item, IList`1 itemList, Func`2 func, Int32 step)
           WildHare.Extensions.IListExtensions.NextInWhile(T,System.Collections.Generic.IList`1[T],System.Func`2[T,System.Boolean],System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      PreviousIn(T item, IList`1 itemList, Int32 distance)
           WildHare.Extensions.IListExtensions.PreviousIn(T,System.Collections.Generic.IList`1[T],System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      PreviousInWhile(T item, IList`1 itemList, Func`2 func)
           WildHare.Extensions.IListExtensions.PreviousInWhile(T,System.Collections.Generic.IList`1[T],System.Func`2[T,System.Boolean])
-          ***
 ----------------------------------------------------------------------------------------------------
      ReplaceItem(IList`1 itemList, Int32 index, T newItem)
           WildHare.Extensions.IListExtensions.ReplaceItem(System.Collections.Generic.IList`1[T],System.Int32,T)
-          ***
 ----------------------------------------------------------------------------------------------------
      ReplaceItems(IList`1 itemList, Int32 index, IList`1 newItems)
           WildHare.Extensions.IListExtensions.ReplaceItems(System.Collections.Generic.IList`1[T],System.Int32,System.Collections.Generic.IList`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
      TakeNext(IList`1 sourceList, Int32 count, Int32 offset, Boolean remove)
           WildHare.Extensions.IListExtensions.TakeNext(System.Collections.Generic.IList`1[T],System.Int32,System.Int32,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      TakeNextOne(IList`1 sourceList, Int32 offset, Boolean remove)
           WildHare.Extensions.IListExtensions.TakeNextOne(System.Collections.Generic.IList`1[T],System.Int32,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      TakeRandom(IList`1 sourceList, Int32 count, Random random, Boolean remove)
           WildHare.Extensions.IListExtensions.TakeRandom(System.Collections.Generic.IList`1[T],System.Int32,System.Random,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      TakeRandomOne(IList`1 sourceList, Random random, Boolean remove)
           WildHare.Extensions.IListExtensions.TakeRandomOne(System.Collections.Generic.IList`1[T],System.Random,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.IOExtensions
+WildHare.Extensions: IOExtensions
 ----------------------------------------------------------------------------------------------------
      AppendToFile(String stringToWrite, String fileName)
           WildHare.Extensions.IOExtensions.AppendToFile(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      AppendToFile(String stringToWrite, FileInfo file)
           WildHare.Extensions.IOExtensions.AppendToFile(System.String,System.IO.FileInfo)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetAllDirectoriesAndFiles(DirectoryInfo directory, Int32 maxDepth)
           WildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetAllFiles(String directoryPath, String searchPattern)
           WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetAllFiles(String directoryPath, String[] fileExtensions)
           WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      IsDirectory(FileSystemInfo info)
           WildHare.Extensions.IOExtensions.IsDirectory(System.IO.FileSystemInfo)
-          ***
 ----------------------------------------------------------------------------------------------------
      ReadFile(FileInfo fileInfo, Boolean strict)
           WildHare.Extensions.IOExtensions.ReadFile(System.IO.FileInfo,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      WriteToFile(String stringToWrite, String fileName, Boolean overwrite)
           WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      WriteToFile(String stringToWrite, FileInfo file, Boolean overwrite)
           WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.IO.FileInfo,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.IQueryableExtensions
+WildHare.Extensions: IQueryableExtensions
 ----------------------------------------------------------------------------------------------------
      OrderBy(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty)
           WildHare.Extensions.IQueryableExtensions.OrderBy(System.Linq.IQueryable`1[T],System.String,System.Boolean,System.String)
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.StringExtensions
+WildHare.Extensions: StringExtensions
 ----------------------------------------------------------------------------------------------------
      AddEnd(String s, String addToEnd)
           WildHare.Extensions.StringExtensions.AddEnd(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      AddStart(String s, String addToStart)
           WildHare.Extensions.StringExtensions.AddStart(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      AddStartEnd(String s, String addToStart, String addToEnd)
           WildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      EnsureEnd(String s, String addToEnd)
           WildHare.Extensions.StringExtensions.EnsureEnd(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      EnsureStart(String s, String addToStart)
           WildHare.Extensions.StringExtensions.EnsureStart(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      EnsureStartEnd(String s, String addToStart, String addToEnd)
           WildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Equals(String str, String compareTo, Boolean ignoreCase)
           WildHare.Extensions.StringExtensions.Equals(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      ForEachLine(String input, Func`2 func)
           WildHare.Extensions.StringExtensions.ForEachLine(System.String,System.Func`2[System.String,System.String])
@@ -557,137 +481,105 @@ WildHare.Extensions.StringExtensions
 ----------------------------------------------------------------------------------------------------
      GetEnd(String s, String separator, Boolean includeSeparator)
           WildHare.Extensions.StringExtensions.GetEnd(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetEndAfter(String s, String separator, Boolean includeSeparator)
           WildHare.Extensions.StringExtensions.GetEndAfter(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetStart(String s, String separator, Boolean includeSeparator)
           WildHare.Extensions.StringExtensions.GetStart(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetStartBefore(String s, String separator, Boolean includeSeparator)
           WildHare.Extensions.StringExtensions.GetStartBefore(System.String,System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetStartWhitespaces(String input)
           WildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      IfNull(String s, String replacement)
           WildHare.Extensions.StringExtensions.IfNull(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      IfNullOrEmpty(String s, String replacement)
           WildHare.Extensions.StringExtensions.IfNullOrEmpty(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      IfNullOrSpace(String s, String replacement)
           WildHare.Extensions.StringExtensions.IfNullOrSpace(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      IncrementString(String str, Nullable`1 seedIfEmpty, String ignoreExtension, Int32 increment)
           WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable`1[System.Int32],System.String,System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsNull(String s)
           WildHare.Extensions.StringExtensions.IsNull(System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsNullOrEmpty(String s)
           WildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsNullOrSpace(String s)
           WildHare.Extensions.StringExtensions.IsNullOrSpace(System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Left(String str, Int32 length)
           WildHare.Extensions.StringExtensions.Left(System.String,System.Int32)
 ----------------------------------------------------------------------------------------------------
      LettersOnly(String input, String otherCharacters)
           WildHare.Extensions.StringExtensions.LettersOnly(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Mid(String str, Int32 start, Nullable`1 count)
           WildHare.Extensions.StringExtensions.Mid(System.String,System.Int32,System.Nullable`1[System.Int32])
 ----------------------------------------------------------------------------------------------------
      NullIf(String str, String str2)
           WildHare.Extensions.StringExtensions.NullIf(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      NumbersOnly(String input, String otherCharacters)
           WildHare.Extensions.StringExtensions.NumbersOnly(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Pluralize(Int32 number, String singular, String plural)
           WildHare.Extensions.StringExtensions.Pluralize(System.Int32,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      ProperCase(String input, Boolean underscoreCountsAsSpace)
           WildHare.Extensions.StringExtensions.ProperCase(System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveEnd(String input, String end)
           WildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveEnd(String input, String[] endArray)
           WildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveEndFromAllLines(String input, String end)
           WildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveEndFromAllLines(String input, String[] endArray)
           WildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveIndents(String input, Boolean removeInitialSpaces)
           WildHare.Extensions.StringExtensions.RemoveIndents(System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveStart(String input, String start)
           WildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveStart(String input, String[] startArray)
           WildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveStartEnd(String input, String start, String end)
           WildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveStartEnd(String input, String[] startArray, String[] endArray)
           WildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String[],System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveStartFromAllLines(String input, String start)
           WildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      RemoveStartFromAllLines(String input, String[] startArray)
           WildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      Repeat(String str, Int32 number)
           WildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
      Replace(String str, String[] oldValues, String newValue)
           WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Replace(String str, Dictionary`2 dictionary, Boolean reverse)
           WildHare.Extensions.StringExtensions.Replace(System.String,System.Collections.Generic.Dictionary`2[System.String,System.String],System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      Replace(String str, String[] oldValues, String[] newValues)
           WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      Right(String str, Int32 length)
           WildHare.Extensions.StringExtensions.Right(System.String,System.Int32)
@@ -697,17 +589,14 @@ WildHare.Extensions.StringExtensions
 ----------------------------------------------------------------------------------------------------
      Split(String str, String separator, StringSplitOptions options)
           WildHare.Extensions.StringExtensions.Split(System.String,System.String,System.StringSplitOptions)
-          ***
 ----------------------------------------------------------------------------------------------------
      StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture)
           WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)
-          ***
 ----------------------------------------------------------------------------------------------------
      Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)
           WildHare.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.String,System.Int32)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.TypeExtensions
+WildHare.Extensions: TypeExtensions
 ----------------------------------------------------------------------------------------------------
      GetCommonBaseType(Type[] types)
           WildHare.Extensions.TypeExtensions.GetCommonBaseType(System.Type[])
@@ -717,121 +606,93 @@ WildHare.Extensions.TypeExtensions
 ----------------------------------------------------------------------------------------------------
      GetDerivedClasses(Type type, String[] ignoreTypeNames)
           WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])
-          ***
 ----------------------------------------------------------------------------------------------------
      GetDerivedTypes(Type type, String[] ignoreTypeNames, Boolean includeBaseType, Assembly otherAssembly)
           WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaAssembly(Assembly assembly, String xmlDocumentationPath)
           WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaModel(Type type)
           WildHare.Extensions.TypeExtensions.GetMetaModel(System.Type)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaModel(IEnumerable`1 enumerable)
           WildHare.Extensions.TypeExtensions.GetMetaModel(System.Collections.Generic.IEnumerable`1[T])
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaModel(T instance)
           WildHare.Extensions.TypeExtensions.GetMetaModel(T)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaModel(Dictionary`2 dictionary)
           WildHare.Extensions.TypeExtensions.GetMetaModel(System.Collections.Generic.Dictionary`2[K,V])
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaProperties(Type type)
           WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaProperties(Type type, String exclude, String include)
           WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaProperties(IEnumerable`1 enumerable, String exclude, String include)
           WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetMetaProperties(T instance, String exclude, String include)
           WildHare.Extensions.TypeExtensions.GetMetaProperties(T,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetTypesInNamespace(Assembly assembly, String nameSpace)
           WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.ForTemplating.TemplatingExtensions
+WildHare.Extensions.ForTemplating: TemplatingExtensions
 ----------------------------------------------------------------------------------------------------
      DotNetTypeToCSharpType(String dotNetTypeName, Boolean isNull)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
      Template(Dictionary`2 lookups, String template, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary`2[System.String,System.Object],System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Template(Dictionary`2 lookups, FileInfo templateFile, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary`2[System.String,System.Object],System.IO.FileInfo,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Template(Object obj, String template, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Template(Object obj, FileInfo templateFile, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.IO.FileInfo,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      Template(T obj, FileInfo templateFile, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(T,System.IO.FileInfo,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      TemplateList(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList(System.Collections.Generic.IEnumerable`1[T],System.String,System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      TemplateList(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList(System.Collections.Generic.IEnumerable`1[T],System.IO.FileInfo,System.String,System.String,System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
      TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull)
           WildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.Xtra.XtraExtensions
+WildHare.Extensions.Xtra: XtraExtensions
 ----------------------------------------------------------------------------------------------------
      DynamicArrayOfType(Object t)
           WildHare.Extensions.Xtra.XtraExtensions.DynamicArrayOfType(System.Object)
-          ***
 ----------------------------------------------------------------------------------------------------
      DynamicListOfType(Object t)
           WildHare.Extensions.Xtra.XtraExtensions.DynamicListOfType(System.Object)
-          ***
 ----------------------------------------------------------------------------------------------------
      GetApplicationRoot()
           WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot()
-          ***
 ----------------------------------------------------------------------------------------------------
      GetXmlDocumentation(String xmlDocPath, Assembly assemblyToDocument)
           WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)
-          ***
 ----------------------------------------------------------------------------------------------------
      Is(Object obj)
           WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)
-          ***
 ----------------------------------------------------------------------------------------------------
      IsNull(Object obj)
           WildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object)
-          ***
 ----------------------------------------------------------------------------------------------------
      ToMapPath(String fileName)
           WildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String)
-          ***
 ----------------------------------------------------------------------------------------------------
-WildHare.Extensions.Xtra.RandomExtensions
+WildHare.Extensions.Xtra: RandomExtensions
 ----------------------------------------------------------------------------------------------------
      Skip(Random random, Int32 number)
           WildHare.Extensions.Xtra.RandomExtensions.Skip(System.Random,System.Int32)

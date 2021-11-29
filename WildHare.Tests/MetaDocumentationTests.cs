@@ -64,7 +64,7 @@ namespace WildHare.Tests
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
             metaAssembly.WriteMetaAssemblyToFile(outputPath, true);
 
-            Assert.AreEqual(31, metaAssembly.GetMetaModels().Count);
+            Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
         }
     }
 }

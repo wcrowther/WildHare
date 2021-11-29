@@ -27,6 +27,14 @@ namespace WildHare
 
         public string TypeName { get => _type.Name; }
 
+        public string TypeFullName 
+        { 
+            get 
+            { 
+                return _type.FullName; 
+            } 
+        }
+
         public string TypeNamespace { get => _type.Namespace; }
 
         public string PrimaryKeyName { get => PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; }
@@ -139,6 +147,7 @@ namespace WildHare
                             Debug.WriteLine("Name: " + metaMethod.Name);
                             Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
                             Debug.WriteLine("TypeName: " + this.TypeName);
+                            Debug.WriteLine("methodInfo.DeclaringType.FullName: " + methodInfo.DeclaringType.FullName);
                             Debug.WriteLine("=".Repeat(25));
 
                             methods.Add(metaMethod);                     
