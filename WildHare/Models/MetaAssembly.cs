@@ -38,6 +38,19 @@ namespace WildHare
             return GetAllMetaModels().Where(w => !w.TypeName.StartsWith(anonStartArray)).ToList();
         }
 
+        public List<MetaNamespace> GetMetaModelsInNamespaces()
+        {
+            var namespaces = GetMetaModels().ToLookup(l => l.TypeNamespace);
+            var metaNamespaces = new List<MetaNamespace>();
+
+            foreach (var ns in namespaces)
+            {
+                metaNamespaces.Add(new MetaNamespace(ns.Key) { MetaModels = ns.ToList()});
+            }
+
+            return metaNamespaces.OrderBy(o => o.NamespaceName).ToList();
+        }
+
         public List<MetaModel> GetMetaModelsForAnonymousTypes()
         {
             return GetAllMetaModels().Where(w => w.TypeName.StartsWith(anonStartArray)).ToList();
@@ -70,6 +83,8 @@ namespace WildHare
         {
             string spacer = "-".Repeat(100);
             string tab = " ".Repeat(5);
+            int matches = 0;
+            int methodCount = 0;
 
             string title = 
                     $@"
@@ -89,21 +104,31 @@ namespace WildHare
                 foreach (var method in model.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
                 {
                     sb.AppendLine($"{tab}{method.Name}{GetParamString(method)}");
-                    sb.AppendLine($"{tab}{tab}{model.TypeFullName}.{method.DocMemberName}");
-                    var doc = this._documentMemberList.FirstOrDefault(f => f.MemberName.StartsWith($"{ model.TypeFullName}.{ method.Name}"));
+                    sb.AppendLine($"{tab}{tab}{model.TypeFullName}.{method.DocMemberName} : Is Meta.DocMemberName");
+                    var doc = this._documentMemberList.FirstOrDefault(f => f.MemberName == $"{ model.TypeFullName}.{ method.DocMemberName}");
 
                     if (doc != null)
                     {
-                        // sb.AppendLine($"{tab}{tab}{doc.Summary}");
-                        sb.AppendLine($"{tab}{tab}***");
+                        if ($"{model.TypeFullName}.{method.DocMemberName}" == doc.MemberName)
+                        {
+                            sb.AppendLine($"{tab} >>> Match");
+                            matches++;
+                        }
+
+                        sb.AppendLine($"{tab}{tab}{doc.MemberName} : Is MemberName in XMLDoc");
+                        sb.AppendLine($"{tab}{tab}***  {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
                     }
 
                     sb.AppendLine(spacer);
+
+                    methodCount++;
                 }
             }
 
             string path = $@"{outputDirectory}\{AssemblyName}.txt";
-            bool isSuccess = sb.ToString().WriteToFile(path, overwrite);
+            bool isSuccess =  sb.ToString()
+                                .AddStart($"{matches} matches of {methodCount} methods.{NewLine}")
+                                .WriteToFile(path, overwrite);
 
             return isSuccess;
         }

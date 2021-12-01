@@ -66,5 +66,15 @@ namespace WildHare.Tests
 
             Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
         }
+
+
+        [Test]
+        public void GetMetaModelsInNamespaces_Basic()
+        {
+            var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
+            var metaNamespaces = metaAssembly.GetMetaModelsInNamespaces();
+
+            Assert.AreEqual(6, metaNamespaces.Count);
+        }
     }
 }

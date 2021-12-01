@@ -405,6 +405,9 @@ namespace WildHare.Extensions
         /// <example>Shortcut for y.Replace("cat", "").Replace("dog", "") etc...</example>.
         public static string Replace(this string str, string[] oldValues, string newValue)
         {
+            if (str.IsNullOrEmpty() || oldValues == null || oldValues.Length == 0)
+                return str;
+            
             string result = str;
 
             foreach (string oldValue in oldValues)
@@ -530,6 +533,35 @@ namespace WildHare.Extensions
             var strComparison = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 
             return str.Equals(compareTo, strComparison);
+        }
+
+
+        public static string ReplaceLineReturns(this string str, string replacement = "")
+        {
+            string[] lineReturns = { "\r\n", "\r", "\n" };
+
+            return str.Replace(lineReturns, replacement);
+        }
+
+        public static string CombineSpaces(this string str)
+        {
+            if (str.IsNullOrEmpty())
+                return str;
+
+            var prevIsWhitespace = false;
+            var output = new StringBuilder();
+
+            foreach (char character in str)
+            {
+                bool isWhitespace = char.IsWhiteSpace(character);
+                if (isWhitespace && prevIsWhitespace)
+                {
+                    continue;
+                }
+                output.Append(character);
+                prevIsWhitespace = isWhitespace;
+            }
+            return output.ToString();
         }
 
 
