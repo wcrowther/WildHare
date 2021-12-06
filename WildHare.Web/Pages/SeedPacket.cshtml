@@ -35,7 +35,8 @@
 
         @if (!member.Reference.IsNullOrEmpty())
         {
-            @Html.Partial(member.Reference)
+            // OLD: @Html.Partial(member.Reference)
+            <partial name="@member.Reference" />
         }
 
         @if (@member.Examples.Any())

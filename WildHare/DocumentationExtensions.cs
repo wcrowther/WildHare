@@ -30,7 +30,7 @@ namespace WildHare.Extensions.Xtra
                     //Params = g.Elements("param")?.Select(s => s.Value).ToList()
                 }).ToList();
 
-            return memberList.Where(w => w.Documentation != null).ToList();
+            return memberList.ToList();
         }
 
     }

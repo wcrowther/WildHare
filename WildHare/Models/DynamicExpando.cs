@@ -6,10 +6,12 @@ using System.Linq;
 
 namespace WildHare
 {
+    /// <summary>Test Class Summary</summary>
     public class DynamicExpando : DynamicObject
     {
         private readonly Dictionary<string, object> _properties = new Dictionary<string, object>();
 
+        /// <summary>Test Property...</summary>
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             if (!_properties.ContainsKey(binder.Name))

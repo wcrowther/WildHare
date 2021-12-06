@@ -33,14 +33,33 @@ namespace WildHare
 
         public string AssemblyName { get => _assembly.GetName().Name; }
 
-        public List<MetaModel> GetMetaModels()
+        public List<MetaModel> GetMetaModels(string exclude = null, string include = null)
         {
-            return GetAllMetaModels().Where(w => !w.TypeName.StartsWith(anonStartArray)).ToList();
+            if (!exclude.IsNullOrEmpty() && !include.IsNullOrEmpty())
+            {
+                throw new Exception("The GetMetaModels method only accepts the exclude OR the include list.");
+            }
+
+            var metaModelList = GetAllMetaModels().Where(w => !w.TypeName.StartsWith(anonStartArray)).ToList();
+
+            if (!exclude.IsNullOrEmpty())
+            {
+                var excludeList = exclude.Split(',').Select(a => a.Trim());
+                return metaModelList.Where(w => !excludeList.Any(e => w.TypeNamespace == e)).ToList();
+            }
+
+            if (!include.IsNullOrEmpty())
+            {
+                var includeList = include.Split(',').Select(a => a.Trim());
+                return metaModelList.Where(w => includeList.Any(e => w.TypeNamespace == e)).ToList(); // returns fields not in list;
+            }
+
+            return metaModelList;
         }
 
-        public List<MetaNamespace> GetMetaModelsInNamespaces()
+        public List<MetaNamespace> GetMetaModelsGroupedByNamespaces(string exclude = null, string include = null)
         {
-            var namespaces = GetMetaModels().ToLookup(l => l.TypeNamespace);
+            var namespaces = GetMetaModels(exclude, include).ToLookup(l => l.TypeNamespace);
             var metaNamespaces = new List<MetaNamespace>();
 
             foreach (var ns in namespaces)
@@ -81,47 +100,54 @@ namespace WildHare
 
         public bool WriteMetaAssemblyToFile(string outputDirectory, bool overwrite = false)
         {
-            string spacer = "-".Repeat(100);
+            string header = "=".Repeat(150);
+            string spacer = "-".Repeat(145);
             string tab = " ".Repeat(5);
             int matches = 0;
             int methodCount = 0;
 
             string title = 
                     $@"
-                    {spacer}
+                    {header}
                     {this.AssemblyName} ASSEMBLY
-                    {spacer}
-                    {NewLine.Repeat(2)}";
+                    ";
 
             var sb = new StringBuilder(title.RemoveIndents());
-            var metaModels = GetMetaModels();
+            var metaNamespaces = GetMetaModelsGroupedByNamespaces();
 
-            foreach (var model in metaModels)
+            foreach (var ns in metaNamespaces)
             {
-                sb.AppendLine(model.TypeFullName);
-                sb.AppendLine(spacer);
+                sb.AppendLine(header);
+                sb.AppendLine(ns.NamespaceName);
+                sb.AppendLine(header);
 
-                foreach (var method in model.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
+                foreach (var metaModel in ns.MetaModels)
                 {
-                    sb.AppendLine($"{tab}{method.Name}{GetParamString(method)}");
-                    sb.AppendLine($"{tab}{tab}{model.TypeFullName}.{method.DocMemberName} : Is Meta.DocMemberName");
-                    var doc = this._documentMemberList.FirstOrDefault(f => f.MemberName == $"{ model.TypeFullName}.{ method.DocMemberName}");
+                    sb.AppendLine($"{tab}{metaModel.TypeFullName}");
+                    sb.AppendLine($"{tab}{spacer}");
 
-                    if (doc != null)
+                    foreach (var method in metaModel.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
                     {
-                        if ($"{model.TypeFullName}.{method.DocMemberName}" == doc.MemberName)
+                        sb.AppendLine($"{tab}{tab}{method.Name}{GetParamString(method)}");
+                        sb.AppendLine($"{tab}{tab}{tab}{metaModel.TypeFullName}.{method.DocMemberName} : Is Meta.DocMemberName");
+                        var doc = this._documentMemberList.FirstOrDefault(f => f.MemberName == $"{ metaModel.TypeFullName}.{ method.DocMemberName}");
+
+                        if (doc != null)
                         {
-                            sb.AppendLine($"{tab} >>> Match");
-                            matches++;
+                            if ($"{metaModel.TypeFullName}.{method.DocMemberName}" == doc.MemberName)
+                            {
+                                sb.AppendLine($"{tab} >>> Match");
+                                matches++;
+                            }
+
+                            sb.AppendLine($"{tab}{tab}{doc.MemberName} : Is MemberName in XMLDoc");
+                            sb.AppendLine($"{tab}{tab}***  {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
                         }
 
-                        sb.AppendLine($"{tab}{tab}{doc.MemberName} : Is MemberName in XMLDoc");
-                        sb.AppendLine($"{tab}{tab}***  {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
+                        sb.AppendLine($"{tab}{spacer}");
+
+                        methodCount++;
                     }
-
-                    sb.AppendLine(spacer);
-
-                    methodCount++;
                 }
             }
 

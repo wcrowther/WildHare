@@ -72,9 +72,19 @@ namespace WildHare.Tests
         public void GetMetaModelsInNamespaces_Basic()
         {
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
-            var metaNamespaces = metaAssembly.GetMetaModelsInNamespaces();
+            var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces();
 
             Assert.AreEqual(6, metaNamespaces.Count);
+        }
+
+        [Test]
+        public void GetMetaModelsInNamespaces_Filtered()
+        {
+            string excludedNamespaces = "WildHare.Properties, WildHare.Extensions.Xtra";
+            var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
+            var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces(exclude: excludedNamespaces);
+
+            Assert.AreEqual(4, metaNamespaces.Count);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace WildHare
     public class MetaField
     {
         private FieldInfo fieldInfo;
-        private object modelInstance;
 
         public MetaField(FieldInfo fieldInfo)
         {
