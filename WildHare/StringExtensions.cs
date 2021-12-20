@@ -658,6 +658,17 @@ namespace WildHare.Extensions
 
             return string.Format(provider, format, args);
         }
+
+        public static string ReplaceFirst(this string str, string oldValue, string newValue)
+        {
+            int position = str.IndexOf(oldValue);
+            if (position < 0)
+            {
+                return str;
+            }
+
+            return $"{str.Substring(0, position)}{newValue}{str.Substring(position + oldValue.Length)}";
+        }
     }
 }
 

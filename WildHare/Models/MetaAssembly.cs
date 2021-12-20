@@ -33,14 +33,14 @@ namespace WildHare
 
         public string AssemblyName { get => _assembly.GetName().Name; }
 
-        public List<MetaModel> GetMetaModels(string exclude = null, string include = null)
+        public List<MetaModel> GetMetaModels(string exclude = null, string include = null, bool hideAnonymousModels = true)
         {
             if (!exclude.IsNullOrEmpty() && !include.IsNullOrEmpty())
             {
                 throw new Exception("The GetMetaModels method only accepts the exclude OR the include list.");
             }
 
-            var metaModelList = GetAllMetaModels().Where(w => !w.TypeName.StartsWith(anonStartArray)).ToList();
+            var metaModelList = hideAnonymousModels ? GetAllMetaModels().Where(w => !w.TypeName.StartsWith(anonStartArray)) : GetAllMetaModels();
 
             if (!exclude.IsNullOrEmpty())
             {
@@ -54,12 +54,12 @@ namespace WildHare
                 return metaModelList.Where(w => includeList.Any(e => w.TypeNamespace == e)).ToList(); // returns fields not in list;
             }
 
-            return metaModelList;
+            return metaModelList.ToList();
         }
 
-        public List<MetaNamespace> GetMetaModelsGroupedByNamespaces(string exclude = null, string include = null)
+        public List<MetaNamespace> GetMetaModelsGroupedByNamespace(string exclude = null, string include = null, bool hideAnonymousModels = true)
         {
-            var namespaces = GetMetaModels(exclude, include).ToLookup(l => l.TypeNamespace);
+            var namespaces = GetMetaModels(exclude, include, hideAnonymousModels).ToLookup(l => l.TypeNamespace);
             var metaNamespaces = new List<MetaNamespace>();
 
             foreach (var ns in namespaces)
@@ -113,7 +113,7 @@ namespace WildHare
                     ";
 
             var sb = new StringBuilder(title.RemoveIndents());
-            var metaNamespaces = GetMetaModelsGroupedByNamespaces();
+            var metaNamespaces = GetMetaModelsGroupedByNamespace();
 
             foreach (var ns in metaNamespaces)
             {
@@ -130,6 +130,7 @@ namespace WildHare
                     {
                         sb.AppendLine($"{tab}{tab}{method.Name}{GetParamString(method)}");
                         sb.AppendLine($"{tab}{tab}{tab}{metaModel.TypeFullName}.{method.DocMemberName} : Is Meta.DocMemberName");
+                        
                         var doc = this._documentMemberList.FirstOrDefault(f => f.MemberName == $"{ metaModel.TypeFullName}.{ method.DocMemberName}");
 
                         if (doc != null)

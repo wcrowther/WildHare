@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using WildHare.Extensions;
 
 namespace WildHare
 {
@@ -18,11 +20,42 @@ namespace WildHare
 
         public string Name { get => parameterInfo.Name; }
 
+        public string DocParameterName 
+        { 
+            get 
+            {
+                // TODO WJC - More logic here
+                
+                string paramTypeStr = parameterInfo.ParameterType.ToString();
+
+                if (paramTypeStr.StartsWith("System.Func"))
+                {
+                    string genIndicator = GetGenericsIndicator(paramTypeStr);
+                    
+                    return paramTypeStr.ReplaceFirst(genIndicator, "")
+                                       .Replace("[", "{")
+                                       .Replace("]", "}");
+                }
+
+                return paramTypeStr; 
+            } 
+        }
+
         public Type ParameterType { get => parameterInfo.ParameterType; }
 
         public override string ToString()
         {
             return $"Parameter: '{Name}' of type {ParameterType}";
+        }
+
+        private string GetGenericsIndicator(string str)
+        {
+            if(str.IsNullOrSpace() || !str.Contains("`"))
+                return str;
+            
+            string endStr = str.GetEndAfter("`").TakeWhile(t => t.IsNumber()).AsString();
+
+            return "`" + endStr;
         }
     }
 }

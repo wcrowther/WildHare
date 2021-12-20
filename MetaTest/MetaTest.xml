@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MetaTest</name>
+    </assembly>
+    <members>
+        <member name="T:MetaTest.TestClass">
+            <summary>This TestClass is used for testing of the MetaAssembly.GetMetaModels and MetaAssembly.GetMetaModelsGroupedByNamespace</summary>
+        </member>
+        <member name="M:MetaTest.TestClass.SimpleMethod(System.Int32,System.Int32)">
+            <summary>SimpleMethod Summary Comment.</summary>
+        </member>
+        <member name="M:MetaTest.TestClass.ReturnIListMethod(System.String,System.Int32)">
+            <summary>ReturnIListMethod Summary Comment.</summary>
+        </member>
+        <member name="M:MetaTest.TestClass.TestThree(System.String,System.Func{System.String,System.Boolean})">
+            <summary>TestThree Summary Comment.</summary>
+        </member>
+        <member name="M:MetaTest.TestClass.TestOneGeneric``1(``0,System.Int32)">
+            <summary>TestOneGeneric Summary Comment.</summary>
+        </member>
+        <member name="M:MetaTest.TestClass.TestTwoGeneric``1(``0,System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean},System.Int32)">
+            <summary>TestTwoGenericGeneric Summary Comment.</summary>
+        </member>
+        <member name="M:MetaTest.TestClass.TestThreeGeneric``3(``1,System.Collections.Generic.IList{System.ValueTuple{``0,``1,``2}},System.Func{``0,System.Boolean},System.Int32)">
+            <summary>TestThree Summary Comment.</summary>
+        </member>
+    </members>
+</doc>

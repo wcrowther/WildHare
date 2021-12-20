@@ -33,7 +33,8 @@ namespace WildHare
         public bool CanWrite { get => propertyInfo.CanWrite; }
 
         public bool Implements(string interfaceName) => PropertyType.GetInterfaces().Any(a => a.Name == interfaceName);
-
+        
+        
         // Public Methods
         public dynamic GetInstanceValue(object instance = null)
         {

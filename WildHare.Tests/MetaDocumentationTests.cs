@@ -31,7 +31,7 @@ namespace WildHare.Tests
 
 
         [Test]
-        public void GetMethodsFromClass()
+        public void TestGetMethodsFromClass()
         {
             var testMethods = new TestMethods(1, 2);
             var metaModel = testMethods.GetMetaModel();
@@ -54,7 +54,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void GetMetaAssembly()
+        public void TestGetMetaAssembly()
         {
             string outputPathRoot = XtraExtensions.GetApplicationRoot();
             string outputPath = $@"{outputPathRoot}\Directory0";
@@ -69,22 +69,137 @@ namespace WildHare.Tests
 
 
         [Test]
-        public void GetMetaModelsInNamespaces_Basic()
+        public void TestGetMetaModelsGroupedByNamespace_Basic()
         {
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
-            var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces();
+            var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespace();
 
             Assert.AreEqual(6, metaNamespaces.Count);
         }
 
         [Test]
-        public void GetMetaModelsInNamespaces_Filtered()
+        public void TestGetMetaModelsGroupedByNamespace_With_Excluded_Namespaces()
         {
             string excludedNamespaces = "WildHare.Properties, WildHare.Extensions.Xtra";
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
-            var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces(exclude: excludedNamespaces);
+            var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespace(exclude: excludedNamespaces);
 
             Assert.AreEqual(4, metaNamespaces.Count);
+        }
+
+        [Test]
+        public void TestWriteMetaAssemblyToFile()
+        {
+            string outputPath = $@"c:\Git\WildHare\MetaTest\";
+
+            var metaAssembly = Assembly.Load("MetaTest").GetMetaAssembly();
+            bool success = metaAssembly.WriteMetaAssemblyToFile(outputPath, true);
+
+            Assert.IsTrue(success);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_Basic()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            Assert.AreEqual(1, metaModels.Count);
+            Assert.AreEqual("TestClass", firstModel.TypeName);
+            Assert.AreEqual(6, firstModel.GetMetaMethods().Count);
+            Assert.AreEqual("T:MetaTest.TestClass",  firstModel.DocMemberName);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_SimpleMethod()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "SimpleMethod");
+
+            Assert.AreEqual("SimpleMethod(Int32 item, Int32 step)",
+                            metaMethod.Signature);
+
+            //Assert.AreEqual("M:MetaTest.TestClass.SimpleMethod(System.Int32,System.Int32)",
+            //                metaMethod.DocMemberName);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_ReturnIListMethod()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "ReturnIListMethod");
+
+            Assert.AreEqual("ReturnIListMethod(String item, Int32 step)",
+                            metaMethod.Signature);
+
+            //Assert.AreEqual("M:MetaTest.TestClass.ReturnIListMethod(System.String,System.Int32)",
+            //                metaMethod.DocMemberName);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_TestThree()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestThree");
+
+            Assert.AreEqual("TestThree(String item, Func`2 func)",
+                            metaMethod.Signature);
+
+            //Assert.AreEqual("M:MetaTest.TestClass.TestThree(System.String,System.Func{System.String,System.Boolean})",
+            //                firstModel.GetMetaMethods()[2].DocMemberName);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_TestOneGeneric()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestOneGeneric");
+
+            Assert.AreEqual("TestOneGeneric(T item, Int32 step)",
+                            metaMethod.Signature);
+
+            //Assert.AreEqual("M:MetaTest.TestClass.TestOneGeneric``1(``0,System.Int32)",
+            //                firstModel.GetMetaMethods()[3].DocMemberName);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_TestTwoGeneric()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestTwoGeneric");
+
+            Assert.AreEqual("TestTwoGeneric(T item, IList`1 itemList, Func`2 func, Int32 step)",
+                            metaMethod.Signature);
+
+            //Assert.AreEqual("M:MetaTest.TestClass.TestTwoGeneric``1(``0,System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean},System.Int32)",
+            //                firstModel.GetMetaMethods()[4].DocMemberName);
+        }
+
+        [Test]
+        public void Test_Using_MetaTest_Example_TestThreeGeneric()
+        {
+            GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
+
+            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestThreeGeneric");
+
+            Assert.AreEqual("TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, Int32 step)",
+                            metaMethod.Signature);
+
+            //Assert.AreEqual("M: MetaTest.TestClass.TestThreeGeneric``3(``1, System.Collections.Generic.IList{ System.ValueTuple{``0,``1,``2} },System.Func{``0,System.Boolean},System.Int32)",
+            //                firstModel.GetMetaMethods()[5].DocMemberName);
+        }
+
+        // ======================================================================================================
+
+        private static void GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel)
+        {
+            var metaAssembly = Assembly.Load("MetaTest").GetMetaAssembly();
+            metaModels = metaAssembly.GetMetaModels();
+            firstModel = metaModels.First();
         }
     }
 }

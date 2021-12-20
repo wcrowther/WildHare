@@ -1,0 +1,26 @@
+0 matches of 6 methods.
+======================================================================================================================================================
+MetaTest ASSEMBLY
+======================================================================================================================================================
+MetaTest
+======================================================================================================================================================
+     MetaTest.TestClass
+     -------------------------------------------------------------------------------------------------------------------------------------------------
+          ReturnIListMethod(String item, Int32 step)
+               MetaTest.TestClass.M:MetaTest.ReturnIListMethod(String item, Int32 step) : Is Meta.DocMemberName
+     -------------------------------------------------------------------------------------------------------------------------------------------------
+          SimpleMethod(Int32 item, Int32 step)
+               MetaTest.TestClass.M:MetaTest.SimpleMethod(Int32 item, Int32 step) : Is Meta.DocMemberName
+     -------------------------------------------------------------------------------------------------------------------------------------------------
+          TestOneGeneric(T item, Int32 step)
+               MetaTest.TestClass.M:MetaTest.TestOneGeneric(T item, Int32 step) : Is Meta.DocMemberName
+     -------------------------------------------------------------------------------------------------------------------------------------------------
+          TestThree(String item, Func`2 func)
+               MetaTest.TestClass.M:MetaTest.TestThree(String item, Func`2 func) : Is Meta.DocMemberName
+     -------------------------------------------------------------------------------------------------------------------------------------------------
+          TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, Int32 step)
+               MetaTest.TestClass.M:MetaTest.TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, Int32 step) : Is Meta.DocMemberName
+     -------------------------------------------------------------------------------------------------------------------------------------------------
+          TestTwoGeneric(T item, IList`1 itemList, Func`2 func, Int32 step)
+               MetaTest.TestClass.M:MetaTest.TestTwoGeneric(T item, IList`1 itemList, Func`2 func, Int32 step) : Is Meta.DocMemberName
+     -------------------------------------------------------------------------------------------------------------------------------------------------

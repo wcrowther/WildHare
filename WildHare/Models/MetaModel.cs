@@ -99,6 +99,8 @@ namespace WildHare
             return MetaProperties.ToList();
         }
 
+        public string DocMemberName { get => $"T:{this.TypeFullName}"; }
+
         public string Summary { get; set; }
 
         public override string ToString() => $"{TypeNamespace.AddEnd(".")}{TypeName} Properties: {MetaProperties.Count} Methods: {MetaMethods.Count} Fields: {MetaFields.Count}";
@@ -143,10 +145,12 @@ namespace WildHare
                         var metaMethod = new MetaMethod(methodInfo);
 
                         if ( !metaMethod.IsGetter && !metaMethod.IsSetter)
-                        { 
-                            Debug.WriteLine("Name: " + metaMethod.Name);
+                        {
+                            Debug.WriteLine("Namespace: " + _type.Namespace);
+                            Debug.WriteLine("DeclaringType.Namespace: " + metaMethod.DeclaringType.Namespace);
                             Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
-                            Debug.WriteLine("TypeName: " + this.TypeName);
+                            Debug.WriteLine("MethodName: " + metaMethod.Name);
+                            Debug.WriteLine("this.TypeName: " + this.TypeName);
                             Debug.WriteLine("methodInfo.DeclaringType.FullName: " + methodInfo.DeclaringType.FullName);
                             Debug.WriteLine("=".Repeat(25));
 

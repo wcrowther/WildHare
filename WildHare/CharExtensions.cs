@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace WildHare.Extensions
@@ -45,9 +46,10 @@ namespace WildHare.Extensions
         /// <summary>Inline version of char.IsSeparator(ch). ie: Space plus all Unicode separator characters</summary>
         public static bool IsSeparator(this char ch) { return char.IsSeparator(ch); }
 
-
         /// <summary>Inline version of char.GetUnicodeCategory(ch)</summary>
         public static UnicodeCategory GetUnicodeCategory(this char ch) { return char.GetUnicodeCategory(ch); }
+
+        public static string AsString(this IEnumerable<char> chars){ return string.Concat(chars); }
 
     }
 }
