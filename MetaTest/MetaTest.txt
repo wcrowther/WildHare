@@ -7,20 +7,20 @@ MetaTest
      MetaTest.TestClass
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ReturnIListMethod(String item, Int32 step)
-               MetaTest.TestClass.M:MetaTest.ReturnIListMethod(String item, Int32 step) : Is Meta.DocMemberName
+               MetaTest.TestClass.M:MetaTest.ReturnIListMethod(System.String item, System.Int32 step) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           SimpleMethod(Int32 item, Int32 step)
-               MetaTest.TestClass.M:MetaTest.SimpleMethod(Int32 item, Int32 step) : Is Meta.DocMemberName
+               MetaTest.TestClass.M:MetaTest.SimpleMethod(System.Int32 item, System.Int32 step) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TestOneGeneric(T item, Int32 step)
-               MetaTest.TestClass.M:MetaTest.TestOneGeneric(T item, Int32 step) : Is Meta.DocMemberName
+               MetaTest.TestClass.M:MetaTest.TestOneGeneric(T item, System.Int32 step) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TestThree(String item, Func`2 func)
-               MetaTest.TestClass.M:MetaTest.TestThree(String item, Func`2 func) : Is Meta.DocMemberName
+               MetaTest.TestClass.M:MetaTest.TestThree(System.String item, System.Func`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] func) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, Int32 step)
-               MetaTest.TestClass.M:MetaTest.TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, Int32 step) : Is Meta.DocMemberName
+               MetaTest.TestClass.M:MetaTest.TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, System.Int32 step) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TestTwoGeneric(T item, IList`1 itemList, Func`2 func, Int32 step)
-               MetaTest.TestClass.M:MetaTest.TestTwoGeneric(T item, IList`1 itemList, Func`2 func, Int32 step) : Is Meta.DocMemberName
+               MetaTest.TestClass.M:MetaTest.TestTwoGeneric(T item, IList`1 itemList, Func`2 func, System.Int32 step) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------

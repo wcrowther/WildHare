@@ -10,29 +10,29 @@ namespace WildHare
 {
     public class MetaModel
     {
+        private readonly Type _type;
+        private List<MetaField> fields = null;
+        private List<MetaProperty> properties = null;
+        private List<MetaMethod> methods = null;
+        private object _instance;
+
         public MetaModel(Type type, object instance = null)
         {
             if (type == null)
-                throw new Exception("MetaModel type cannot be null.");
+                throw new NullReferenceException("MetaModel type cannot be null.");
 
             _type = type;
             _instance = instance;
         }
 
-        private readonly Type _type;
-        private List<MetaField> fields = null;
-        private List<MetaProperty> properties = null;
-        private List<MetaMethod>  methods = null;
-        private object _instance;
-
-        public string TypeName { get => _type.Name; }
+        public string TypeName 
+        { 
+            get => _type.Name; 
+        }
 
         public string TypeFullName 
         { 
-            get 
-            { 
-                return _type.FullName; 
-            } 
+            get => _type.FullName; 
         }
 
         public string TypeNamespace { get => _type.Namespace; }
@@ -189,6 +189,11 @@ namespace WildHare
             }
 
             return metaParmeters;
+        }
+
+        private string Signature()
+        { 
+            throw new NotImplementedException();
         }
 
     }

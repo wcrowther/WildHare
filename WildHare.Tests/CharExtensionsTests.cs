@@ -21,5 +21,20 @@ namespace WildHare.Tests
             Assert.IsFalse(letterChar.IsNumber());
 		}
 
+        [Test]
+        public void Test_Char_Array_AsString_Basic()
+        {
+            char[] chars = { 't', 'h', 'e', ' ', 's', 't', 'r', 'i', 'n', 'g' };
+
+            Assert.AreEqual("the string", chars.AsString());
+        }
+
+        [Test]
+        public void Test_Char_Array_AsString_No_Chars()
+        {
+            char[] chars = { };
+
+            Assert.AreEqual("", chars.AsString());
+        }
     }
 }

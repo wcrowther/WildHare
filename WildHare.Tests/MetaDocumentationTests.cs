@@ -43,9 +43,9 @@ namespace WildHare.Tests
             Assert.AreEqual("Subtract", metaMethods.ElementAt(1).Name);
             Assert.AreEqual("Multiply", metaMethods.ElementAt(2).Name);
             Assert.AreEqual("first", metaMethods.ElementAt(2).Parameters[0].Name);
-            Assert.AreEqual("Int32", metaMethods.ElementAt(2).Parameters[0].ParameterType.Name);
+            Assert.AreEqual("Int32", metaMethods.ElementAt(2).Parameters[0].ParameterMetaType.Name);
             Assert.AreEqual("second", metaMethods.ElementAt(2).Parameters[1].Name);
-            Assert.AreEqual("Int32", metaMethods.ElementAt(2).Parameters[1].ParameterType.Name);
+            Assert.AreEqual("Int32", metaMethods.ElementAt(2).Parameters[1].ParameterMetaType.Name);
             Assert.AreEqual("Divide", metaMethods.ElementAt(3).Name);
 
             var allMetaMethods = metaModel.GetMetaMethods(includeInherited: true);
@@ -66,7 +66,6 @@ namespace WildHare.Tests
 
             Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
         }
-
 
         [Test]
         public void TestGetMetaModelsGroupedByNamespace_Basic()
@@ -105,6 +104,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(1, metaModels.Count);
             Assert.AreEqual("TestClass", firstModel.TypeName);
+
             Assert.AreEqual(6, firstModel.GetMetaMethods().Count);
             Assert.AreEqual("T:MetaTest.TestClass",  firstModel.DocMemberName);
         }
@@ -114,9 +114,9 @@ namespace WildHare.Tests
         {
             GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
 
-            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "SimpleMethod");
+            var metaMethod = firstModel.GetMetaMethods().Single(f => f.Name == "SimpleMethod");
 
-            Assert.AreEqual("SimpleMethod(Int32 item, Int32 step)",
+            Assert.AreEqual("SimpleMethod(System.Int32 item, System.Int32 step)",
                             metaMethod.Signature);
 
             //Assert.AreEqual("M:MetaTest.TestClass.SimpleMethod(System.Int32,System.Int32)",
@@ -128,9 +128,9 @@ namespace WildHare.Tests
         {
             GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
 
-            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "ReturnIListMethod");
+            var metaMethod = firstModel.GetMetaMethods().Single(f => f.Name == "ReturnIListMethod");
 
-            Assert.AreEqual("ReturnIListMethod(String item, Int32 step)",
+            Assert.AreEqual("ReturnIListMethod(System.String item, System.Int32 step)",
                             metaMethod.Signature);
 
             //Assert.AreEqual("M:MetaTest.TestClass.ReturnIListMethod(System.String,System.Int32)",
@@ -142,9 +142,9 @@ namespace WildHare.Tests
         {
             GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
 
-            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestThree");
+            var metaMethod = firstModel.GetMetaMethods().Single(f => f.Name == "TestThree");
 
-            Assert.AreEqual("TestThree(String item, Func`2 func)",
+            Assert.AreEqual("TestThree(System.String item, System.Func`2 func)",
                             metaMethod.Signature);
 
             //Assert.AreEqual("M:MetaTest.TestClass.TestThree(System.String,System.Func{System.String,System.Boolean})",
@@ -156,9 +156,9 @@ namespace WildHare.Tests
         {
             GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
 
-            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestOneGeneric");
+            var metaMethod = firstModel.GetMetaMethods().Single(f => f.Name == "TestOneGeneric");
 
-            Assert.AreEqual("TestOneGeneric(T item, Int32 step)",
+            Assert.AreEqual("TestOneGeneric(T item, System.Int32 step)",
                             metaMethod.Signature);
 
             //Assert.AreEqual("M:MetaTest.TestClass.TestOneGeneric``1(``0,System.Int32)",
@@ -170,9 +170,9 @@ namespace WildHare.Tests
         {
             GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
 
-            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestTwoGeneric");
+            var metaMethod = firstModel.GetMetaMethods().Single(f => f.Name == "TestTwoGeneric");
 
-            Assert.AreEqual("TestTwoGeneric(T item, IList`1 itemList, Func`2 func, Int32 step)",
+            Assert.AreEqual("TestTwoGeneric(T item, System.IList`1 itemList, System.Func`2 func, Int32 step)",
                             metaMethod.Signature);
 
             //Assert.AreEqual("M:MetaTest.TestClass.TestTwoGeneric``1(``0,System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean},System.Int32)",
@@ -184,9 +184,9 @@ namespace WildHare.Tests
         {
             GetMetaTestExample(out List<MetaModel> metaModels, out MetaModel firstModel);
 
-            var metaMethod = firstModel.GetMetaMethods().First(f => f.Name == "TestThreeGeneric");
+            var metaMethod = firstModel.GetMetaMethods().Single(f => f.Name == "TestThreeGeneric");
 
-            Assert.AreEqual("TestThreeGeneric(T2 item, IList`1 itemList, Func`2 func, Int32 step)",
+            Assert.AreEqual("TestThreeGeneric(T2 item, System.IList`1 itemList, System.Func`2 func, System.Int32 step)",
                             metaMethod.Signature);
 
             //Assert.AreEqual("M: MetaTest.TestClass.TestThreeGeneric``3(``1, System.Collections.Generic.IList{ System.ValueTuple{``0,``1,``2} },System.Func{``0,System.Boolean},System.Int32)",

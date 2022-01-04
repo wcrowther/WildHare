@@ -12,13 +12,28 @@ namespace WildHare
     public class MetaParameter
     {
         private ParameterInfo parameterInfo;
+        private MetaModel parameterType;
+
 
         public MetaParameter(ParameterInfo parameterInfo)
         {
             this.parameterInfo = parameterInfo;
         }
 
-        public string Name { get => parameterInfo.Name; }
+        public string Name 
+        { 
+            get => parameterInfo.Name; 
+        }
+
+        public string TypeName 
+        { 
+            get => parameterType.FullName ?? parameterType.Name; 
+        }
+
+        public string Signature 
+        { 
+            get => $"{TypeName} {Name}";
+        }
 
         public string DocParameterName 
         { 
@@ -26,7 +41,7 @@ namespace WildHare
             {
                 // TODO WJC - More logic here
                 
-                string paramTypeStr = parameterInfo.ParameterType.ToString();
+                string paramTypeStr = parameterType.ToString();
 
                 if (paramTypeStr.StartsWith("System.Func"))
                 {
@@ -41,11 +56,11 @@ namespace WildHare
             } 
         }
 
-        public Type ParameterType { get => parameterInfo.ParameterType; }
+        public MetaModel ParameterMetaType { get =>  new MetaModel(parameterInfo.ParameterType); }
 
         public override string ToString()
         {
-            return $"Parameter: '{Name}' of type {ParameterType}";
+            return $"Parameter: '{Name}' of type {parameterType.}";
         }
 
         private string GetGenericsIndicator(string str)

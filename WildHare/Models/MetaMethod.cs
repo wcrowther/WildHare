@@ -32,6 +32,7 @@ namespace WildHare
                 return $"{Name}({ParametersString()})";
             }
         }
+
         public string Namespace
         {
             get
@@ -85,7 +86,9 @@ namespace WildHare
         }
         public string ParametersString()
         {
-            string parmStr = string.Join(", ", Parameters.Select(s => $"{s.ParameterType.Name} {s.Name}"));
+            
+
+            string parmStr = string.Join(", ", Parameters.Select(s => s.Signature));
 
             return parmStr.Trim();
         }

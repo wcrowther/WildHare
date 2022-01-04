@@ -15,10 +15,10 @@ WildHare
                WildHare.DynamicDictionary.M:WildHare.Clear() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TryGetMember(GetMemberBinder binder, Object& result)
-               WildHare.DynamicDictionary.M:WildHare.TryGetMember(GetMemberBinder binder, Object& result) : Is Meta.DocMemberName
+               WildHare.DynamicDictionary.M:WildHare.TryGetMember(System.Dynamic.GetMemberBinder binder, System.Object& result) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TrySetMember(SetMemberBinder binder, Object value)
-               WildHare.DynamicDictionary.M:WildHare.TrySetMember(SetMemberBinder binder, Object value) : Is Meta.DocMemberName
+               WildHare.DynamicDictionary.M:WildHare.TrySetMember(System.Dynamic.SetMemberBinder binder, System.Object value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.DynamicExpando
      -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ WildHare
                WildHare.DynamicExpando.M:WildHare.FirstOrDefault() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Remove(String key)
-               WildHare.DynamicExpando.M:WildHare.Remove(String key) : Is Meta.DocMemberName
+               WildHare.DynamicExpando.M:WildHare.Remove(System.String key) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDictionary()
                WildHare.DynamicExpando.M:WildHare.ToDictionary() : Is Meta.DocMemberName
@@ -41,10 +41,10 @@ WildHare
                WildHare.DynamicExpando.M:WildHare.ToList() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TryGetMember(GetMemberBinder binder, Object& result)
-               WildHare.DynamicExpando.M:WildHare.TryGetMember(GetMemberBinder binder, Object& result) : Is Meta.DocMemberName
+               WildHare.DynamicExpando.M:WildHare.TryGetMember(System.Dynamic.GetMemberBinder binder, System.Object& result) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TrySetMember(SetMemberBinder binder, Object value)
-               WildHare.DynamicExpando.M:WildHare.TrySetMember(SetMemberBinder binder, Object value) : Is Meta.DocMemberName
+               WildHare.DynamicExpando.M:WildHare.TrySetMember(System.Dynamic.SetMemberBinder binder, System.Object value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.MetaAssembly
      -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,19 +52,19 @@ WildHare
                WildHare.MetaAssembly.M:WildHare.GetMetaDocumentationList() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaModels(String exclude, String include, Boolean hideAnonymousModels)
-               WildHare.MetaAssembly.M:WildHare.GetMetaModels(String exclude, String include, Boolean hideAnonymousModels) : Is Meta.DocMemberName
+               WildHare.MetaAssembly.M:WildHare.GetMetaModels(System.String exclude, System.String include, System.Boolean hideAnonymousModels) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaModelsForAnonymousTypes()
                WildHare.MetaAssembly.M:WildHare.GetMetaModelsForAnonymousTypes() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaModelsGroupedByNamespace(String exclude, String include, Boolean hideAnonymousModels)
-               WildHare.MetaAssembly.M:WildHare.GetMetaModelsGroupedByNamespace(String exclude, String include, Boolean hideAnonymousModels) : Is Meta.DocMemberName
+               WildHare.MetaAssembly.M:WildHare.GetMetaModelsGroupedByNamespace(System.String exclude, System.String include, System.Boolean hideAnonymousModels) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToString()
                WildHare.MetaAssembly.M:WildHare.ToString() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           WriteMetaAssemblyToFile(String outputDirectory, Boolean overwrite)
-               WildHare.MetaAssembly.M:WildHare.WriteMetaAssemblyToFile(String outputDirectory, Boolean overwrite) : Is Meta.DocMemberName
+               WildHare.MetaAssembly.M:WildHare.WriteMetaAssemblyToFile(System.String outputDirectory, System.Boolean overwrite) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.MetaDocumentation
      -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,10 +88,10 @@ WildHare
                WildHare.MetaMethod.M:WildHare.DocParametersString() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetXmlName(MethodInfo info)
-               WildHare.MetaMethod.M:WildHare.GetXmlName(MethodInfo info) : Is Meta.DocMemberName
+               WildHare.MetaMethod.M:WildHare.GetXmlName(System.Reflection.MethodInfo info) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsInherited(String typeName)
-               WildHare.MetaMethod.M:WildHare.IsInherited(String typeName) : Is Meta.DocMemberName
+               WildHare.MetaMethod.M:WildHare.IsInherited(System.String typeName) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ParametersString()
                WildHare.MetaMethod.M:WildHare.ParametersString() : Is Meta.DocMemberName
@@ -102,13 +102,13 @@ WildHare
      WildHare.MetaModel
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaMethods(String exclude, String include, Boolean includeInherited)
-               WildHare.MetaModel.M:WildHare.GetMetaMethods(String exclude, String include, Boolean includeInherited) : Is Meta.DocMemberName
+               WildHare.MetaModel.M:WildHare.GetMetaMethods(System.String exclude, System.String include, System.Boolean includeInherited) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaProperties(String exclude, String include)
-               WildHare.MetaModel.M:WildHare.GetMetaProperties(String exclude, String include) : Is Meta.DocMemberName
+               WildHare.MetaModel.M:WildHare.GetMetaProperties(System.String exclude, System.String include) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Implements(String interfaceName)
-               WildHare.MetaModel.M:WildHare.Implements(String interfaceName) : Is Meta.DocMemberName
+               WildHare.MetaModel.M:WildHare.Implements(System.String interfaceName) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToString()
                WildHare.MetaModel.M:WildHare.ToString() : Is Meta.DocMemberName
@@ -126,13 +126,13 @@ WildHare
      WildHare.MetaProperty
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetInstanceValue(Object instance)
-               WildHare.MetaProperty.M:WildHare.GetInstanceValue(Object instance) : Is Meta.DocMemberName
+               WildHare.MetaProperty.M:WildHare.GetInstanceValue(System.Object instance) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Implements(String interfaceName)
-               WildHare.MetaProperty.M:WildHare.Implements(String interfaceName) : Is Meta.DocMemberName
+               WildHare.MetaProperty.M:WildHare.Implements(System.String interfaceName) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           SetInstanceValue(Object value, Object instance)
-               WildHare.MetaProperty.M:WildHare.SetInstanceValue(Object value, Object instance) : Is Meta.DocMemberName
+               WildHare.MetaProperty.M:WildHare.SetInstanceValue(System.Object value, System.Object instance) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToString()
                WildHare.MetaProperty.M:WildHare.ToString() : Is Meta.DocMemberName
@@ -143,216 +143,216 @@ WildHare.Extensions
      WildHare.Extensions.CharExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AsString(IEnumerable`1 chars)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.AsString(IEnumerable`1 chars) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.AsString(System.Collections.Generic.IEnumerable`1[[System.Char, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] chars) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           CharAt(String s, Int32 i)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.CharAt(String s, Int32 i) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.CharAt(System.String s, System.Int32 i) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetUnicodeCategory(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.GetUnicodeCategory(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.GetUnicodeCategory(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsControl(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsControl(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsControl(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsDigit(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsDigit(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsDigit(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsLetter(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsLetter(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsLetter(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsLetterOrDigit(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsLetterOrDigit(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsLetterOrDigit(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsLower(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsLower(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsLower(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsNumber(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsNumber(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsNumber(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsPunctuation(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsPunctuation(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsPunctuation(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsSeparator(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsSeparator(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsSeparator(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsSymbol(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsSymbol(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsSymbol(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsUpper(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsUpper(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsUpper(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsWhiteSpace(Char ch)
-               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsWhiteSpace(Char ch) : Is Meta.DocMemberName
+               WildHare.Extensions.CharExtensions.M:WildHare.Extensions.IsWhiteSpace(System.Char ch) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.ConvertExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AsString(Int32[] intArray, Boolean strict, String separator)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.AsString(Int32[] intArray, Boolean strict, String separator) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.AsString(System.Int32[] intArray, System.Boolean strict, System.String separator) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToBool(String value)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToBool(String value) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToBool(System.String value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToBool(String value, String trueValue, Boolean ignoreCase)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToBool(String value, String trueValue, Boolean ignoreCase) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToBool(System.String value, System.String trueValue, System.Boolean ignoreCase) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToBoolNullable(String value, Nullable`1 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToBoolNullable(String value, Nullable`1 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToBoolNullable(System.String value, System.Nullable`1[[System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDateTime(String value, DateTime defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDateTime(String value, DateTime defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDateTime(System.String value, System.DateTime defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDateTime(String value, Nullable`1 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDateTime(String value, Nullable`1 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDateTime(System.String value, System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDecimal(String value, Decimal defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDecimal(String value, Decimal defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDecimal(System.String value, System.Decimal defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDecimalNullable(String value, Nullable`1 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDecimalNullable(String value, Nullable`1 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDecimalNullable(System.String value, System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDouble(String value, Double defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDouble(String value, Double defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDouble(System.String value, System.Double defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToDoubleNullable(String value, Nullable`1 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDoubleNullable(String value, Nullable`1 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToDoubleNullable(System.String value, System.Nullable`1[[System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToInt(String value, Int32 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToInt(String value, Int32 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToInt(System.String value, System.Int32 defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToIntArray(String str, Boolean strict, String separator)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToIntArray(String str, Boolean strict, String separator) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToIntArray(System.String str, System.Boolean strict, System.String separator) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToIntNullable(String value, Nullable`1 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToIntNullable(String value, Nullable`1 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToIntNullable(System.String value, System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToLong(String value, Int64 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToLong(String value, Int64 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToLong(System.String value, System.Int64 defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToLongNullable(String value, Nullable`1 defaultValue)
-               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToLongNullable(String value, Nullable`1 defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.ConvertExtensions.M:WildHare.Extensions.ToLongNullable(System.String value, System.Nullable`1[[System.Int64, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.DataReaderExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Get(IDataReader row, String fieldName, T defaultValue)
-               WildHare.Extensions.DataReaderExtensions.M:WildHare.Extensions.Get(IDataReader row, String fieldName, T defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.DataReaderExtensions.M:WildHare.Extensions.Get(System.Data.IDataReader row, System.String fieldName, T defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Get(IDataReader row, Int32 ordinal, T defaultValue)
-               WildHare.Extensions.DataReaderExtensions.M:WildHare.Extensions.Get(IDataReader row, Int32 ordinal, T defaultValue) : Is Meta.DocMemberName
+               WildHare.Extensions.DataReaderExtensions.M:WildHare.Extensions.Get(System.Data.IDataReader row, System.Int32 ordinal, T defaultValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.DataTableExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToList(DataTable table)
-               WildHare.Extensions.DataTableExtensions.M:WildHare.Extensions.ToList(DataTable table) : Is Meta.DocMemberName
+               WildHare.Extensions.DataTableExtensions.M:WildHare.Extensions.ToList(System.Data.DataTable table) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.DateTimeExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           FirstDayOfNextMonth(DateTime datetime)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.FirstDayOfNextMonth(DateTime datetime) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.FirstDayOfNextMonth(System.DateTime datetime) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           FirstDayOfTheMonth(DateTime datetime)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.FirstDayOfTheMonth(DateTime datetime) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.FirstDayOfTheMonth(System.DateTime datetime) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeDate)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeDate) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.GetNextDayOfWeek(System.DateTime date, System.DayOfWeek dayOfWeek, System.Boolean includeDate) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsInTheSameMonth(DateTime datetime, DateTime target)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.IsInTheSameMonth(DateTime datetime, DateTime target) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.IsInTheSameMonth(System.DateTime datetime, System.DateTime target) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           LastDayOfTheMonth(DateTime datetime)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.LastDayOfTheMonth(DateTime datetime) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.LastDayOfTheMonth(System.DateTime datetime) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           MonthName(DateTime date)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.MonthName(DateTime date) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.MonthName(System.DateTime date) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           MonthName(Int32 monthInt)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.MonthName(Int32 monthInt) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.MonthName(System.Int32 monthInt) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           NextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeCurrentDate)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.NextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeCurrentDate) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.NextDayOfWeek(System.DateTime date, System.DayOfWeek dayOfWeek, System.Boolean includeCurrentDate) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ShortMonthName(DateTime date)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.ShortMonthName(DateTime date) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.ShortMonthName(System.DateTime date) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ShortMonthName(Int32 monthInt)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.ShortMonthName(Int32 monthInt) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.ShortMonthName(System.Int32 monthInt) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           StartOfWeek(DateTime dt, DayOfWeek startOfWeek)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.StartOfWeek(DateTime dt, DayOfWeek startOfWeek) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.StartOfWeek(System.DateTime dt, System.DayOfWeek startOfWeek) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TodayOrBefore(DateTime datetime)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.TodayOrBefore(DateTime datetime) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.TodayOrBefore(System.DateTime datetime) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           YearMonth(DateTime date)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.YearMonth(DateTime date) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.YearMonth(System.DateTime date) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           YearMonthDay(DateTime date)
-               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.YearMonthDay(DateTime date) : Is Meta.DocMemberName
+               WildHare.Extensions.DateTimeExtensions.M:WildHare.Extensions.YearMonthDay(System.DateTime date) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.DictionaryExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Get(IDictionary`2 dictionary, String key)
-               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.Get(IDictionary`2 dictionary, String key) : Is Meta.DocMemberName
+               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.Get(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.String key) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Set(IDictionary`2 dictionary, String key, Object value)
-               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.Set(IDictionary`2 dictionary, String key, Object value) : Is Meta.DocMemberName
+               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.Set(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.String key, System.Object value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToQueryDictionary(String query)
-               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.ToQueryDictionary(String query) : Is Meta.DocMemberName
+               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.ToQueryDictionary(System.String query) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToQueryString(IDictionary`2 dict)
-               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.ToQueryString(IDictionary`2 dict) : Is Meta.DocMemberName
+               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.ToQueryString(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dict) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TryGet(IDictionary`2 dictionary, String key, T& value)
-               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.TryGet(IDictionary`2 dictionary, String key, T& value) : Is Meta.DocMemberName
+               WildHare.Extensions.DictionaryExtensions.M:WildHare.Extensions.TryGet(System.Collections.Generic.IDictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.String key, T& value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.ExpandoExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Add(ExpandoObject expando, String name, T value)
-               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Add(ExpandoObject expando, String name, T value) : Is Meta.DocMemberName
+               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Add(System.Dynamic.ExpandoObject expando, System.String name, T value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Add(ExpandoObject expando, String name, String value)
-               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Add(ExpandoObject expando, String name, String value) : Is Meta.DocMemberName
+               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Add(System.Dynamic.ExpandoObject expando, System.String name, System.String value) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Get(ExpandoObject expando, String name)
-               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Get(ExpandoObject expando, String name) : Is Meta.DocMemberName
+               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Get(System.Dynamic.ExpandoObject expando, System.String name) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Get(ExpandoObject expando, String name)
-               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Get(ExpandoObject expando, String name) : Is Meta.DocMemberName
+               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Get(System.Dynamic.ExpandoObject expando, System.String name) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Get(Dictionary`2 dictionary, TKey key, TVal defaultVal)
                WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Get(Dictionary`2 dictionary, TKey key, TVal defaultVal) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Remove(ExpandoObject expando, String name)
-               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Remove(ExpandoObject expando, String name) : Is Meta.DocMemberName
+               WildHare.Extensions.ExpandoExtensions.M:WildHare.Extensions.Remove(System.Dynamic.ExpandoObject expando, System.String name) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.IEnumerableExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AsString(IEnumerable`1 intList, Boolean strict)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.AsString(IEnumerable`1 intList, Boolean strict) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.AsString(System.Collections.Generic.IEnumerable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] intList, System.Boolean strict) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ElementIn(IEnumerable`1 source, Int32 index)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ElementIn(IEnumerable`1 source, Int32 index) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ElementIn(IEnumerable`1 source, System.Int32 index) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ElementInOrDefault(IEnumerable`1 source, Int32 index, TSource defaultItem)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ElementInOrDefault(IEnumerable`1 source, Int32 index, TSource defaultItem) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ElementInOrDefault(IEnumerable`1 source, System.Int32 index, TSource defaultItem) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ElementInOrDefault(IEnumerable`1 source, Int32 index)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ElementInOrDefault(IEnumerable`1 source, Int32 index) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ElementInOrDefault(IEnumerable`1 source, System.Int32 index) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           InList(IList`1 list, IList`1 items, Func`3 comparer)
                WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.InList(IList`1 list, IList`1 items, Func`3 comparer) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           MatchList(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.MatchList(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.MatchList(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, System.Boolean consecutive) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           PatternMatch(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)
                WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.PatternMatch(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Pluralize(IEnumerable`1 list, String singular, String plural)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.Pluralize(IEnumerable`1 list, String singular, String plural) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.Pluralize(IEnumerable`1 list, System.String singular, System.String plural) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Sequence(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, Boolean consecutive)
-               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.Sequence(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, Boolean consecutive) : Is Meta.DocMemberName
+               WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.Sequence(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, System.Boolean consecutive) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToCollection(IEnumerable`1 enumerable)
                WildHare.Extensions.IEnumerableExtensions.M:WildHare.Extensions.ToCollection(IEnumerable`1 enumerable) : Is Meta.DocMemberName
@@ -366,7 +366,7 @@ WildHare.Extensions
                WildHare.Extensions.IListExtensions.M:WildHare.Extensions.AddRange(IList`1 itemList, IEnumerable`1 newItems) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           CombineItems(IList`1 itemList, Int32 index, Int32 count, T newItem)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.CombineItems(IList`1 itemList, Int32 index, Int32 count, T newItem) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.CombineItems(IList`1 itemList, System.Int32 index, System.Int32 count, T newItem) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsFirstIn(T item, IList`1 itemList)
                WildHare.Extensions.IListExtensions.M:WildHare.Extensions.IsFirstIn(T item, IList`1 itemList) : Is Meta.DocMemberName
@@ -375,264 +375,264 @@ WildHare.Extensions
                WildHare.Extensions.IListExtensions.M:WildHare.Extensions.IsLastIn(T item, IList`1 itemList) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           NextIn(T item, IList`1 itemList, Int32 distance)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.NextIn(T item, IList`1 itemList, Int32 distance) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.NextIn(T item, IList`1 itemList, System.Int32 distance) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           NextInWhile(T item, IList`1 itemList, Func`2 func, Int32 step)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.NextInWhile(T item, IList`1 itemList, Func`2 func, Int32 step) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.NextInWhile(T item, IList`1 itemList, Func`2 func, System.Int32 step) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           PreviousIn(T item, IList`1 itemList, Int32 distance)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.PreviousIn(T item, IList`1 itemList, Int32 distance) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.PreviousIn(T item, IList`1 itemList, System.Int32 distance) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           PreviousInWhile(T item, IList`1 itemList, Func`2 func)
                WildHare.Extensions.IListExtensions.M:WildHare.Extensions.PreviousInWhile(T item, IList`1 itemList, Func`2 func) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ReplaceItem(IList`1 itemList, Int32 index, T newItem)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.ReplaceItem(IList`1 itemList, Int32 index, T newItem) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.ReplaceItem(IList`1 itemList, System.Int32 index, T newItem) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ReplaceItems(IList`1 itemList, Int32 index, IList`1 newItems)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.ReplaceItems(IList`1 itemList, Int32 index, IList`1 newItems) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.ReplaceItems(IList`1 itemList, System.Int32 index, IList`1 newItems) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TakeNext(IList`1 sourceList, Int32 count, Int32 offset, Boolean remove)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeNext(IList`1 sourceList, Int32 count, Int32 offset, Boolean remove) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeNext(IList`1 sourceList, System.Int32 count, System.Int32 offset, System.Boolean remove) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TakeNextOne(IList`1 sourceList, Int32 offset, Boolean remove)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeNextOne(IList`1 sourceList, Int32 offset, Boolean remove) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeNextOne(IList`1 sourceList, System.Int32 offset, System.Boolean remove) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TakeRandom(IList`1 sourceList, Int32 count, Random random, Boolean remove)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeRandom(IList`1 sourceList, Int32 count, Random random, Boolean remove) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeRandom(IList`1 sourceList, System.Int32 count, System.Random random, System.Boolean remove) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TakeRandomOne(IList`1 sourceList, Random random, Boolean remove)
-               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeRandomOne(IList`1 sourceList, Random random, Boolean remove) : Is Meta.DocMemberName
+               WildHare.Extensions.IListExtensions.M:WildHare.Extensions.TakeRandomOne(IList`1 sourceList, System.Random random, System.Boolean remove) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.IOExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AppendToFile(String stringToWrite, String fileName)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.AppendToFile(String stringToWrite, String fileName) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.AppendToFile(System.String stringToWrite, System.String fileName) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AppendToFile(String stringToWrite, FileInfo file)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.AppendToFile(String stringToWrite, FileInfo file) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.AppendToFile(System.String stringToWrite, System.IO.FileInfo file) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetAllDirectoriesAndFiles(DirectoryInfo directory, Int32 maxDepth)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.GetAllDirectoriesAndFiles(DirectoryInfo directory, Int32 maxDepth) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo directory, System.Int32 maxDepth) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetAllFiles(String directoryPath, String searchPattern)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.GetAllFiles(String directoryPath, String searchPattern) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.GetAllFiles(System.String directoryPath, System.String searchPattern) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetAllFiles(String directoryPath, String[] fileExtensions)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.GetAllFiles(String directoryPath, String[] fileExtensions) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.GetAllFiles(System.String directoryPath, System.String[] fileExtensions) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsDirectory(FileSystemInfo info)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.IsDirectory(FileSystemInfo info) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.IsDirectory(System.IO.FileSystemInfo info) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ReadFile(FileInfo fileInfo, Boolean strict)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.ReadFile(FileInfo fileInfo, Boolean strict) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.ReadFile(System.IO.FileInfo fileInfo, System.Boolean strict) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           WriteToFile(String stringToWrite, String fileName, Boolean overwrite)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.WriteToFile(String stringToWrite, String fileName, Boolean overwrite) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.WriteToFile(System.String stringToWrite, System.String fileName, System.Boolean overwrite) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           WriteToFile(String stringToWrite, FileInfo file, Boolean overwrite)
-               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.WriteToFile(String stringToWrite, FileInfo file, Boolean overwrite) : Is Meta.DocMemberName
+               WildHare.Extensions.IOExtensions.M:WildHare.Extensions.WriteToFile(System.String stringToWrite, System.IO.FileInfo file, System.Boolean overwrite) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.IQueryableExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           OrderBy(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty)
-               WildHare.Extensions.IQueryableExtensions.M:WildHare.Extensions.OrderBy(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty) : Is Meta.DocMemberName
+               WildHare.Extensions.IQueryableExtensions.M:WildHare.Extensions.OrderBy(IQueryable`1 items, System.String propertyName, System.Boolean desc, System.String defaultProperty) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.StringExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AddEnd(String s, String addToEnd)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.AddEnd(String s, String addToEnd) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.AddEnd(System.String s, System.String addToEnd) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AddStart(String s, String addToStart)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.AddStart(String s, String addToStart) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.AddStart(System.String s, System.String addToStart) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           AddStartEnd(String s, String addToStart, String addToEnd)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.AddStartEnd(String s, String addToStart, String addToEnd) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.AddStartEnd(System.String s, System.String addToStart, System.String addToEnd) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           CombineSpaces(String str)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.CombineSpaces(String str) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.CombineSpaces(System.String str) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           EnsureEnd(String s, String addToEnd)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.EnsureEnd(String s, String addToEnd) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.EnsureEnd(System.String s, System.String addToEnd) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           EnsureStart(String s, String addToStart)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.EnsureStart(String s, String addToStart) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.EnsureStart(System.String s, System.String addToStart) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           EnsureStartEnd(String s, String addToStart, String addToEnd)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.EnsureStartEnd(String s, String addToStart, String addToEnd) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.EnsureStartEnd(System.String s, System.String addToStart, System.String addToEnd) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Equals(String str, String compareTo, Boolean ignoreCase)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Equals(String str, String compareTo, Boolean ignoreCase) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Equals(System.String str, System.String compareTo, System.Boolean ignoreCase) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ForEachLine(String input, Func`2 func)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ForEachLine(String input, Func`2 func) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ForEachLine(System.String input, System.Func`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] func) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, Object arg0)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, Object arg0) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.Object arg0) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, Object arg0, Object arg1)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, Object arg0, Object arg1) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.Object arg0, System.Object arg1) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, Object arg0, Object arg1, Object arg2)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, Object arg0, Object arg1, Object arg2) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.Object arg0, System.Object arg1, System.Object arg2) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, Object[] args)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, Object[] args) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.Object[] args) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, IFormatProvider provider, Object arg0)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, IFormatProvider provider, Object arg0) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.IFormatProvider provider, System.Object arg0) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, IFormatProvider provider, Object arg0, Object arg1)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, IFormatProvider provider, Object arg0, Object arg1) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.IFormatProvider provider, System.Object arg0, System.Object arg1) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, IFormatProvider provider, Object arg0, Object arg1, Object arg2)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, IFormatProvider provider, Object arg0, Object arg1, Object arg2) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.IFormatProvider provider, System.Object arg0, System.Object arg1, System.Object arg2) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Format(String format, IFormatProvider provider, Object[] args)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(String format, IFormatProvider provider, Object[] args) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Format(System.String format, System.IFormatProvider provider, System.Object[] args) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetEnd(String s, String separator, Boolean includeSeparator)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetEnd(String s, String separator, Boolean includeSeparator) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetEnd(System.String s, System.String separator, System.Boolean includeSeparator) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetEndAfter(String s, String separator, Boolean includeSeparator)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetEndAfter(String s, String separator, Boolean includeSeparator) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetEndAfter(System.String s, System.String separator, System.Boolean includeSeparator) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetStart(String s, String separator, Boolean includeSeparator)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetStart(String s, String separator, Boolean includeSeparator) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetStart(System.String s, System.String separator, System.Boolean includeSeparator) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetStartBefore(String s, String separator, Boolean includeSeparator)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetStartBefore(String s, String separator, Boolean includeSeparator) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetStartBefore(System.String s, System.String separator, System.Boolean includeSeparator) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetStartWhitespaces(String input)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetStartWhitespaces(String input) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.GetStartWhitespaces(System.String input) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IfNull(String s, String replacement)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IfNull(String s, String replacement) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IfNull(System.String s, System.String replacement) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IfNullOrEmpty(String s, String replacement)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IfNullOrEmpty(String s, String replacement) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IfNullOrEmpty(System.String s, System.String replacement) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IfNullOrSpace(String s, String replacement)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IfNullOrSpace(String s, String replacement) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IfNullOrSpace(System.String s, System.String replacement) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IncrementString(String str, Nullable`1 seedIfEmpty, String ignoreExtension, Int32 increment)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IncrementString(String str, Nullable`1 seedIfEmpty, String ignoreExtension, Int32 increment) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IncrementString(System.String str, System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] seedIfEmpty, System.String ignoreExtension, System.Int32 increment) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsNull(String s)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IsNull(String s) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IsNull(System.String s) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsNullOrEmpty(String s)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IsNullOrEmpty(String s) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IsNullOrEmpty(System.String s) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsNullOrSpace(String s)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IsNullOrSpace(String s) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.IsNullOrSpace(System.String s) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Left(String str, Int32 length)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Left(String str, Int32 length) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Left(System.String str, System.Int32 length) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           LettersOnly(String input, String otherCharacters)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.LettersOnly(String input, String otherCharacters) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.LettersOnly(System.String input, System.String otherCharacters) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Mid(String str, Int32 start, Nullable`1 count)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Mid(String str, Int32 start, Nullable`1 count) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Mid(System.String str, System.Int32 start, System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] count) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           NullIf(String str, String str2)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.NullIf(String str, String str2) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.NullIf(System.String str, System.String str2) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           NumbersOnly(String input, String otherCharacters)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.NumbersOnly(String input, String otherCharacters) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.NumbersOnly(System.String input, System.String otherCharacters) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Pluralize(Int32 number, String singular, String plural)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Pluralize(Int32 number, String singular, String plural) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Pluralize(System.Int32 number, System.String singular, System.String plural) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ProperCase(String input, Boolean underscoreCountsAsSpace)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ProperCase(String input, Boolean underscoreCountsAsSpace) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ProperCase(System.String input, System.Boolean underscoreCountsAsSpace) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveEnd(String input, String end)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEnd(String input, String end) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEnd(System.String input, System.String end) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveEnd(String input, String[] endArray)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEnd(String input, String[] endArray) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEnd(System.String input, System.String[] endArray) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveEndFromAllLines(String input, String end)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEndFromAllLines(String input, String end) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEndFromAllLines(System.String input, System.String end) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveEndFromAllLines(String input, String[] endArray)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEndFromAllLines(String input, String[] endArray) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveEndFromAllLines(System.String input, System.String[] endArray) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveIndents(String input, Boolean removeInitialSpaces)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveIndents(String input, Boolean removeInitialSpaces) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveIndents(System.String input, System.Boolean removeInitialSpaces) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveStart(String input, String start)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStart(String input, String start) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStart(System.String input, System.String start) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveStart(String input, String[] startArray)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStart(String input, String[] startArray) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStart(System.String input, System.String[] startArray) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveStartEnd(String input, String start, String end)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartEnd(String input, String start, String end) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartEnd(System.String input, System.String start, System.String end) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveStartEnd(String input, String[] startArray, String[] endArray)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartEnd(String input, String[] startArray, String[] endArray) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartEnd(System.String input, System.String[] startArray, System.String[] endArray) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveStartFromAllLines(String input, String start)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartFromAllLines(String input, String start) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartFromAllLines(System.String input, System.String start) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           RemoveStartFromAllLines(String input, String[] startArray)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartFromAllLines(String input, String[] startArray) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.RemoveStartFromAllLines(System.String input, System.String[] startArray) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Repeat(String str, Int32 number)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Repeat(String str, Int32 number) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Repeat(System.String str, System.Int32 number) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Replace(String str, String[] oldValues, String newValue)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Replace(String str, String[] oldValues, String newValue) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Replace(System.String str, System.String[] oldValues, System.String newValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Replace(String str, Dictionary`2 dictionary, Boolean reverse)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Replace(String str, Dictionary`2 dictionary, Boolean reverse) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Replace(System.String str, System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] dictionary, System.Boolean reverse) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Replace(String str, String[] oldValues, String[] newValues)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Replace(String str, String[] oldValues, String[] newValues) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Replace(System.String str, System.String[] oldValues, System.String[] newValues) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ReplaceFirst(String str, String oldValue, String newValue)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ReplaceFirst(String str, String oldValue, String newValue) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ReplaceFirst(System.String str, System.String oldValue, System.String newValue) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ReplaceLineReturns(String str, String replacement)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ReplaceLineReturns(String str, String replacement) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.ReplaceLineReturns(System.String str, System.String replacement) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Right(String str, Int32 length)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Right(String str, Int32 length) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Right(System.String str, System.Int32 length) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           SingularOrPlural(Int32 number, String singular, String plural)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.SingularOrPlural(Int32 number, String singular, String plural) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.SingularOrPlural(System.Int32 number, System.String singular, System.String plural) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Split(String str, String separator, StringSplitOptions options)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Split(String str, String separator, StringSplitOptions options) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Split(System.String str, System.String separator, System.StringSplitOptions options) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.StartsWith(System.String str, System.String[] valuesArray, System.Boolean ignoreCase, System.Globalization.CultureInfo culture) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)
-               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut) : Is Meta.DocMemberName
+               WildHare.Extensions.StringExtensions.M:WildHare.Extensions.Truncate(System.String input, System.Int32 maxCharacters, System.String more, System.Int32 wordcut) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.TypeExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetCommonBaseType(Type[] types)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetCommonBaseType(Type[] types) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetCommonBaseType(System.Type[] types) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetCommonInterfaces(Object[] objects)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetCommonInterfaces(Object[] objects) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetCommonInterfaces(System.Object[] objects) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetDerivedClasses(Type type, String[] ignoreTypeNames)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetDerivedClasses(Type type, String[] ignoreTypeNames) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetDerivedClasses(System.Type type, System.String[] ignoreTypeNames) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetDerivedTypes(Type type, String[] ignoreTypeNames, Boolean includeBaseType, Assembly otherAssembly)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetDerivedTypes(Type type, String[] ignoreTypeNames, Boolean includeBaseType, Assembly otherAssembly) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetDerivedTypes(System.Type type, System.String[] ignoreTypeNames, System.Boolean includeBaseType, System.Reflection.Assembly otherAssembly) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaAssembly(Assembly assembly, String xmlDocumentationPath)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaAssembly(Assembly assembly, String xmlDocumentationPath) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaAssembly(System.Reflection.Assembly assembly, System.String xmlDocumentationPath) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaModel(Type type)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaModel(Type type) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaModel(System.Type type) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaModel(IEnumerable`1 enumerable)
                WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaModel(IEnumerable`1 enumerable) : Is Meta.DocMemberName
@@ -644,19 +644,19 @@ WildHare.Extensions
                WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaModel(Dictionary`2 dictionary) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaProperties(Type type)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(Type type) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(System.Type type) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaProperties(Type type, String exclude, String include)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(Type type, String exclude, String include) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(System.Type type, System.String exclude, System.String include) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaProperties(IEnumerable`1 enumerable, String exclude, String include)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(IEnumerable`1 enumerable, String exclude, String include) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(IEnumerable`1 enumerable, System.String exclude, System.String include) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetMetaProperties(T instance, String exclude, String include)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(T instance, String exclude, String include) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetMetaProperties(T instance, System.String exclude, System.String include) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetTypesInNamespace(Assembly assembly, String nameSpace)
-               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetTypesInNamespace(Assembly assembly, String nameSpace) : Is Meta.DocMemberName
+               WildHare.Extensions.TypeExtensions.M:WildHare.Extensions.GetTypesInNamespace(System.Reflection.Assembly assembly, System.String nameSpace) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
 ======================================================================================================================================================
 WildHare.Extensions.ForTemplating
@@ -664,31 +664,31 @@ WildHare.Extensions.ForTemplating
      WildHare.Extensions.ForTemplating.TemplatingExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           DotNetTypeToCSharpType(String dotNetTypeName, Boolean isNull)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.DotNetTypeToCSharpType(String dotNetTypeName, Boolean isNull) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.DotNetTypeToCSharpType(System.String dotNetTypeName, System.Boolean isNull) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Template(Dictionary`2 lookups, String template, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(Dictionary`2 lookups, String template, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] lookups, System.String template, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Template(Dictionary`2 lookups, FileInfo templateFile, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(Dictionary`2 lookups, FileInfo templateFile, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]] lookups, System.IO.FileInfo templateFile, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Template(Object obj, String template, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(Object obj, String template, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(System.Object obj, System.String template, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Template(Object obj, FileInfo templateFile, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(Object obj, FileInfo templateFile, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(System.Object obj, System.IO.FileInfo templateFile, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Template(T obj, FileInfo templateFile, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(T obj, FileInfo templateFile, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.Template(T obj, System.IO.FileInfo templateFile, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TemplateList(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.TemplateList(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.TemplateList(IEnumerable`1 list, System.String template, System.String lineEnd, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TemplateList(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.TemplateList(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.TemplateList(IEnumerable`1 list, System.IO.FileInfo templateFile, System.String lineEnd, System.String startTag, System.String endTag) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull)
-               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull) : Is Meta.DocMemberName
+               WildHare.Extensions.ForTemplating.TemplatingExtensions.M:WildHare.Extensions.ForTemplating.TSqlTypeToCSharpType(System.String sqlTypeName, System.Boolean isNull) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
 ======================================================================================================================================================
 WildHare.Extensions.Xtra
@@ -696,30 +696,30 @@ WildHare.Extensions.Xtra
      WildHare.Extensions.Xtra.XtraExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           DynamicArrayOfType(Object t)
-               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.DynamicArrayOfType(Object t) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.DynamicArrayOfType(System.Object t) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           DynamicListOfType(Object t)
-               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.DynamicListOfType(Object t) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.DynamicListOfType(System.Object t) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetApplicationRoot()
                WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.GetApplicationRoot() : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           GetXmlDocumentation(String xmlDocPath, Assembly assemblyToDocument)
-               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.GetXmlDocumentation(String xmlDocPath, Assembly assemblyToDocument) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.GetXmlDocumentation(System.String xmlDocPath, System.Reflection.Assembly assemblyToDocument) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Is(Object obj)
-               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.Is(Object obj) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.Is(System.Object obj) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           IsNull(Object obj)
-               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.IsNull(Object obj) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.IsNull(System.Object obj) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
           ToMapPath(String fileName)
-               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.ToMapPath(String fileName) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.XtraExtensions.M:WildHare.Extensions.Xtra.ToMapPath(System.String fileName) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
      WildHare.Extensions.Xtra.RandomExtensions
      -------------------------------------------------------------------------------------------------------------------------------------------------
           Skip(Random random, Int32 number)
-               WildHare.Extensions.Xtra.RandomExtensions.M:WildHare.Extensions.Xtra.Skip(Random random, Int32 number) : Is Meta.DocMemberName
+               WildHare.Extensions.Xtra.RandomExtensions.M:WildHare.Extensions.Xtra.Skip(System.Random random, System.Int32 number) : Is Meta.DocMemberName
      -------------------------------------------------------------------------------------------------------------------------------------------------
 ======================================================================================================================================================
 WildHare.Models
