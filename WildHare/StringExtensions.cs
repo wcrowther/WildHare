@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -485,6 +486,18 @@ namespace WildHare.Extensions
             return plural;
         }
 
+        public static string WithPlural(this string singular, int count, string plural = null)
+        {
+            return Pluralize(count, singular, plural);
+        }
+
+        public static string WithPlural<T>(this string singular, IEnumerable<T> list, string plural = null)
+        {
+            int count = list.Count();
+            
+            return Pluralize(count, singular, plural);
+        }
+
         public static string Left(this string str, int length)
         {
             if (str.IsNullOrEmpty())
@@ -535,15 +548,14 @@ namespace WildHare.Extensions
             return str.Equals(compareTo, strComparison);
         }
 
-
-        public static string ReplaceLineReturns(this string str, string replacement = "")
+        public static string ReplaceLineReturns(this string str, string replacement = " ")
         {
             string[] lineReturns = { "\r\n", "\r", "\n" };
 
             return str.Replace(lineReturns, replacement);
         }
 
-        public static string CombineSpaces(this string str)
+        public static string CombineSpaces(this string str, bool ignoreReturns = false)
         {
             if (str.IsNullOrEmpty())
                 return str;
@@ -551,19 +563,26 @@ namespace WildHare.Extensions
             var prevIsWhitespace = false;
             var output = new StringBuilder();
 
-            foreach (char character in str)
+            foreach (char ch in str)
             {
-                bool isWhitespace = char.IsWhiteSpace(character);
+                bool isWhitespace = ch.IsWhiteSpace();
                 if (isWhitespace && prevIsWhitespace)
                 {
-                    continue;
+                    if (!ignoreReturns || !ch.IsReturn())
+                    {
+                        continue;
+                    }
                 }
-                output.Append(character);
+                output.Append(ch);
                 prevIsWhitespace = isWhitespace;
             }
             return output.ToString();
         }
 
+        public static string IfTrue(this bool boolean, string ifTrueStr, string ifFalseStr = "")
+        {
+            return boolean ? ifTrueStr : ifFalseStr;
+        }
 
         // ======================================================================================================
         // Inline Format

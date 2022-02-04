@@ -16,7 +16,7 @@ namespace WildHare.Tests
             var metaModel = itemType.GetMetaModel();
 
             Assert.AreEqual("Item", metaModel.TypeName);
-            Assert.AreEqual(4, metaModel.GetMetaProperties().Count);
+            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
             Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
             Assert.AreEqual(typeof(int), metaModel.PrimaryKeyMeta.PropertyType);
             Assert.AreEqual("Int32", metaModel.PrimaryKeyMeta.PropertyType.Name);  

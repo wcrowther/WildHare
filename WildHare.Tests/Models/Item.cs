@@ -16,6 +16,8 @@ namespace WildHare.Tests.Models
 
         public List<string> Stuff { get; set; } = new List<string>();
 
+        public bool HasStuff => Stuff.Count > 0;    
+
         public override string ToString()
         {
             return $"{ItemName} ({ItemId})";

@@ -56,13 +56,15 @@ namespace WildHare.Tests
         [Test]
         public void GetMetaAssembly()
         {
-            string outputPathRoot = XtraExtensions.GetApplicationRoot();
-            string outputPath = $@"{outputPathRoot}\Directory0";
-
             string xmlDocumentationPath = $@"c:\Git\WildHare\WildHare\WildHare.xml";
 
+            string outputPathRoot = XtraExtensions.GetApplicationRoot();
+            string outputDirectory = $@"{outputPathRoot}\Directory0";
+
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
-            metaAssembly.WriteMetaAssemblyToFile(outputPath, true);
+            metaAssembly.WriteMetaAssemblyToFile(outputDirectory, true);
+
+            metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, true);
 
             Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
         }

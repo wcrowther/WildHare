@@ -21,7 +21,7 @@ namespace WildHare.Tests
             var metaModel = itemType.GetMetaModel();
 
             Assert.AreEqual("Item", metaModel.TypeName);
-            Assert.AreEqual(4, metaModel.GetMetaProperties().Count);
+            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
             Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
 
             Assert.AreEqual("ItemId", metaModel.GetMetaProperties()[0].Name);
@@ -41,7 +41,7 @@ namespace WildHare.Tests
             var itemList = new List<Item>();
             var metaModel = itemList.GetMetaModel();
 
-            Assert.AreEqual(4, metaModel.GetMetaProperties().Count);
+            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
             Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
 
             Assert.AreEqual("ItemId", metaModel.GetMetaProperties()[0].Name);
@@ -61,7 +61,7 @@ namespace WildHare.Tests
             var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now }; 
             var metaModel = item.GetMetaModel();
 
-            Assert.AreEqual(4, metaModel.GetMetaProperties().Count);
+            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
             Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
 
             Assert.AreEqual("ItemId", metaModel.GetMetaProperties()[0].Name);
@@ -113,7 +113,7 @@ namespace WildHare.Tests
             var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now }; ;
             var metaProperties = item.GetMetaProperties();
 
-            Assert.AreEqual(4, metaProperties.Count);
+            Assert.AreEqual(5, metaProperties.Count);
             Assert.AreEqual("ItemId", metaProperties[0].Name);
             Assert.AreEqual("ItemName", metaProperties[1].Name);
             Assert.AreEqual("Created", metaProperties[2].Name);
@@ -126,7 +126,7 @@ namespace WildHare.Tests
             var itemList = new List<Item>();
             var metaProperties = itemList.GetMetaProperties("ItemId, ItemName");
 
-            Assert.AreEqual(2, metaProperties.Count);
+            Assert.AreEqual(3, metaProperties.Count);
             Assert.AreEqual("Created", metaProperties[0].Name);
             Assert.AreEqual("Stuff", metaProperties[1].Name);
         }

@@ -6,5 +6,7 @@ namespace WildHare.Web.Models
     public class AppSettings : IAppSettings
     {
         public string SeedPacketExampleViewsPath { get; set; }
+
+        public string WildHareXmlDocumentationPath { get; set; }
     }
 }

@@ -32,9 +32,6 @@ namespace WildHare.Extensions
         /// <summary>Inline version of char.IsDigit(ch). ie: 0-9 plus digits of other alphabets</summary>
         public static bool IsDigit(this char ch) { return char.IsDigit(ch); }
 
-        /// <summary>Inline version of char.IsWhiteSpace(ch). ie: All separators plus \n, \r, \t, \f, and \v </summary>
-        public static bool IsWhiteSpace(this char ch) { return char.IsWhiteSpace(ch); }
-
         /// <summary>Inline version of char.IsSymbol(ch). ie: Most other printable symbols</summary>
         public static bool IsSymbol(this char ch) { return char.IsSymbol(ch); }
 
@@ -45,6 +42,11 @@ namespace WildHare.Extensions
         /// <summary>Inline version of char.IsSeparator(ch). ie: Space plus all Unicode separator characters</summary>
         public static bool IsSeparator(this char ch) { return char.IsSeparator(ch); }
 
+        /// <summary>Inline version of char.IsWhiteSpace(ch). ie: All separators plus \n, \r, \t, \f, and \v 
+        public static bool IsWhiteSpace(this char ch){ return char.IsWhiteSpace(ch); }
+
+        /// <summary>Returns true if char is a return char ie: \n, \r </summary>
+        public static bool IsReturn(this char ch){  return ch == '\r' | ch == '\n'; }
 
         /// <summary>Inline version of char.GetUnicodeCategory(ch)</summary>
         public static UnicodeCategory GetUnicodeCategory(this char ch) { return char.GetUnicodeCategory(ch); }

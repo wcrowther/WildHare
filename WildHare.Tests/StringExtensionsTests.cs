@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Tests.Models;
 using static System.Environment;
 
 namespace WildHare.Tests
@@ -287,7 +288,7 @@ namespace WildHare.Tests
             string qs1 = "1";
             string qs2 = "";
             string qs3 = "3";
-            string querystring = $"{qs1.AddStartEnd("one=","&")}{qs2.AddStartEnd("two=", "&")}{qs3.AddStart("three=")}".RemoveEnd("&");
+            string querystring = $"{qs1.AddStartEnd("one=", "&")}{qs2.AddStartEnd("two=", "&")}{qs3.AddStart("three=")}".RemoveEnd("&");
 
             string urlWithQuerystring = $"{url}{querystring.AddStart("?")}";
 
@@ -306,7 +307,7 @@ namespace WildHare.Tests
 
             string querystring = qs1.AddStart("&one=") + qs2.AddStart("&two=") + qs3.AddStart("&three=");
 
-            Assert.AreEqual(expected, url + querystring.RemoveStart("&").AddStart("?") );
+            Assert.AreEqual(expected, url + querystring.RemoveStart("&").AddStart("?"));
         }
 
 
@@ -576,7 +577,7 @@ namespace WildHare.Tests
         {
             string str = "Favorite animals: cat dog rabbit.";
             string[] old = { "cat", "dog", "rabbit" };
-            var result = str.Replace(old, new[]{ "platypus", "cheetah", "emu" });
+            var result = str.Replace(old, new[] { "platypus", "cheetah", "emu" });
 
             Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
@@ -630,13 +631,13 @@ namespace WildHare.Tests
         }
 
         [TestCase(-1, "Item", "-1 Items in the list.")]
-        [TestCase(0,  "Item", "0 Items in the list.") ]
-        [TestCase(1,  "Item", "1 Item in the list.") ]
+        [TestCase(0, "Item", "0 Items in the list.")]
+        [TestCase(1, "Item", "1 Item in the list.")]
         [TestCase(10, "Item", "10 Items in the list.")]
-        [TestCase(1,  "dog",  "1 dog in the list.")]
-        [TestCase(10, "dog",  "10 dogs in the list.")]
-        [TestCase(1,  "fox",  "1 fox in the list.")]
-        [TestCase(10, "fox","10 foxes in the list.")]
+        [TestCase(1, "dog", "1 dog in the list.")]
+        [TestCase(10, "dog", "10 dogs in the list.")]
+        [TestCase(1, "fox", "1 fox in the list.")]
+        [TestCase(10, "fox", "10 foxes in the list.")]
         [TestCase(1, "clown", "1 clown in the list.")]
         [TestCase(3, "clown", "3 clowns in the list.")]
         [TestCase(3, "fox", "3 foxes in the list.")]
@@ -647,17 +648,68 @@ namespace WildHare.Tests
             Assert.AreEqual(result, message);
         }
 
-        [TestCase(10, "dog", null, "10 dogs in the list.")]
-        [TestCase(1,  "wolf", "wolves", "1 wolf in the list.")]
-        [TestCase(10, "wolf", "wolves", "10 wolves in the list.")]
-        [TestCase(1, "octopus", "octopi", "1 octopus in the list.")]
-        [TestCase(10, "octopus", "octopi", "10 octopi in the list.")]
-        [TestCase(5, "child", "children", "5 children in the list.")]
+        [TestCase(10, "dog",     null,       "10 dogs in the list.")]
+        [TestCase(1,  "wolf",    "wolves",   "1 wolf in the list.")]
+        [TestCase(10, "wolf",    "wolves",   "10 wolves in the list.")]
+        [TestCase(1,  "octopus", "octopi",   "1 octopus in the list.")]
+        [TestCase(10, "octopus", "octopi",   "10 octopi in the list.")]
+        [TestCase(5,  "child",   "children", "5 children in the list.")]
         public void Test_SingularOrPlural_With_Two_Parameters(int count, string singular, string plural, string result)
         {
             string message = $"{count} {count.Pluralize(singular, plural)} in the list.";
 
             Assert.AreEqual(result, message);
+        }
+
+        [TestCase("Item", -1, "-1 Items in the list.")]
+        [TestCase("Item", 0,  "0 Items in the list.")]
+        [TestCase("Item", 1,  "1 Item in the list.")]
+        [TestCase("Item", 10, "10 Items in the list.")]
+        [TestCase("dog",  1,  "1 dog in the list.")]
+        [TestCase("dog",  10, "10 dogs in the list.")]
+        [TestCase("fox",  1,  "1 fox in the list.")]
+        [TestCase("fox",  10, "10 foxes in the list.")]
+        [TestCase("clown",1,  "1 clown in the list.")]
+        [TestCase("clown",3,  "3 clowns in the list.")]
+        [TestCase("fox",  3,  "3 foxes in the list.")]
+        public void Test_IfPlural_With_One_Parameter(string singular, int count, string result)
+        {
+            string message = $"{count} {count.Pluralize(singular)} in the list.";
+
+            Assert.AreEqual(result, message);
+        }
+
+        [TestCase("dog",     10, null,      "10 dogs in the list.")]
+        [TestCase("wolf",     1, "wolves",  "1 wolf in the list.")]
+        [TestCase("wolf",    10, "wolves",  "10 wolves in the list.")]
+        [TestCase("octopus",  1, "octopi",  "1 octopus in the list.")]
+        [TestCase("octopus", 10, "octopi",  "10 octopi in the list.")]
+        [TestCase("child",    5, "children","5 children in the list.")]
+        public void Test_WithPlural_With_Two_Parameters(string singular, int count, string plural, string result)
+        {
+            string message = $"{count} {singular.WithPlural(count, plural)} in the list.";
+
+            Assert.AreEqual(result, message);
+        }
+       
+        [Test]
+        public void Test_WithPlural_With_IEnumerable_Parameter()
+        {
+            var fruits = new List<string>{ "apple", "banana", "mango", "orange", "passionfruit", "grape" };
+
+            string result6 = $"{fruits.Count} {"fruit".WithPlural(fruits)} in the list.";
+
+            Assert.AreEqual("6 fruits in the list.", result6);
+
+            fruits.RemoveRange(0, 5);
+
+            string result1 = $"{fruits.Count} {"fruit".WithPlural(fruits)} in the list.";
+            Assert.AreEqual("1 fruit in the list.", result1); 
+            
+            fruits.Clear();
+
+            string result0 = $"{fruits.Count} {"fruit".WithPlural(fruits)} in the list.";
+            Assert.AreEqual("0 fruits in the list.", result0);
         }
 
         [Test]
@@ -701,7 +753,7 @@ namespace WildHare.Tests
             Assert.AreEqual("stri", str.Left(4));
             Assert.AreEqual("ring", str.Mid(2, 6));
             Assert.AreEqual("ring", str.Mid(2));
-            Assert.AreEqual("ing",  str.Right(3));
+            Assert.AreEqual("ing", str.Right(3));
         }
 
         [Test]
@@ -712,7 +764,7 @@ namespace WildHare.Tests
             string str = "LMR";
 
             Assert.AreEqual("L", str.Left(1));   // get 1
-            Assert.AreEqual("M", str.Mid(1,1));  // start at 1 (position 2) get 1
+            Assert.AreEqual("M", str.Mid(1, 1));  // start at 1 (position 2) get 1
             Assert.AreEqual("R", str.Mid(2));    // start at 2 (position 3) get 1
             Assert.AreEqual("R", str.Right(1));  // get 1 from right end   
             Assert.AreEqual("MR", str.Right(2)); // get 2 from right end   
@@ -725,27 +777,27 @@ namespace WildHare.Tests
             string str = $"line1\r\nline2\r\nline3";
             string expected = $"x_line1_x\r\nx_line2_x\r\nx_line3_x";
 
-            Assert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x") );
+            Assert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x"));
         }
 
         [Test]
         public void Test_Format_With_One_Arg()
         {
             string example = "https://{0}.test.com/";
-            string subDomain1   = "www";
-            string subDomain2   = "admin";
-            string subDomain3   = "shop";
-            string domain       = "test";
-            string extension    = "com";
+            string subDomain1 = "www";
+            string subDomain2 = "admin";
+            string subDomain3 = "shop";
+            string domain = "test";
+            string extension = "com";
 
-            Assert.AreEqual("https://www.test.com/",    example.Format(subDomain1));
-            Assert.AreEqual("https://admin.test.com/",  example.Format(subDomain2));
-            Assert.AreEqual("https://shop.test.com/",   example.Format(subDomain3));
+            Assert.AreEqual("https://www.test.com/", example.Format(subDomain1));
+            Assert.AreEqual("https://admin.test.com/", example.Format(subDomain2));
+            Assert.AreEqual("https://shop.test.com/", example.Format(subDomain3));
 
-            Assert.AreEqual("https://www.test.com/",    "https://{0}.test.com/".Format(subDomain1));
-            Assert.AreEqual("https://admin.test.com/",  "https://{0}.test.com/".Format(subDomain2));
-            Assert.AreEqual("https://shop.test.com/",   "https://{0}.test.com/".Format(subDomain3));
-            
+            Assert.AreEqual("https://www.test.com/", "https://{0}.test.com/".Format(subDomain1));
+            Assert.AreEqual("https://admin.test.com/", "https://{0}.test.com/".Format(subDomain2));
+            Assert.AreEqual("https://shop.test.com/", "https://{0}.test.com/".Format(subDomain3));
+
             Assert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
         }
 
@@ -759,6 +811,71 @@ namespace WildHare.Tests
 
             Assert.AreEqual("https://www.test.com/", example.Format(subDomain1, domain, extension));
             Assert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
+        }
+
+        [Test]
+        public void Test_ReplaceLineReturns_Basic()
+        {
+            string example = @"line 1
+            line 2
+            line 3
+            line 4
+            line 5";
+
+            Assert.AreEqual("line 1x            line 2x            line 3x            line 4x            line 5",
+                            example.ReplaceLineReturns("x"));
+        }
+
+        [Test]
+        public void Test_Bool_IfTrue_Basic()
+        {
+            var items = new List<Item>
+            {
+                 new Item() { ItemId = 1, ItemName = "cart"},
+                 new Item() { ItemId = 2, ItemName = "box",
+                     Stuff = new[] { "pork","steak","fish" }.ToList(),
+                 }
+            };
+
+            var first = items.First();
+            var last = items.Last();
+
+            Assert.AreEqual("cart", $"{first.ItemName}{first.HasStuff.IfTrue("*")}");
+            Assert.AreEqual("cart has no stuff", $"{first.ItemName}{first.HasStuff.IfTrue(" has stuff", " has no stuff")}");
+
+            Assert.AreEqual("box*", $"{last.ItemName}{last.HasStuff.IfTrue("*")}");
+            Assert.AreEqual("box has stuff.", $"{last.ItemName}{last.HasStuff.IfTrue(" has stuff").AddEnd(".")}");
+
+            Assert.AreEqual("box has stuff.", $"{last.ItemName}{(last.HasStuff ? " has stuff" : "").AddEnd(".")}");  // Comparable inline
+        }
+
+        [Test]
+        public void Test_CombineSpaces_Basic()
+        {
+            string str = "This            is           a test.";
+
+            Assert.AreEqual("This is a test.", str.CombineSpaces());
+            Assert.AreEqual(15, str.CombineSpaces().Length);
+        }
+
+        [Test]
+        public void Test_CombineSpaces_With_Line_Breaks()
+        {
+            string str = "This is      " + NewLine + NewLine + "     a test.";
+
+            Assert.AreEqual("This is a test.", str.CombineSpaces());
+            Assert.AreEqual(15, str.CombineSpaces().Length);
+        }
+
+
+        [Test]
+        public void Test_CombineSpaces_With_Ignore_Returns()
+        {
+            string str = "This is      " + NewLine + "   " + NewLine + "     a test.";
+            string combinedStr = str.CombineSpaces(ignoreReturns: true);
+
+            Assert.AreEqual("This is " + NewLine + NewLine + "a test.", combinedStr);
+            Assert.AreEqual(19, combinedStr.Length);
         }
     }
 }
