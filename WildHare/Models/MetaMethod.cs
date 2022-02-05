@@ -13,7 +13,6 @@ namespace WildHare
     {
         private MethodInfo methodInfo;
         private List<MetaParameter> metaParameters = null;
-        // private MethodInfo genericMethodDefinition;
 
         public MetaMethod(MethodInfo methodInfo)
         {
@@ -23,26 +22,25 @@ namespace WildHare
             this.methodInfo = methodInfo;
         }
 
-        public string Name { get => methodInfo.Name; }
+        public string Name => methodInfo.Name;
 
-        public string DocMemberName { get => $"{Name}({ParametersString()})"; }
+        public string XmlDocMemberName => GetXmlDocMemberName(); 
 
-        public Type DeclaringType { get => methodInfo.DeclaringType; }
+        // public string XmlDocMemberName => AltGetXmlDocMemberName(methodInfo); 
 
-        public bool IsExtensionMethod { get => methodInfo.IsDefined(typeof(ExtensionAttribute)); } 
+        public Type DeclaringType => methodInfo.DeclaringType;
 
-        public bool IsStaticMethod { get => methodInfo.IsStatic; }
+        public bool IsExtensionMethod => methodInfo.IsDefined(typeof(ExtensionAttribute)); 
 
-        public bool IsGetter { get => Name.StartsWith("get_") && methodInfo.IsSpecialName; }
+        public bool IsStaticMethod => methodInfo.IsStatic;
 
-        public bool IsSetter { get => Name.StartsWith("set_") && methodInfo.IsSpecialName; }
+        public bool IsGetter => Name.StartsWith("get_") && methodInfo.IsSpecialName;
+
+        public bool IsSetter => Name.StartsWith("set_") && methodInfo.IsSpecialName;
 
         public bool IsInherited(string typeName) => DeclaringType.Name == typeName;
 
-        public Type[] GetGenericArguments()
-        {
-            return methodInfo.GetGenericArguments();
-        }
+        public Type[] GetGenericArguments() => methodInfo.GetGenericArguments();
 
         public List<MetaParameter> Parameters
         {
@@ -61,10 +59,6 @@ namespace WildHare
                 return metaParameters;
             }
         }
-        private string ParametersString()
-        {
-            return string.Join(",", Parameters.Select(s => s.ParameterType));
-        }
 
         public string Summary { get; set; }
 
@@ -72,5 +66,97 @@ namespace WildHare
         {
             return $"Method: '{Name}' Parameters: {Parameters.Count}";
         }
+
+        // PRIVATE =======================================================================
+
+        private string ParametersString()
+        {
+            return string.Join(",", Parameters.Select(s => s.ParameterType));
+        }
+
+        private string GetXmlDocMemberName()
+        {
+            return $"{DeclaringType.FullName}.{Name}({ParametersString()})";
+        }
+
+        // EXAMPLE CODE FROM SWHARDEN
+        // FROM https:// swharden.com/blog/2021-01-31-xml-doc-name-reflection/
+        private static string AltGetXmlDocMemberName(MethodInfo info)
+        {
+            string declaringTypeName = info.DeclaringType?.FullName;
+
+            if (declaringTypeName is null)
+                throw new NotImplementedException("inherited classes are not supported");
+
+            string xmlName =  declaringTypeName + "." + info.Name;
+            xmlName = string.Join("", xmlName.Split(']').Select(x => x.Split('[')[0]));
+            xmlName = xmlName.Replace(",", "");
+
+            if (info.IsGenericMethod)
+                xmlName += "``#";
+
+            int genericParameterCount = 0;
+            List<string> paramNames = new List<string>();
+            foreach (var parameter in info.GetParameters())
+            {
+                Type paramType = parameter.ParameterType;
+                string paramName = GetXmlNameForMethodParameter(paramType);
+                if (paramName.Contains("#"))
+                    paramName = paramName.Replace("#", (genericParameterCount++).ToString());
+                paramNames.Add(paramName);
+            }
+            xmlName = xmlName.Replace("#", genericParameterCount.ToString());
+
+            if (paramNames.Any())
+                xmlName += "(" + string.Join(",", paramNames) + ")";
+
+            return xmlName;
+        }
+
+        private static string GetXmlNameForMethodParameter(Type type)
+        {
+            string xmlName = type.FullName ?? type.BaseType?.FullName;
+
+            if (xmlName is null)
+                return "";
+
+            bool isNullable = xmlName.StartsWith("System.Nullable");
+            Type nullableType = isNullable ? type.GetGenericArguments()[0] : null;
+
+            // special formatting for generics (also Func, Nullable, and ValueTulpe)
+            if (type.IsGenericType)
+            {
+                var genericNames = type.GetGenericArguments().Select(x => GetXmlNameForMethodParameter(x));
+                var typeName = xmlName.Split('`')[0];
+                // var typeName = type.FullName.Split('`')[0];
+                xmlName = typeName + "{" + string.Join(",", genericNames) + "}";
+            }
+
+            // special case for generic nullables
+            if (type.IsGenericType && isNullable && type.IsArray == false)
+                xmlName = "System.Nullable{" + nullableType.FullName + "}";
+
+            // special case for multidimensional arrays
+            if (type.IsArray && (type.GetArrayRank() > 1))
+            {
+                string arrayName = type.FullName.Split('[')[0].Split('`')[0];
+                if (isNullable)
+                    arrayName += "{" + nullableType.FullName + "}";
+                string arrayContents = string.Join(",", Enumerable.Repeat("0:", type.GetArrayRank()));
+                xmlName = arrayName + "[" + arrayContents + "]";
+            }
+
+            // special case for generic arrays
+            if (type.IsArray && type.FullName is null)
+                xmlName = "``#[]";
+
+            // special case for value types
+            if (xmlName.Contains("System.ValueType"))
+                xmlName = "`#";
+
+            return xmlName;
+        }
+
+
     }
 }

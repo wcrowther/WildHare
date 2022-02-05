@@ -54,27 +54,6 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void GenerateMetaAssemblyInformationFiles()
-        {
-            string xmlDocumentationPath = $@"c:\Git\WildHare\WildHare\WildHare.xml";
-
-            string outputPathRoot = XtraExtensions.GetApplicationRoot();
-            string outputDirectory = $@"{outputPathRoot}\Directory0";
-
-            var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
-            
-            bool descriptionFile = metaAssembly.WriteMetaAssemblyDescriptionToFile(outputDirectory, true);
-            bool noteJsonFile    = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, true);
-            bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(outputDirectory, true);
-
-            Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
-
-            Assert.AreEqual(true, descriptionFile);
-            Assert.AreEqual(true, noteJsonFile);
-            Assert.AreEqual(true, xmlDocNamesFile);
-        }
-
-        [Test]
         public void GetMetaModelsInNamespaces_Basic()
         {
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
@@ -91,6 +70,28 @@ namespace WildHare.Tests
             var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces(exclude: excludedNamespaces);
 
             Assert.AreEqual(4, metaNamespaces.Count);
+        }
+
+        [Test]
+        public void GenerateMetaAssemblyInformationFiles()
+        {
+            string xmlDocumentationPath = $@"c:\Git\WildHare\WildHare\WildHare.xml";
+
+            string outputPathRoot = XtraExtensions.GetApplicationRoot();
+            string outputDirectory = $@"{outputPathRoot}\Directory0";
+            string includeNamespaces = "";// "WildHare.Extensions";
+
+            var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
+
+            bool descriptionFile = metaAssembly.WriteMetaAssemblyDescriptionToFile(outputDirectory, includeNamespaces, true);
+            bool noteJsonFile    = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, includeNamespaces, true);
+            bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(outputDirectory, true);
+
+            Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
+
+            Assert.AreEqual(true, descriptionFile);
+            Assert.AreEqual(true, noteJsonFile);
+            Assert.AreEqual(true, xmlDocNamesFile);
         }
     }
 }

@@ -224,7 +224,7 @@
             Returns an empty Collection rather than failing if enumerable is null.</summary>
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.WithIndex``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>Provides an index to a foreach loop using a tuple.</summary>
+            <summary>Provides a 0-based index to a foreach loop using a tuple.</summary>
             <example>
             foreach (var (item, index) in collection.WithIndex() )
             {

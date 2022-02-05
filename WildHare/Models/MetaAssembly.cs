@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,7 +17,7 @@ namespace WildHare
         private readonly Assembly _assembly;
         private string _xmlDocPath = null;
         private List<MetaModel> _metaModels = null;
-        private List<MetaDocumentation> _documentMemberList = null;
+        private List<MetaDocumentation> _xmDocMemberList = null;
         private string[] anonStartArray = { "<", "_" };
 
         public MetaAssembly(Assembly assembly, string xmlDocPath = null)
@@ -28,7 +29,7 @@ namespace WildHare
             _xmlDocPath = xmlDocPath;
 
             _metaModels  = GetAllMetaModels();
-            _documentMemberList = GetMetaDocumentationList();
+            _xmDocMemberList = GetMetaDocumentationList();
         }
 
         public string AssemblyName { get => _assembly.GetName().Name; }
@@ -77,14 +78,14 @@ namespace WildHare
 
         public List<MetaDocumentation> GetMetaDocumentationList()
         {
-            if (!_xmlDocPath.IsNullOrSpace() && _documentMemberList == null)
+            if (!_xmlDocPath.IsNullOrSpace() && _xmDocMemberList == null)
             {
                 var docXml = XElement.Load(_xmlDocPath);
 
                 if (docXml == null)
                     throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
 
-                _documentMemberList =  docXml.Element("members").Elements()
+                _xmDocMemberList =  docXml.Element("members").Elements()
                                     .Select(g => new MetaDocumentation(g.Attribute("name").Value)
                                     {
                                         Documentation = g.Element("documentation")?.Value,
@@ -93,12 +94,12 @@ namespace WildHare
                                     }).ToList();
             }
 
-            return _documentMemberList ?? new List<MetaDocumentation>(); 
+            return _xmDocMemberList ?? new List<MetaDocumentation>(); 
         }    
 
         public override string ToString() => $"MetaAssembly: {AssemblyName} Type count: {GetMetaModels().Count}";
 
-        public bool WriteMetaAssemblyDescriptionToFile(string outputDirectory, bool overwrite = false)
+        public bool WriteMetaAssemblyDescriptionToFile(string outputDirectory, string includeNamespaces = null, bool overwrite = false)
         {
             string header = "=".Repeat(150);
             string spacer = "-".Repeat(145);
@@ -106,20 +107,14 @@ namespace WildHare
             int matches = 0;
             int methodCount = 0;
 
-            string title = 
-            $@"
-            {header}
-            {this.AssemblyName} ASSEMBLY
-            ";
-
-            var sb = new StringBuilder(title.RemoveIndents());
-            var metaNamespaces = GetMetaModelsGroupedByNamespaces();
+            var sb = new StringBuilder();
+            var metaNamespaces = GetMetaModelsGroupedByNamespaces(include: includeNamespaces);
 
             foreach (var ns in metaNamespaces)
             {
                 sb.AppendLine(header);
                 sb.AppendLine(ns.NamespaceName);
-                sb.AppendLine(header);
+                sb.AppendLine();
 
                 foreach (var metaModel in ns.MetaModels)
                 {
@@ -132,9 +127,9 @@ namespace WildHare
 
                         string match;
 
-                        var doc = _documentMemberList.FirstOrDefault(f => f.MemberName == $"{ metaModel.TypeFullName}.{ method.DocMemberName}");
+                        var xmlDoc = _xmDocMemberList.FirstOrDefault(f => f.MemberName == $"{ method.XmlDocMemberName}");
 
-                        if (doc != null && $"{metaModel.TypeFullName}.{method.DocMemberName}" == doc.MemberName)
+                        if (xmlDoc != null && $"{method.XmlDocMemberName}" == xmlDoc.MemberName)
                         {
                             match = $"{tab}  >> ";
                             matches++;
@@ -144,12 +139,12 @@ namespace WildHare
                             match = $"{tab}{tab}";
                         }
 
-                        sb.AppendLine($"{match}{metaModel.TypeFullName}.{method.DocMemberName}");  //  : Is MetaMethod.DocMemberName
+                        sb.AppendLine($"{match}{method.XmlDocMemberName}");  //  : Is MetaMethod.DocMemberName
 
-                        // if (doc != null)
+                        // if (doc != null && !doc.Summary.IsNullOrSpace())
                         // {
-                        //     sb.AppendLine($"{match}{doc.MemberName} : Is MemberName in XMLDoc");
-                        //     sb.AppendLine($"{tab}{tab}Doc Summary: {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
+                        //     // sb.AppendLine($"{match}{doc.MemberName} : Is MemberName in XMLDoc");
+                        //     sb.AppendLine($"{tab}{tab}{tab}   Doc Summary: {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
                         // }
 
                         // sb.AppendLine($"{tab}{spacer}");
@@ -160,19 +155,26 @@ namespace WildHare
                 }
             }
 
+            string title =
+            $@"
+            {header}
+            {this.AssemblyName} ASSEMBLY - {matches} matches of {methodCount} methods.
+            {header}{NewLine}
+            ";
+
             string path = $@"{outputDirectory}\{AssemblyName}AssemblyDescription.txt";
             bool isSuccess = sb.ToString()
-                               .AddStart($"{matches} matches of {methodCount} methods.{NewLine}")
+                               .AddStart(title.RemoveIndents())
                                .WriteToFile(path, overwrite);
 
             return isSuccess;
         }
 
-        public bool WriteMetaAssemblyNotesToJsonFile(string outputDirectory, bool overwrite = false)
+        public bool WriteMetaAssemblyNotesToJsonFile(string outputDirectory, string includedNamespaces, bool overwrite = false)
         {
             string tab = " ".Repeat(5);
             var sb = new StringBuilder();
-            var metaNamespaces = GetMetaModelsGroupedByNamespaces();
+            var metaNamespaces = GetMetaModelsGroupedByNamespaces(include: includedNamespaces) ;
             int nsCount = 0;
 
             foreach (var ns in metaNamespaces)
@@ -196,6 +198,8 @@ namespace WildHare
                         string mComma = (methods.Count == mCount) ? "" : ",";
                         sb.AppendLine($"{tab}{tab}{tab}\"{method.Name}{GetGenericArguments(method)}{GetParamString(method)}\" : \"\"{mComma}");
                     }
+
+                    Debug.WriteLine($"{mm.TypeName} Count: {ns.MetaModels.Count} Index: {index + 1}");
 
                     string mmComma = (ns.MetaModels.Count == index) ? "" : ",";
                     sb.AppendLine($"{tab}{tab}}}{mmComma}");

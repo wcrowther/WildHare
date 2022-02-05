@@ -19,42 +19,38 @@ namespace WildHare
             _instance = instance;
         }
 
+        private readonly object _instance;
         private readonly Type _type;
+        private string xmlDocMemberName = null;
+
         private List<MetaField> fields = null;
         private List<MetaProperty> properties = null;
-        private List<MetaMethod>  methods = null;
-        private object _instance;
+        private List<MetaMethod> methods = null;
 
-        public string TypeName { get => _type.Name; }
+        public string TypeName => _type.Name; 
 
-        public string TypeFullName 
-        { 
-            get 
-            { 
-                return _type.FullName; 
-            } 
-        }
+        public string TypeFullName => _type.FullName;
 
-        public string TypeNamespace { get => _type.Namespace; }
+        public string TypeNamespace => _type.Namespace; 
 
-        public string PrimaryKeyName { get => PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; }
+        public string PrimaryKeyName => PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; 
 
-        public bool IsDictionary { get => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); }
+        public bool IsDictionary => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); 
 
-        public Type DictionaryKeyType { get => IsDictionary ? _type.GetGenericArguments()[0] : null; }
+        public Type DictionaryKeyType => IsDictionary ? _type.GetGenericArguments()[0] : null; 
 
-        public Type DictionaryValueType { get => IsDictionary ? _type.GetGenericArguments()[1] : null; }
+        public Type DictionaryValueType => IsDictionary ? _type.GetGenericArguments()[1] : null; 
 
-        public bool IsAnonymousType { get => TypeName.StartsWith(new[] { "<", "_" }); }
+        public bool IsAnonymousType => TypeName.StartsWith(new[] { "<", "_" }); 
 
-        public bool IsStaticType { get => _type.IsAbstract && _type.IsSealed; }
+        public bool IsStaticType => _type.IsAbstract && _type.IsSealed; 
 
-        public MetaProperty PrimaryKeyMeta { get  => properties.FirstOrDefault(a => a.IsKey == true); }
+        public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true); 
 
         public bool Implements(string interfaceName) => _type.GetInterfaces().Any(a => a.Name == interfaceName);
 
         public List<MetaMethod> GetMetaMethods(string exclude = null, string include = null, bool includeInherited = false)
-        {            
+        {
             if (!exclude.IsNullOrEmpty() && !include.IsNullOrEmpty())
             {
                 throw new Exception("The GetMetaMethods method only accepts the exclude OR the include list.");
@@ -101,13 +97,14 @@ namespace WildHare
 
         public string Summary { get; set; }
 
+        public string XmlDocMemberName => xmlDocMemberName ?? GetXmlDocMemberName();
+
         public override string ToString() => $"{TypeNamespace.AddEnd(".")}{TypeName} Properties: {MetaProperties.Count} Methods: {MetaMethods.Count} Fields: {MetaFields.Count}";
 
 
         // =========================================================================================================
         // Private
         // =========================================================================================================
-
 
         private List<MetaProperty> MetaProperties
         {
@@ -138,19 +135,19 @@ namespace WildHare
 
                 if (methods.Count == 0)
                 {
-                    foreach (var methodInfo in _type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public) )
+                    foreach (var methodInfo in _type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public))
                     {
                         var metaMethod = new MetaMethod(methodInfo);
 
-                        if ( !metaMethod.IsGetter && !metaMethod.IsSetter)
-                        { 
+                        if (!metaMethod.IsGetter && !metaMethod.IsSetter)
+                        {
                             Debug.WriteLine("Name: " + metaMethod.Name);
                             Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
                             Debug.WriteLine("TypeName: " + this.TypeName);
                             Debug.WriteLine("methodInfo.DeclaringType.FullName: " + methodInfo.DeclaringType.FullName);
                             Debug.WriteLine("=".Repeat(25));
 
-                            methods.Add(metaMethod);                     
+                            methods.Add(metaMethod);
                         }
                     }
                 }
@@ -185,6 +182,11 @@ namespace WildHare
             }
 
             return metaParmeters;
+        }
+
+        private string GetXmlDocMemberName()
+        {
+            return TypeFullName;
         }
 
     }

@@ -24,8 +24,8 @@
                "GetMetaModelsForAnonymousTypes()" : "",
                "GetMetaModelsGroupedByNamespaces(String exclude, String include)" : "",
                "ToString()" : "",
-               "WriteMetaAssemblyDescriptionToFile(String outputDirectory, Boolean overwrite)" : "",
-               "WriteMetaAssemblyNotesToJsonFile(String outputDirectory, Boolean overwrite)" : "",
+               "WriteMetaAssemblyDescriptionToFile(String outputDirectory, String includeNamespaces, Boolean overwrite)" : "",
+               "WriteMetaAssemblyNotesToJsonFile(String outputDirectory, String includedNamespaces, Boolean overwrite)" : "",
                "WriteXMLDocumentMemberNamesToFile(String outputDirectory, Boolean overwrite)" : ""
           },
           "MetaDocumentation" : {
@@ -233,9 +233,7 @@
                "SingularOrPlural(Int32 number, String singular, String plural)" : "",
                "Split(String str, String separator, StringSplitOptions options)" : "",
                "StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture)" : "",
-               "Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)" : "",
-               "WithPlural(String singular, Int32 count, String plural)" : "",
-               "WithPlural``1(String singular, IEnumerable`1 list, String plural)" : ""
+               "Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)" : ""
           },
           "TypeExtensions" : {
                "GetCommonBaseType(Type[] types)" : "",

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using WildHare.Extensions;
@@ -58,7 +59,7 @@ namespace WildHare.Tests
         [Test]
         public void GetMetaModel_FromInstance()
         {
-            var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now }; 
+            var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now };
             var metaModel = item.GetMetaModel();
 
             Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
@@ -164,13 +165,13 @@ namespace WildHare.Tests
                 ItemId = 1,
                 ItemName = "One",
                 Created = now,
-                Stuff = new List<string>(){ "stuff1", "stuff2"}
+                Stuff = new List<string>() { "stuff1", "stuff2" }
             };
             var metaProperties = item.GetMetaProperties();
 
             Assert.AreEqual(1, metaProperties[0].GetInstanceValue());           // ItemId
-            Assert.AreEqual("One",  metaProperties[1].GetInstanceValue());      // ItemName
-            Assert.AreEqual(now,  metaProperties[2].GetInstanceValue());        // Created
+            Assert.AreEqual("One", metaProperties[1].GetInstanceValue());      // ItemName
+            Assert.AreEqual(now, metaProperties[2].GetInstanceValue());        // Created
             Assert.AreEqual(2, metaProperties[3].GetInstanceValue().Count);     // Stuff
             Assert.AreEqual("stuff1", metaProperties[3].GetInstanceValue()[0]); // Stuff1
             Assert.AreEqual("stuff2", metaProperties[3].GetInstanceValue()[1]); // Stuff2
@@ -210,8 +211,8 @@ namespace WildHare.Tests
             metaProperties[0].SetInstanceValue(2);
             metaProperties[1].SetInstanceValue("Two");
 
-            Assert.AreEqual(2, item.ItemId);         
-            Assert.AreEqual("Two", item.ItemName);    
+            Assert.AreEqual(2, item.ItemId);
+            Assert.AreEqual("Two", item.ItemName);
         }
 
         [Test]
@@ -243,13 +244,13 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(6,                  typesDerivedFromTeam.Count());
-            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
-            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
+            Assert.AreEqual(6, typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam", typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("ManUnitedTeam", typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("NflTeam", typesDerivedFromTeam[4].Name);
+            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[5].Name);
         }
 
         [Test]
@@ -264,13 +265,13 @@ namespace WildHare.Tests
         [Test]
         public void GetDerivedClasses_Ignore_Types()
         {
-            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(new[]{ "BaseballTeam", "NflTeam" }).ToList();
+            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(new[] { "BaseballTeam", "NflTeam" }).ToList();
 
-            Assert.AreEqual(4,                  typesDerivedFromTeam.Count());
-            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[3].Name);
+            Assert.AreEqual(4, typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam", typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("ManUnitedTeam", typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[3].Name);
             // BaseballTeam     excluded
             // NflTeam          excluded
         }
@@ -280,21 +281,21 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(includeBaseType: true).ToList();
 
-            Assert.AreEqual(7,                  typesDerivedFromTeam.Count());
-            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
-            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
-            Assert.AreEqual("Team",             typesDerivedFromTeam[6].Name); // Included
+            Assert.AreEqual(7, typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam", typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("ManUnitedTeam", typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("NflTeam", typesDerivedFromTeam[4].Name);
+            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[5].Name);
+            Assert.AreEqual("Team", typesDerivedFromTeam[6].Name); // Included
         }
 
         [Test]
         public void GetDerivedClasses_From_Different_Assembly()
         {
             // Type is in WildHare dll but find derived classes in current assembly
-            var thisAssembly = Assembly.GetExecutingAssembly(); 
+            var thisAssembly = Assembly.GetExecutingAssembly();
             var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(otherAssembly: thisAssembly).ToList();
 
             Assert.AreEqual(2, typesDerivedFromTest.Count());
@@ -319,9 +320,9 @@ namespace WildHare.Tests
         [Test]
         public void GetCommonBaseClass_SoccerTeam()
         {
-            var manUnited       = new ManUnitedTeam();
-            var arsenal         = new ArsenalTeam();
-            var manCity         = new SoccerTeam();
+            var manUnited = new ManUnitedTeam();
+            var arsenal = new ArsenalTeam();
+            var manCity = new SoccerTeam();
             var teams = new List<Team>
             {
                 manUnited,
@@ -329,8 +330,8 @@ namespace WildHare.Tests
                 manCity
             };
 
-            var teamTypes       = teams.Select(s => s.GetType()).ToArray();
-            var commonType      = teamTypes.GetCommonBaseType();
+            var teamTypes = teams.Select(s => s.GetType()).ToArray();
+            var commonType = teamTypes.GetCommonBaseType();
 
             Assert.AreEqual("SoccerTeam", commonType.Name);
         }
@@ -338,11 +339,11 @@ namespace WildHare.Tests
         [Test]
         public void GetCommonBaseClass_Team()
         {
-            var manUnited   = new ManUnitedTeam();
-            var arsenal     = new ArsenalTeam();
-            var manCity     = new SoccerTeam();
-            var falcons     = new NflTeam();
-            var teams       = new List<Team>
+            var manUnited = new ManUnitedTeam();
+            var arsenal = new ArsenalTeam();
+            var manCity = new SoccerTeam();
+            var falcons = new NflTeam();
+            var teams = new List<Team>
             {
                 manUnited,
                 arsenal,
@@ -359,12 +360,12 @@ namespace WildHare.Tests
         [Test]
         public void GetCommonBaseClass_object()
         {
-            var manUnited   = new ManUnitedTeam();
-            var arsenal     = new ArsenalTeam();
-            var manCity     = new SoccerTeam();
-            var falcons     = new NflTeam();
-            var word        = new Word();
-            var teams       = new List<object>
+            var manUnited = new ManUnitedTeam();
+            var arsenal = new ArsenalTeam();
+            var manCity = new SoccerTeam();
+            var falcons = new NflTeam();
+            var word = new Word();
+            var teams = new List<object>
             {
                 manUnited,
                 arsenal,
@@ -387,7 +388,7 @@ namespace WildHare.Tests
                 new Bannana(),
                 new Apple(),
                 new Pear(),
-                new Orange(), 
+                new Orange(),
                 new Fruit()
             }
             .ToArray();
@@ -430,7 +431,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(1, interfaces?.Count() ?? 1);
             Assert.AreEqual("I_Object", interfaces[0].Name);
-            Assert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null) );
+            Assert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
 
 
@@ -464,7 +465,7 @@ namespace WildHare.Tests
             }
             .ToArray();
 
-            var interfaces =  fruits.GetCommonInterfaces()
+            var interfaces = fruits.GetCommonInterfaces()
                                     .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
                                     .ToArray();
 
@@ -497,8 +498,31 @@ namespace WildHare.Tests
             Assert.AreEqual("I_Fruit", interfaces[2].Name);
         }
 
+        [Test]
+        public void Get_Generic_Type_With_Reflection()
+        {
+            Type testType = typeof(Dictionary<,>);
 
+            Assert.AreEqual(true, testType.IsGenericType);
+            Assert.AreEqual(true, testType.IsGenericTypeDefinition);
 
+            Type[] typeParameters = testType.GetGenericArguments();
+
+            Debug.WriteLine("   List {0} type arguments:", typeParameters.Length);
+            foreach (Type tParam in typeParameters)
+            {
+                if (tParam.IsGenericParameter)
+                {
+                    Debug.WriteLine("      Type parameter: {0} position {1}", tParam.Name, tParam.GenericParameterPosition);
+                }
+                else
+                {
+                    Debug.WriteLine("      Type argument: {0}", tParam);
+                }
+            }
+
+            Assert.AreEqual(2, typeParameters.Count());
+        }
     }
 }
 

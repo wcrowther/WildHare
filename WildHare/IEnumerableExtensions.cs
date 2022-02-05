@@ -193,7 +193,7 @@ namespace WildHare.Extensions
             return collection;
         }
 
-        /// <summary>Provides an index to a foreach loop using a tuple.</summary>
+        /// <summary>Provides a 0-based index to a foreach loop using a tuple.</summary>
         /// <example>
         /// foreach (var (item, index) in collection.WithIndex() )
         /// {
@@ -217,7 +217,6 @@ namespace WildHare.Extensions
 
             return string.Join(",", intList);
         }
-
 
         /// <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
         /// returns the list item if the {func} returns true for the match to the pattern item.
