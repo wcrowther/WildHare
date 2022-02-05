@@ -98,7 +98,7 @@ namespace WildHare
 
         public override string ToString() => $"MetaAssembly: {AssemblyName} Type count: {GetMetaModels().Count}";
 
-        public bool WriteMetaAssemblyToFile(string outputDirectory, bool overwrite = false)
+        public bool WriteMetaAssemblyDescriptionToFile(string outputDirectory, bool overwrite = false)
         {
             string header = "=".Repeat(150);
             string spacer = "-".Repeat(145);
@@ -159,7 +159,7 @@ namespace WildHare
                 }
             }
 
-            string path = $@"{outputDirectory}\{AssemblyName}.txt";
+            string path = $@"{outputDirectory}\{AssemblyName}AssemblyDescription.txt";
             bool isSuccess =  sb.ToString()
                                 .AddStart($"{matches} matches of {methodCount} methods.{NewLine}")
                                 .WriteToFile(path, overwrite);
@@ -182,7 +182,7 @@ namespace WildHare
 
                 int mmCount = 0;
 
-                foreach(var mm in ns.MetaModels)
+                foreach (var mm in ns.MetaModels)
                 {
                     mmCount++;
 
@@ -197,7 +197,7 @@ namespace WildHare
                         mCount++;
 
                         string mComma = (methods.Count == mCount) ? "" : ",";
-                        sb.AppendLine($"{tab}{tab}{tab}\"{method.Name}{GetGenericType(method)}{GetParamString(method)}\" : \"\"{mComma}");
+                        sb.AppendLine($"{tab}{tab}{tab}\"{method.Name}{GetGenericArguments(method)}{GetParamString(method)}\" : \"\"{mComma}");
                     }
 
                     string mmComma = (ns.MetaModels.Count == mmCount) ? "" : ",";
@@ -208,10 +208,42 @@ namespace WildHare
                 sb.AppendLine($"{tab}}}{nsComma}");
             }
 
-            string path = $@"{outputDirectory}\{AssemblyName}_Notes.json";
-            bool isSuccess =   sb.ToString().RemoveEnd(",")
-                                            .AddStartEnd("{" + NewLine, "}" + NewLine)  
+            string path = $@"{outputDirectory}\{AssemblyName}Notes.json";
+            bool isSuccess = sb.ToString().RemoveEnd(",")
+                                            .AddStartEnd("{" + NewLine, "}" + NewLine)
                                             .WriteToFile(path, overwrite);
+
+            return isSuccess;
+        }
+
+        public bool WriteXMLDocumentMemberNamesToFile(string outputDirectory, bool overwrite = false)
+        {
+            var documentNameList =  new List<string>();
+            var sb = new StringBuilder();
+
+            if (_xmlDocPath.IsNullOrSpace())
+            {
+                return false;
+            }
+
+            var docXml = XElement.Load(_xmlDocPath);
+
+            if (docXml == null)
+                throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
+
+            documentNameList = docXml.Element("members")
+                                     .Elements()
+                                     .Select(g => g.Attribute("name").Value)
+                                     .ToList();
+
+            foreach (var name in documentNameList)
+            {
+                sb.AppendLine($"{name}");
+            }
+
+            string path = $@"{outputDirectory}\{AssemblyName}XMLDocumentNames.txt";
+
+            bool isSuccess = sb.ToString().AddStartEnd(NewLine + NewLine).WriteToFile(path, overwrite);
 
             return isSuccess;
         }
@@ -233,9 +265,14 @@ namespace WildHare
             return sb.ToString().RemoveEnd(commaSpace).EnsureStartEnd("(", ")");
         }
 
-        private string GetGenericType(MetaMethod method)
+        private string GetGenericArguments(MetaMethod method)
         {
-            return "";
+            var genericArguments = method.GetGenericArguments();
+
+            if(genericArguments.Count() == 0)
+                return "";
+
+            return $"``{genericArguments.Count()}";
         }
 
         private List<MetaModel> GetAllMetaModels()

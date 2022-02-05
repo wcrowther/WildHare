@@ -25,7 +25,8 @@
                "GetMetaModelsGroupedByNamespaces(String exclude, String include)" : "",
                "ToString()" : "",
                "WriteMetaAssemblyNotesToJsonFile(String outputDirectory, Boolean overwrite)" : "",
-               "WriteMetaAssemblyToFile(String outputDirectory, Boolean overwrite)" : ""
+               "WriteMetaAssemblyToFile(String outputDirectory, Boolean overwrite)" : "",
+               "WriteXMLDocumentMemberNamesToFile(String outputDirectory, Boolean overwrite)" : ""
           },
           "MetaDocumentation" : {
                "MemberId()" : "",
@@ -36,6 +37,7 @@
                "ToString()" : ""
           },
           "MetaMethod" : {
+               "GetGenericArguments()" : "",
                "IsInherited(String typeName)" : "",
                "ToString()" : ""
           },
@@ -93,11 +95,11 @@
                "ToLongNullable(String value, Nullable`1 defaultValue)" : ""
           },
           "DataReaderExtensions" : {
-               "Get(IDataReader row, String fieldName, T defaultValue)" : "",
-               "Get(IDataReader row, Int32 ordinal, T defaultValue)" : ""
+               "Get``1(IDataReader row, String fieldName, T defaultValue)" : "",
+               "Get``1(IDataReader row, Int32 ordinal, T defaultValue)" : ""
           },
           "DataTableExtensions" : {
-               "ToList(DataTable table)" : ""
+               "ToList``1(DataTable table)" : ""
           },
           "DateTimeExtensions" : {
                "FirstDayOfNextMonth(DateTime datetime)" : "",
@@ -116,48 +118,48 @@
                "YearMonthDay(DateTime date)" : ""
           },
           "DictionaryExtensions" : {
-               "Get(IDictionary`2 dictionary, String key)" : "",
+               "Get``1(IDictionary`2 dictionary, String key)" : "",
                "Set(IDictionary`2 dictionary, String key, Object value)" : "",
                "ToQueryDictionary(String query)" : "",
                "ToQueryString(IDictionary`2 dict)" : "",
-               "TryGet(IDictionary`2 dictionary, String key, T& value)" : ""
+               "TryGet``1(IDictionary`2 dictionary, String key, T& value)" : ""
           },
           "ExpandoExtensions" : {
-               "Add(ExpandoObject expando, String name, T value)" : "",
+               "Add``1(ExpandoObject expando, String name, T value)" : "",
                "Add(ExpandoObject expando, String name, String value)" : "",
+               "Get``1(ExpandoObject expando, String name)" : "",
                "Get(ExpandoObject expando, String name)" : "",
-               "Get(ExpandoObject expando, String name)" : "",
-               "Get(Dictionary`2 dictionary, TKey key, TVal defaultVal)" : "",
+               "Get``2(Dictionary`2 dictionary, TKey key, TVal defaultVal)" : "",
                "Remove(ExpandoObject expando, String name)" : ""
           },
           "IEnumerableExtensions" : {
                "AsString(IEnumerable`1 intList, Boolean strict)" : "",
-               "ElementIn(IEnumerable`1 source, Int32 index)" : "",
-               "ElementInOrDefault(IEnumerable`1 source, Int32 index, TSource defaultItem)" : "",
-               "ElementInOrDefault(IEnumerable`1 source, Int32 index)" : "",
-               "InList(IList`1 list, IList`1 items, Func`3 comparer)" : "",
-               "MatchList(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)" : "",
-               "PatternMatch(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)" : "",
-               "Pluralize(IEnumerable`1 list, String singular, String plural)" : "",
-               "Sequence(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, Boolean consecutive)" : "",
-               "ToCollection(IEnumerable`1 enumerable)" : "",
-               "WithIndex(IEnumerable`1 list)" : ""
+               "ElementIn``1(IEnumerable`1 source, Int32 index)" : "",
+               "ElementInOrDefault``1(IEnumerable`1 source, Int32 index, TSource defaultItem)" : "",
+               "ElementInOrDefault``1(IEnumerable`1 source, Int32 index)" : "",
+               "InList``2(IList`1 list, IList`1 items, Func`3 comparer)" : "",
+               "MatchList``2(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)" : "",
+               "PatternMatch``1(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)" : "",
+               "Pluralize``1(IEnumerable`1 list, String singular, String plural)" : "",
+               "Sequence``2(IEnumerable`1 first, IEnumerable`1 second, Func`3 func, Boolean consecutive)" : "",
+               "ToCollection``1(IEnumerable`1 enumerable)" : "",
+               "WithIndex``1(IEnumerable`1 list)" : ""
           },
           "IListExtensions" : {
-               "AddRange(IList`1 itemList, IEnumerable`1 newItems)" : "",
-               "CombineItems(IList`1 itemList, Int32 index, Int32 count, T newItem)" : "",
-               "IsFirstIn(T item, IList`1 itemList)" : "",
-               "IsLastIn(T item, IList`1 itemList)" : "",
-               "NextIn(T item, IList`1 itemList, Int32 distance)" : "",
-               "NextInWhile(T item, IList`1 itemList, Func`2 func, Int32 step)" : "",
-               "PreviousIn(T item, IList`1 itemList, Int32 distance)" : "",
-               "PreviousInWhile(T item, IList`1 itemList, Func`2 func)" : "",
-               "ReplaceItem(IList`1 itemList, Int32 index, T newItem)" : "",
-               "ReplaceItems(IList`1 itemList, Int32 index, IList`1 newItems)" : "",
-               "TakeNext(IList`1 sourceList, Int32 count, Int32 offset, Boolean remove)" : "",
-               "TakeNextOne(IList`1 sourceList, Int32 offset, Boolean remove)" : "",
-               "TakeRandom(IList`1 sourceList, Int32 count, Random random, Boolean remove)" : "",
-               "TakeRandomOne(IList`1 sourceList, Random random, Boolean remove)" : ""
+               "AddRange``1(IList`1 itemList, IEnumerable`1 newItems)" : "",
+               "CombineItems``1(IList`1 itemList, Int32 index, Int32 count, T newItem)" : "",
+               "IsFirstIn``1(T item, IList`1 itemList)" : "",
+               "IsLastIn``1(T item, IList`1 itemList)" : "",
+               "NextIn``1(T item, IList`1 itemList, Int32 distance)" : "",
+               "NextInWhile``1(T item, IList`1 itemList, Func`2 func, Int32 step)" : "",
+               "PreviousIn``1(T item, IList`1 itemList, Int32 distance)" : "",
+               "PreviousInWhile``1(T item, IList`1 itemList, Func`2 func)" : "",
+               "ReplaceItem``1(IList`1 itemList, Int32 index, T newItem)" : "",
+               "ReplaceItems``1(IList`1 itemList, Int32 index, IList`1 newItems)" : "",
+               "TakeNext``1(IList`1 sourceList, Int32 count, Int32 offset, Boolean remove)" : "",
+               "TakeNextOne``1(IList`1 sourceList, Int32 offset, Boolean remove)" : "",
+               "TakeRandom``1(IList`1 sourceList, Int32 count, Random random, Boolean remove)" : "",
+               "TakeRandomOne``1(IList`1 sourceList, Random random, Boolean remove)" : ""
           },
           "IOExtensions" : {
                "AppendToFile(String stringToWrite, String fileName)" : "",
@@ -171,7 +173,7 @@
                "WriteToFile(String stringToWrite, FileInfo file, Boolean overwrite)" : ""
           },
           "IQueryableExtensions" : {
-               "OrderBy(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty)" : ""
+               "OrderBy``1(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty)" : ""
           },
           "StringExtensions" : {
                "AddEnd(String s, String addToEnd)" : "",
@@ -233,7 +235,7 @@
                "StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture)" : "",
                "Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)" : "",
                "WithPlural(String singular, Int32 count, String plural)" : "",
-               "WithPlural(String singular, IEnumerable`1 list, String plural)" : ""
+               "WithPlural``1(String singular, IEnumerable`1 list, String plural)" : ""
           },
           "TypeExtensions" : {
                "GetCommonBaseType(Type[] types)" : "",
@@ -242,13 +244,13 @@
                "GetDerivedTypes(Type type, String[] ignoreTypeNames, Boolean includeBaseType, Assembly otherAssembly)" : "",
                "GetMetaAssembly(Assembly assembly, String xmlDocumentationPath)" : "",
                "GetMetaModel(Type type)" : "",
-               "GetMetaModel(IEnumerable`1 enumerable)" : "",
-               "GetMetaModel(T instance)" : "",
-               "GetMetaModel(Dictionary`2 dictionary)" : "",
+               "GetMetaModel``1(IEnumerable`1 enumerable)" : "",
+               "GetMetaModel``1(T instance)" : "",
+               "GetMetaModel``2(Dictionary`2 dictionary)" : "",
                "GetMetaProperties(Type type)" : "",
                "GetMetaProperties(Type type, String exclude, String include)" : "",
-               "GetMetaProperties(IEnumerable`1 enumerable, String exclude, String include)" : "",
-               "GetMetaProperties(T instance, String exclude, String include)" : "",
+               "GetMetaProperties``1(IEnumerable`1 enumerable, String exclude, String include)" : "",
+               "GetMetaProperties``1(T instance, String exclude, String include)" : "",
                "GetTypesInNamespace(Assembly assembly, String nameSpace)" : ""
           }
      },
@@ -259,9 +261,9 @@
                "Template(Dictionary`2 lookups, FileInfo templateFile, String startTag, String endTag)" : "",
                "Template(Object obj, String template, String startTag, String endTag)" : "",
                "Template(Object obj, FileInfo templateFile, String startTag, String endTag)" : "",
-               "Template(T obj, FileInfo templateFile, String startTag, String endTag)" : "",
-               "TemplateList(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)" : "",
-               "TemplateList(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)" : "",
+               "Template``1(T obj, FileInfo templateFile, String startTag, String endTag)" : "",
+               "TemplateList``1(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)" : "",
+               "TemplateList``1(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)" : "",
                "TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull)" : ""
           }
      },

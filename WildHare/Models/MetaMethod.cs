@@ -13,6 +13,7 @@ namespace WildHare
     {
         private MethodInfo methodInfo;
         private List<MetaParameter> metaParameters = null;
+        // private MethodInfo genericMethodDefinition;
 
         public MetaMethod(MethodInfo methodInfo)
         {
@@ -37,6 +38,11 @@ namespace WildHare
         public bool IsSetter { get => Name.StartsWith("set_") && methodInfo.IsSpecialName; }
 
         public bool IsInherited(string typeName) => DeclaringType.Name == typeName;
+
+        public Type[] GetGenericArguments()
+        {
+            return methodInfo.GetGenericArguments();
+        }
 
         public List<MetaParameter> Parameters
         {

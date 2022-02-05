@@ -54,7 +54,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void GetMetaAssembly()
+        public void GenerateMetaAssemblyInformationFiles()
         {
             string xmlDocumentationPath = $@"c:\Git\WildHare\WildHare\WildHare.xml";
 
@@ -62,11 +62,18 @@ namespace WildHare.Tests
             string outputDirectory = $@"{outputPathRoot}\Directory0";
 
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
-            metaAssembly.WriteMetaAssemblyToFile(outputDirectory, true);
+            
+            bool descriptionFile = metaAssembly.WriteMetaAssemblyDescriptionToFile(outputDirectory, true);
 
-            metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, true);
+            bool noteJsonFile = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, true);
+
+            bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(outputDirectory, true);
 
             Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
+
+            Assert.AreEqual(true, descriptionFile);
+            Assert.AreEqual(true, noteJsonFile);
+            Assert.AreEqual(true, xmlDocNamesFile);
         }
 
 
