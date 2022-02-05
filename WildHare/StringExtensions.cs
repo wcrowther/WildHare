@@ -479,23 +479,12 @@ namespace WildHare.Extensions
             if (number == 1)
                 return singular;
 
-            if (plural is null)
+            if (plural.IsNullOrSpace())
             {
                 return endings.Any(x => singular.EndsWith(x, StringComparison.OrdinalIgnoreCase)) ? singular + "es" : singular + "s";
             }
+
             return plural;
-        }
-
-        public static string WithPlural(this string singular, int count, string plural = null)
-        {
-            return Pluralize(count, singular, plural);
-        }
-
-        public static string WithPlural<T>(this string singular, IEnumerable<T> list, string plural = null)
-        {
-            int count = list.Count();
-            
-            return Pluralize(count, singular, plural);
         }
 
         public static string Left(this string str, int length)

@@ -124,7 +124,7 @@ namespace WildHare
                 foreach (var metaModel in ns.MetaModels)
                 {
                     sb.AppendLine($"{tab}{metaModel.TypeFullName}");
-                    sb.AppendLine($"{tab}{spacer}");
+                    sb.AppendLine();
 
                     foreach (var method in metaModel.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
                     {
@@ -136,7 +136,7 @@ namespace WildHare
 
                         if (doc != null && $"{metaModel.TypeFullName}.{method.DocMemberName}" == doc.MemberName)
                         {
-                            match = $"{tab} >>> Match";
+                            match = $"{tab}  >> ";
                             matches++;
                         }
                         else
@@ -144,25 +144,26 @@ namespace WildHare
                             match = $"{tab}{tab}";
                         }
 
-                        sb.AppendLine($"{match}{metaModel.TypeFullName}.{method.DocMemberName} : Is MetaMethod.DocMemberName");
+                        sb.AppendLine($"{match}{metaModel.TypeFullName}.{method.DocMemberName}");  //  : Is MetaMethod.DocMemberName
 
-                        if (doc != null)
-                        {
-                            sb.AppendLine($"{match}{doc.MemberName} : Is MemberName in XMLDoc");
-                            sb.AppendLine($"{tab}{tab}Doc Summary: {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
-                        }
+                        // if (doc != null)
+                        // {
+                        //     sb.AppendLine($"{match}{doc.MemberName} : Is MemberName in XMLDoc");
+                        //     sb.AppendLine($"{tab}{tab}Doc Summary: {doc.Summary.ReplaceLineReturns().CombineSpaces()}");
+                        // }
 
-                        sb.AppendLine($"{tab}{spacer}");
+                        // sb.AppendLine($"{tab}{spacer}");
 
                         methodCount++;
                     }
+                    sb.AppendLine();
                 }
             }
 
             string path = $@"{outputDirectory}\{AssemblyName}AssemblyDescription.txt";
-            bool isSuccess =  sb.ToString()
-                                .AddStart($"{matches} matches of {methodCount} methods.{NewLine}")
-                                .WriteToFile(path, overwrite);
+            bool isSuccess = sb.ToString()
+                               .AddStart($"{matches} matches of {methodCount} methods.{NewLine}")
+                               .WriteToFile(path, overwrite);
 
             return isSuccess;
         }
@@ -180,12 +181,8 @@ namespace WildHare
 
                 sb.AppendLine($"{tab}\"{ns.NamespaceName}\" : {{");
 
-                int mmCount = 0;
-
-                foreach (var mm in ns.MetaModels)
+                foreach (var (mm, index) in ns.MetaModels.WithIndex())
                 {
-                    mmCount++;
-
                     sb.AppendLine($"{tab}{tab}\"{mm.TypeName}\" : {{");
 
                     var methods = mm.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name).ToList();
@@ -200,7 +197,7 @@ namespace WildHare
                         sb.AppendLine($"{tab}{tab}{tab}\"{method.Name}{GetGenericArguments(method)}{GetParamString(method)}\" : \"\"{mComma}");
                     }
 
-                    string mmComma = (ns.MetaModels.Count == mmCount) ? "" : ",";
+                    string mmComma = (ns.MetaModels.Count == index) ? "" : ",";
                     sb.AppendLine($"{tab}{tab}}}{mmComma}");
                 }
 

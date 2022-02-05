@@ -5,707 +5,324 @@ WildHare ASSEMBLY
 WildHare
 ======================================================================================================================================================
      WildHare.DocMember
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DocMember.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.DocMember.ToString()
+
      WildHare.DynamicDictionary
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicDictionary.Clear() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicDictionary.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicDictionary.TrySetMember(System.Dynamic.SetMemberBinder,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.DynamicDictionary.Clear()
+          WildHare.DynamicDictionary.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
+          WildHare.DynamicDictionary.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+
      WildHare.DynamicExpando
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.Clear() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.First() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.FirstOrDefault() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.Remove(System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.ToDictionary() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.ToList() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.DynamicExpando.TrySetMember(System.Dynamic.SetMemberBinder,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.DynamicExpando.Clear()
+          WildHare.DynamicExpando.First()
+          WildHare.DynamicExpando.FirstOrDefault()
+          WildHare.DynamicExpando.Remove(System.String)
+          WildHare.DynamicExpando.ToDictionary()
+          WildHare.DynamicExpando.ToList()
+          WildHare.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
+          WildHare.DynamicExpando.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+
      WildHare.MetaAssembly
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.GetMetaDocumentationList() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.GetMetaModels(System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.GetMetaModelsForAnonymousTypes() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.GetMetaModelsGroupedByNamespaces(System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.WriteMetaAssemblyNotesToJsonFile(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.WriteMetaAssemblyToFile(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaAssembly.GetMetaDocumentationList()
+          WildHare.MetaAssembly.GetMetaModels(System.String,System.String)
+          WildHare.MetaAssembly.GetMetaModelsForAnonymousTypes()
+          WildHare.MetaAssembly.GetMetaModelsGroupedByNamespaces(System.String,System.String)
+          WildHare.MetaAssembly.ToString()
+          WildHare.MetaAssembly.WriteMetaAssemblyDescriptionToFile(System.String,System.Boolean)
+          WildHare.MetaAssembly.WriteMetaAssemblyNotesToJsonFile(System.String,System.Boolean)
+          WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.Boolean)
+
      WildHare.MetaDocumentation
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaDocumentation.MemberId() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaDocumentation.MemberType() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaDocumentation.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaDocumentation.MemberId()
+          WildHare.MetaDocumentation.MemberType()
+          WildHare.MetaDocumentation.ToString()
+
      WildHare.MetaField
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaField.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaField.ToString()
+
      WildHare.MetaMethod
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaMethod.GetGenericArguments() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaMethod.IsInherited(System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaMethod.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaMethod.GetGenericArguments()
+          WildHare.MetaMethod.IsInherited(System.String)
+          WildHare.MetaMethod.ToString()
+
      WildHare.MetaModel
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaModel.GetMetaMethods(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaModel.GetMetaProperties(System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaModel.Implements(System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaModel.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaModel.GetMetaMethods(System.String,System.String,System.Boolean)
+          WildHare.MetaModel.GetMetaProperties(System.String,System.String)
+          WildHare.MetaModel.Implements(System.String)
+          WildHare.MetaModel.ToString()
+
      WildHare.MetaNamespace
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaNamespace.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaNamespace.ToString()
+
      WildHare.MetaParameter
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaParameter.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaParameter.ToString()
+
      WildHare.MetaProperty
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaProperty.GetInstanceValue(System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaProperty.Implements(System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaProperty.SetInstanceValue(System.Object,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.MetaProperty.ToString() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.MetaProperty.GetInstanceValue(System.Object)
+          WildHare.MetaProperty.Implements(System.String)
+          WildHare.MetaProperty.SetInstanceValue(System.Object,System.Object)
+          WildHare.MetaProperty.ToString()
+
 ======================================================================================================================================================
 WildHare.Extensions
 ======================================================================================================================================================
      WildHare.Extensions.CharExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.CharAt(System.String,System.Int32) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.CharAt(System.String,System.Int32) : Is MemberName in XMLDoc
-          Doc Summary: Returns the character at the position {i}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.GetUnicodeCategory(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.GetUnicodeCategory(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.GetUnicodeCategory(ch)
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsControl(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsControl(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsControl(ch). ie: Non-printable "control" characters below 0x20, such as \r, \n, and \0, and characters between 0x7F and 0x9A
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsDigit(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsDigit(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsDigit(ch). ie: 0-9 plus digits of other alphabets
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsLetter(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsLetter(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsLetterOrDigit(ch). ie: A-Z, a-z, and letters of other alphabets
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsLetterOrDigit(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsLetterOrDigit(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsLetterOrDigit(ch). ie: Letters plus digits
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsLower(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsLower(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsLower(ch). ie: Lowercase letters
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsNumber(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsNumber(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsNumber(ch). ie: All digits plus Unicode fractions and Roman numeral symbols
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsPunctuation(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsPunctuation(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsPunctuation(ch). ie: Symbols used for punctuation in Western and other alphabets
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsReturn(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsReturn(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Returns true if char is a return char ie: \n, \r 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsSeparator(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsSeparator(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsSeparator(ch). ie: Space plus all Unicode separator characters
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsSymbol(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsSymbol(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsSymbol(ch). ie: Most other printable symbols
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.CharExtensions.IsUpper(System.Char) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.CharExtensions.IsUpper(System.Char) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of char.IsUpper(ch). ie: Uppercase letters
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.CharExtensions.CharAt(System.String,System.Int32)
+       >> WildHare.Extensions.CharExtensions.GetUnicodeCategory(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsControl(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsDigit(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsLetter(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsLetterOrDigit(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsLower(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsNumber(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsPunctuation(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsReturn(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsSeparator(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsSymbol(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsUpper(System.Char)
+          WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)
+
      WildHare.Extensions.ConvertExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Converts an array of ints to a string separated by {separator} (defaulting to a comma). The method will return null if the {intArray} parameter is null when {strict} is false. When {strict} is true the method will throw an exception if the {intArray} is null.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToBool(System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToBool(System.String) : Is MemberName in XMLDoc
-          Doc Summary: Converts string to bool. (case insensitive, defaults to false if string does not parse to true)
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToBool(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToBool(System.String,System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Converts string to bool by comparing to the trueValue. Ignores case by default.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ConvertExtensions.ToBoolNullable(System.String,System.Nullable`1[System.Boolean]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.DateTime) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.DateTime) : Is MemberName in XMLDoc
-          Doc Summary: Converts strings to DateTime with default if unsuccessful
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.Nullable`1[System.DateTime]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToDecimal(System.String,System.Decimal) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToDecimal(System.String,System.Decimal) : Is MemberName in XMLDoc
-          Doc Summary: Converts strings to Decimal without without having to use an explicit try/catch
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ConvertExtensions.ToDecimalNullable(System.String,System.Nullable`1[System.Decimal]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToDouble(System.String,System.Double) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToDouble(System.String,System.Double) : Is MemberName in XMLDoc
-          Doc Summary: Converts strings to double.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ConvertExtensions.ToDoubleNullable(System.String,System.Nullable`1[System.Double]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToInt(System.String,System.Int32) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToInt(System.String,System.Int32) : Is MemberName in XMLDoc
-          Doc Summary: Converts strings to Int.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Converts a string to an array of ints, using the {separator} as the divider (defaulting to a comma). With {strict} equals false, the default, the method will ignore any characters except for numbers, the negative symbol, or commas. With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ConvertExtensions.ToIntNullable(System.String,System.Nullable`1[System.Int32]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64) : Is MemberName in XMLDoc
-          Doc Summary: Converts strings to long
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ConvertExtensions.ToLongNullable(System.String,System.Nullable`1[System.Int64]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String)
+       >> WildHare.Extensions.ConvertExtensions.ToBool(System.String)
+       >> WildHare.Extensions.ConvertExtensions.ToBool(System.String,System.String,System.Boolean)
+          WildHare.Extensions.ConvertExtensions.ToBoolNullable(System.String,System.Nullable`1[System.Boolean])
+       >> WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.DateTime)
+          WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.Nullable`1[System.DateTime])
+       >> WildHare.Extensions.ConvertExtensions.ToDecimal(System.String,System.Decimal)
+          WildHare.Extensions.ConvertExtensions.ToDecimalNullable(System.String,System.Nullable`1[System.Decimal])
+       >> WildHare.Extensions.ConvertExtensions.ToDouble(System.String,System.Double)
+          WildHare.Extensions.ConvertExtensions.ToDoubleNullable(System.String,System.Nullable`1[System.Double])
+       >> WildHare.Extensions.ConvertExtensions.ToInt(System.String,System.Int32)
+       >> WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String)
+          WildHare.Extensions.ConvertExtensions.ToIntNullable(System.String,System.Nullable`1[System.Int32])
+       >> WildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64)
+          WildHare.Extensions.ConvertExtensions.ToLongNullable(System.String,System.Nullable`1[System.Int64])
+
      WildHare.Extensions.DataReaderExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DataReaderExtensions.Get(System.Data.IDataReader,System.String,T) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DataReaderExtensions.Get(System.Data.IDataReader,System.Int32,T) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.DataReaderExtensions.Get(System.Data.IDataReader,System.String,T)
+          WildHare.Extensions.DataReaderExtensions.Get(System.Data.IDataReader,System.Int32,T)
+
      WildHare.Extensions.DataTableExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DataTableExtensions.ToList(System.Data.DataTable) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.DataTableExtensions.ToList(System.Data.DataTable)
+
      WildHare.Extensions.DateTimeExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.DateTimeExtensions.FirstDayOfNextMonth(System.DateTime) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.DateTimeExtensions.FirstDayOfNextMonth(System.DateTime) : Is MemberName in XMLDoc
-          Doc Summary: Gets a DateTime for the first day of the next month for the given {datetime}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime) : Is MemberName in XMLDoc
-          Doc Summary: Gets a DateTime for the first day of the month for the given {datetime}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Given a DateTime like {date}, gets the next {DayOfWeek}, like Sunday, Saturday, etc. as DateTime. If {includeDate} is true and {date} is that day of the week, then return that {date}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.DateTimeExtensions.IsInTheSameMonth(System.DateTime,System.DateTime) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.DateTimeExtensions.IsInTheSameMonth(System.DateTime,System.DateTime) : Is MemberName in XMLDoc
-          Doc Summary: Returns a boolean true if the {datetime} and {target} are in the same month.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.DateTimeExtensions.LastDayOfTheMonth(System.DateTime) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.DateTimeExtensions.LastDayOfTheMonth(System.DateTime) : Is MemberName in XMLDoc
-          Doc Summary: Gets a DateTime for the last day of the next month for the given {datetime}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.MonthName(System.DateTime) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.MonthName(System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.NextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.ShortMonthName(System.DateTime) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.ShortMonthName(System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime) : Is MemberName in XMLDoc
-          Doc Summary: Returns a boolean true if the {datetime} is today or before.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.YearMonth(System.DateTime) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DateTimeExtensions.YearMonthDay(System.DateTime) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.DateTimeExtensions.FirstDayOfNextMonth(System.DateTime)
+       >> WildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime)
+       >> WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)
+       >> WildHare.Extensions.DateTimeExtensions.IsInTheSameMonth(System.DateTime,System.DateTime)
+       >> WildHare.Extensions.DateTimeExtensions.LastDayOfTheMonth(System.DateTime)
+          WildHare.Extensions.DateTimeExtensions.MonthName(System.DateTime)
+          WildHare.Extensions.DateTimeExtensions.MonthName(System.Int32)
+          WildHare.Extensions.DateTimeExtensions.NextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)
+          WildHare.Extensions.DateTimeExtensions.ShortMonthName(System.DateTime)
+          WildHare.Extensions.DateTimeExtensions.ShortMonthName(System.Int32)
+          WildHare.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)
+       >> WildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime)
+          WildHare.Extensions.DateTimeExtensions.YearMonth(System.DateTime)
+          WildHare.Extensions.DateTimeExtensions.YearMonthDay(System.DateTime)
+
      WildHare.Extensions.DictionaryExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DictionaryExtensions.Get(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DictionaryExtensions.Set(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DictionaryExtensions.ToQueryDictionary(System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DictionaryExtensions.ToQueryString(System.Collections.Generic.IDictionary`2[System.String,System.String]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.DictionaryExtensions.TryGet(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String,T&) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.DictionaryExtensions.Get(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String)
+          WildHare.Extensions.DictionaryExtensions.Set(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String,System.Object)
+          WildHare.Extensions.DictionaryExtensions.ToQueryDictionary(System.String)
+          WildHare.Extensions.DictionaryExtensions.ToQueryString(System.Collections.Generic.IDictionary`2[System.String,System.String])
+          WildHare.Extensions.DictionaryExtensions.TryGet(System.Collections.Generic.IDictionary`2[System.String,System.Object],System.String,T&)
+
      WildHare.Extensions.ExpandoExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,T) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Add a string to the Expando using a string {name}. 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String) : Is MemberName in XMLDoc
-          Doc Summary:  Gets a string by string {name} but does not throw an exception if it does not exist. If an ExpandoObject is cast to dynamic, be sure to cast back to ExpandoObject to see this extension method.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String) : Is MemberName in XMLDoc
-          Doc Summary:  Gets a string by string {name} but does not throw an exception if it does not exist. If an ExpandoObject is cast to dynamic, be sure to cast back to ExpandoObject to see this extension method.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ExpandoExtensions.Get(System.Collections.Generic.Dictionary`2[TKey,TVal],TKey,TVal) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Remove(System.Dynamic.ExpandoObject,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ExpandoExtensions.Remove(System.Dynamic.ExpandoObject,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Remove a value from the Expando using a string {name}. 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,T)
+       >> WildHare.Extensions.ExpandoExtensions.Add(System.Dynamic.ExpandoObject,System.String,System.String)
+       >> WildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String)
+       >> WildHare.Extensions.ExpandoExtensions.Get(System.Dynamic.ExpandoObject,System.String)
+          WildHare.Extensions.ExpandoExtensions.Get(System.Collections.Generic.Dictionary`2[TKey,TVal],TKey,TVal)
+       >> WildHare.Extensions.ExpandoExtensions.Remove(System.Dynamic.ExpandoObject,System.String)
+
      WildHare.Extensions.IEnumerableExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable`1[System.Int32],System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.ElementIn(System.Collections.Generic.IEnumerable`1[TSource],System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32,TSource) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.InList(System.Collections.Generic.IList`1[TList],System.Collections.Generic.IList`1[TItems],System.Func`3[TList,TItems,System.Boolean]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.MatchList(System.Collections.Generic.IEnumerable`1[T1],System.Collections.Generic.IEnumerable`1[T2],System.Func`3[T1,T2,System.Boolean],System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.PatternMatch(System.Collections.Generic.IEnumerable`1[T],System.Collections.Generic.IEnumerable`1[T],System.Func`3[T,T,System.Boolean]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.Pluralize(System.Collections.Generic.IEnumerable`1[T],System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.Sequence(System.Collections.Generic.IEnumerable`1[TFirst],System.Collections.Generic.IEnumerable`1[TSecond],System.Func`3[TFirst,TSecond,System.Boolean],System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.ToCollection(System.Collections.Generic.IEnumerable`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IEnumerableExtensions.WithIndex(System.Collections.Generic.IEnumerable`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable`1[System.Int32],System.Boolean)
+          WildHare.Extensions.IEnumerableExtensions.ElementIn(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
+          WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32,TSource)
+          WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
+          WildHare.Extensions.IEnumerableExtensions.InList(System.Collections.Generic.IList`1[TList],System.Collections.Generic.IList`1[TItems],System.Func`3[TList,TItems,System.Boolean])
+          WildHare.Extensions.IEnumerableExtensions.MatchList(System.Collections.Generic.IEnumerable`1[T1],System.Collections.Generic.IEnumerable`1[T2],System.Func`3[T1,T2,System.Boolean],System.Boolean)
+          WildHare.Extensions.IEnumerableExtensions.PatternMatch(System.Collections.Generic.IEnumerable`1[T],System.Collections.Generic.IEnumerable`1[T],System.Func`3[T,T,System.Boolean])
+          WildHare.Extensions.IEnumerableExtensions.Pluralize(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)
+          WildHare.Extensions.IEnumerableExtensions.Sequence(System.Collections.Generic.IEnumerable`1[TFirst],System.Collections.Generic.IEnumerable`1[TSecond],System.Func`3[TFirst,TSecond,System.Boolean],System.Boolean)
+          WildHare.Extensions.IEnumerableExtensions.ToCollection(System.Collections.Generic.IEnumerable`1[T])
+          WildHare.Extensions.IEnumerableExtensions.WithIndex(System.Collections.Generic.IEnumerable`1[T])
+
      WildHare.Extensions.IListExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.AddRange(System.Collections.Generic.IList`1[T],System.Collections.Generic.IEnumerable`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.CombineItems(System.Collections.Generic.IList`1[T],System.Int32,System.Int32,T) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.IsFirstIn(T,System.Collections.Generic.IList`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.IsLastIn(T,System.Collections.Generic.IList`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.NextIn(T,System.Collections.Generic.IList`1[T],System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.NextInWhile(T,System.Collections.Generic.IList`1[T],System.Func`2[T,System.Boolean],System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.PreviousIn(T,System.Collections.Generic.IList`1[T],System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.PreviousInWhile(T,System.Collections.Generic.IList`1[T],System.Func`2[T,System.Boolean]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.ReplaceItem(System.Collections.Generic.IList`1[T],System.Int32,T) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.ReplaceItems(System.Collections.Generic.IList`1[T],System.Int32,System.Collections.Generic.IList`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.TakeNext(System.Collections.Generic.IList`1[T],System.Int32,System.Int32,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.TakeNextOne(System.Collections.Generic.IList`1[T],System.Int32,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.TakeRandom(System.Collections.Generic.IList`1[T],System.Int32,System.Random,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IListExtensions.TakeRandomOne(System.Collections.Generic.IList`1[T],System.Random,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.IListExtensions.AddRange(System.Collections.Generic.IList`1[T],System.Collections.Generic.IEnumerable`1[T])
+          WildHare.Extensions.IListExtensions.CombineItems(System.Collections.Generic.IList`1[T],System.Int32,System.Int32,T)
+          WildHare.Extensions.IListExtensions.IsFirstIn(T,System.Collections.Generic.IList`1[T])
+          WildHare.Extensions.IListExtensions.IsLastIn(T,System.Collections.Generic.IList`1[T])
+          WildHare.Extensions.IListExtensions.NextIn(T,System.Collections.Generic.IList`1[T],System.Int32)
+          WildHare.Extensions.IListExtensions.NextInWhile(T,System.Collections.Generic.IList`1[T],System.Func`2[T,System.Boolean],System.Int32)
+          WildHare.Extensions.IListExtensions.PreviousIn(T,System.Collections.Generic.IList`1[T],System.Int32)
+          WildHare.Extensions.IListExtensions.PreviousInWhile(T,System.Collections.Generic.IList`1[T],System.Func`2[T,System.Boolean])
+          WildHare.Extensions.IListExtensions.ReplaceItem(System.Collections.Generic.IList`1[T],System.Int32,T)
+          WildHare.Extensions.IListExtensions.ReplaceItems(System.Collections.Generic.IList`1[T],System.Int32,System.Collections.Generic.IList`1[T])
+          WildHare.Extensions.IListExtensions.TakeNext(System.Collections.Generic.IList`1[T],System.Int32,System.Int32,System.Boolean)
+          WildHare.Extensions.IListExtensions.TakeNextOne(System.Collections.Generic.IList`1[T],System.Int32,System.Boolean)
+          WildHare.Extensions.IListExtensions.TakeRandom(System.Collections.Generic.IList`1[T],System.Int32,System.Random,System.Boolean)
+          WildHare.Extensions.IListExtensions.TakeRandomOne(System.Collections.Generic.IList`1[T],System.Random,System.Boolean)
+
      WildHare.Extensions.IOExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.AppendToFile(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.AppendToFile(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Writes the {stringToWrite} to the end of the {fileName} content, returning true or false.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.AppendToFile(System.String,System.IO.FileInfo) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.AppendToFile(System.String,System.IO.FileInfo) : Is MemberName in XMLDoc
-          Doc Summary: Writes the {stringToWrite} to the end of the {fileName} FileInfo content, returning true or false.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32) : Is MemberName in XMLDoc
-          Doc Summary: Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. Defaults to a depth of 2.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: This overload gets a list of all files matching a string array of {fileExtensions} in current directory and all subdirectories, and does NOT use a searchPattern. Example: new[] { ".cshtml", ".razor" }
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.IsDirectory(System.IO.FileSystemInfo) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.IsDirectory(System.IO.FileSystemInfo) : Is MemberName in XMLDoc
-          Doc Summary: Returns bool whether current FileSystemInfo is a directory.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.ReadFile(System.IO.FileInfo,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.ReadFile(System.IO.FileInfo,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Gets the string content from a System.Io.FileInfo. If {strict} is true (the default), will throw an exception if the file is not found. If {strict} is false, will return null.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Writes the {stringToWrite} to the {fileName} string. If {overwrite} is true, it will overwrite existing file returning a success boolean. It will create the file if it does not existe.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.IOExtensions.WriteToFile(System.String,System.IO.FileInfo,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.IOExtensions.WriteToFile(System.String,System.IO.FileInfo,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Writes the {stringToWrite} to the {fileName} FileInfo. If {overwrite} is true, it will overwrite existing file returning a success boolean. It will create the file if it does not exist.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.IOExtensions.AppendToFile(System.String,System.String)
+       >> WildHare.Extensions.IOExtensions.AppendToFile(System.String,System.IO.FileInfo)
+       >> WildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32)
+       >> WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String)
+       >> WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[])
+       >> WildHare.Extensions.IOExtensions.IsDirectory(System.IO.FileSystemInfo)
+       >> WildHare.Extensions.IOExtensions.ReadFile(System.IO.FileInfo,System.Boolean)
+       >> WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.String,System.Boolean)
+       >> WildHare.Extensions.IOExtensions.WriteToFile(System.String,System.IO.FileInfo,System.Boolean)
+
      WildHare.Extensions.IQueryableExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.IQueryableExtensions.OrderBy(System.Linq.IQueryable`1[T],System.String,System.Boolean,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.IQueryableExtensions.OrderBy(System.Linq.IQueryable`1[T],System.String,System.Boolean,System.String)
+
      WildHare.Extensions.StringExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.AddEnd(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.AddEnd(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Adds {addToEnd} to the end of the string if string {s} is not NULL or EMPTY.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.AddStart(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.AddStart(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Adds {addToStart} to the beginning of the string if string {s} is not NULL or EMPTY.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Adds {addToStart} to the beginning of the string and {addToEnd} to the end of the string {s} if is not NULL or EMPTY. If {addToEnd} is NULL, adds {addToStart} to both the start and end..
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.CombineSpaces(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.EnsureEnd(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.EnsureEnd(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Adds {addToEnd} to the end of the string UNLESS it already starts with that string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.EnsureStart(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.EnsureStart(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Adds {addToStart} to the beginning of the string UNLESS it already starts with that string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Adds {addToStart} to the beginning of the string if it does not start with that string AND adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd} is NULL, adds {addToStart} to both the start and end.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Equals(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Equals(System.String,System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.ForEachLine(System.String,System.Func`2[System.String,System.String]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.Object,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.Object,System.Object,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.Object[]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object,System.Object,System.Object) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object[]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.GetEnd(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.GetEndAfter(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.GetEndAfter(System.String,System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Splits string into an array based on {separator} and returns the end element. Includes the separator if {includeSeparator} is true and it is contained in the string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.GetStart(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.GetStartBefore(System.String,System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.GetStartBefore(System.String,System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Splits string into an array based on {separator} and returns the start element. Includes the separator if {includeSeparator} is true and it is contained in the string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String) : Is MemberName in XMLDoc
-          Doc Summary: Gets the all the whitespace at the beginning of a string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.IfNull(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.IfNull(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: A null string returns {replacement} if given, else an empty string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.IfNullOrEmpty(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.IfNullOrEmpty(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: A null or empty string returns {replacement} if given, else an empty string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.IfNullOrSpace(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.IfNullOrSpace(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: A Null or whitespace string returns {replacement} if given, else an empty string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.IfTrue(System.Boolean,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable`1[System.Int32],System.String,System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.IsNull(System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.IsNull(System.String) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of to test for null
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of string.IsNullOrEmpty()
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.IsNullOrSpace(System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.IsNullOrSpace(System.String) : Is MemberName in XMLDoc
-          Doc Summary: Inline version of string.IsNullOrWhiteSpace()
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Left(System.String,System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.LettersOnly(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.LettersOnly(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Returns a string with only letters and any additional characters in {otherCharacters}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Mid(System.String,System.Int32,System.Nullable`1[System.Int32]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.NullIf(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.NullIf(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Ignores string by returning null if the string {str} equals {str2}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.NumbersOnly(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.NumbersOnly(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Returns a string with only numbers and any additional characters in {otherCharacters}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Pluralize(System.Int32,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Pluralize(System.Int32,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Will return the {singular} form of a word if {number} is equal to 1, otherwise returns {plural}. If the parameter {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.ProperCase(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.ProperCase(System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Capitalizes the first letter and all first letters after whitespace in a string. If {underscoreCountsAsSpace} is true then also capitalizes the first letter after an underscore '_'. 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Remove the end of a string if it exactly matches {end}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: Removes the end of a string if it exactly matches any of the strings in the {endArray}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Remove the end of line if it exactly matches {end} for all lines in the string. Normalizes all line returns to Environment.NewLine.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: Remove the end of line if it exactly matches any string in the {endArray} for all lines in the string. Normalizes all line returns to Environment.NewLine.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveIndents(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveIndents(System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Removes the indent from all lines of text in a string using the indent from the second line of text in the string as the indent to remove. The first line is typically where the verbatim and/or interpolation is declared and does not have an indent and so is skipped. If {removeInitialSpaces} is true (the default), it removes the first line if it only contains whitespace.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Remove the start of a string if it exactly matches {start}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: Removes the start of a string if it exactly matches any of the strings in the {startArray}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Remove the start of a string if it matches {start} and end of a string if it matches {end}. If {end} is not specified use {start} for both values.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String[],System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String[],System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: Removes the start of a string if it exactly matches any of the strings in the {startArray} and removes the end of a string if it exactly matches any of the strings in the {endArray}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Remove the start of line if it exactly matches {start} for all lines in the string. Normalizes all line returns to Environment.NewLine. This can be useful for programmatically removing indents from long strings.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: Remove the start of line if it exactly matches any string in the {startArray} for all lines in the string. Normalizes all line returns to Environment.NewLine. This can be useful for programmatically removing indents from long strings.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32) : Is MemberName in XMLDoc
-          Doc Summary: Returns a string {str} x {number} of times
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String) : Is MemberName in XMLDoc
-          Doc Summary: An overload of Replace that accepts a string array. For the supplied string, replaces all values in the {oldValues} array with the {newValue} string.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Replace(System.String,System.Collections.Generic.Dictionary`2[System.String,System.String],System.Boolean) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: An overload of Replace that accepts a string array. For the supplied string, replaces all values in the {oldValues} array with those in {newValues} array.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.ReplaceLineReturns(System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.Right(System.String,System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.SingularOrPlural(System.Int32,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Split(System.String,System.String,System.StringSplitOptions) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Split(System.String,System.String,System.StringSplitOptions) : Is MemberName in XMLDoc
-          Doc Summary: An overload of Split that accepts a single string as separator.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo) : Is MemberName in XMLDoc
-          Doc Summary: An overload of StartsWith that accepts a string array. Will return true if any of the values in the {valuesArray} is true.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.String,System.Int32) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.String,System.Int32) : Is MemberName in XMLDoc
-          Doc Summary: Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter to the end with '...' as the default. It will attempt to make the truncation at a space or line break, but will search {wordcut} characters before forcing the wordcut.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.WithPlural(System.String,System.Int32,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.StringExtensions.WithPlural(System.String,System.Collections.Generic.IEnumerable`1[T],System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.StringExtensions.AddEnd(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.AddStart(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String)
+          WildHare.Extensions.StringExtensions.CombineSpaces(System.String,System.Boolean)
+       >> WildHare.Extensions.StringExtensions.EnsureEnd(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.EnsureStart(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.Equals(System.String,System.String,System.Boolean)
+          WildHare.Extensions.StringExtensions.ForEachLine(System.String,System.Func`2[System.String,System.String])
+          WildHare.Extensions.StringExtensions.Format(System.String,System.Object)
+          WildHare.Extensions.StringExtensions.Format(System.String,System.Object,System.Object)
+          WildHare.Extensions.StringExtensions.Format(System.String,System.Object,System.Object,System.Object)
+          WildHare.Extensions.StringExtensions.Format(System.String,System.Object[])
+          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object)
+          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object,System.Object)
+          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object,System.Object,System.Object)
+          WildHare.Extensions.StringExtensions.Format(System.String,System.IFormatProvider,System.Object[])
+          WildHare.Extensions.StringExtensions.GetEnd(System.String,System.String,System.Boolean)
+       >> WildHare.Extensions.StringExtensions.GetEndAfter(System.String,System.String,System.Boolean)
+          WildHare.Extensions.StringExtensions.GetStart(System.String,System.String,System.Boolean)
+       >> WildHare.Extensions.StringExtensions.GetStartBefore(System.String,System.String,System.Boolean)
+       >> WildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String)
+       >> WildHare.Extensions.StringExtensions.IfNull(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.IfNullOrEmpty(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.IfNullOrSpace(System.String,System.String)
+          WildHare.Extensions.StringExtensions.IfTrue(System.Boolean,System.String,System.String)
+          WildHare.Extensions.StringExtensions.IncrementString(System.String,System.Nullable`1[System.Int32],System.String,System.Int32)
+       >> WildHare.Extensions.StringExtensions.IsNull(System.String)
+       >> WildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String)
+       >> WildHare.Extensions.StringExtensions.IsNullOrSpace(System.String)
+          WildHare.Extensions.StringExtensions.Left(System.String,System.Int32)
+       >> WildHare.Extensions.StringExtensions.LettersOnly(System.String,System.String)
+          WildHare.Extensions.StringExtensions.Mid(System.String,System.Int32,System.Nullable`1[System.Int32])
+       >> WildHare.Extensions.StringExtensions.NullIf(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.NumbersOnly(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.Pluralize(System.Int32,System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.ProperCase(System.String,System.Boolean)
+       >> WildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.RemoveEnd(System.String,System.String[])
+       >> WildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.RemoveEndFromAllLines(System.String,System.String[])
+       >> WildHare.Extensions.StringExtensions.RemoveIndents(System.String,System.Boolean)
+       >> WildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.RemoveStart(System.String,System.String[])
+       >> WildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.RemoveStartEnd(System.String,System.String[],System.String[])
+       >> WildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.RemoveStartFromAllLines(System.String,System.String[])
+       >> WildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32)
+       >> WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String)
+          WildHare.Extensions.StringExtensions.Replace(System.String,System.Collections.Generic.Dictionary`2[System.String,System.String],System.Boolean)
+       >> WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String[])
+          WildHare.Extensions.StringExtensions.ReplaceLineReturns(System.String,System.String)
+          WildHare.Extensions.StringExtensions.Right(System.String,System.Int32)
+          WildHare.Extensions.StringExtensions.SingularOrPlural(System.Int32,System.String,System.String)
+       >> WildHare.Extensions.StringExtensions.Split(System.String,System.String,System.StringSplitOptions)
+       >> WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)
+       >> WildHare.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.String,System.Int32)
+          WildHare.Extensions.StringExtensions.WithPlural(System.String,System.Int32,System.String)
+          WildHare.Extensions.StringExtensions.WithPlural(System.String,System.Collections.Generic.IEnumerable`1[T],System.String)
+
      WildHare.Extensions.TypeExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetCommonBaseType(System.Type[]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetCommonInterfaces(System.Object[]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[]) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[]) : Is MemberName in XMLDoc
-          Doc Summary: [OBSOLETE] GetDerivedClasses has been renamed to GetDerivedTypes and will be removed in a future version.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly) : Is MemberName in XMLDoc
-          Doc Summary: Gets an array of derived Types that are a subclass of {type}, excluding any types named in the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array. Use {otherAssembly} when the derived classes to find are in another Assembly.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String) : Is MemberName in XMLDoc
-          Doc Summary: 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaModel(System.Type) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaModel(System.Type) : Is MemberName in XMLDoc
-          Doc Summary: Gets a MetaModel that describes the {type} for use in code generation.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetMetaModel(System.Collections.Generic.IEnumerable`1[T]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetMetaModel(T) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetMetaModel(System.Collections.Generic.Dictionary`2[K,V]) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type) : Is MemberName in XMLDoc
-          Doc Summary: Gets a list of MetaProperties for the current {type}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Gets a list of MetaProperties for the current {type}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Collections.Generic.IEnumerable`1[T],System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.TypeExtensions.GetMetaProperties(T,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Given an Assembly, returns a Type array of the types in the {namspace}.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.TypeExtensions.GetCommonBaseType(System.Type[])
+          WildHare.Extensions.TypeExtensions.GetCommonInterfaces(System.Object[])
+       >> WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])
+       >> WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly)
+       >> WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)
+       >> WildHare.Extensions.TypeExtensions.GetMetaModel(System.Type)
+          WildHare.Extensions.TypeExtensions.GetMetaModel(System.Collections.Generic.IEnumerable`1[T])
+          WildHare.Extensions.TypeExtensions.GetMetaModel(T)
+          WildHare.Extensions.TypeExtensions.GetMetaModel(System.Collections.Generic.Dictionary`2[K,V])
+       >> WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type)
+       >> WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Type,System.String,System.String)
+          WildHare.Extensions.TypeExtensions.GetMetaProperties(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)
+          WildHare.Extensions.TypeExtensions.GetMetaProperties(T,System.String,System.String)
+       >> WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)
+
 ======================================================================================================================================================
 WildHare.Extensions.ForTemplating
 ======================================================================================================================================================
      WildHare.Extensions.ForTemplating.TemplatingExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary`2[System.String,System.Object],System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary`2[System.String,System.Object],System.IO.FileInfo,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.String,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Returns a string that replaces the placeholder elements [placeholder] in the {string} template with the matching the properties of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.IO.FileInfo,System.String,System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.IO.FileInfo,System.String,System.String) : Is MemberName in XMLDoc
-          Doc Summary: Returns a string that replaces the placeholder elements [placeholder] in the {templateFile} template with the matching the properties of the current object. It will call .ToString() on non-string objects values in the dictionary if necessary.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(T,System.IO.FileInfo,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList(System.Collections.Generic.IEnumerable`1[T],System.String,System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList(System.Collections.Generic.IEnumerable`1[T],System.IO.FileInfo,System.String,System.String,System.String) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean) : Is MemberName in XMLDoc
-          Doc Summary: Converts a TSQL type name to a C# type name. It will remove the "System." namespace, if present
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean)
+          WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary`2[System.String,System.Object],System.String,System.String,System.String)
+          WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary`2[System.String,System.Object],System.IO.FileInfo,System.String,System.String)
+       >> WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.String,System.String,System.String)
+       >> WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Object,System.IO.FileInfo,System.String,System.String)
+          WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(T,System.IO.FileInfo,System.String,System.String)
+          WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList(System.Collections.Generic.IEnumerable`1[T],System.String,System.String,System.String,System.String)
+          WildHare.Extensions.ForTemplating.TemplatingExtensions.TemplateList(System.Collections.Generic.IEnumerable`1[T],System.IO.FileInfo,System.String,System.String,System.String)
+       >> WildHare.Extensions.ForTemplating.TemplatingExtensions.TSqlTypeToCSharpType(System.String,System.Boolean)
+
 ======================================================================================================================================================
 WildHare.Extensions.Xtra
 ======================================================================================================================================================
      WildHare.Extensions.Xtra.XtraExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.DynamicArrayOfType(System.Object) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.DynamicArrayOfType(System.Object) : Is MemberName in XMLDoc
-          Doc Summary: 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.DynamicListOfType(System.Object) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.DynamicListOfType(System.Object) : Is MemberName in XMLDoc
-          Doc Summary: 
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot() : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly) : Is MemberName in XMLDoc
-          Doc Summary: (EXPERIMENTAL) Returns a list Xml Documentation elements. Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build, an XML file is generated to the file location with all the /// comments (like this one) that have been written in the your code.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.Is(System.Object) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.Is(System.Object) : Is MemberName in XMLDoc
-          Doc Summary: (EXPERIMENTAL)A simple shortcut method to test if an object {obj} is NOT null.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object) : Is MemberName in XMLDoc
-          Doc Summary: (EXPERIMENTAL) A simple shortcut method to test if an object {obj} is null.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String) : Is MetaMethod.DocMemberName
-      >>> MatchWildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String) : Is MemberName in XMLDoc
-          Doc Summary: (EXPERIMENTAL) Turns a relative path in an application into an absolute file path similar the old MapPath function.
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+       >> WildHare.Extensions.Xtra.XtraExtensions.DynamicArrayOfType(System.Object)
+       >> WildHare.Extensions.Xtra.XtraExtensions.DynamicListOfType(System.Object)
+          WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot()
+       >> WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)
+       >> WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)
+       >> WildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object)
+       >> WildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String)
+
      WildHare.Extensions.Xtra.RandomExtensions
-     -------------------------------------------------------------------------------------------------------------------------------------------------
-          WildHare.Extensions.Xtra.RandomExtensions.Skip(System.Random,System.Int32) : Is MetaMethod.DocMemberName
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+          WildHare.Extensions.Xtra.RandomExtensions.Skip(System.Random,System.Int32)
+
 ======================================================================================================================================================
 WildHare.Models
 ======================================================================================================================================================
      WildHare.Models.TestModel
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 ======================================================================================================================================================
 WildHare.Properties
 ======================================================================================================================================================
      WildHare.Properties.Resources
-     -------------------------------------------------------------------------------------------------------------------------------------------------
+
+

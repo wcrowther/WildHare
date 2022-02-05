@@ -4,6 +4,7 @@ using SeedPacket.Extensions;
 using SeedPacket.Functions;
 using SeedPacket.Generators;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -448,6 +449,18 @@ namespace WildHare.Tests
             Assert.AreEqual("", string.Join(' ', matches));
         }
 
+        [TestCase("1 clown in the list.",   new[]{"Bozo"}, "clown")]
+        [TestCase("3 clowns in the list.",  new[]{"Bozo","Bonzo","Clapo"}, "clown", null)]
+        [TestCase("1 fox in the list.",     new[]{"Wily"}, "fox")]
+        [TestCase("3 foxes in the list.",   new[]{"Wily","Willy","Wooly" }, "fox", "")]
+        [TestCase("1 octopus in the list.", new[]{"Squishy"}, "octopus", "octopi")]
+        [TestCase("3 octopi in the list.",  new[]{"Squishy","Squashy","Slimy" }, "octopus", "octopi")]
+        public void Test_Pluralize_With_IEnumerable_Basic(string result, IEnumerable<string> list, string singular, string plural = null)
+        {
+            string message = $"{list.Count()} {list.Pluralize(singular, plural)} in the list.";
+
+            Assert.AreEqual(result, message);
+        }
 
         // ================================================================================================
         // PRIVATE FUNCTIONS

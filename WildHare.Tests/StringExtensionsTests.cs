@@ -679,39 +679,6 @@ namespace WildHare.Tests
             Assert.AreEqual(result, message);
         }
 
-        [TestCase("dog",     10, null,      "10 dogs in the list.")]
-        [TestCase("wolf",     1, "wolves",  "1 wolf in the list.")]
-        [TestCase("wolf",    10, "wolves",  "10 wolves in the list.")]
-        [TestCase("octopus",  1, "octopi",  "1 octopus in the list.")]
-        [TestCase("octopus", 10, "octopi",  "10 octopi in the list.")]
-        [TestCase("child",    5, "children","5 children in the list.")]
-        public void Test_WithPlural_With_Two_Parameters(string singular, int count, string plural, string result)
-        {
-            string message = $"{count} {singular.WithPlural(count, plural)} in the list.";
-
-            Assert.AreEqual(result, message);
-        }
-       
-        [Test]
-        public void Test_WithPlural_With_IEnumerable_Parameter()
-        {
-            var fruits = new List<string>{ "apple", "banana", "mango", "orange", "passionfruit", "grape" };
-
-            string result6 = $"{fruits.Count} {"fruit".WithPlural(fruits)} in the list.";
-
-            Assert.AreEqual("6 fruits in the list.", result6);
-
-            fruits.RemoveRange(0, 5);
-
-            string result1 = $"{fruits.Count} {"fruit".WithPlural(fruits)} in the list.";
-            Assert.AreEqual("1 fruit in the list.", result1); 
-            
-            fruits.Clear();
-
-            string result0 = $"{fruits.Count} {"fruit".WithPlural(fruits)} in the list.";
-            Assert.AreEqual("0 fruits in the list.", result0);
-        }
-
         [Test]
         public void Test_Left_Mid_Right_Basic()
         {
