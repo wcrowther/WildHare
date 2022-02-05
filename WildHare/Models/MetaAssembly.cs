@@ -201,7 +201,7 @@ namespace WildHare
 
                     Debug.WriteLine($"{mm.TypeName} Count: {ns.MetaModels.Count} Index: {index + 1}");
 
-                    string mmComma = (ns.MetaModels.Count == index) ? "" : ",";
+                    string mmComma = (ns.MetaModels.Count == index + 1) ? "" : ","; 
                     sb.AppendLine($"{tab}{tab}}}{mmComma}");
                 }
 

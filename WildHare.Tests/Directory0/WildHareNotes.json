@@ -58,7 +58,7 @@
                "Implements(String interfaceName)" : "",
                "SetInstanceValue(Object value, Object instance)" : "",
                "ToString()" : ""
-          },
+          }
      },
      "WildHare.Extensions" : {
           "CharExtensions" : {
@@ -250,7 +250,7 @@
                "GetMetaProperties``1(IEnumerable`1 enumerable, String exclude, String include)" : "",
                "GetMetaProperties``1(T instance, String exclude, String include)" : "",
                "GetTypesInNamespace(Assembly assembly, String nameSpace)" : ""
-          },
+          }
      },
      "WildHare.Extensions.ForTemplating" : {
           "TemplatingExtensions" : {
@@ -263,7 +263,7 @@
                "TemplateList``1(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)" : "",
                "TemplateList``1(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)" : "",
                "TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull)" : ""
-          },
+          }
      },
      "WildHare.Extensions.Xtra" : {
           "XtraExtensions" : {
@@ -277,14 +277,14 @@
           },
           "RandomExtensions" : {
                "Skip(Random random, Int32 number)" : ""
-          },
+          }
      },
      "WildHare.Models" : {
           "TestModel" : {
-          },
+          }
      },
      "WildHare.Properties" : {
           "Resources" : {
-          },
+          }
      }
 }
