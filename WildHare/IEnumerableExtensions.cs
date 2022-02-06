@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace WildHare.Extensions
+namespace WildHare.Extensions.List
 {
     public static class IEnumerableExtensions
     {
@@ -92,7 +92,7 @@ namespace WildHare.Extensions
         public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index)
         {
             var defaultItem = default(TSource);
-            
+
             return source.ElementInOrDefault(index, defaultItem);
         }
 
@@ -130,7 +130,7 @@ namespace WildHare.Extensions
         public static IEnumerable<TFirst> Sequence<TFirst, TSecond>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second,
                                                                          Func<TFirst, TSecond, bool> func, bool consecutive = true)
         {
-            return first.MatchList<TFirst, TSecond>(second, func, consecutive);
+            return first.MatchList(second, func, consecutive);
         }
 
         /// <summary>Compares 2 lists and using the {comparer} to return an array of int positions
@@ -148,10 +148,10 @@ namespace WildHare.Extensions
             {
                 int matches = 0;
                 for (int i = 0; i < items.Count; i++)
-                {   
+                {
                     var a = list.ElementAtOrDefault(x + i);
                     var b = items.ElementAtOrDefault(i);
-                    bool match = comparer(a,b); 
+                    bool match = comparer(a, b);
 
                     if (match)
                     {
@@ -202,7 +202,7 @@ namespace WildHare.Extensions
         /// </example>
         public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> list)
         {
-            return list?.Select((item, index) => (item, index)) ?? new Collection<(T,int)>();
+            return list?.Select((item, index) => (item, index)) ?? new Collection<(T, int)>();
         }
 
         /// <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
@@ -227,8 +227,8 @@ namespace WildHare.Extensions
                                                           Func<T, T, bool> func
                                                      )
         {
-            var listEnumerator      = list.GetEnumerator();
-            var patternEnumerator   = pattern.GetEnumerator();
+            var listEnumerator = list.GetEnumerator();
+            var patternEnumerator = pattern.GetEnumerator();
 
             bool patternHasMoreItems = patternEnumerator.MoveNext(); // init outside loop
 

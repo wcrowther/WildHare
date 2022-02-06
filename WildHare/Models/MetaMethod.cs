@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using WildHare.Extensions;
 
 namespace WildHare
 {
@@ -24,7 +25,7 @@ namespace WildHare
 
         public string Name => methodInfo.Name;
 
-        public string XmlDocMemberName => GetXmlDocMemberName(); 
+        public string XmlDocMemberName => GetXmlDocMemberName();
 
         // public string XmlDocMemberName => AltGetXmlDocMemberName(methodInfo); 
 
@@ -157,6 +158,24 @@ namespace WildHare
             return xmlName;
         }
 
+        private string GetXmlDocMemberName2(MetaModel metaModel)
+        {
+            string typeName = metaModel.TypeName;
+            
+            if (typeName.Contains("`"))
+            {
+                string start = typeName.GetStartBefore("`");
+                string end = typeName.GetEndAfter("`");
+                string numberStr = end.TakeWhile(t => t.IsNumber()).ToString();
+                int number = numberStr.ToInt();
+                string paramStr = end.RemoveStart(numberStr).GetEndAfter("[").GetStartBefore("]");
+                // string[] parameters = paramStr.Split(",");
+
+                return $"{start}{{{paramStr}}}";
+            }
+
+            return typeName;
+        }
 
     }
 }

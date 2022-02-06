@@ -79,7 +79,7 @@ namespace WildHare.Tests
 
             string outputPathRoot = XtraExtensions.GetApplicationRoot();
             string outputDirectory = $@"{outputPathRoot}\Directory0";
-            string includeNamespaces = "";// "WildHare.Extensions";
+            string includeNamespaces = "WildHare.Extensions.List";
 
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
 

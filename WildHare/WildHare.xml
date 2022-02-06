@@ -192,38 +192,38 @@
             <summary>Gets a value from an ExpandoObject by the specified {key}. If it does not exist, the
              method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementIn``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.ElementIn``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>Takes the element in the list at the position of {index} looping around to the beginning
             of the list if the (zero-base) index is outside of the number of items in the list. Will always return an element
             unless there are no elements in the list, in which case it returns an exception.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32,``0)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32,``0)">
             <summary>Takes the element in the list at the position of {index} looping around to the beginning
             of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
             unless there are no elements in the list, in which case it returns the {defaultItem} of type TSource.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.ElementInOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>Takes the element in the list at the position of {index} looping around to the beginning
             of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
             unless there are no elements in the list, in which case it returns the type default value.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.MatchList``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.MatchList``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
             <summary>Given two lists it returns values from first if the {func} is true. If {consecutive} 
             is false, continues returning values until one of the lists has no more elements.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.Sequence``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.Sequence``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Boolean)">
             <summary>Given two lists returns the values from first if func is true. 
             If {consecutive} is false continues until one of the lists has no  more elements.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.InList``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1},System.Func{``0,``1,System.Boolean})">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.InList``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1},System.Func{``0,``1,System.Boolean})">
             <summary>Compares 2 lists and using the {comparer} to return an array of int positions
             where the items match.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.ToCollection``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.ToCollection``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts IEnumerable to Collection of type parameter.
             Returns an empty Collection rather than failing if enumerable is null.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.WithIndex``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.WithIndex``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Provides a 0-based index to a foreach loop using a tuple.</summary>
             <example>
             foreach (var (item, index) in collection.WithIndex() )
@@ -232,17 +232,17 @@
             }
             </example>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.Int32},System.Boolean)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.Int32},System.Boolean)">
             <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
             when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.PatternMatch``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.PatternMatch``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
             <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
             returns the list item if the {func} returns true for the match to the pattern item.
             The list enumerates to the next item regardless of a match or not, but pattern does not
             enumerate to the next pattern unless it matched.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.Pluralize``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+        <member name="M:WildHare.Extensions.List.IEnumerableExtensions.Pluralize``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
             <summary>Will return the {singular} form of a word if the count of list is equal to 1, otherwise returns {plural}. If the parmeter 
             {plural} is omitted, it will add an "s" to the end, or an "es" if {singular} ends in "s","x","ch","sh","z", or "o").</summary>
             <example>When a list contains 1 element: list.Pluralize("clown") returns "clown";</example>

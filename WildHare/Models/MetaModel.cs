@@ -186,6 +186,18 @@ namespace WildHare
 
         private string GetXmlDocMemberName()
         {
+            if (TypeFullName.Contains("`"))
+            {
+                string start     = TypeFullName.GetStartBefore("`");
+                string end       = TypeFullName.GetEndAfter("`");
+                string numberStr = end.TakeWhile(t => t.IsNumber()).ToString();
+                int number       = numberStr.ToInt();
+                string paramStr  = end.RemoveStart(numberStr).GetEndAfter("[").GetStartBefore("]");
+                // string[] parameters = paramStr.Split(",");
+
+                return $"{start}{{{paramStr}}}";
+            }
+
             return TypeFullName;
         }
 

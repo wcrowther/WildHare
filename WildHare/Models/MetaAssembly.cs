@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using WildHare.Extensions;
+using WildHare.Extensions.List;
 using WildHare.Extensions.Xtra;
 using static System.Environment;
 
@@ -235,6 +236,7 @@ namespace WildHare
             documentNameList = docXml.Element("members")
                                      .Elements()
                                      .Select(g => g.Attribute("name").Value)
+                                     .Where(w => w.StartsWith("M:WildHare.Extensions.List"))
                                      .ToList();
 
             foreach (var name in documentNameList)
