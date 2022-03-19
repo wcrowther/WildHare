@@ -2,5 +2,7 @@ Directory: Directory1a
 Directory: Directory1b
 File: SimpleTemplate.txt
 File: TextFile0.txt
-File: WildHare.txt
 File: WildHare.txt.old
+File: WildHareAssemblyDescription.txt
+File: WildHareNotes.json
+File: WildHareXMLDocumentNames.txt

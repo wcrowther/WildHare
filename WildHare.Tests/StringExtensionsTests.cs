@@ -31,6 +31,23 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_NumbersOnly_Removes_Empty_Spaces()
+        {
+            string numbersAndWords = "  $12345 .SomeWord00  ";
+            string numbersOnlyString = numbersAndWords.NumbersOnly(".");
+
+            Assert.AreEqual("12345.00", numbersOnlyString);
+        }
+
+        [Test]
+        public void Test_NumbersOnly_Null_Input_Returns_Empty_String()
+        {
+            string test = null;
+
+            Assert.AreEqual("", test.NumbersOnly());
+        }
+
+        [Test]
         public void Test_Truncate_Basic()
         {
             string str = "12345678901234567890123456789012345678901234567890";

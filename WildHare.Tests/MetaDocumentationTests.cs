@@ -52,7 +52,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(8, allMetaMethods.Count);
         }
-
+    
         [Test]
         public void GetMetaModelsInNamespaces_Basic()
         {

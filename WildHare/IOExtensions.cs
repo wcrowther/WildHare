@@ -59,6 +59,20 @@ namespace WildHare.Extensions
             return true;
         }
 
+        //public static FileInfo IncrementFileName(this FileInfo fileInfo)
+        //{
+        //    fileInfo.Refresh();
+
+        //    if (fileInfo.Exists)
+        //    {
+        //        string fileName = $"{fileInfo.Name}{fileInfo.Extension}";
+
+        //        var newFileInfo = new FileInfo("");
+        //        fileInfo = newFileInfo;
+        //    }
+        //    return fileInfo;
+        //}
+
         // ==============================================================================
         // Gets FileSystemInfo - the base class for both FileInfo and DirectoryInfo
         // ==============================================================================

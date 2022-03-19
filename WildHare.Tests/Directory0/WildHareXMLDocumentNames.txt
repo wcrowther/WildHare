@@ -28,6 +28,8 @@ M:WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.DateTime
 M:WildHare.Extensions.ConvertExtensions.ToDateTime(System.String,System.Nullable{System.DateTime})
 M:WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String)
 M:WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String)
+M:WildHare.Extensions.ConvertExtensions.ToInt(System.Boolean)
+M:WildHare.Extensions.ConvertExtensions.ToInt(System.Nullable{System.Boolean},System.Int32)
 M:WildHare.Extensions.DataTableExtensions.ToList``1(System.Data.DataTable)
 M:WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)
 M:WildHare.Extensions.DateTimeExtensions.FirstDayOfTheMonth(System.DateTime)

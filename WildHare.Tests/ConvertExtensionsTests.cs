@@ -1,7 +1,9 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using WildHare.Extensions;
+using WildHare.Extensions.Xtra;
 
 namespace WildHare.Tests
 {
@@ -109,6 +111,24 @@ namespace WildHare.Tests
             newStr = newStr.IncrementString(ignoreExtension: ".txt");
             Assert.AreEqual("file4.txt", newStr);
         }
+
+        //[Test]
+        //public void Test_IncrementString_Until_File_Can_Be_Written()
+        //{
+        //    string testRoot = XtraExtensions.GetApplicationRoot();
+        //    string fileName = "file1.txt";
+        //    string testString = "Test string to write.";
+        //    string pathToWriteTo = $@"{testRoot}\TextFiles\{fileName}";
+
+        //    var fileInfo = new FileInfo(pathToWriteTo);
+        //    testString.WriteToFile(fileInfo);
+
+        //    fileInfo.Refresh();
+        //    fileInfo.
+
+        //    Assert.AreEqual(true, fileInfo.Exists);
+
+        //}
 
         [Test]
         public void Test_ToIntArray_Not_Strict()

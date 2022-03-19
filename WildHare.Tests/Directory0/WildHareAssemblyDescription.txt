@@ -1,5 +1,5 @@
 ======================================================================================================================================================
-WildHare ASSEMBLY - 96 matches of 218 methods.
+WildHare ASSEMBLY - 97 matches of 226 methods.
 ======================================================================================================================================================
 
 ======================================================================================================================================================
@@ -75,6 +75,9 @@ WildHare
           WildHare.MetaProperty.SetInstanceValue(System.Object,System.Object)
           WildHare.MetaProperty.ToString()
 
+     WildHare.NumberExtensions
+
+
 ======================================================================================================================================================
 WildHare.Extensions
 
@@ -108,6 +111,8 @@ WildHare.Extensions
        >> WildHare.Extensions.ConvertExtensions.ToDouble(System.String,System.Double)
           WildHare.Extensions.ConvertExtensions.ToDoubleNullable(System.String,System.Nullable`1[System.Double])
        >> WildHare.Extensions.ConvertExtensions.ToInt(System.String,System.Int32)
+       >> WildHare.Extensions.ConvertExtensions.ToInt(System.Boolean)
+          WildHare.Extensions.ConvertExtensions.ToInt(System.Nullable`1[System.Boolean],System.Int32)
        >> WildHare.Extensions.ConvertExtensions.ToIntArray(System.String,System.Boolean,System.String)
           WildHare.Extensions.ConvertExtensions.ToIntNullable(System.String,System.Nullable`1[System.Int32])
        >> WildHare.Extensions.ConvertExtensions.ToLong(System.String,System.Int64)
@@ -163,6 +168,12 @@ WildHare.Extensions
           WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32,TSource)
           WildHare.Extensions.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
           WildHare.Extensions.IEnumerableExtensions.InList(System.Collections.Generic.IList`1[TList],System.Collections.Generic.IList`1[TItems],System.Func`3[TList,TItems,System.Boolean])
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[T],System.String)
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[System.String],System.String)
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.String)
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[T],System.Char)
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[System.String],System.Char)
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.Char)
           WildHare.Extensions.IEnumerableExtensions.MatchList(System.Collections.Generic.IEnumerable`1[T1],System.Collections.Generic.IEnumerable`1[T2],System.Func`3[T1,T2,System.Boolean],System.Boolean)
           WildHare.Extensions.IEnumerableExtensions.PatternMatch(System.Collections.Generic.IEnumerable`1[T],System.Collections.Generic.IEnumerable`1[T],System.Func`3[T,T,System.Boolean])
           WildHare.Extensions.IEnumerableExtensions.Pluralize(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)

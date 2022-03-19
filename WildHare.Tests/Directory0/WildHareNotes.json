@@ -59,6 +59,8 @@
                "SetInstanceValue(Object value, Object instance)" : "",
                "ToString()" : ""
           },
+          "NumberExtensions" : {
+          },
      },
      "WildHare.Extensions" : {
           "CharExtensions" : {
@@ -89,6 +91,8 @@
                "ToDouble(String value, Double defaultValue)" : "",
                "ToDoubleNullable(String value, Nullable`1 defaultValue)" : "",
                "ToInt(String value, Int32 defaultValue)" : "",
+               "ToInt(Boolean value)" : "",
+               "ToInt(Nullable`1 value, Int32 ifNull)" : "",
                "ToIntArray(String str, Boolean strict, String separator)" : "",
                "ToIntNullable(String value, Nullable`1 defaultValue)" : "",
                "ToLong(String value, Int64 defaultValue)" : "",
@@ -138,6 +142,12 @@
                "ElementInOrDefault``1(IEnumerable`1 source, Int32 index, TSource defaultItem)" : "",
                "ElementInOrDefault``1(IEnumerable`1 source, Int32 index)" : "",
                "InList``2(IList`1 list, IList`1 items, Func`3 comparer)" : "",
+               "JoinString``1(IEnumerable`1 list, String separator)" : "",
+               "JoinString(IEnumerable`1 list, String separator)" : "",
+               "JoinString(String[] list, String separator)" : "",
+               "JoinString``1(IEnumerable`1 list, Char separator)" : "",
+               "JoinString(IEnumerable`1 list, Char separator)" : "",
+               "JoinString(String[] list, Char separator)" : "",
                "MatchList``2(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)" : "",
                "PatternMatch``1(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)" : "",
                "Pluralize``1(IEnumerable`1 list, String singular, String plural)" : "",

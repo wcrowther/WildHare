@@ -139,5 +139,18 @@ namespace WildHare.Extensions
 
             return string.Join(separator, intArray);
         }
+
+        /// <summary>Converts a bool value to an int, either 0 for false or 1 for true.</summary>
+        public static int ToInt(this bool value)
+        {
+            return Convert.ToInt32(value);
+        }
+
+        /// <summary>Converts a bool value to an int, either 0 for false or 1 for true. 
+        /// A null value returns {ifNull} which defaults to -1.</summary>
+        public static int ToInt(this bool? value, int ifNull = -1)
+        {   
+            return (value is null) ? ifNull : Convert.ToInt32(value);
+        }
     }
 }

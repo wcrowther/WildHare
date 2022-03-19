@@ -49,7 +49,7 @@ namespace WildHare.Extensions
         /// <summary>Takes the element in the list at the position of {index} looping around to the beginning
         /// of the list if the (zero-based) index is outside of the number of items in the list. Will always return an element
         /// unless there are no elements in the list, in which case it returns the {defaultItem} of type TSource.</summary>
-        public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index, TSource defaultItem)
+        public static TSource ElementInOrDefault<TSource>(this IEnumerable<TSource> source, int index, TSource defaultItem = default)
         {
             if (source == null)
             {
@@ -254,6 +254,58 @@ namespace WildHare.Extensions
             int count = list?.Count() ?? default;
 
             return count.Pluralize(singular, plural);
+        }
+
+        /// <summary>Functional extension version of string.Join applied to the {list} with
+        /// a string separator {separator} that defaults to a comman and space (", ").</summary>
+        public static string JoinString<T>(this IEnumerable<T> list, string separator = ", ")
+        {
+            return string.Join(separator, list);
+        }
+
+        /// <summary>Functional extension version of string.Join applied to the {list} with
+        /// a string separator {separator} that defaults to a comman and space (", ").</summary>
+        public static string JoinString(this IEnumerable<string> list, string separator = ", ")
+        {
+            return string.Join(separator, list);
+        }
+
+        /// <summary>Functional extension version of string.Join applied to the {list} with
+        /// a string separator {separator} that defaults to a comman and space (", ").</summary>
+        public static string JoinString(this string[] list, string separator = ", ")
+        {
+            return string.Join(separator, list);
+        }
+
+        /// <summary>Functional extension version of string.Join applied to the {list} with a string 
+        /// separator {separator} with ability to limit join items by {startIndex} and {count}.</summary>
+        public static string JoinString(this string[] list, string separator, int startIndex, int count)
+        {
+            return string.Join(separator, list, startIndex, count);
+        }
+
+        public static string JoinString<T>(this IEnumerable<T> list, char separator)
+        {
+            #if NET48
+                return string.Join(separator.ToString(), list);
+            #else 
+                return string.Join(separator, list);
+            #endif
+        }
+
+        public static string JoinString(this IEnumerable<string> list, char separator)
+        {
+            return list.JoinString(separator);
+        }
+
+        public static string JoinString(this string[] list, char separator)
+        {
+            return list.JoinString(separator);
+        }
+
+        public static string JoinString(this string[] list, char separator, int startIndex, int count)
+        {
+            return string.Join(separator.ToString(), list, startIndex, count);
         }
     }
 }

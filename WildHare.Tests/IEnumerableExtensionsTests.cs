@@ -1,16 +1,15 @@
 using NUnit.Framework;
-using SeedPacket.DataSources;
 using SeedPacket.Extensions;
 using SeedPacket.Functions;
 using SeedPacket.Generators;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
+using static System.Environment;
 
 namespace WildHare.Tests
 {
@@ -460,6 +459,57 @@ namespace WildHare.Tests
             string message = $"{list.Count()} {list.Pluralize(singular, plural)} in the list.";
 
             Assert.AreEqual(result, message);
+        }
+
+        [Test]
+        public void Test_JoinString_Basic()
+        {
+            var fruits = new[] { "Apple", "Pear", "Orange" };
+
+            Assert.AreEqual("Apple, Pear, Orange", fruits.JoinString());
+        }
+
+        [Test]
+        public void Test_JoinString_Custom_Separator()
+        {
+            var fruits = new[] { "Apple", "Pear", "Orange" };
+
+            Assert.AreEqual("Apple : Pear : Orange", fruits.JoinString(" : "));
+        }
+
+        [Test]
+        public void Test_JoinString_With_NewLine_String()
+        {
+            var fruits = new[] { "Apple", "Pear", "Orange" };
+
+            Assert.AreEqual($"Apple{NewLine}Pear{NewLine}Orange", fruits.JoinString(NewLine));
+        }
+
+        [Test]
+        public void Test_JoinString_With_List_Of_Type()
+        {
+            var fruits = new List<string>{ "Apple", "Pear", "Orange" };
+
+            Assert.AreEqual($"Apple, Pear, Orange", fruits.JoinString());
+        }
+
+        [Test]
+        public void Test_JoinString_With_IEnumerable_List_Of_Complex_Type()
+        {
+            var fruits = new List<Item>
+            {
+                new Item { ItemId = 1, ItemName = "Apple"},
+                new Item { ItemId = 2, ItemName = "Pear"},
+                new Item { ItemId = 3, ItemName = "Orange"}
+            };
+
+            Assert.AreEqual($"Apple, Pear, Orange", string.Join(", ", fruits));
+
+            // Calls ToString on the Item
+            Assert.AreEqual($"Apple (1), Pear (2), Orange (3)", fruits.JoinString());
+
+            // Use Select to get a particular property from a complex object
+            Assert.AreEqual($"Apple, Pear, Orange", fruits.Select(s => s.ItemName).JoinString()); 
         }
 
         // ================================================================================================
