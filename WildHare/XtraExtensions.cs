@@ -9,25 +9,11 @@ namespace WildHare.Extensions.Xtra
 {
     public static partial class XtraExtensions
     {
-        // =========================================================================================
-        // Object Is and Object IsNull
-        // =========================================================================================
-
-        /// <summary>(EXPERIMENTAL)A simple shortcut method to test if an object {obj} is NOT null.</summary>
-        public static bool Is(this object obj)
-        {
-            return (obj != null);
-        }
-
-        /// <summary>(EXPERIMENTAL) A simple shortcut method to test if an object {obj} is null.</summary>
-        public static bool IsNull(this object obj)
-        {
-            return (obj == null);
-        }
-
-        // =========================================================================================
-
-        /// <summary>(EXPERIMENTAL) Turns a relative path in an application into an absolute file path similar the old MapPath function.</summary>
+        /// <summary>(EXPERIMENTAL) Turns a relative path in an application into an
+        /// absolute file path similar the old MapPath function.</summary>
+        /// <example>
+        ///		string pathToTestXmlFile = @"\SourceFiles\xmlSeedSourcePlus.xml".ToMapPath()
+        /// </example>
         public static string ToMapPath(this string fileName)
         {
             var appRoot = GetApplicationRoot();
@@ -37,26 +23,24 @@ namespace WildHare.Extensions.Xtra
             return Path.Combine(appRoot, filePath);
         }
 
-        /// <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings in
-        /// different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
+        /// <summary>(EXPERIMENTAL) Gets the root path of an application. This can have 
+        /// different meanings in different types of applications, so check that your
+        /// usage fully meets your needs before proceeding...</summary>
+        /// <example>
+		///		string pathToTestXmlFile = $@"{GetApplicationRoot()}\Logic\SourceFiles\xmlSeedSourcePlus.xml"
+		/// </example>
         public static string GetApplicationRoot()
         {
             var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			Debug.WriteLine("exePath: " + exePath);
-
 			var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
             var appRoot = appPathMatcher.Match(exePath).Value;
-			Debug.WriteLine("appRoot: " + appRoot);
-
-			string entryAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-			Debug.WriteLine("entryAssembly: " + entryAssembly);
 
 			return appRoot;
         }
 
         /// <example>
-        /// var list = CreateListOfType(typeof(Category)); // Is IList of object
-        /// list.Add(new Category() { CategoryName = "Will"});
+        ///     var list = CreateListOfType(typeof(Category)); // Is IList of object
+        ///     list.Add(new Category() { CategoryName = "Will"});
         /// </example>
         public static dynamic DynamicListOfType(dynamic t)
         {
@@ -69,8 +53,8 @@ namespace WildHare.Extensions.Xtra
 
         /// Alternative to DynamicListOfType. Not sure which is better.
         /// <example>
-        /// var list = CreateListOfType(typeof(Category)); // Is IList of object
-        /// list.Add(new Category() { CategoryName = "Will"});
+        ///     var list = CreateListOfType(typeof(Category)); // Is IList of object
+        ///     list.Add(new Category() { CategoryName = "Will"});
         /// </example>
         public static dynamic[] DynamicArrayOfType(dynamic t)
         {

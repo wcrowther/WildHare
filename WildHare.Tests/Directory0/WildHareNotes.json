@@ -59,8 +59,6 @@
                "SetInstanceValue(Object value, Object instance)" : "",
                "ToString()" : ""
           },
-          "NumberExtensions" : {
-          },
      },
      "WildHare.Extensions" : {
           "CharExtensions" : {
@@ -145,9 +143,11 @@
                "JoinString``1(IEnumerable`1 list, String separator)" : "",
                "JoinString(IEnumerable`1 list, String separator)" : "",
                "JoinString(String[] list, String separator)" : "",
+               "JoinString(String[] list, String separator, Int32 startIndex, Int32 count)" : "",
                "JoinString``1(IEnumerable`1 list, Char separator)" : "",
                "JoinString(IEnumerable`1 list, Char separator)" : "",
                "JoinString(String[] list, Char separator)" : "",
+               "JoinString(String[] list, Char separator, Int32 startIndex, Int32 count)" : "",
                "MatchList``2(IEnumerable`1 list1, IEnumerable`1 list2, Func`3 func, Boolean consecutive)" : "",
                "PatternMatch``1(IEnumerable`1 list, IEnumerable`1 pattern, Func`3 func)" : "",
                "Pluralize``1(IEnumerable`1 list, String singular, String plural)" : "",
@@ -281,8 +281,6 @@
                "DynamicListOfType(Object t)" : "",
                "GetApplicationRoot()" : "",
                "GetXmlDocumentation(String xmlDocPath, Assembly assemblyToDocument)" : "",
-               "Is(Object obj)" : "",
-               "IsNull(Object obj)" : "",
                "ToMapPath(String fileName)" : ""
           },
           "RandomExtensions" : {

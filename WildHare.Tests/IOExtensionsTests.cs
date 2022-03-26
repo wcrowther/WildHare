@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
-using WildHare.Extensions.Xtra;
+using static WildHare.Extensions.Xtra.XtraExtensions;
 
 namespace WildHare.Tests
 {
@@ -29,7 +29,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_WriteToFile_TextFile1()
         {
-            string testRoot = XtraExtensions.GetApplicationRoot();
+            string testRoot = GetApplicationRoot();
             string fileName = "TestFile1.txt";
             string pathToWriteTo = $@"{testRoot}\TextFiles\{fileName}";
 
@@ -51,7 +51,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_WriteToFile_WithCreateFolder()
         {
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\TestFolder";
             string fileName = "TestFile.txt";
 
@@ -97,7 +97,7 @@ namespace WildHare.Tests
         {
             // Only gets 1 level of hierarchy
 
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0";
             string outputPath = $@"{pathRoot}\Analytics\TextFiles\TestDirectories.txt";
             var files = new StringBuilder();
@@ -127,7 +127,7 @@ namespace WildHare.Tests
         {
             // Gets multiple levels
 
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0";
             string outputPath = $@"{pathRoot}\TextFiles\TestDirectories.txt";
             var files = new StringBuilder();
@@ -155,7 +155,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_GetAllDirectoriesAndFiles()
         {
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0";
             string outputPath = $@"{pathRoot}\TextFiles\FileSystemInfos.txt";
 
@@ -177,7 +177,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_FileInfo_GetString_Found()
         {
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0\TextFile0.txt";
 
             var fileToRead = new FileInfo(directoryPath);
@@ -188,7 +188,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_FileInfo_GetString_Not_Found()
         {
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0\DoesNotExist.txt";
 
             var fileToRead = new FileInfo(directoryPath);
@@ -204,7 +204,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_FileInfo_GetString_Not_Found_But_Not_Strict_Should_Return_Null()
         {
-            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string pathRoot = GetApplicationRoot();
             string directoryPath = $@"{pathRoot}\Directory0\DoesNotExist.txt";
 
             var fileToRead = new FileInfo(directoryPath);

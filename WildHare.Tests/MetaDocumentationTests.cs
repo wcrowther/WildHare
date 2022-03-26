@@ -84,7 +84,7 @@ namespace WildHare.Tests
             var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly(xmlDocumentationPath);
 
             bool descriptionFile = metaAssembly.WriteMetaAssemblyDescriptionToFile(outputDirectory, includeNamespaces, true);
-            bool noteJsonFile    = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, includeNamespaces, true);
+            bool noteJsonFile = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, includeNamespaces, true);
             bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(outputDirectory, true);
 
             Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);

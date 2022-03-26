@@ -10,6 +10,7 @@ using WildHare.Tests.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using static WildHare.Extensions.Xtra.XtraExtensions;
 
 namespace WildHare.Tests
 {
@@ -34,7 +35,7 @@ namespace WildHare.Tests
             string codeBase			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
             string localPath		= Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             string location			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string applicationRoot	= XtraExtensions.GetApplicationRoot();
+            string applicationRoot	= GetApplicationRoot();
 			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
 			Assert.AreEqual($@"file:\{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", codeBase);
@@ -70,7 +71,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_DynamicListOfType()
         {
-            dynamic list = XtraExtensions.DynamicListOfType(typeof(Person));// Is IList of object
+            dynamic list = DynamicListOfType(typeof(Person));// Is IList of object
             list.Add(new Person() { FirstName = "Will", LastName="Crowther"});
 
             Assert.AreEqual(1, list.Count);
@@ -101,7 +102,7 @@ namespace WildHare.Tests
 
             // Creates an IList of <dynamic>
 
-            List<dynamic> dynamicArray = XtraExtensions.DynamicArrayOfType(type).ToList();
+            List<dynamic> dynamicArray = DynamicArrayOfType(type).ToList();
             dynamicArray.Add(new Person() { FirstName = "Fred" });
             dynamicArray.Add(new Person() { FirstName = "Patricia" });
 

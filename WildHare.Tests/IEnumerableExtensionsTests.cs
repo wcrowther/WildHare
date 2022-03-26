@@ -503,9 +503,7 @@ namespace WildHare.Tests
                 new Item { ItemId = 3, ItemName = "Orange"}
             };
 
-            Assert.AreEqual($"Apple, Pear, Orange", string.Join(", ", fruits));
-
-            // Calls ToString on the Item
+            // Automatically calls ToString() on the Item
             Assert.AreEqual($"Apple (1), Pear (2), Orange (3)", fruits.JoinString());
 
             // Use Select to get a particular property from a complex object

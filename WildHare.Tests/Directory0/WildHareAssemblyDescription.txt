@@ -75,9 +75,6 @@ WildHare
           WildHare.MetaProperty.SetInstanceValue(System.Object,System.Object)
           WildHare.MetaProperty.ToString()
 
-     WildHare.NumberExtensions
-
-
 ======================================================================================================================================================
 WildHare.Extensions
 
@@ -170,10 +167,12 @@ WildHare.Extensions
           WildHare.Extensions.IEnumerableExtensions.InList(System.Collections.Generic.IList`1[TList],System.Collections.Generic.IList`1[TItems],System.Func`3[TList,TItems,System.Boolean])
           WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[T],System.String)
           WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[System.String],System.String)
-          WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.String)
+       >> WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.String)
+       >> WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.String,System.Int32,System.Int32)
           WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[T],System.Char)
           WildHare.Extensions.IEnumerableExtensions.JoinString(System.Collections.Generic.IEnumerable`1[System.String],System.Char)
           WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.Char)
+          WildHare.Extensions.IEnumerableExtensions.JoinString(System.String[],System.Char,System.Int32,System.Int32)
           WildHare.Extensions.IEnumerableExtensions.MatchList(System.Collections.Generic.IEnumerable`1[T1],System.Collections.Generic.IEnumerable`1[T2],System.Func`3[T1,T2,System.Boolean],System.Boolean)
           WildHare.Extensions.IEnumerableExtensions.PatternMatch(System.Collections.Generic.IEnumerable`1[T],System.Collections.Generic.IEnumerable`1[T],System.Func`3[T,T,System.Boolean])
           WildHare.Extensions.IEnumerableExtensions.Pluralize(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)
@@ -316,8 +315,6 @@ WildHare.Extensions.Xtra
        >> WildHare.Extensions.Xtra.XtraExtensions.DynamicListOfType(System.Object)
           WildHare.Extensions.Xtra.XtraExtensions.GetApplicationRoot()
        >> WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)
-       >> WildHare.Extensions.Xtra.XtraExtensions.Is(System.Object)
-       >> WildHare.Extensions.Xtra.XtraExtensions.IsNull(System.Object)
        >> WildHare.Extensions.Xtra.XtraExtensions.ToMapPath(System.String)
 
      WildHare.Extensions.Xtra.RandomExtensions
