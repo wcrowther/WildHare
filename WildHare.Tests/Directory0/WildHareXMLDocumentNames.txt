@@ -148,11 +148,12 @@ M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assem
 M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)
 M:WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String[])
 M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly)
-T:WildHare.DynamicExpando
-M:WildHare.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
-T:WildHare.MetaField
-T:WildHare.MetaMethod
-T:WildHare.MetaProperty
+T:WildHare.Models.DynamicExpando
+M:WildHare.Models.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+T:WildHare.Models.MetaField
+T:WildHare.Models.MetaMethod
+T:WildHare.Models.MetaProperty
+M:WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)
 T:WildHare.Properties.Resources
 P:WildHare.Properties.Resources.ResourceManager
 P:WildHare.Properties.Resources.Culture

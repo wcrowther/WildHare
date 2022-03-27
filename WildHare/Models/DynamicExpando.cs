@@ -4,7 +4,7 @@ using System.Text;
 using System.Dynamic;
 using System.Linq;
 
-namespace WildHare
+namespace WildHare.Models
 {
     /// <summary>Test Class Summary</summary>
     public class DynamicExpando : DynamicObject
@@ -25,7 +25,7 @@ namespace WildHare
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            this._properties[binder.Name] = value;
+            _properties[binder.Name] = value;
             return true;
         }
 

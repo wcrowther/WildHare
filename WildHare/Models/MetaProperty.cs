@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace WildHare
+namespace WildHare.Models
 {
     /// <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
     public class MetaProperty
@@ -24,9 +24,9 @@ namespace WildHare
             modelInstance = modelinstance;
         }
 
-        public string Name  { get => propertyInfo.Name; }
+        public string Name { get => propertyInfo.Name; }
 
-        public Type PropertyType { get => propertyInfo.PropertyType;  }
+        public Type PropertyType { get => propertyInfo.PropertyType; }
 
         public bool IsKey { get => propertyInfo.IsDefined(typeof(KeyAttribute), false); }
 

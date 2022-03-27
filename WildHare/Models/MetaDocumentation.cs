@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
 
-namespace WildHare
+namespace WildHare.Models
 {
     public class MetaDocumentation
     {
@@ -19,7 +19,7 @@ namespace WildHare
         }
 
         public string MemberName
-        { 
+        {
             get => _rawName.RemoveStart(MemberId() + ":");
         }
 

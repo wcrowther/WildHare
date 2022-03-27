@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using WildHare.Extensions;
+using WildHare.Models;
 using WildHare.Tests.Models;
 using ex = WildHare.Extensions.ExpandoExtensions;
 
@@ -14,7 +15,6 @@ namespace WildHare.Tests
     [TestFixture]
     public class DynamicExpandoTests
     {
-
         // ===============================================================================================================
         // DynamicExpando
         // ===============================================================================================================

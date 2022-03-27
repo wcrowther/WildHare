@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml.Linq;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
+using WildHare.Models;
 using static System.Environment;
 
 
@@ -14,11 +15,10 @@ namespace WildHare
 {
     public class MetaAssembly
     {
+        private string[] anonStartArray = { "<", "_" };
         private readonly Assembly _assembly;
-        private string _xmlDocPath = null;
         private List<MetaModel> _metaModels = null;
         private List<MetaDocumentation> _xmDocMemberList = null;
-        private string[] anonStartArray = { "<", "_" };
 
         public MetaAssembly(Assembly assembly, string xmlDocPath = null)
         {
@@ -26,10 +26,8 @@ namespace WildHare
                 throw new Exception("MetaAssembly assembly cannot be null.");
 
             _assembly   = assembly;
-            _xmlDocPath = xmlDocPath;
-
             _metaModels  = GetAllMetaModels();
-            _xmDocMemberList = GetMetaDocumentationList();
+            _xmDocMemberList = GetMetaDocumentationList(xmlDocPath);
         }
 
         public string AssemblyName { get => _assembly.GetName().Name; }
@@ -76,24 +74,24 @@ namespace WildHare
             return GetAllMetaModels().Where(w => w.TypeName.StartsWith(anonStartArray)).ToList();
         }
 
-        public List<MetaDocumentation> GetMetaDocumentationList()
+        public List<MetaDocumentation> GetMetaDocumentationList(string xmlDocPath)
         {
-            if (!_xmlDocPath.IsNullOrSpace() && _xmDocMemberList == null)
-            {
-                var docXml = XElement.Load(_xmlDocPath);
+            if (xmlDocPath.IsNullOrSpace())
+                return new List<MetaDocumentation>();
 
-                if (docXml == null)
-                    throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
+            var docXml = XElement.Load(xmlDocPath);
 
-                _xmDocMemberList =  docXml.Element("members").Elements()
-                                    .Select(g => new MetaDocumentation(g.Attribute("name").Value)
-                                    {
-                                        Documentation = g.Element("documentation")?.Value,
-                                        Summary = g.Element("summary")?.Value
+            if (docXml == null)
+                throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
 
-                                    }).ToList();
-            }
+            _xmDocMemberList =  docXml.Element("members").Elements()
+                                .Select(g => new MetaDocumentation(g.Attribute("name").Value)
+                                {
+                                    Documentation = g.Element("documentation")?.Value,
+                                    Summary = g.Element("summary")?.Value
 
+                                }).ToList();
+            
             return _xmDocMemberList ?? new List<MetaDocumentation>(); 
         }    
 
@@ -159,13 +157,16 @@ namespace WildHare
             $@"
             {header}
             {this.AssemblyName} ASSEMBLY - {matches} matches of {methodCount} methods.
-            {header}{NewLine}
+            {header}
+            Generated: {DateTime.Now}
             ";
 
             string path = $@"{outputDirectory}\{AssemblyName}AssemblyDescription.txt";
             bool isSuccess = sb.ToString()
                                .AddStart(title.RemoveIndents())
                                .WriteToFile(path, overwrite);
+
+            Debug.WriteLine($"{nameof(WriteMetaAssemblyDescriptionToFile)} written to {path} Success: {isSuccess}");
 
             return isSuccess;
         }
@@ -214,20 +215,20 @@ namespace WildHare
                                             .AddStartEnd("{" + NewLine, "}" + NewLine)
                                             .WriteToFile(path, overwrite);
 
+            Debug.WriteLine($"{nameof(WriteMetaAssemblyNotesToJsonFile)} written to {path} Success: {isSuccess}");
+
             return isSuccess;
         }
 
-        public bool WriteXMLDocumentMemberNamesToFile(string outputDirectory, bool overwrite = false)
+        /// <summary>Get XMLDocument Name from WildHare.xml</summary>
+        public bool WriteXMLDocumentMemberNamesToFile(string xmlDocPath, string outputDirectory, bool overwrite = false)
         {
+            if (xmlDocPath.IsNullOrSpace())
+                return false;
+
             var documentNameList =  new List<string>();
             var sb = new StringBuilder();
-
-            if (_xmlDocPath.IsNullOrSpace())
-            {
-                return false;
-            }
-
-            var docXml = XElement.Load(_xmlDocPath);
+            var docXml = XElement.Load(xmlDocPath);
 
             if (docXml == null)
                 throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
@@ -244,7 +245,11 @@ namespace WildHare
 
             string path = $@"{outputDirectory}\{AssemblyName}XMLDocumentNames.txt";
 
-            bool isSuccess = sb.ToString().AddStartEnd(NewLine + NewLine).WriteToFile(path, overwrite);
+            bool isSuccess =  sb.ToString()
+                                .AddStartEnd(NewLine + NewLine)
+                                .WriteToFile(path, overwrite);
+
+            Debug.WriteLine($"{nameof(WriteXMLDocumentMemberNamesToFile)} written to {path} Success: {isSuccess}");
 
             return isSuccess;
         }

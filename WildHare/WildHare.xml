@@ -605,20 +605,23 @@
             Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
             <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
         </member>
-        <member name="T:WildHare.DynamicExpando">
+        <member name="T:WildHare.Models.DynamicExpando">
             <summary>Test Class Summary</summary>
         </member>
-        <member name="M:WildHare.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+        <member name="M:WildHare.Models.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
             <summary>Test Property...</summary>
         </member>
-        <member name="T:WildHare.MetaField">
+        <member name="T:WildHare.Models.MetaField">
             <summary>Simplified FieldInfo meta data </summary>
         </member>
-        <member name="T:WildHare.MetaMethod">
+        <member name="T:WildHare.Models.MetaMethod">
             <summary>Simplified MethodInfo with custom methods</summary>
         </member>
-        <member name="T:WildHare.MetaProperty">
+        <member name="T:WildHare.Models.MetaProperty">
             <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
+        </member>
+        <member name="M:WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)">
+            <summary>Get XMLDocument Name from WildHare.xml</summary>
         </member>
         <member name="T:WildHare.Properties.Resources">
             <summary>

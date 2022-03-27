@@ -1,79 +1,20 @@
 ======================================================================================================================================================
-WildHare ASSEMBLY - 97 matches of 226 methods.
+WildHare ASSEMBLY - 98 matches of 226 methods.
 ======================================================================================================================================================
-
+Generated: 3/27/2022 12:23:13 AM
 ======================================================================================================================================================
 WildHare
 
-     WildHare.DocMember
-
-          WildHare.DocMember.ToString()
-
-     WildHare.DynamicDictionary
-
-          WildHare.DynamicDictionary.Clear()
-          WildHare.DynamicDictionary.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
-          WildHare.DynamicDictionary.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
-
-     WildHare.DynamicExpando
-
-          WildHare.DynamicExpando.Clear()
-          WildHare.DynamicExpando.First()
-          WildHare.DynamicExpando.FirstOrDefault()
-          WildHare.DynamicExpando.Remove(System.String)
-          WildHare.DynamicExpando.ToDictionary()
-          WildHare.DynamicExpando.ToList()
-          WildHare.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
-          WildHare.DynamicExpando.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
-
      WildHare.MetaAssembly
 
-          WildHare.MetaAssembly.GetMetaDocumentationList()
+          WildHare.MetaAssembly.GetMetaDocumentationList(System.String)
           WildHare.MetaAssembly.GetMetaModels(System.String,System.String)
           WildHare.MetaAssembly.GetMetaModelsForAnonymousTypes()
           WildHare.MetaAssembly.GetMetaModelsGroupedByNamespaces(System.String,System.String)
           WildHare.MetaAssembly.ToString()
           WildHare.MetaAssembly.WriteMetaAssemblyDescriptionToFile(System.String,System.String,System.Boolean)
           WildHare.MetaAssembly.WriteMetaAssemblyNotesToJsonFile(System.String,System.String,System.Boolean)
-          WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.Boolean)
-
-     WildHare.MetaDocumentation
-
-          WildHare.MetaDocumentation.MemberId()
-          WildHare.MetaDocumentation.MemberType()
-          WildHare.MetaDocumentation.ToString()
-
-     WildHare.MetaField
-
-          WildHare.MetaField.ToString()
-
-     WildHare.MetaMethod
-
-          WildHare.MetaMethod.GetGenericArguments()
-          WildHare.MetaMethod.IsInherited(System.String)
-          WildHare.MetaMethod.ToString()
-
-     WildHare.MetaModel
-
-          WildHare.MetaModel.GetMetaMethods(System.String,System.String,System.Boolean)
-          WildHare.MetaModel.GetMetaProperties(System.String,System.String)
-          WildHare.MetaModel.Implements(System.String)
-          WildHare.MetaModel.ToString()
-
-     WildHare.MetaNamespace
-
-          WildHare.MetaNamespace.ToString()
-
-     WildHare.MetaParameter
-
-          WildHare.MetaParameter.ToString()
-
-     WildHare.MetaProperty
-
-          WildHare.MetaProperty.GetInstanceValue(System.Object)
-          WildHare.MetaProperty.Implements(System.String)
-          WildHare.MetaProperty.SetInstanceValue(System.Object,System.Object)
-          WildHare.MetaProperty.ToString()
+       >> WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)
 
 ======================================================================================================================================================
 WildHare.Extensions
@@ -323,6 +264,65 @@ WildHare.Extensions.Xtra
 
 ======================================================================================================================================================
 WildHare.Models
+
+     WildHare.Models.DocMember
+
+          WildHare.Models.DocMember.ToString()
+
+     WildHare.Models.DynamicDictionary
+
+          WildHare.Models.DynamicDictionary.Clear()
+          WildHare.Models.DynamicDictionary.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
+          WildHare.Models.DynamicDictionary.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+
+     WildHare.Models.DynamicExpando
+
+          WildHare.Models.DynamicExpando.Clear()
+          WildHare.Models.DynamicExpando.First()
+          WildHare.Models.DynamicExpando.FirstOrDefault()
+          WildHare.Models.DynamicExpando.Remove(System.String)
+          WildHare.Models.DynamicExpando.ToDictionary()
+          WildHare.Models.DynamicExpando.ToList()
+          WildHare.Models.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
+          WildHare.Models.DynamicExpando.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+
+     WildHare.Models.MetaDocumentation
+
+          WildHare.Models.MetaDocumentation.MemberId()
+          WildHare.Models.MetaDocumentation.MemberType()
+          WildHare.Models.MetaDocumentation.ToString()
+
+     WildHare.Models.MetaField
+
+          WildHare.Models.MetaField.ToString()
+
+     WildHare.Models.MetaMethod
+
+          WildHare.Models.MetaMethod.GetGenericArguments()
+          WildHare.Models.MetaMethod.IsInherited(System.String)
+          WildHare.Models.MetaMethod.ToString()
+
+     WildHare.Models.MetaModel
+
+          WildHare.Models.MetaModel.GetMetaMethods(System.String,System.String,System.Boolean)
+          WildHare.Models.MetaModel.GetMetaProperties(System.String,System.String)
+          WildHare.Models.MetaModel.Implements(System.String)
+          WildHare.Models.MetaModel.ToString()
+
+     WildHare.Models.MetaNamespace
+
+          WildHare.Models.MetaNamespace.ToString()
+
+     WildHare.Models.MetaParameter
+
+          WildHare.Models.MetaParameter.ToString()
+
+     WildHare.Models.MetaProperty
+
+          WildHare.Models.MetaProperty.GetInstanceValue(System.Object)
+          WildHare.Models.MetaProperty.Implements(System.String)
+          WildHare.Models.MetaProperty.SetInstanceValue(System.Object,System.Object)
+          WildHare.Models.MetaProperty.ToString()
 
      WildHare.Models.TestModel
 

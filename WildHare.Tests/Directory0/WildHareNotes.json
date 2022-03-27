@@ -1,63 +1,14 @@
 {
      "WildHare" : {
-          "DocMember" : {
-               "ToString()" : ""
-          },
-          "DynamicDictionary" : {
-               "Clear()" : "",
-               "TryGetMember(GetMemberBinder binder, Object& result)" : "",
-               "TrySetMember(SetMemberBinder binder, Object value)" : ""
-          },
-          "DynamicExpando" : {
-               "Clear()" : "",
-               "First()" : "",
-               "FirstOrDefault()" : "",
-               "Remove(String key)" : "",
-               "ToDictionary()" : "",
-               "ToList()" : "",
-               "TryGetMember(GetMemberBinder binder, Object& result)" : "",
-               "TrySetMember(SetMemberBinder binder, Object value)" : ""
-          },
           "MetaAssembly" : {
-               "GetMetaDocumentationList()" : "",
+               "GetMetaDocumentationList(String xmlDocPath)" : "",
                "GetMetaModels(String exclude, String include)" : "",
                "GetMetaModelsForAnonymousTypes()" : "",
                "GetMetaModelsGroupedByNamespaces(String exclude, String include)" : "",
                "ToString()" : "",
                "WriteMetaAssemblyDescriptionToFile(String outputDirectory, String includeNamespaces, Boolean overwrite)" : "",
                "WriteMetaAssemblyNotesToJsonFile(String outputDirectory, String includedNamespaces, Boolean overwrite)" : "",
-               "WriteXMLDocumentMemberNamesToFile(String outputDirectory, Boolean overwrite)" : ""
-          },
-          "MetaDocumentation" : {
-               "MemberId()" : "",
-               "MemberType()" : "",
-               "ToString()" : ""
-          },
-          "MetaField" : {
-               "ToString()" : ""
-          },
-          "MetaMethod" : {
-               "GetGenericArguments()" : "",
-               "IsInherited(String typeName)" : "",
-               "ToString()" : ""
-          },
-          "MetaModel" : {
-               "GetMetaMethods(String exclude, String include, Boolean includeInherited)" : "",
-               "GetMetaProperties(String exclude, String include)" : "",
-               "Implements(String interfaceName)" : "",
-               "ToString()" : ""
-          },
-          "MetaNamespace" : {
-               "ToString()" : ""
-          },
-          "MetaParameter" : {
-               "ToString()" : ""
-          },
-          "MetaProperty" : {
-               "GetInstanceValue(Object instance)" : "",
-               "Implements(String interfaceName)" : "",
-               "SetInstanceValue(Object value, Object instance)" : "",
-               "ToString()" : ""
+               "WriteXMLDocumentMemberNamesToFile(String xmlDocPath, String outputDirectory, Boolean overwrite)" : ""
           },
      },
      "WildHare.Extensions" : {
@@ -288,6 +239,55 @@
           },
      },
      "WildHare.Models" : {
+          "DocMember" : {
+               "ToString()" : ""
+          },
+          "DynamicDictionary" : {
+               "Clear()" : "",
+               "TryGetMember(GetMemberBinder binder, Object& result)" : "",
+               "TrySetMember(SetMemberBinder binder, Object value)" : ""
+          },
+          "DynamicExpando" : {
+               "Clear()" : "",
+               "First()" : "",
+               "FirstOrDefault()" : "",
+               "Remove(String key)" : "",
+               "ToDictionary()" : "",
+               "ToList()" : "",
+               "TryGetMember(GetMemberBinder binder, Object& result)" : "",
+               "TrySetMember(SetMemberBinder binder, Object value)" : ""
+          },
+          "MetaDocumentation" : {
+               "MemberId()" : "",
+               "MemberType()" : "",
+               "ToString()" : ""
+          },
+          "MetaField" : {
+               "ToString()" : ""
+          },
+          "MetaMethod" : {
+               "GetGenericArguments()" : "",
+               "IsInherited(String typeName)" : "",
+               "ToString()" : ""
+          },
+          "MetaModel" : {
+               "GetMetaMethods(String exclude, String include, Boolean includeInherited)" : "",
+               "GetMetaProperties(String exclude, String include)" : "",
+               "Implements(String interfaceName)" : "",
+               "ToString()" : ""
+          },
+          "MetaNamespace" : {
+               "ToString()" : ""
+          },
+          "MetaParameter" : {
+               "ToString()" : ""
+          },
+          "MetaProperty" : {
+               "GetInstanceValue(Object instance)" : "",
+               "Implements(String interfaceName)" : "",
+               "SetInstanceValue(Object value, Object instance)" : "",
+               "ToString()" : ""
+          },
           "TestModel" : {
           },
      },

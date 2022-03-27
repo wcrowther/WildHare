@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Models;
 using WildHare.Web.Models;
 using static System.Environment;
 

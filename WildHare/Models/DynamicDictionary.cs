@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Dynamic;
 
-namespace WildHare
+namespace WildHare.Models
 {
-
-    // REMOVE - USE DynamicExpando ???
-
     public class DynamicDictionary : DynamicObject
     {
         private readonly Dictionary<string, object> values = new Dictionary<string, object>();

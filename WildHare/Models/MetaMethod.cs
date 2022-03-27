@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace WildHare
+namespace WildHare.Models
 {
     /// <summary>Simplified MethodInfo with custom methods</summary>
     public class MetaMethod
@@ -18,19 +18,19 @@ namespace WildHare
         {
             if (methodInfo == null)
                 throw new NullReferenceException("The MetaMethod constructor requires a non-null MethodInfo.");
-            
+
             this.methodInfo = methodInfo;
         }
 
         public string Name => methodInfo.Name;
 
-        public string XmlDocMemberName => GetXmlDocMemberName(); 
+        public string XmlDocMemberName => GetXmlDocMemberName();
 
         // public string XmlDocMemberName => AltGetXmlDocMemberName(methodInfo); 
 
         public Type DeclaringType => methodInfo.DeclaringType;
 
-        public bool IsExtensionMethod => methodInfo.IsDefined(typeof(ExtensionAttribute)); 
+        public bool IsExtensionMethod => methodInfo.IsDefined(typeof(ExtensionAttribute));
 
         public bool IsStaticMethod => methodInfo.IsStatic;
 
@@ -44,13 +44,13 @@ namespace WildHare
 
         public List<MetaParameter> Parameters
         {
-            get 
+            get
             {
                 if (metaParameters == null)
                     metaParameters = new List<MetaParameter>();
 
                 if (metaParameters.Count == 0)
-                { 
+                {
                     foreach (var parameterInfo in methodInfo.GetParameters())
                     {
                         metaParameters.Add(new MetaParameter(parameterInfo));
@@ -88,7 +88,7 @@ namespace WildHare
             if (declaringTypeName is null)
                 throw new NotImplementedException("inherited classes are not supported");
 
-            string xmlName =  declaringTypeName + "." + info.Name;
+            string xmlName = declaringTypeName + "." + info.Name;
             xmlName = string.Join("", xmlName.Split(']').Select(x => x.Split('[')[0]));
             xmlName = xmlName.Replace(",", "");
 
@@ -102,7 +102,7 @@ namespace WildHare
                 Type paramType = parameter.ParameterType;
                 string paramName = GetXmlNameForMethodParameter(paramType);
                 if (paramName.Contains("#"))
-                    paramName = paramName.Replace("#", (genericParameterCount++).ToString());
+                    paramName = paramName.Replace("#", genericParameterCount++.ToString());
                 paramNames.Add(paramName);
             }
             xmlName = xmlName.Replace("#", genericParameterCount.ToString());
@@ -137,7 +137,7 @@ namespace WildHare
                 xmlName = "System.Nullable{" + nullableType.FullName + "}";
 
             // special case for multidimensional arrays
-            if (type.IsArray && (type.GetArrayRank() > 1))
+            if (type.IsArray && type.GetArrayRank() > 1)
             {
                 string arrayName = type.FullName.Split('[')[0].Split('`')[0];
                 if (isNullable)

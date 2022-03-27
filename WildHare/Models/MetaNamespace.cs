@@ -6,7 +6,7 @@ using System.Reflection;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
 
-namespace WildHare
+namespace WildHare.Models
 {
     public class MetaNamespace
     {
@@ -18,7 +18,7 @@ namespace WildHare
         }
         public string NamespaceName { get => namespaceName; }
 
-        public List<MetaModel>  MetaModels = null;
+        public List<MetaModel> MetaModels = null;
 
         public string Summary { get; set; }
 

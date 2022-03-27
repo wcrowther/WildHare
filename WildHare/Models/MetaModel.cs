@@ -6,7 +6,7 @@ using System.Reflection;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
 
-namespace WildHare
+namespace WildHare.Models
 {
     public class MetaModel
     {
@@ -27,25 +27,25 @@ namespace WildHare
         private List<MetaProperty> properties = null;
         private List<MetaMethod> methods = null;
 
-        public string TypeName => _type.Name; 
+        public string TypeName => _type.Name;
 
         public string TypeFullName => _type.FullName;
 
-        public string TypeNamespace => _type.Namespace; 
+        public string TypeNamespace => _type.Namespace;
 
-        public string PrimaryKeyName => PrimaryKeyMeta != null ? PrimaryKeyMeta.Name : ""; 
+        public string PrimaryKeyName => PrimaryKeyMeta != null ? PrimaryKeyMeta.Name : "";
 
-        public bool IsDictionary => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); 
+        public bool IsDictionary => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
 
-        public Type DictionaryKeyType => IsDictionary ? _type.GetGenericArguments()[0] : null; 
+        public Type DictionaryKeyType => IsDictionary ? _type.GetGenericArguments()[0] : null;
 
-        public Type DictionaryValueType => IsDictionary ? _type.GetGenericArguments()[1] : null; 
+        public Type DictionaryValueType => IsDictionary ? _type.GetGenericArguments()[1] : null;
 
-        public bool IsAnonymousType => TypeName.StartsWith(new[] { "<", "_" }); 
+        public bool IsAnonymousType => TypeName.StartsWith(new[] { "<", "_" });
 
-        public bool IsStaticType => _type.IsAbstract && _type.IsSealed; 
+        public bool IsStaticType => _type.IsAbstract && _type.IsSealed;
 
-        public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true); 
+        public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true);
 
         public bool Implements(string interfaceName) => _type.GetInterfaces().Any(a => a.Name == interfaceName);
 
@@ -56,7 +56,7 @@ namespace WildHare
                 throw new Exception("The GetMetaMethods method only accepts the exclude OR the include list.");
             }
 
-            var metaMethodList = includeInherited ? MetaMethods : MetaMethods.Where(w => w.DeclaringType.Name == this.TypeName);
+            var metaMethodList = includeInherited ? MetaMethods : MetaMethods.Where(w => w.DeclaringType.Name == TypeName);
 
             if (!exclude.IsNullOrEmpty())
             {
@@ -143,7 +143,7 @@ namespace WildHare
                         {
                             Debug.WriteLine("Name: " + metaMethod.Name);
                             Debug.WriteLine("DeclaringType.Name: " + metaMethod.DeclaringType.Name);
-                            Debug.WriteLine("TypeName: " + this.TypeName);
+                            Debug.WriteLine("TypeName: " + TypeName);
                             Debug.WriteLine("methodInfo.DeclaringType.FullName: " + methodInfo.DeclaringType.FullName);
                             Debug.WriteLine("=".Repeat(25));
 

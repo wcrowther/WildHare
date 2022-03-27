@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
 
-namespace WildHare
+namespace WildHare.Models
 {
     public class DocMember
     {
@@ -218,7 +218,7 @@ namespace WildHare
                     {
                         var types = ToTypeArray(parameterArray);
 
-                        if(types.Length == 0)
+                        if (types.Length == 0)
                             ClassType.GetMethod(Member);
 
                         return ClassType.GetMethod(Member, types);
@@ -244,7 +244,7 @@ namespace WildHare
             {
                 foreach (string name in typeNames)
                 {
-                    if(!name.IsNullOrEmpty())
+                    if (!name.IsNullOrEmpty())
                         types.Add(Type.GetType(name));
                 }
             }
