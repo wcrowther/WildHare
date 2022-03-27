@@ -1,18 +1,8 @@
 {
-     "WildHare" : {
-          "MetaAssembly" : {
-               "GetMetaDocumentationList(String xmlDocPath)" : "",
-               "GetMetaModels(String exclude, String include)" : "",
-               "GetMetaModelsForAnonymousTypes()" : "",
-               "GetMetaModelsGroupedByNamespaces(String exclude, String include)" : "",
-               "ToString()" : "",
-               "WriteMetaAssemblyDescriptionToFile(String outputDirectory, String includeNamespaces, Boolean overwrite)" : "",
-               "WriteMetaAssemblyNotesToJsonFile(String outputDirectory, String includedNamespaces, Boolean overwrite)" : "",
-               "WriteXMLDocumentMemberNamesToFile(String xmlDocPath, String outputDirectory, Boolean overwrite)" : ""
-          },
-     },
-     "WildHare.Extensions" : {
-          "CharExtensions" : {
+     "WildHare.Extensions" :
+     {
+          "CharExtensions" :
+          {
                "CharAt(String s, Int32 i)" : "",
                "GetUnicodeCategory(Char ch)" : "",
                "IsControl(Char ch)" : "",
@@ -28,7 +18,8 @@
                "IsUpper(Char ch)" : "",
                "IsWhiteSpace(Char ch)" : ""
           },
-          "ConvertExtensions" : {
+          "ConvertExtensions" :
+          {
                "AsString(Int32[] intArray, Boolean strict, String separator)" : "",
                "ToBool(String value)" : "",
                "ToBool(String value, String trueValue, Boolean ignoreCase)" : "",
@@ -47,14 +38,17 @@
                "ToLong(String value, Int64 defaultValue)" : "",
                "ToLongNullable(String value, Nullable`1 defaultValue)" : ""
           },
-          "DataReaderExtensions" : {
+          "DataReaderExtensions" :
+          {
                "Get``1(IDataReader row, String fieldName, T defaultValue)" : "",
                "Get``1(IDataReader row, Int32 ordinal, T defaultValue)" : ""
           },
-          "DataTableExtensions" : {
+          "DataTableExtensions" :
+          {
                "ToList``1(DataTable table)" : ""
           },
-          "DateTimeExtensions" : {
+          "DateTimeExtensions" :
+          {
                "FirstDayOfNextMonth(DateTime datetime)" : "",
                "FirstDayOfTheMonth(DateTime datetime)" : "",
                "GetNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek, Boolean includeDate)" : "",
@@ -70,14 +64,16 @@
                "YearMonth(DateTime date)" : "",
                "YearMonthDay(DateTime date)" : ""
           },
-          "DictionaryExtensions" : {
+          "DictionaryExtensions" :
+          {
                "Get``1(IDictionary`2 dictionary, String key)" : "",
                "Set(IDictionary`2 dictionary, String key, Object value)" : "",
                "ToQueryDictionary(String query)" : "",
                "ToQueryString(IDictionary`2 dict)" : "",
                "TryGet``1(IDictionary`2 dictionary, String key, T& value)" : ""
           },
-          "ExpandoExtensions" : {
+          "ExpandoExtensions" :
+          {
                "Add``1(ExpandoObject expando, String name, T value)" : "",
                "Add(ExpandoObject expando, String name, String value)" : "",
                "Get``1(ExpandoObject expando, String name)" : "",
@@ -85,7 +81,8 @@
                "Get``2(Dictionary`2 dictionary, TKey key, TVal defaultVal)" : "",
                "Remove(ExpandoObject expando, String name)" : ""
           },
-          "IEnumerableExtensions" : {
+          "IEnumerableExtensions" :
+          {
                "AsString(IEnumerable`1 intList, Boolean strict)" : "",
                "ElementIn``1(IEnumerable`1 source, Int32 index)" : "",
                "ElementInOrDefault``1(IEnumerable`1 source, Int32 index, TSource defaultItem)" : "",
@@ -106,7 +103,8 @@
                "ToCollection``1(IEnumerable`1 enumerable)" : "",
                "WithIndex``1(IEnumerable`1 list)" : ""
           },
-          "IListExtensions" : {
+          "IListExtensions" :
+          {
                "AddRange``1(IList`1 itemList, IEnumerable`1 newItems)" : "",
                "CombineItems``1(IList`1 itemList, Int32 index, Int32 count, T newItem)" : "",
                "IsFirstIn``1(T item, IList`1 itemList)" : "",
@@ -122,7 +120,8 @@
                "TakeRandom``1(IList`1 sourceList, Int32 count, Random random, Boolean remove)" : "",
                "TakeRandomOne``1(IList`1 sourceList, Random random, Boolean remove)" : ""
           },
-          "IOExtensions" : {
+          "IOExtensions" :
+          {
                "AppendToFile(String stringToWrite, String fileName)" : "",
                "AppendToFile(String stringToWrite, FileInfo file)" : "",
                "GetAllDirectoriesAndFiles(DirectoryInfo directory, Int32 maxDepth)" : "",
@@ -133,10 +132,12 @@
                "WriteToFile(String stringToWrite, String fileName, Boolean overwrite)" : "",
                "WriteToFile(String stringToWrite, FileInfo file, Boolean overwrite)" : ""
           },
-          "IQueryableExtensions" : {
+          "IQueryableExtensions" :
+          {
                "OrderBy``1(IQueryable`1 items, String propertyName, Boolean desc, String defaultProperty)" : ""
           },
-          "StringExtensions" : {
+          "StringExtensions" :
+          {
                "AddEnd(String s, String addToEnd)" : "",
                "AddStart(String s, String addToStart)" : "",
                "AddStartEnd(String s, String addToStart, String addToEnd)" : "",
@@ -196,7 +197,8 @@
                "StartsWith(String str, String[] valuesArray, Boolean ignoreCase, CultureInfo culture)" : "",
                "Truncate(String input, Int32 maxCharacters, String more, Int32 wordcut)" : ""
           },
-          "TypeExtensions" : {
+          "TypeExtensions" :
+          {
                "GetCommonBaseType(Type[] types)" : "",
                "GetCommonInterfaces(Object[] objects)" : "",
                "GetDerivedClasses(Type type, String[] ignoreTypeNames)" : "",
@@ -211,10 +213,12 @@
                "GetMetaProperties``1(IEnumerable`1 enumerable, String exclude, String include)" : "",
                "GetMetaProperties``1(T instance, String exclude, String include)" : "",
                "GetTypesInNamespace(Assembly assembly, String nameSpace)" : ""
-          },
+          }
      },
-     "WildHare.Extensions.ForTemplating" : {
-          "TemplatingExtensions" : {
+     "WildHare.Extensions.ForTemplating" :
+     {
+          "TemplatingExtensions" :
+          {
                "DotNetTypeToCSharpType(String dotNetTypeName, Boolean isNull)" : "",
                "Template(Dictionary`2 lookups, String template, String startTag, String endTag)" : "",
                "Template(Dictionary`2 lookups, FileInfo templateFile, String startTag, String endTag)" : "",
@@ -224,30 +228,37 @@
                "TemplateList``1(IEnumerable`1 list, String template, String lineEnd, String startTag, String endTag)" : "",
                "TemplateList``1(IEnumerable`1 list, FileInfo templateFile, String lineEnd, String startTag, String endTag)" : "",
                "TSqlTypeToCSharpType(String sqlTypeName, Boolean isNull)" : ""
-          },
+          }
      },
-     "WildHare.Extensions.Xtra" : {
-          "XtraExtensions" : {
+     "WildHare.Extensions.Xtra" :
+     {
+          "XtraExtensions" :
+          {
                "DynamicArrayOfType(Object t)" : "",
                "DynamicListOfType(Object t)" : "",
                "GetApplicationRoot()" : "",
                "GetXmlDocumentation(String xmlDocPath, Assembly assemblyToDocument)" : "",
                "ToMapPath(String fileName)" : ""
           },
-          "RandomExtensions" : {
+          "RandomExtensions" :
+          {
                "Skip(Random random, Int32 number)" : ""
-          },
+          }
      },
-     "WildHare.Models" : {
-          "DocMember" : {
+     "WildHare.Models" :
+     {
+          "DocMember" :
+          {
                "ToString()" : ""
           },
-          "DynamicDictionary" : {
+          "DynamicDictionary" :
+          {
                "Clear()" : "",
                "TryGetMember(GetMemberBinder binder, Object& result)" : "",
                "TrySetMember(SetMemberBinder binder, Object value)" : ""
           },
-          "DynamicExpando" : {
+          "DynamicExpando" :
+          {
                "Clear()" : "",
                "First()" : "",
                "FirstOrDefault()" : "",
@@ -257,42 +268,63 @@
                "TryGetMember(GetMemberBinder binder, Object& result)" : "",
                "TrySetMember(SetMemberBinder binder, Object value)" : ""
           },
-          "MetaDocumentation" : {
+          "MetaAssembly" :
+          {
+               "GetMetaDocumentationList(String xmlDocPath)" : "",
+               "GetMetaModels(String exclude, String include)" : "",
+               "GetMetaModelsForAnonymousTypes()" : "",
+               "GetMetaModelsGroupedByNamespaces(String exclude, String include)" : "",
+               "ToString()" : "",
+               "WriteMetaAssemblyDescriptionToFile(String outputDirectory, String includeNamespaces, Boolean overwrite)" : "",
+               "WriteMetaAssemblyNotesToJsonFile(String outputDirectory, String includedNamespaces, Boolean overwrite)" : "",
+               "WriteXMLDocumentMemberNamesToFile(String xmlDocPath, String outputDirectory, Boolean overwrite)" : ""
+          },
+          "MetaDocumentation" :
+          {
                "MemberId()" : "",
                "MemberType()" : "",
                "ToString()" : ""
           },
-          "MetaField" : {
+          "MetaField" :
+          {
                "ToString()" : ""
           },
-          "MetaMethod" : {
+          "MetaMethod" :
+          {
                "GetGenericArguments()" : "",
                "IsInherited(String typeName)" : "",
                "ToString()" : ""
           },
-          "MetaModel" : {
+          "MetaModel" :
+          {
                "GetMetaMethods(String exclude, String include, Boolean includeInherited)" : "",
                "GetMetaProperties(String exclude, String include)" : "",
                "Implements(String interfaceName)" : "",
                "ToString()" : ""
           },
-          "MetaNamespace" : {
+          "MetaNamespace" :
+          {
                "ToString()" : ""
           },
-          "MetaParameter" : {
+          "MetaParameter" :
+          {
                "ToString()" : ""
           },
-          "MetaProperty" : {
+          "MetaProperty" :
+          {
                "GetInstanceValue(Object instance)" : "",
                "Implements(String interfaceName)" : "",
                "SetInstanceValue(Object value, Object instance)" : "",
                "ToString()" : ""
           },
-          "TestModel" : {
-          },
+          "TestModel" :
+          {
+          }
      },
-     "WildHare.Properties" : {
-          "Resources" : {
-          },
+     "WildHare.Properties" :
+     {
+          "Resources" :
+          {
+          }
      }
 }

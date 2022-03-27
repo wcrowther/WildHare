@@ -11,6 +11,7 @@ M:WildHare.Extensions.CharExtensions.IsDigit(System.Char)
 M:WildHare.Extensions.CharExtensions.IsSymbol(System.Char)
 M:WildHare.Extensions.CharExtensions.IsControl(System.Char)
 M:WildHare.Extensions.CharExtensions.IsSeparator(System.Char)
+M:WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)
 M:WildHare.Extensions.CharExtensions.IsReturn(System.Char)
 M:WildHare.Extensions.CharExtensions.GetUnicodeCategory(System.Char)
 M:WildHare.Extensions.ConvertExtensions.ToBool(System.String)
@@ -150,10 +151,10 @@ M:WildHare.Extensions.TypeExtensions.GetDerivedClasses(System.Type,System.String
 M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly)
 T:WildHare.Models.DynamicExpando
 M:WildHare.Models.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+M:WildHare.Models.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)
 T:WildHare.Models.MetaField
 T:WildHare.Models.MetaMethod
 T:WildHare.Models.MetaProperty
-M:WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)
 T:WildHare.Properties.Resources
 P:WildHare.Properties.Resources.ResourceManager
 P:WildHare.Properties.Resources.Culture

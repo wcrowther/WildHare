@@ -38,7 +38,9 @@
         <member name="M:WildHare.Extensions.CharExtensions.IsSeparator(System.Char)">
             <summary>Inline version of char.IsSeparator(ch). ie: Space plus all Unicode separator characters</summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)" -->
+        <member name="M:WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)">
+            <summary>Inline version of char.IsWhiteSpace(ch). ie: All separators plus \n, \r, \t, \f, and \v</summary>
+        </member>
         <member name="M:WildHare.Extensions.CharExtensions.IsReturn(System.Char)">
             <summary>Returns true if char is a return char ie: \n, \r </summary>
         </member>
@@ -611,6 +613,9 @@
         <member name="M:WildHare.Models.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
             <summary>Test Property...</summary>
         </member>
+        <member name="M:WildHare.Models.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)">
+            <summary>Get XMLDocument Name from WildHare.xml</summary>
+        </member>
         <member name="T:WildHare.Models.MetaField">
             <summary>Simplified FieldInfo meta data </summary>
         </member>
@@ -619,9 +624,6 @@
         </member>
         <member name="T:WildHare.Models.MetaProperty">
             <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
-        </member>
-        <member name="M:WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)">
-            <summary>Get XMLDocument Name from WildHare.xml</summary>
         </member>
         <member name="T:WildHare.Properties.Resources">
             <summary>

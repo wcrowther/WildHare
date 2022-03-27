@@ -73,7 +73,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void GenerateMetaAssemblyInformationFiles()
+        public void GenerateMetaAssemblyInformationFiles_For_WildHare()
         {
             string xmlDocPath = $@"c:\Git\WildHare\WildHare\WildHare.xml";
 
@@ -88,6 +88,27 @@ namespace WildHare.Tests
             bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(xmlDocPath, outputDirectory, true);
 
             Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
+
+            Assert.AreEqual(true, descriptionFile);
+            Assert.AreEqual(true, noteJsonFile);
+            Assert.AreEqual(true, xmlDocNamesFile);
+        }
+
+
+        [Test]
+        public void GenerateMetaAssemblyInformationFiles_For_SeedPacket()
+        {
+            string xmlDocPath = $@"C:\Git\SeedPacket\SeedPacket\SeedPacket.xml";
+            string outputDirectory = $@"C:\Git\SeedPacket\SeedPacket.Examples\Reference";
+            string includeNamespaces = ""; ;
+
+            var metaAssembly = Assembly.Load("SeedPacket").GetMetaAssembly(xmlDocPath);
+
+            bool descriptionFile = metaAssembly.WriteMetaAssemblyDescriptionToFile(outputDirectory, includeNamespaces, true);
+            bool noteJsonFile = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, includeNamespaces, true);
+            bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(xmlDocPath, outputDirectory, true);
+
+            Assert.AreEqual(28, metaAssembly.GetMetaModels().Count);
 
             Assert.AreEqual(true, descriptionFile);
             Assert.AreEqual(true, noteJsonFile);

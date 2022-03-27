@@ -1,21 +1,7 @@
 ======================================================================================================================================================
-WildHare ASSEMBLY - 98 matches of 226 methods.
+WildHare ASSEMBLY - 99 matches of 226 methods.
 ======================================================================================================================================================
-Generated: 3/27/2022 12:23:13 AM
-======================================================================================================================================================
-WildHare
-
-     WildHare.MetaAssembly
-
-          WildHare.MetaAssembly.GetMetaDocumentationList(System.String)
-          WildHare.MetaAssembly.GetMetaModels(System.String,System.String)
-          WildHare.MetaAssembly.GetMetaModelsForAnonymousTypes()
-          WildHare.MetaAssembly.GetMetaModelsGroupedByNamespaces(System.String,System.String)
-          WildHare.MetaAssembly.ToString()
-          WildHare.MetaAssembly.WriteMetaAssemblyDescriptionToFile(System.String,System.String,System.Boolean)
-          WildHare.MetaAssembly.WriteMetaAssemblyNotesToJsonFile(System.String,System.String,System.Boolean)
-       >> WildHare.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)
-
+Generated: 3/27/2022 1:45:28 PM
 ======================================================================================================================================================
 WildHare.Extensions
 
@@ -34,7 +20,7 @@ WildHare.Extensions
        >> WildHare.Extensions.CharExtensions.IsSeparator(System.Char)
        >> WildHare.Extensions.CharExtensions.IsSymbol(System.Char)
        >> WildHare.Extensions.CharExtensions.IsUpper(System.Char)
-          WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)
+       >> WildHare.Extensions.CharExtensions.IsWhiteSpace(System.Char)
 
      WildHare.Extensions.ConvertExtensions
 
@@ -285,6 +271,17 @@ WildHare.Models
           WildHare.Models.DynamicExpando.ToList()
           WildHare.Models.DynamicExpando.TryGetMember(System.Dynamic.GetMemberBinder,System.Object&)
           WildHare.Models.DynamicExpando.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+
+     WildHare.Models.MetaAssembly
+
+          WildHare.Models.MetaAssembly.GetMetaDocumentationList(System.String)
+          WildHare.Models.MetaAssembly.GetMetaModels(System.String,System.String)
+          WildHare.Models.MetaAssembly.GetMetaModelsForAnonymousTypes()
+          WildHare.Models.MetaAssembly.GetMetaModelsGroupedByNamespaces(System.String,System.String)
+          WildHare.Models.MetaAssembly.ToString()
+          WildHare.Models.MetaAssembly.WriteMetaAssemblyDescriptionToFile(System.String,System.String,System.Boolean)
+          WildHare.Models.MetaAssembly.WriteMetaAssemblyNotesToJsonFile(System.String,System.String,System.Boolean)
+       >> WildHare.Models.MetaAssembly.WriteXMLDocumentMemberNamesToFile(System.String,System.String,System.Boolean)
 
      WildHare.Models.MetaDocumentation
 
