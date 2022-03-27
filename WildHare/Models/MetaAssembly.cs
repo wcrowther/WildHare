@@ -7,11 +7,10 @@ using System.Text;
 using System.Xml.Linq;
 using WildHare.Extensions;
 using WildHare.Extensions.Xtra;
-using WildHare.Models;
 using static System.Environment;
 
 
-namespace WildHare
+namespace WildHare.Models
 {
     public class MetaAssembly
     {
@@ -25,8 +24,8 @@ namespace WildHare
             if (assembly == null)
                 throw new Exception("MetaAssembly assembly cannot be null.");
 
-            _assembly   = assembly;
-            _metaModels  = GetAllMetaModels();
+            _assembly = assembly;
+            _metaModels = GetAllMetaModels();
             _xmDocMemberList = GetMetaDocumentationList(xmlDocPath);
         }
 
@@ -63,7 +62,7 @@ namespace WildHare
 
             foreach (var ns in namespaces)
             {
-                metaNamespaces.Add(new MetaNamespace(ns.Key) { MetaModels = ns.ToList()});
+                metaNamespaces.Add(new MetaNamespace(ns.Key) { MetaModels = ns.ToList() });
             }
 
             return metaNamespaces.OrderBy(o => o.NamespaceName).ToList();
@@ -84,16 +83,16 @@ namespace WildHare
             if (docXml == null)
                 throw new Exception($"Not able to find XML Document at the supplied 'xmlDocPath'.");
 
-            _xmDocMemberList =  docXml.Element("members").Elements()
+            _xmDocMemberList = docXml.Element("members").Elements()
                                 .Select(g => new MetaDocumentation(g.Attribute("name").Value)
                                 {
                                     Documentation = g.Element("documentation")?.Value,
                                     Summary = g.Element("summary")?.Value
 
                                 }).ToList();
-            
-            return _xmDocMemberList ?? new List<MetaDocumentation>(); 
-        }    
+
+            return _xmDocMemberList ?? new List<MetaDocumentation>();
+        }
 
         public override string ToString() => $"MetaAssembly: {AssemblyName} Type count: {GetMetaModels().Count}";
 
@@ -119,25 +118,25 @@ namespace WildHare
                     sb.AppendLine($"{tab}{metaModel.TypeFullName}");
                     sb.AppendLine();
 
-                    foreach (var method in metaModel.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
+                    foreach (var metaMethod in metaModel.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name))
                     {
                         // sb.AppendLine($"{tab}{tab}{method.Name}{GetParamString(method)}");
 
                         string match;
 
-                        var xmlDoc = _xmDocMemberList.FirstOrDefault(f => f.MemberName == $"{ method.XmlDocMemberName}");
+                        var xmlDoc = _xmDocMemberList.FirstOrDefault(f => f.MemberName == $"{ metaMethod.XmlDocMemberName}");
 
-                        if (xmlDoc != null && $"{method.XmlDocMemberName}" == xmlDoc.MemberName)
+                        if (xmlDoc != null && $"{metaMethod.XmlDocMemberName}" == xmlDoc.MemberName)
                         {
                             match = $"{tab}  >> ";
                             matches++;
                         }
                         else
-                        { 
+                        {
                             match = $"{tab}{tab}";
                         }
 
-                        sb.AppendLine($"{match}{method.XmlDocMemberName}");  //  : Is MetaMethod.DocMemberName
+                        sb.AppendLine($"{match}{metaMethod.XmlDocMemberName}");  //  : Is MetaMethod.DocMemberName
 
                         // if (doc != null && !doc.Summary.IsNullOrSpace())
                         // {
@@ -156,7 +155,7 @@ namespace WildHare
             string title =
             $@"
             {header}
-            {this.AssemblyName} ASSEMBLY - {matches} matches of {methodCount} methods.
+            {AssemblyName} ASSEMBLY - {matches} matches of {methodCount} methods.
             {header}
             Generated: {DateTime.Now}
             ";
@@ -175,18 +174,20 @@ namespace WildHare
         {
             string tab = " ".Repeat(5);
             var sb = new StringBuilder();
-            var metaNamespaces = GetMetaModelsGroupedByNamespaces(include: includedNamespaces) ;
+            var metaNamespaces = GetMetaModelsGroupedByNamespaces(include: includedNamespaces);
             int nsCount = 0;
 
             foreach (var ns in metaNamespaces)
             {
                 nsCount++;
 
-                sb.AppendLine($"{tab}\"{ns.NamespaceName}\" : {{");
+                sb.AppendLine($"{tab}\"{ns.NamespaceName}\" :");
+                sb.AppendLine($"{tab}{{");
 
                 foreach (var (mm, index) in ns.MetaModels.WithIndex())
                 {
-                    sb.AppendLine($"{tab}{tab}\"{mm.TypeName}\" : {{");
+                    sb.AppendLine($"{tab}{tab}\"{mm.TypeName}\" :");
+                    sb.AppendLine($"{tab}{tab}{{");
 
                     var methods = mm.GetMetaMethods(includeInherited: false).OrderBy(o => o.Name).ToList();
 
@@ -196,17 +197,17 @@ namespace WildHare
                     {
                         mCount++;
 
-                        string mComma = (methods.Count == mCount) ? "" : ",";
+                        string mComma = methods.Count == mCount ? "" : ",";
                         sb.AppendLine($"{tab}{tab}{tab}\"{method.Name}{GetGenericArguments(method)}{GetParamString(method)}\" : \"\"{mComma}");
                     }
 
                     Debug.WriteLine($"{mm.TypeName} Count: {ns.MetaModels.Count} Index: {index + 1}");
 
-                    string mmComma = (ns.MetaModels.Count == index) ? "" : ",";
+                    string mmComma = ns.MetaModels.Count == index + 1 ? "" : ",";
                     sb.AppendLine($"{tab}{tab}}}{mmComma}");
                 }
 
-                string nsComma = (metaNamespaces.Count == nsCount) ? "" : ",";
+                string nsComma = metaNamespaces.Count == nsCount ? "" : ",";
                 sb.AppendLine($"{tab}}}{nsComma}");
             }
 
@@ -226,7 +227,7 @@ namespace WildHare
             if (xmlDocPath.IsNullOrSpace())
                 return false;
 
-            var documentNameList =  new List<string>();
+            var documentNameList = new List<string>();
             var sb = new StringBuilder();
             var docXml = XElement.Load(xmlDocPath);
 
@@ -245,7 +246,7 @@ namespace WildHare
 
             string path = $@"{outputDirectory}\{AssemblyName}XMLDocumentNames.txt";
 
-            bool isSuccess =  sb.ToString()
+            bool isSuccess = sb.ToString()
                                 .AddStartEnd(NewLine + NewLine)
                                 .WriteToFile(path, overwrite);
 
@@ -275,7 +276,7 @@ namespace WildHare
         {
             var genericArguments = method.GetGenericArguments();
 
-            if(genericArguments.Count() == 0)
+            if (genericArguments.Count() == 0)
                 return "";
 
             return $"``{genericArguments.Count()}";
