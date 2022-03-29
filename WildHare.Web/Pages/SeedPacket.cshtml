@@ -8,7 +8,7 @@
     ViewData["Title"] = "SeedPacket Documentation";
 
     var info = (Title: "Xml Documentation For SeedPacket", SubTitle: "Having fun with code.");
-    var SeedPacketList = "C:\\Code\\Trunk\\SeedPacket\\SeedPacket\\SeedPacket.xml".GetXmlDocumentation();
+    var SeedPacketList = @"C:\Git\SeedPacket\SeedPacket\SeedPacket.xml".GetXmlDocumentation();
     var groupList = from s in SeedPacketList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
 }
 
