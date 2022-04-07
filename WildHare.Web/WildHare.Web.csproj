@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.16.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 	<PackageReference Include="SeedPacket" Version="3.0.5.3" />
     <PackageReference Include="Cloudmersive.APIClient.NETCore.NLP" Version="2.1.2" />

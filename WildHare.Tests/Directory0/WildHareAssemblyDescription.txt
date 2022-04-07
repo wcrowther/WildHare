@@ -7,15 +7,15 @@ WildHare.Extensions.List
 
      WildHare.Extensions.List.IEnumerableExtensions
 
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
-          IEnumerableExtensions
+          WildHare.Extensions.List.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable`1[System.Int32],System.Boolean)
+          WildHare.Extensions.List.IEnumerableExtensions.ElementIn(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
+          WildHare.Extensions.List.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32,TSource)
+          WildHare.Extensions.List.IEnumerableExtensions.ElementInOrDefault(System.Collections.Generic.IEnumerable`1[TSource],System.Int32)
+          WildHare.Extensions.List.IEnumerableExtensions.InList(System.Collections.Generic.IList`1[TList],System.Collections.Generic.IList`1[TItems],System.Func`3[TList,TItems,System.Boolean])
+          WildHare.Extensions.List.IEnumerableExtensions.MatchList(System.Collections.Generic.IEnumerable`1[T1],System.Collections.Generic.IEnumerable`1[T2],System.Func`3[T1,T2,System.Boolean],System.Boolean)
+          WildHare.Extensions.List.IEnumerableExtensions.PatternMatch(System.Collections.Generic.IEnumerable`1[T],System.Collections.Generic.IEnumerable`1[T],System.Func`3[T,T,System.Boolean])
+          WildHare.Extensions.List.IEnumerableExtensions.Pluralize(System.Collections.Generic.IEnumerable`1[T],System.String,System.String)
+          WildHare.Extensions.List.IEnumerableExtensions.Sequence(System.Collections.Generic.IEnumerable`1[TFirst],System.Collections.Generic.IEnumerable`1[TSecond],System.Func`3[TFirst,TSecond,System.Boolean],System.Boolean)
+          WildHare.Extensions.List.IEnumerableExtensions.ToCollection(System.Collections.Generic.IEnumerable`1[T])
+          WildHare.Extensions.List.IEnumerableExtensions.WithIndex(System.Collections.Generic.IEnumerable`1[T])
 

@@ -135,6 +135,36 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_ToIntArray_With_Default_Comma_Separator_Using_Period_Separator()
+        {
+            // Because default separator is "," the "." characters are removed and the number
+            // 72002012000 overflows int and returns null so no elements returned
+
+            string intString = "7.200.201.2000"; 
+
+            var array = intString.ToIntArray();
+
+            Assert.AreEqual(0, array.Length);
+        }
+
+        [Test]
+        public void Test_ToIntArray_With_Default_Comma_Separator_Using_Period_Separator_Strict()
+        {
+            // Because default separator is "," the "." characters are removed and the number
+            // 72002012000 overflows int and throws Exception
+
+            string intString = "7.200.201.2000";
+
+            var ex = Assert.Throws<Exception>
+            (
+                () => intString.ToIntArray(true)
+            );
+
+            string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
+            Assert.AreEqual(errorMessage, ex.Message);
+        }
+
+        [Test]
         public void Test_ToIntArray_Strict_Empty_Values()
         {
             string intString = "1,2,3,,5";

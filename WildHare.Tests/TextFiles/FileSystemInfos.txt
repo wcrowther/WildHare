@@ -7,5 +7,7 @@ Directory Directory1a C:\Git\WildHare\WildHare.Tests\Directory0\Directory1a
 Directory Directory1b C:\Git\WildHare\WildHare.Tests\Directory0\Directory1b
 	 File SimpleTemplate.txt C:\Git\WildHare\WildHare.Tests\Directory0\SimpleTemplate.txt
 	 File TextFile0.txt C:\Git\WildHare\WildHare.Tests\Directory0\TextFile0.txt
-	 File WildHare.txt C:\Git\WildHare\WildHare.Tests\Directory0\WildHare.txt
 	 File WildHare.txt.old C:\Git\WildHare\WildHare.Tests\Directory0\WildHare.txt.old
+	 File WildHareAssemblyDescription.txt C:\Git\WildHare\WildHare.Tests\Directory0\WildHareAssemblyDescription.txt
+	 File WildHareNotes.json C:\Git\WildHare\WildHare.Tests\Directory0\WildHareNotes.json
+	 File WildHareXMLDocumentNames.txt C:\Git\WildHare\WildHare.Tests\Directory0\WildHareXMLDocumentNames.txt

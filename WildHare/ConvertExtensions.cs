@@ -118,12 +118,12 @@ namespace WildHare.Extensions
         {
             string intStr = strict ? str : str.NumbersOnly(separator + "-");
             var options = strict ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries;
-            var intArray = intStr.Split(separator, options).Select(s => s.Trim().ToIntNullable()).ToArray();
+            var intArray = intStr.Split(separator, options).Select(s => s?.Trim().ToIntNullable()).ToArray();
 
             if (strict && intArray.Any(a => !a.HasValue))
                 throw new Exception("ToIntArray() cannot have null or invalid values when in strict mode.");
 
-            return intArray.Select(w => w.Value).ToArray();
+            return intArray.Where(w => w != null).Select(w => w.Value).ToArray();
         }
 
         /// <summary>Converts an array of ints to a string separated by {separator} (defaulting to a comma). The method will 
