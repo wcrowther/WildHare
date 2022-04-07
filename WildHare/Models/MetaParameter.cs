@@ -27,7 +27,7 @@ namespace WildHare
 
         public string TypeName 
         { 
-            get => parameterType.FullName ?? parameterType.Name; 
+            get => parameterType.TypeName; 
         }
 
         public string Signature 
@@ -60,7 +60,7 @@ namespace WildHare
 
         public override string ToString()
         {
-            return $"Parameter: '{Name}' of type {parameterType.}";
+            return $"Parameter: '{Name}' of type {parameterType.TypeName}";
         }
 
         private string GetGenericsIndicator(string str)

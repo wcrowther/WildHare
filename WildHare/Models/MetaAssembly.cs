@@ -171,7 +171,7 @@ namespace WildHare
 
             foreach (var param in method.Parameters)
             {
-                sb.Append($"{param.ParameterMetaType.Name} {param.Name}{commaSpace}");
+                sb.Append($"{param.ParameterMetaType.TypeName} {param.Name}{commaSpace}");
             }
 
             return sb.ToString().RemoveEnd(commaSpace).EnsureStartEnd("(", ")");

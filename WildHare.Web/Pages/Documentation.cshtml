@@ -9,7 +9,7 @@
     ViewData["Title"] = "Home page";
 
     var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
-    var WildHareList = "C:\\Code\\Trunk\\WildHare\\WildHare\\WildHare.xml".GetXmlDocumentation();
+    var WildHareList = @"C:\Git\WildHare\WildHare\WildHare.xml".GetXmlDocumentation();
     var groupList = from s in WildHareList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
 }
 
