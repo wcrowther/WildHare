@@ -150,8 +150,8 @@ namespace WildHare.Tests
         [Test]
         public void Test_ToIntArray_With_Default_Comma_Separator_Using_Period_Separator_Strict()
         {
-            // Because default separator is "," the "." characters are removed and the number
-            // 72002012000 overflows int and throws Exception
+            // Because default separator is "," and not ".", the "." characters are removed
+            // and the number 72002012000 overflows max value of int and throws an Exception
 
             string intString = "7.200.201.2000";
 
