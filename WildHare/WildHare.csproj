@@ -58,6 +58,7 @@
 0.9.9.1 Contains some methods that have been renamed, so some refactoring may need to be done after upgrading to this version. These type of changes are winding down and when WildHare goes out of BETA with 1.0.0.0 (sometime before the end of the year), the only changes from that point on will be additive.</PackageReleaseNotes>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Git\WildHare\WildHare\WildHare.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/wcrowther/WildHare</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
