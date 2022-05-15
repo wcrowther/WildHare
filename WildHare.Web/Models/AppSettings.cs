@@ -1,12 +1,16 @@
 ﻿
-using WildHare.Web.Interfaces;
-
 namespace WildHare.Web.Models
 {
-    public class AppSettings : IAppSettings
+    public class AppSettings 
     {
-        public string SeedPacketExampleViewsPath { get; set; }
-
         public string WildHareXmlDocumentationPath { get; set; }
+
+        public string SeedPacketAnalyticsRootPath { get; set; }
+
+        public string AnalyticsWriteToFile { get; set; }
+
+        // FUNCTIONS ================================================================================================
+
+        public string AnalyticsWriteToPath(string contentRootPath) => $"{contentRootPath}{AnalyticsWriteToFile}";
     }
 }

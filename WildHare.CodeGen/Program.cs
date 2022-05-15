@@ -4,7 +4,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.IO;
-using WildHare.Web.Interfaces;
 using WildHare.Web.Models;
 
 namespace WildHare.CodeGen
@@ -13,11 +12,34 @@ namespace WildHare.CodeGen
     {
         static void Main(string[] args)
         {
-            string contentRootPath = @"C:\Git\WildHare\WildHare.Web";
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = MainMenu();
+            }  
+        }
+
+        private static bool MainMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1) Generate Css ");
+            Console.WriteLine("2) Exit");
+            Console.Write("\r\nSelect an option: ");
 
             var serviceProvider = ConfigureServices().BuildServiceProvider();
 
-            serviceProvider.GetService<CodeGen>().Generate(contentRootPath);
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    serviceProvider.GetService<CodeGen>().Generate("cssmap");
+                    return true;
+                case "2": 
+                case "exit":
+                    return false;
+                default:
+                    return true;
+            }
         }
 
         private static IServiceCollection ConfigureServices()

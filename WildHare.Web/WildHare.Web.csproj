@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GeneratedModels\" />
+    <Folder Include="Interfaces\" />
     <Folder Include="SqlInserts\" />
   </ItemGroup>
 </Project>

@@ -11,32 +11,36 @@ using static System.Environment;
 
 namespace WildHare.Web
 {
-
     public static class CodeGenCssMap
     {
         /* ==========================================================================
          * DIRECTIONS:
-         * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
-         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
+         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, 
+         * RUN IN THE IMMEDIATE WINDOW, or in the 
+         * .NET Core StartUp Configure() -> passing in env.ContentRootPath
 
            WildHare.Web.CodeGenCssMap.Init(c:\github\WildHare);
         ========================================================================== */
 
-        public static string Init(string projectRoot)
+        public static string Init(string analyticsRootPath, string analyticsWriteToPath, bool overWrite = false)
         {
-            if (projectRoot.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenCssMap)}.{nameof(Init)} projectRoot is null or empty.");
-            
-            bool overWrite = false;
-            string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
-            string pathRoot = @"C:\Git\SeedPacket\SeedPacket.Examples\Pages";
-            var allFiles = $@"{pathRoot}"
+            if (analyticsRootPath.IsNullOrEmpty())
+            {
+                string message = $"{nameof(CodeGenCssMap)}.{nameof(Init)} analysisRootPath is null or empty.";
+                throw new ArgumentNullException(message);
+            }
+
+            if (analyticsWriteToPath.IsNullOrEmpty())
+            {
+                string message = $"{nameof(CodeGenCssMap)}.{nameof(Init)} pathToWriteTo is null or empty.";
+                throw new ArgumentNullException(message);
+            }
+
+            var allFiles = $@"{analyticsRootPath}"
                             .GetAllFiles("*.cshtml");
 
-            var classTags = new List<ClassTag>();
-
             string start = "\t";
+            var classTags = new List<ClassTag>();
             var sb = new StringBuilder();
 
             sb.AppendLine("=".Repeat(100));
@@ -70,14 +74,13 @@ namespace WildHare.Web
             if (groupedClassTags.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            bool success = sb.ToString().WriteToFile(pathToWriteTo, overWrite);
+            bool success = sb.ToString().WriteToFile(analyticsWriteToPath, overWrite);
 
-            string result = $"{nameof(CodeGenCssMap)}.{nameof(Init)} code written to '{pathToWriteTo}'. Success: {success} Overwrite: {overWrite}";
+            string result = $"{nameof(CodeGenCssMap)}.{nameof(Init)} code written to '{analyticsWriteToPath}'. Success: {success} Overwrite: {overWrite}";
             Debug.WriteLine(result);
 
             return result;
         }
-
 
         // =======================================================================
         // PRIVATE FUNCTIONS
@@ -107,14 +110,12 @@ namespace WildHare.Web
         }
     }
 
-
     // =======================================================================
     // CLASSES 
     // =======================================================================
 
     public class ClassTag
     {
-
         public string Name { get; set; }
 
         public string Reference { get; set; }

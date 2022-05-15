@@ -56,20 +56,21 @@ namespace WildHare.Web
                 endpoints.MapRazorPages();
             });
 
-            RunCodeGen(env);
+            // RunCodeGen(env);
         }
 
-        private void RunCodeGen(IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                // CodeGenCssMap.Init(env.ContentRootPath);
-                // CodeGenAdapters.Init(env.ContentRootPath);
-                // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
-                // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString);
-                // CodeGenSqlRowInsert.Init(env.ContentRootPath);
-                // CodeGenSchema.Init(env.ContentRootPath);
-            }
-        }
+        // private void RunCodeGen(IWebHostEnvironment env)
+        // {
+        //     if (env.IsDevelopment())
+        //     {
+        //         // NEEDS TO BE UPDATE TO NEWEST CODE
+        //         // CodeGenCssMap.Init(env.ContentRootPath);
+        //         // CodeGenAdapters.Init(env.ContentRootPath);
+        //         // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
+        //         // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString);
+        //         // CodeGenSqlRowInsert.Init(env.ContentRootPath);
+        //         // CodeGenSchema.Init(env.ContentRootPath);
+        //     }
+        // }
     }
 }
