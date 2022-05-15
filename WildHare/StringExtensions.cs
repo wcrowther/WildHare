@@ -51,7 +51,7 @@ namespace WildHare.Extensions
         /// <example>string field = "*"; var f = field.NullIf("*") ?? "Empty" ex: return "Empty"</example>
         public static string NullIf(this string str, string str2)
         {
-            return str != str2 ? str : null;
+            return str == str2 ? null : str;
         }
 
         /// <summary>Remove the start of a string if it exactly matches {start}.</summary>
@@ -213,7 +213,7 @@ namespace WildHare.Extensions
             return s.StartsWith(addToStart) ? s : addToStart + s;
         }
 
-        /// <summary>Adds {addToEnd} to the end of the string UNLESS it already starts with that string.</summary>
+        /// <summary>Adds {addToEnd} to the end of the string UNLESS it already ends with that string.</summary>
         public static string EnsureEnd(this string s, string addToEnd)
         {
             if (s == null) return null;
@@ -221,10 +221,9 @@ namespace WildHare.Extensions
             return s.EndsWith(addToEnd) ? s : s + addToEnd;
         }
 
-        /** <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
-            adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
-            is NULL, adds {addToStart} to both the start and end.</summary>
-            <cref></cref>*/
+        /// <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
+        /// adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
+        /// is NULL, adds {addToStart} to both the start and end.</summary>
         public static string EnsureStartEnd(this string s, string addToStart, string addToEnd = null)
         {
             if (s == null) return null;
@@ -288,13 +287,27 @@ namespace WildHare.Extensions
             return output.ToString();
         }
 
-        /// <summary>Returns a string with only letters and any additional characters in {otherCharacters}.</summary>
+        /// <summary>Returns a string with only letters, and any additional characters in {otherCharacters}.</summary>
         public static string LettersOnly(this string input, string otherCharacters = "")
         {
             var output = new StringBuilder("");
             for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
             {
-                if (("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" + otherCharacters).IndexOf(input[i]) != -1)
+                if (input[i].IsLetter() || otherCharacters.IndexOf(input[i]) != -1)
+                {
+                    output.Append(input[i]);
+                }
+            }
+            return output.ToString();
+        }
+
+        /// <summary>Returns a string with only numbers, letters, and any additional characters in {otherCharacters}.</summary>
+        public static string NumbersAndLettersOnly(this string input, string otherCharacters = "")
+        {
+            var output = new StringBuilder("");
+            for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
+            {
+                if (input[i].IsLetterOrDigit() || otherCharacters.IndexOf(input[i]) != -1)
                 {
                     output.Append(input[i]);
                 }
@@ -394,6 +407,20 @@ namespace WildHare.Extensions
             foreach (string value in valuesArray)
             {
                 if (str.StartsWith(value, ignoreCase, culture ?? CultureInfo.CurrentCulture))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>An overload of EndsWith that accepts a string array.
+        /// Will return true if any of the values in the {valuesArray} is true.</summary>
+        public static bool EndsWith(this string str, string[] valuesArray, bool ignoreCase = false, CultureInfo culture = null)
+        {
+            foreach (string value in valuesArray)
+            {
+                if (str.EndsWith(value, ignoreCase, culture ?? CultureInfo.CurrentCulture))
                 {
                     return true;
                 }

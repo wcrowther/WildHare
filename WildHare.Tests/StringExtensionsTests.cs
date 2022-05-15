@@ -31,6 +31,24 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_NumbersAndLettersOnly_With_Other_Characters()
+        {
+            string str = "<*will22@wildhare.com*/>";
+            string filteredStr = str.NumbersAndLettersOnly("@.");
+
+            Assert.AreEqual("will22@wildhare.com", filteredStr);
+        }
+
+        [Test]
+        public void Test_LettersOnly_With_Other_Characters()
+        {
+            string str = "<*123will@wildhare.com*/>";
+            string filteredStr = str.LettersOnly("@.");
+
+            Assert.AreEqual("will@wildhare.com", filteredStr);
+        }
+
+        [Test]
         public void Test_Truncate_Basic()
         {
             string str = "12345678901234567890123456789012345678901234567890";
@@ -555,6 +573,26 @@ namespace WildHare.Tests
             string str = "StartString";
             string[] values = { "a", "b" };
             bool result = str.StartsWith(values);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Test_EndsWith_Array_Overload_With_String_Array_End_Is_True()
+        {
+            string str = "StringEnd";
+            string[] values = { "a", "End" };
+            bool result = str.EndsWith(values);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Test_EndsWith_Array_Overload_With_String_Array_End_Is_False()
+        {
+            string str = "StringEnd";
+            string[] values = { "a", "b" };
+            bool result = str.EndsWith(values);
 
             Assert.IsFalse(result);
         }
