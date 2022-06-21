@@ -686,12 +686,12 @@ namespace WildHare.Tests
             Assert.AreEqual(result, message);
         }
 
-        [TestCase(10, "dog",     null,       "10 dogs in the list.")]
-        [TestCase(1,  "wolf",    "wolves",   "1 wolf in the list.")]
-        [TestCase(10, "wolf",    "wolves",   "10 wolves in the list.")]
-        [TestCase(1,  "octopus", "octopi",   "1 octopus in the list.")]
-        [TestCase(10, "octopus", "octopi",   "10 octopi in the list.")]
-        [TestCase(5,  "child",   "children", "5 children in the list.")]
+        [TestCase(10, "dog", null, "10 dogs in the list.")]
+        [TestCase(1, "wolf", "wolves", "1 wolf in the list.")]
+        [TestCase(10, "wolf", "wolves", "10 wolves in the list.")]
+        [TestCase(1, "octopus", "octopi", "1 octopus in the list.")]
+        [TestCase(10, "octopus", "octopi", "10 octopi in the list.")]
+        [TestCase(5, "child", "children", "5 children in the list.")]
         public void Test_SingularOrPlural_With_Two_Parameters(int count, string singular, string plural, string result)
         {
             string message = $"{count} {count.Pluralize(singular, plural)} in the list.";
@@ -700,16 +700,16 @@ namespace WildHare.Tests
         }
 
         [TestCase("Item", -1, "-1 Items in the list.")]
-        [TestCase("Item", 0,  "0 Items in the list.")]
-        [TestCase("Item", 1,  "1 Item in the list.")]
+        [TestCase("Item", 0, "0 Items in the list.")]
+        [TestCase("Item", 1, "1 Item in the list.")]
         [TestCase("Item", 10, "10 Items in the list.")]
-        [TestCase("dog",  1,  "1 dog in the list.")]
-        [TestCase("dog",  10, "10 dogs in the list.")]
-        [TestCase("fox",  1,  "1 fox in the list.")]
-        [TestCase("fox",  10, "10 foxes in the list.")]
-        [TestCase("clown",1,  "1 clown in the list.")]
-        [TestCase("clown",3,  "3 clowns in the list.")]
-        [TestCase("fox",  3,  "3 foxes in the list.")]
+        [TestCase("dog", 1, "1 dog in the list.")]
+        [TestCase("dog", 10, "10 dogs in the list.")]
+        [TestCase("fox", 1, "1 fox in the list.")]
+        [TestCase("fox", 10, "10 foxes in the list.")]
+        [TestCase("clown", 1, "1 clown in the list.")]
+        [TestCase("clown", 3, "3 clowns in the list.")]
+        [TestCase("fox", 3, "3 foxes in the list.")]
         public void Test_IfPlural_With_One_Parameter(string singular, int count, string result)
         {
             string message = $"{count} {count.Pluralize(singular)} in the list.";
@@ -881,6 +881,84 @@ namespace WildHare.Tests
 
             Assert.AreEqual("This is " + NewLine + NewLine + "a test.", combinedStr);
             Assert.AreEqual(19, combinedStr.Length);
+        }
+
+        [Test]
+        public void Test_Reverse_string()
+        {
+            string str = "The quick brown fox jumped over the lazy dog";
+            string rev = "dog lazy the over jumped fox brown quick The";
+
+            Assert.AreEqual(rev, Reverse(str));
+            Assert.AreEqual("", Reverse(""));
+            Assert.AreEqual(null, Reverse(null));
+            Assert.AreEqual(rev, Reverse2(str));
+            Assert.AreEqual("", Reverse2(""));
+            Assert.AreEqual(null, Reverse2(null));
+        }
+
+        [Test]
+        public void Test_Reverse_string3()
+        {
+            string str = "The quick brown fox jumped over the lazy dog";
+            string rev = "dog lazy the over jumped fox brown quick The";
+
+            Assert.AreEqual(rev, Reverse3(str));
+            Assert.AreEqual("", Reverse3(""));
+            Assert.AreEqual(null, Reverse3(null));
+        }
+
+        private string Reverse(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            var s = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            Array.Reverse(s);
+
+            return string.Join(' ', s);
+        }
+
+        private string Reverse2(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            var s = str.Split(new char[] { ' ' }).Reverse();
+
+            return string.Join(' ', s);
+        }
+
+        private string Reverse3(string str)
+        {
+            return str.IsNullOrEmpty() ? str : string.Join(' ', str.Split(new char[] { ' ' }).Reverse());
+        }
+
+        [Test]
+        public void Test_Reverse_Letters_In_Each_Word()
+        {
+            string str = "quick brown fox jumped";
+            string rev = "kciuq nworb xof depmuj";
+
+            Assert.AreEqual(rev, ReverseLetters(str));
+            Assert.AreEqual("", ReverseLetters(""));
+            Assert.AreEqual(null, ReverseLetters(null));
+        }
+
+        private string ReverseLetters(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            var strArr = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] revArr = new string[strArr.Length];
+
+            for (int i = 0; i < strArr.Length; i++)
+            {
+                string s = strArr[i];
+                revArr[i] = new string(s.Reverse().ToArray());
+            }
+            return string.Join(' ', revArr);
         }
     }
 }

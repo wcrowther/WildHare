@@ -35,6 +35,12 @@ namespace WildHare.Extensions
             return s ?? replacement;
         }
 
+        /// <summary>An empty string returns {replacement} else the string</summary>
+        public static string IfEmpty(this string s, string replacement)
+        {
+            return s == "" ? replacement : s;
+        }
+
         /// <summary>A null or empty string returns {replacement} if given, else an empty string.</summary>
         public static string IfNullOrEmpty(this string s, string replacement = "")
         {
