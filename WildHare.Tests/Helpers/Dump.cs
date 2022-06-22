@@ -8,14 +8,16 @@ namespace WildHare.Tests.Helpers
 {
     public static class HelperExtensions
     {
+        static string  separator = "-".Repeat(30);
+
         public static void Dump(this object obj)
         {
             string str = obj switch
             {
-                string s => s,
-                null => null,
-                int i => i.ToString(),
-                object o => o.ToJson()
+                string s    => s,
+                null        => null,
+                int i       => i.ToString(),
+                object o    => o.ToJson()
             };
             Console.WriteLine(str);
         }
@@ -30,7 +32,7 @@ namespace WildHare.Tests.Helpers
                 int i => i.ToString(),
                 object o => o.ToJson()
             };
-            Debug.WriteLine($"{"-".Repeat(30)}{NewLine}{name}{NewLine}{"-".Repeat(30)}");
+            Debug.WriteLine($"{separator}{NewLine}{name}{NewLine}{separator}";
             Debug.WriteLine(str);
         }
 

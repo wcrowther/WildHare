@@ -188,10 +188,6 @@
         <member name="M:WildHare.Extensions.ExpandoExtensions.Remove(System.Dynamic.ExpandoObject,System.String)">
             <summary>Remove a value from the Expando using a string {name}. </summary>
         </member>
-        <member name="M:WildHare.Extensions.ExpandoExtensions.Get``2(System.Collections.Generic.Dictionary{``0,``1},``0,``1)">
-            <summary>Gets a value from an ExpandoObject by the specified {key}. If it does not exist, the
-             method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
-        </member>
         <member name="M:WildHare.Extensions.List.IEnumerableExtensions.ElementIn``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>Takes the element in the list at the position of {index} looping around to the beginning
             of the list if the (zero-base) index is outside of the number of items in the list. Will always return an element

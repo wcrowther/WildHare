@@ -81,46 +81,84 @@ namespace WildHare.Tests
 
 
         [Test]
-        public void Test_Dictionary_Get_Extension()
+        public void Test_String_Object_Dictionary_Get_Extension()
         {
             var fiftyYearsAgo = DateTime.Now.AddYears(-50);
 
             var dictionary = new Dictionary<string, object>
             {
+                {"team", "Braves"},
                 {"age", 50},
                 {"birthdate", fiftyYearsAgo},
                 {"isAdult", true}
             };
 
-            int age = dictionary.Get<int>("age");
-            DateTime birthDate = dictionary.Get<DateTime>("birthdate");
-            bool isAdult = dictionary.Get<bool>("isAdult");
+            Assert.AreEqual("Braves", dictionary.Get("team"));
+            Assert.AreEqual(50, dictionary.Get<int>("age"));
+            Assert.AreEqual(fiftyYearsAgo, dictionary.Get<DateTime>("birthdate"));
+            Assert.AreEqual(true, dictionary.Get<bool>("isAdult"));
 
-            Assert.AreEqual(50, age);
-            Assert.AreEqual(fiftyYearsAgo, birthDate);
-            Assert.AreEqual(true, isAdult);
+            Assert.AreEqual(null, dictionary.Get("missing"));
+        }
 
-            Assert.AreEqual(50, dictionary.Get("age"));
-            Assert.AreEqual(fiftyYearsAgo, dictionary.Get("birthdate"));
-            Assert.AreEqual(true, dictionary.Get("isAdult"));
+        [Test]
+        public void Test_String_String_Dictionary_Get_Extension()
+        {
+            // Without the ToString() format, it fails with difference for milliseconds in the string
 
-            //Assert.AreEqual(false, dictionary.Get("missingValue"));
+            var fiftyYearsAgo = DateTime.Now.AddYears(-50);
+            string fiftyYearsStr = fiftyYearsAgo.ToString("o");
+            string warning = "test warning";
 
+            var dictionary = new Dictionary<string, string>
+            {
+                {"warning", warning},
+                {"age", "50"},
+                {"isAdult", "true"},
+                {"birthdate", fiftyYearsStr}
+            };
 
-            // int age = 20;
-            // dictionary.Set("age", age);
-            // age = dictionary.Get<int>("age");
+            Assert.AreEqual(warning, dictionary.Get("warning"));
+            Assert.AreEqual(50, dictionary.Get<int>("age"));
+            Assert.AreEqual(true, dictionary.Get<bool>("isAdult"));
+            Assert.AreEqual(fiftyYearsAgo, dictionary.Get<DateTime>("birthdate"));
+        }
 
-            // or the safe way
-            //if (dictionary.TryGet("age", out age))
-            //{
-            //    Console.WriteLine("The age is {0}", age);
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Age not found or of wrong type");
-            //}
+        [Test]
+        public void Test_String_String_Dictionary_Get_With_Missing_Values()
+        {
+            var fiftyYearsAgo = DateTime.Now.AddYears(-50);
+            string fiftyYearsStr = fiftyYearsAgo.ToString();
+            string warning = "test warning";
 
+            var dictionary = new Dictionary<string, string>
+            {
+                {"warning", warning},
+                {"age", "50"},
+                {"isAdult", "true"},
+                {"birthdate", fiftyYearsStr}
+            };
+
+            Assert.AreEqual(null, dictionary.Get("missing"));
+            Assert.AreEqual("no value", dictionary.Get("missing", "no value"));
+
+            Assert.AreEqual(0, dictionary.Get<int>("missing"));
+            Assert.AreEqual(5, dictionary.Get<int>("missing", 5));
+
+            Assert.AreEqual(false, dictionary.Get<bool>("missing"));
+            Assert.AreEqual(true, dictionary.Get<bool>("missing", true));
+
+            Assert.AreEqual(null, dictionary.Get<bool?>("missing"));
+            Assert.AreEqual(true, dictionary.Get<bool?>("missing", true));
+
+            dictionary.Set("Group", "Test");
+            Assert.AreEqual("Test", dictionary.Get("Group"));
+
+            dictionary.Set("IsTrue", true);
+            Assert.AreEqual(true, dictionary.Get<bool>("IsTrue"));
+
+            dictionary.Set("Numeric", 1234);
+            Assert.AreEqual(1234, dictionary.Get<int>("Numeric"));
         }
     }
 }

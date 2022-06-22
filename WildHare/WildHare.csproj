@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net5.0;netstandard2.1;netcoreapp3.1;net48</TargetFrameworks>
+	<TargetFrameworks>net5.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <!--  OLD:<TargetFrameworks>netstandard2.0;net45;net471;net472</TargetFrameworks>
         Multitargeting so use the line above. 
         To see targets google: NET SDKs for Visual Studio

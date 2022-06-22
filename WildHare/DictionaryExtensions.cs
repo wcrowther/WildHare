@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,28 +6,73 @@ namespace WildHare.Extensions
 {
     public static class DictionaryExtensions
     {
-        public static T Get<T>(this IDictionary<string, object> dictionary, string key)
+        // ==============================================================================================================
+        // IDictionary<string, object>
+        // ==============================================================================================================
+
+        public static T Get<T>(this IDictionary<string, object> dictionary, string key, T defaultVal = default)
         {
-            return (T)dictionary[key];
+            if (dictionary.TryGetValue(key, out object val))
+            {
+                return (T)Convert.ChangeType(val, typeof(T));
+            }
+            return defaultVal;
         }
 
-        public static bool TryGet<T>(this IDictionary<string, object> dictionary,
-                                     string key, out T value)
+        public static string Get(this IDictionary<string, object> dictionary, string key, string defaultVal = default)
         {
-            object result;
-            if (dictionary.TryGetValue(key, out result) && result is T)
+            if (dictionary.TryGetValue(key, out object val))
             {
-                value = (T)result;
-                return true;
+                return (string)Convert.ChangeType(val, typeof(string));
             }
-            value = default(T);
-            return false;
+            return defaultVal;
         }
 
         public static void Set(this IDictionary<string, object> dictionary, string key, object value)
         {
             dictionary[key] = value;
         }
+
+        public static void Set(this IDictionary<string, object> dictionary, string key, string value)
+        {
+            dictionary[key] = value;
+        }
+
+        // ==============================================================================================================
+        // IDictionary<string, string>
+        // ==============================================================================================================
+
+        public static T Get<T>(this IDictionary<string, string> dictionary, string key, T defaultVal = default )
+        {
+            if (dictionary.TryGetValue(key, out string str))
+            {
+                return (T) Convert.ChangeType(str, typeof(T));
+            }
+            return defaultVal;
+        }
+
+        public static string Get(this IDictionary<string, string> dictionary, string key, string defaultVal = default)
+        {
+            if (dictionary.TryGetValue(key, out string str))
+            {
+                return str;
+            }
+            return defaultVal;
+        }
+
+        public static void Set(this IDictionary<string, string> dictionary, string key, object value)
+        {
+            string str = (string) Convert.ChangeType(value, typeof(string));
+            dictionary[key] = str;
+        }
+
+        public static void Set(this IDictionary<string, string> dictionary, string key, string value)
+        {
+            dictionary[key] = value;
+        }
+
+        // ==============================================================================================================
+
 
         public static IDictionary<string, string> ToQueryDictionary(this string query)
         {
@@ -37,6 +83,30 @@ namespace WildHare.Extensions
         {
             return string.Join("&", dict.Select(s => string.Join("=", s.Key, s.Value)));
         }
+
+        //public static bool TryGet<T>(this IDictionary<string, object> dictionary,
+        //                     string key, out T value)
+        //{
+        //    object result;
+        //    if (dictionary.TryGetValue(key, out result) && result is T)
+        //    {
+        //        value = (T)result;
+        //        return true;
+        //    }
+        //    value = default(T);
+        //    return false;
+        //}
+
+        /// <summary>Gets a value from {dictionary} by the specified {key}. If it does not exist, the
+        ///  method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
+        //public static TVal Get<TKey, TVal>(this Dictionary<TKey, TVal> dictionary, TKey key, TVal defaultVal = default)
+        //{
+        //    if (dictionary.TryGetValue(key, out TVal val))
+        //    {
+        //        return val;
+        //    }
+        //    return defaultVal;
+        //}
 
     }
 }
