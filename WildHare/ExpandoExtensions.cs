@@ -81,8 +81,8 @@ namespace WildHare.Extensions
             }
         }
 
-        /// <summary>Gets a value from an ExpandoObject by the specified {key}. If it does not exist, the
-        ///  method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
+        // <summary>Gets a value from an ExpandoObject by the specified {key}. If it does not exist, the
+        // method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
         // public static TVal Get<TKey, TVal>(this Dictionary<TKey, TVal> dictionary, TKey key, TVal defaultVal = default)
         // {
         //     if (dictionary.TryGetValue(key, out TVal val))

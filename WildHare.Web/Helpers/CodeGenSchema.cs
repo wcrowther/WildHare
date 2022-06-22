@@ -21,7 +21,6 @@ namespace WildHare.Web
 
 		// FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
-		private static bool overWrite;
 		private static string rootPath;
 		private static readonly string namespaceRoot = "WildHare.Web";
 		private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SchemaModels\";

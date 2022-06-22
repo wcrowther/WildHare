@@ -21,7 +21,6 @@ namespace WildHare.Web
            WildHare.Web.CodeGenSqlRowInsert.Init(c:\github\WildHare);
         ========================================================================== */
 
-        private static bool overWrite = false;
         private static string rootPath;
         private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SqlInserts\";
 		private static readonly string start = "\t"; // Indentation

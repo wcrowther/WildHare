@@ -32,7 +32,7 @@ namespace WildHare.Tests.Helpers
                 int i => i.ToString(),
                 object o => o.ToJson()
             };
-            Debug.WriteLine($"{separator}{NewLine}{name}{NewLine}{separator}";
+            Debug.WriteLine($"{separator}{NewLine}{name}{NewLine}{separator}");
             Debug.WriteLine(str);
         }
 

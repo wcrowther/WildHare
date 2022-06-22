@@ -84,29 +84,29 @@ namespace WildHare.Extensions
             return string.Join("&", dict.Select(s => string.Join("=", s.Key, s.Value)));
         }
 
-        //public static bool TryGet<T>(this IDictionary<string, object> dictionary,
-        //                     string key, out T value)
-        //{
-        //    object result;
-        //    if (dictionary.TryGetValue(key, out result) && result is T)
-        //    {
-        //        value = (T)result;
-        //        return true;
-        //    }
-        //    value = default(T);
-        //    return false;
-        //}
+        // public static bool TryGet<T>(this IDictionary<string, object> dictionary,
+        //                      string key, out T value)
+        // {
+        //     object result;
+        //     if (dictionary.TryGetValue(key, out result) && result is T)
+        //     {
+        //         value = (T)result;
+        //         return true;
+        //     }
+        //     value = default(T);
+        //     return false;
+        // }
 
-        /// <summary>Gets a value from {dictionary} by the specified {key}. If it does not exist, the
-        ///  method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
-        //public static TVal Get<TKey, TVal>(this Dictionary<TKey, TVal> dictionary, TKey key, TVal defaultVal = default)
-        //{
-        //    if (dictionary.TryGetValue(key, out TVal val))
-        //    {
-        //        return val;
-        //    }
-        //    return defaultVal;
-        //}
+        // /// <summary>Gets a value from {dictionary} by the specified {key}. If it does not exist, the
+        // /// method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
+        // public static TVal Get<TKey, TVal>(this Dictionary<TKey, TVal> dictionary, TKey key, TVal defaultVal = default)
+        // {
+        //     if (dictionary.TryGetValue(key, out TVal val))
+        //     {
+        //         return val;
+        //     }
+        //     return defaultVal;
+        // }
 
     }
 }
