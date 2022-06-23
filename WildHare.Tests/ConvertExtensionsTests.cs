@@ -2,7 +2,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using WildHare.Extensions;
-using WildHare.Extensions.List;
 
 namespace WildHare.Tests
 {

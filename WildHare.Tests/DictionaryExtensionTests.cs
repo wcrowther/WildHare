@@ -102,6 +102,19 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_String_Object_Dictionary_TryGet_Extension()
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"team", "Braves"},
+                {"age", 50}
+            };
+
+            Assert.AreEqual(50, dictionary.TryGet("age", out int age) ? age : 0);
+            Assert.AreEqual(0, dictionary.TryGet("not_age", out int age2) ? age2 : 0);
+        }
+
+        [Test]
         public void Test_String_String_Dictionary_Get_Extension()
         {
             // Without the ToString() format, it fails with difference for milliseconds in the string

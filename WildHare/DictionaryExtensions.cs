@@ -10,13 +10,26 @@ namespace WildHare.Extensions
         // IDictionary<string, object>
         // ==============================================================================================================
 
-        public static T Get<T>(this IDictionary<string, object> dictionary, string key, T defaultVal = default)
+        public static T Get<T>(this IDictionary<string, object> dictionary, string key, T defaultVal = default) 
         {
             if (dictionary.TryGetValue(key, out object val))
             {
                 return (T)Convert.ChangeType(val, typeof(T));
             }
             return defaultVal;
+        }
+
+        public static bool TryGet<T>(this IDictionary<string, object> dictionary, string key, out T value)
+        {
+            object result;
+            if (dictionary.TryGetValue(key, out result) && result is T)
+            {
+                value = (T)result;
+                return true;
+            }
+            value = default(T);
+
+            return false;
         }
 
         public static string Get(this IDictionary<string, object> dictionary, string key, string defaultVal = default)
@@ -83,19 +96,6 @@ namespace WildHare.Extensions
         {
             return string.Join("&", dict.Select(s => string.Join("=", s.Key, s.Value)));
         }
-
-        // public static bool TryGet<T>(this IDictionary<string, object> dictionary,
-        //                      string key, out T value)
-        // {
-        //     object result;
-        //     if (dictionary.TryGetValue(key, out result) && result is T)
-        //     {
-        //         value = (T)result;
-        //         return true;
-        //     }
-        //     value = default(T);
-        //     return false;
-        // }
 
         // /// <summary>Gets a value from {dictionary} by the specified {key}. If it does not exist, the
         // /// method returns the {defaultVal}. If this is not specified, it is the default for that type.</summary>
