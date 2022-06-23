@@ -41,8 +41,7 @@ namespace WildHare.Tests
 
             string pathToWriteTo = $@"{approot}\WildHare\WildHare.Web\Analytics\SeedPacketCss.txt";
             string pathRoot      = $@"{approot}\SeedPacket\Examples\Views";
-            var allFiles         = $@"{pathRoot}"
-                                    .GetAllFiles("*.cshtml");
+            var allFiles         = $@"{pathRoot}".GetAllFiles("*.cshtml");
 
             var sb = new StringBuilder();
             sb.AppendLine("=".Repeat(100));

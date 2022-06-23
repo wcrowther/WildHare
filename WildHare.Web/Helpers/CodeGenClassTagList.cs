@@ -11,44 +11,38 @@ using static System.Environment;
 
 namespace WildHare.Web
 {
-
-    public static class CodeGenCssMap
+    public static class CodeGenClassTagList
     {
-        /* ==========================================================================
-         * DIRECTIONS:
-         * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
-         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
-
-           WildHare.Web.CodeGenCssMap.Init(c:\github\WildHare);
-        ========================================================================== */
-
-        public static string Init(string projectRoot)
+        public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
         {
-            if (projectRoot.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenCssMap)}.{nameof(Init)} projectRoot is null or empty.");
-            
-            bool overWrite = false;
-            string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
-            string pathRoot = @"C:\Git\SeedPacket\SeedPacket.Examples\Pages";
-            var allFiles = $@"{pathRoot}"
-                            .GetAllFiles("*.cshtml");
+            // string projectRoot = @"C:\Git\WildHare\WildHare.Web";
+            // string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
+            // string pathRoot = @"C:\Git\SeedPacket\SeedPacket.Examples\Pages";
 
-            var classTags = new List<ClassTag>();
+            if (sourceFolderRootPath.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenClassTagList)}.{nameof(Init)} sourceFolderPath is null or empty.");
+
+            if (writeToFilePath.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenClassTagList)}.{nameof(Init)} writeToFilePath is null or empty.");
 
             string start = "\t";
+            var classTags = new List<ClassTag>();
+
+            var allFiles = $@"{sourceFolderRootPath}".GetAllFiles("*.cshtml");
+
             var sb = new StringBuilder();
 
             sb.AppendLine("=".Repeat(100));
-            sb.AppendLine($"ClassTag List  (generated from CodeGenCssMap.cs on {DateTime.Now}) {NewLine}");
+            sb.AppendLine($"ClassTag List  generated from {nameof(CodeGenClassTagList)} on {DateTime.Now} {NewLine}");
 
             foreach (var file in allFiles)
             {
                 GetClassTagList(sb, file, classTags);
             }
 
-            // ---------------------------------------------------
+            // =============================================================================
             // Render ClassTag list
+            // =============================================================================
 
             var groupedClassTags = classTags.OrderBy(o => o.Name)
                                             .GroupBy(g => g.Name, g => g.Reference,
@@ -70,14 +64,17 @@ namespace WildHare.Web
             if (groupedClassTags.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            bool success = sb.ToString().WriteToFile(pathToWriteTo, overWrite);
+            bool success = sb.ToString().WriteToFile(sourceFolderRootPath, overwrite);
 
-            string result = $"{nameof(CodeGenCssMap)}.{nameof(Init)} code written to '{pathToWriteTo}'. Success: {success} Overwrite: {overWrite}";
+            string result = $"{nameof(CodeGenClassTagList)}.{nameof(Init)} code written to '{sourceFolderRootPath}'.{NewLine}" +
+                            $"Success: {success}{NewLine}" +
+                            $"Overwrite: {overwrite}";
+
             Debug.WriteLine(result);
+            Console.WriteLine(result);
 
             return result;
         }
-
 
         // =======================================================================
         // PRIVATE FUNCTIONS
