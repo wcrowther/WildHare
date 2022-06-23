@@ -90,7 +90,8 @@ namespace WildHare.Tests
                 {"team", "Braves"},
                 {"age", 50},
                 {"birthdate", fiftyYearsAgo},
-                {"isAdult", true}
+                {"isAdult", true},
+                {"CurrencyConversion", 1.5m }
             };
 
             Assert.AreEqual("Braves", dictionary.Get("team"));
@@ -98,7 +99,16 @@ namespace WildHare.Tests
             Assert.AreEqual(fiftyYearsAgo, dictionary.Get<DateTime>("birthdate"));
             Assert.AreEqual(true, dictionary.Get<bool>("isAdult"));
 
+            Assert.AreEqual(1.5, dictionary.Get<decimal>("CurrencyConversion"));
+            Assert.AreEqual(1.5m, dictionary.TryGet<decimal>("CurrencyConversion", out decimal val) ? val : 3);
+            Assert.AreEqual(22.2, dictionary.TryGet<decimal>("missing", out decimal dec2) ? dec2 : 22.2m);
+
             Assert.AreEqual(null, dictionary.Get("missing"));
+            Assert.AreEqual(null, dictionary.Get<string>("missing"));
+
+            Assert.AreEqual(true, dictionary.Get("team") is string);
+            Assert.AreEqual(false, dictionary.Get("missing") is string);
+
         }
 
         [Test]
