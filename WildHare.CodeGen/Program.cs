@@ -22,11 +22,14 @@ namespace WildHare.CodeGen
 
         private static IServiceCollection ConfigureServices()
         {
+            // NOTE: Console app will use appsettings.json if included and Properties
+            // marked as 'Copy if Newer', otherwise will use the one in the Web proj.
+            
             IServiceCollection serviceCollection = new ServiceCollection();
 
             IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddUserSecrets("bce71bbc-0b7c-4fb3-bd9f-77582fdf3b51")
                 .Build();
 
