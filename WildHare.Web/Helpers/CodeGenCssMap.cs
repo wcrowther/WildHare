@@ -28,7 +28,7 @@ namespace WildHare.Web
             if (projectRoot.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenCssMap)}.{nameof(Init)} projectRoot is null or empty.");
             
-            bool overWrite = false;
+            bool overWrite = true;
             string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
             string pathRoot = @"C:\Git\SeedPacket\SeedPacket.Examples\Pages";
             var allFiles = $@"{pathRoot}"
