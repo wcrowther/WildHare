@@ -960,5 +960,43 @@ namespace WildHare.Tests
             }
             return string.Join(' ', revArr);
         }
+
+
+        [Test]
+        public void Test_EqualsAny_With_Params_Array()
+        {
+            string str = "giraffe";
+
+            Assert.AreEqual(false, str.EqualsAny());
+            Assert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
+            Assert.AreEqual(false, str.EqualsAny("GIRAFFE", "lions", "tigers", "bears"));
+            Assert.AreEqual(true, str.EqualsAny("giraffe", "lions", "tigers", "bears"));
+        }
+
+        [Test]
+        public void Test_EqualsAny_With_Params_Array_With_Ignorecase()
+        {
+            string str = "giraffe";
+
+            Assert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
+            Assert.AreEqual(false, str.EqualsAny(false, "GIRAFFE", "Lions", "TIGERS", "bears"));
+            Assert.AreEqual(true, str.EqualsAny(true, "GIRAFFE", "Lions", "TIGERS", "bears"));
+        }
+
+        [Test]
+        public void Test_EqualsAny_With_Array()
+        {
+            string str = "giraffe";
+            string[] animalArray0 = { };
+            string[] animalArray1 = { "lions", "tigers", "bears" };
+            string[] animalArray2 = { "giraffe", "lions", "tigers", "bears" };
+            string[] animalArray3 = { "GIRAFFE", "lions", "tigers", "bears" };
+
+            Assert.AreEqual(false, str.EqualsAny(animalArray0));
+            Assert.AreEqual(false, str.EqualsAny(animalArray1));
+            Assert.AreEqual(true, str.EqualsAny(animalArray2));
+            Assert.AreEqual(false, str.EqualsAny(animalArray3));
+            Assert.AreEqual(true, str.EqualsAny(true, animalArray3));
+        }
     }
 }

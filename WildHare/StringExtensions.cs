@@ -699,6 +699,16 @@ namespace WildHare.Extensions
 
             return string.Format(provider, format, args);
         }
+
+        public static bool EqualsAny(this string str, params string[] list)
+        {
+            return list.Any(a => a.Equals(str));
+        }
+
+        public static bool EqualsAny(this string str, bool ignorecase, params string[] list)
+        {
+            return list.Any(a => a.Equals(str, ignorecase));
+        }
     }
 }
 
