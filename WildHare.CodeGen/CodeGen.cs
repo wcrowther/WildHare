@@ -33,7 +33,7 @@ namespace WildHare.CodeGen
                                      _appSettings.ClassTagList_Overwrite);
 
             // CodeGenAdapters.Init(contentRootPath);
-            CodeGenFromSql.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
+            // CodeGenFromSql.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
             // CodeGenClassesFromSqlTables.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
             // CodeGenSqlRowInsert.Init(contentRootPath);
             // CodeGenSchema.Init(contentRootPath);

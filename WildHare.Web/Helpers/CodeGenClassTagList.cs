@@ -64,9 +64,9 @@ namespace WildHare.Web
             if (groupedClassTags.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            bool success = sb.ToString().WriteToFile(sourceFolderRootPath, overwrite);
+            bool success = sb.ToString().WriteToFile(writeToFilePath, overwrite);
 
-            string result = $"{nameof(CodeGenClassTagList)}.{nameof(Init)} code written to '{sourceFolderRootPath}'.{NewLine}" +
+            string result = $"{nameof(CodeGenClassTagList)}.{nameof(Init)} code written to '{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
                             $"Overwrite: {overwrite}";
 
