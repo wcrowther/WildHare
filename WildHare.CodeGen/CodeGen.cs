@@ -24,41 +24,25 @@ namespace WildHare.CodeGen
             _app    = appSettings;
         }
 
-        public void Generate(string cmd)
+        public bool Generate(string input)
         {
-            Console.WriteLine("Begin Generating Code...");
-
-            if (cmd.ToLower() == "cssmap")
+            bool result = false;
+            
+            switch (input.ToLower())
             {
-                CodeGenCssMap.Init(_app.AnalyticsWriteToPath(_env.ContentRootPath), _app.AnalyticsWriteToFile, true);
+                case "1":
+                    Console.WriteLine("Run Choice 1");
+                    // CodeGenCssMap.Init(_app.AnalyticsWriteToPath(_env.ContentRootPath), _app.AnalyticsWriteToFile, true);
+                    break;
+                case "2":
+                case "exit":
+                    result = false;
+                    break;
+                default:
+                    Console.WriteLine("Input is invalid in CodeGen.Generate.");
+                    break;
             }
-            else if (cmd.ToLower() == "adapters")
-            {
-                // CodeGenAdapters.Init(contentRootPath);
-            }
-            else if (cmd.ToLower() == "fromsql")
-            {
-                // CodeGenFromSql.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
-            }
-            else if (cmd.ToLower() == "classesfromsqltables")
-            {
-                // CodeGenClassesFromSqlTables.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
-            }
-            else if (cmd.ToLower() == "sqlrowinsert")
-            {
-                // CodeGenSqlRowInsert.Init(contentRootPath);
-            }
-            else if (cmd.ToLower() == "schema")
-            {
-                // CodeGenSchema.Init(contentRootPath);
-            }
-            else
-            {
-                Console.WriteLine("Cmd is invalid in CodeGen.Generate.");
-                return;
-            }
-
-            Console.WriteLine("Generating Code Completed.");
+            return result;
         }
     }
 }

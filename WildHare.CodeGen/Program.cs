@@ -29,17 +29,9 @@ namespace WildHare.CodeGen
 
             var serviceProvider = ConfigureServices().BuildServiceProvider();
 
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    serviceProvider.GetService<CodeGen>().Generate("cssmap");
-                    return true;
-                case "2": 
-                case "exit":
-                    return false;
-                default:
-                    return true;
-            }
+            string input = Console.ReadLine();
+
+            return serviceProvider.GetService<CodeGen>().Generate(input);
         }
 
         private static IServiceCollection ConfigureServices()

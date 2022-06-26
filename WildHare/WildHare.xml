@@ -425,12 +425,13 @@
             <summary>Adds {addToStart} to the beginning of the string UNLESS it already starts with that string.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.EnsureEnd(System.String,System.String)">
-            <summary>Adds {addToEnd} to the end of the string UNLESS it already ends with that string.</summary>
+            <summary>Adds {addToEnd} to the end of the string UNLESS it already starts with that string.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.EnsureStartEnd(System.String,System.String,System.String)">
             <summary>Adds {addToStart} to the beginning of the string if it does not start with that string AND
-            adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
-            is NULL, adds {addToStart} to both the start and end.</summary>
+                        adds {addToEnd} to the end of the string if it does not end with that string. If {addToEnd}
+                        is NULL, adds {addToStart} to both the start and end.</summary>
+                        <cref></cref>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.GetStartBefore(System.String,System.String,System.Boolean)">
             <summary>Splits string into an array based on {separator} and returns the start element.
@@ -444,10 +445,7 @@
             <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.LettersOnly(System.String,System.String)">
-            <summary>Returns a string with only letters, and any additional characters in {otherCharacters}.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.StringExtensions.NumbersAndLettersOnly(System.String,System.String)">
-            <summary>Returns a string with only numbers, letters, and any additional characters in {otherCharacters}.</summary>
+            <summary>Returns a string with only letters and any additional characters in {otherCharacters}.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Truncate(System.String,System.Int32,System.String,System.Int32)">
             <summary>Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter
@@ -469,10 +467,6 @@
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
             <summary>An overload of StartsWith that accepts a string array.
-            Will return true if any of the values in the {valuesArray} is true.</summary>
-        </member>
-        <member name="M:WildHare.Extensions.StringExtensions.EndsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
-            <summary>An overload of EndsWith that accepts a string array.
             Will return true if any of the values in the {valuesArray} is true.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String)">
