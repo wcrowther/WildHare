@@ -15,10 +15,6 @@ namespace WildHare.Web
     {
         public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
         {
-            // string projectRoot = @"C:\Git\WildHare\WildHare.Web";
-            // string pathToWriteTo = $@"{projectRoot}\Analytics\ClassTagList.txt";
-            // string pathRoot = @"C:\Git\SeedPacket\SeedPacket.Examples\Pages";
-
             if (sourceFolderRootPath.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenClassTagList)}.{nameof(Init)} sourceFolderPath is null or empty.");
 
@@ -31,9 +27,10 @@ namespace WildHare.Web
             var allFiles = $@"{sourceFolderRootPath}".GetAllFiles("*.cshtml");
 
             var sb = new StringBuilder();
-
             sb.AppendLine("=".Repeat(100));
-            sb.AppendLine($"ClassTag List  generated from {nameof(CodeGenClassTagList)} on {DateTime.Now} {NewLine}");
+            sb.AppendLine($"ClassTag List  generated using codetemplate {nameof(CodeGenClassTagList)} on {DateTime.Now}");
+            sb.AppendLine($"for all .cshtml files under root {sourceFolderRootPath}");
+            sb.AppendLine("=".Repeat(100) + NewLine);
 
             foreach (var file in allFiles)
             {
@@ -68,11 +65,11 @@ namespace WildHare.Web
 
             string result = $"{nameof(CodeGenClassTagList)}.{nameof(Init)} code written to '{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
-                            $"Overwrite: {overwrite}";
+                            $"Overwrite: {overwrite}{NewLine}";
 
             Debug.WriteLine(result);
             Console.WriteLine(result);
-
+            
             return result;
         }
 

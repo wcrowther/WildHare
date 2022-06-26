@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using WildHare.Web.Models;
 using WildHare.Web;
 using Microsoft.Extensions.Configuration;
+using static System.Environment;
 
 namespace WildHare.CodeGen
 {
@@ -17,29 +18,29 @@ namespace WildHare.CodeGen
             _config = configuration;
         }
 
-        public void Generate(string contentRootPath)
+        public bool Generate(string input)
         {
-            Console.WriteLine("Press any key to Generate Code. Press x to exit.");
+            bool remainOpen = true;
 
-            if (Console.ReadLine() == "x")
+            switch (input.ToLower())
             {
-                Environment.Exit(0);
+                case "1":
+                    CodeGenClassTagList.Init(_appSettings.ClassTagListSourceFolderRootPath,
+                                             _appSettings.ClassTagListWriteToFilePath,
+                                             _appSettings.ClassTagList_Overwrite);
+                    break;
+                case "2":
+                    CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true);
+                    break;
+                case "exit": case "x":
+                    Console.WriteLine($"{NewLine}--> Exiting console...");
+                    remainOpen = false;
+                    break;
+                default:
+                    Console.WriteLine("That input is not valid.");
+                    break;
             }
-
-            Console.WriteLine("Begin Code Generating Code...");
-
-            CodeGenClassTagList.Init(_appSettings.ClassTagListSourceFolderRootPath,
-                                     _appSettings.ClassTagListWriteToFilePath,
-                                     _appSettings.ClassTagList_Overwrite);
-
-            // CodeGenAdapters.Init(contentRootPath);
-            // CodeGenFromSql.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
-            // CodeGenClassesFromSqlTables.Init(contentRootPath, _config.GetConnectionString("ExampleDB"));
-            // CodeGenSqlRowInsert.Init(contentRootPath);
-            // CodeGenSchema.Init(contentRootPath);
-
-            Console.WriteLine("Code Generation Completed.");
-
+            return remainOpen;
         }
     }
 }

@@ -13,38 +13,27 @@ namespace WildHare.Web
 {
 	public static class CodeGenFromSql
     {
-        /* ==========================================================================
-         * DIRECTIONS:
-         * 
-         * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
-         * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
-         
-           WildHare.Web.CodeGenFromSql.Init(c:\github\WildHare, dbConnString);
-        ========================================================================== */
-
         // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
-        private static bool overWrite =  false;
-        private static string rootPath;
         private static string sqlConnString;
-        private static readonly string namespaceRoot = "WildHare.Web";
-		private static readonly string outputDir     = $@"{rootPath}\Trunk\WildHare\WildHare.Web\GeneratedModels\";
-
-		private static readonly string start = "\t\t"; // Indentation
+        private static string modelNamespace;           
+        private static string outputFolder;             
+		private static readonly string start = "\t\t";  // Indentation
         private static readonly string end = NewLine;
 
         private static ILookup<string, ColumnsSchema> sqlTables;
 
-		public static string Init(string projectRoot, string dbConnString)
+		public static string Init(string outputFolderPath, string namespaceRoot, string dbConnString, bool overwrite = false)
         {
-            if (projectRoot.IsNullOrEmpty())
+            if (outputFolderPath.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenFromSql)}.{nameof(Init)} projectRoot is null or empty.");
 
             if (dbConnString.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenFromSql)}.{nameof(Init)} dbConnString is null or empty.");
 
-            rootPath = projectRoot;
+            outputFolder = outputFolderPath;
             sqlConnString = dbConnString;
+            modelNamespace = namespaceRoot;
 
             // Get list of table from SQL database
             sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
@@ -53,32 +42,44 @@ namespace WildHare.Web
             // ============================================================
             // a) Generates models for all tables in the database. 
 
-            //foreach (var table in sqlTables)
-            //{
-            //    CreateModelFromSQLTable(table.Key);
-            //}
+            // foreach (var table in sqlTables)
+            // {
+            //     CreateModelFromSQLTable(table.Key);
+            // }
 
             // 2) Pre-Generate a list of tables - Alternate approach
             // ============================================================
             // a) Create a string list of tables to use in this Init(). 
             // b) ie: generate a string using the modelsToCreate function below and paste it into this Init. 
             // c) This gives you the ability to remove tables that are not needed. 
-            // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
+            // d) Add a second parameter for the model name if you need something different from the simple naming pattern
+            // e) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
-            // var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", true);"));
+            var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", overwrite: true);"));
+            Debug.WriteLine(modelsToCreate + NewLine);
 
-            CreateModelFromSQLTable("Acts",                     overwrite: overWrite);
-            CreateModelFromSQLTable("Controls",                 overwrite: overWrite);
-            CreateModelFromSQLTable("ControlValues",            overwrite: overWrite);
-            CreateModelFromSQLTable("Description",              overwrite: overWrite);
-            CreateModelFromSQLTable("Layouts",                  overwrite: overWrite);
-            CreateModelFromSQLTable("Locations",                overwrite: overWrite);
-            CreateModelFromSQLTable("Tags",                     overwrite: overWrite);
-            CreateModelFromSQLTable("Tevents",                  overwrite: overWrite);
-            CreateModelFromSQLTable("Timelines", "Timeline",    overwrite: overWrite);
-            CreateModelFromSQLTable("Users", "User",            overwrite: overWrite);
+            CreateModelFromSQLTable("data.CommonNames", "CommonNames", overwrite: true);
+            CreateModelFromSQLTable("data.USCities", "USCities", overwrite: true);
+            CreateModelFromSQLTable("dbo.AnswerRules", overwrite: true);
+            CreateModelFromSQLTable("dbo.AnswerRuleTypes", overwrite: true);
+            CreateModelFromSQLTable("dbo.AppUsers", overwrite: true);
+            CreateModelFromSQLTable("dbo.ComplexWords", overwrite: true);
+            CreateModelFromSQLTable("dbo.MeaningProps", overwrite: true);
+            CreateModelFromSQLTable("dbo.MeaningRules", overwrite: true);
+            CreateModelFromSQLTable("dbo.MeaningRuleTypes", overwrite: true);
+            CreateModelFromSQLTable("dbo.Patterns", overwrite: true);
+            CreateModelFromSQLTable("dbo.SymbolRules", overwrite: true);
+            CreateModelFromSQLTable("dbo.SymbolRuleTypes", overwrite: true);
+            CreateModelFromSQLTable("dbo.TestCases", overwrite: true);
+            CreateModelFromSQLTable("dbo.TestResults", overwrite: true);
+            CreateModelFromSQLTable("dbo.TestRuns", overwrite: true);
+            CreateModelFromSQLTable("dbo.TokenRules", overwrite: true);
+            CreateModelFromSQLTable("dbo.TokenRuleTypes", overwrite: true);
+            CreateModelFromSQLTable("dbo.UnknownTexts", overwrite: true);
+            CreateModelFromSQLTable("dbo.WordProps", overwrite: true);
+            CreateModelFromSQLTable("dbo.Words", overwrite: true);
 
-            string result = $"{nameof(CodeGenFromSql)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
+            string result = $"{nameof(CodeGenFromSql)}.{nameof(Init)} code written to '{outputFolder}'. Overwrite: {overwrite}";
             Debug.WriteLine(result);
 
             return result;
@@ -92,18 +93,26 @@ namespace WildHare.Web
 			{
 				conn.Open();
 
-				DataTable tables = conn.GetSchema("Columns");
-				var tablesList = tables.ToList<ColumnsSchema>()
+                // If you leave the conn.GetSchema() empty, it will get a list of ALL SQL Server Schema Collections
+                // like "Columns" below, or "Tables", "Indexes", "Procedures", etc.
+                // For our purposes, "Columns" (and the model that I generated for it) is the most appropriate.
+                // Example for stored procedures:
+                // var procedureColumnSchemas = conn.GetSchema("Procedures");
+                // var proceduresList = procedureColumnSchemas.ToList<ProceduresSchema>();
+
+                DataTable tableColumnSchemas = conn.GetSchema("Columns"); 
+
+                var tablesList = tableColumnSchemas.ToList<ColumnsSchema>()
                                 .Where(w => !excludeList.Any(e => w.Table_Name == e))
                                 .OrderBy(o => o.Ordinal_Position)
-					            .ToLookup(g => $"{g.Table_Name}");
+					            .ToLookup(g => $"{g.Table_Schema}.{g.Table_Name}");
                 return tablesList;
 			};
 		}
 
 		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
 		{
-            modelName = modelName ?? tableName.RemoveEnd("s");
+            modelName = modelName ?? tableName.RemoveStartEnd("dbo.", "s");
 
             string output =  
             $@"using System;
@@ -111,7 +120,7 @@ namespace WildHare.Web
     
             // Generated from table: {tableName}
 
-            namespace {namespaceRoot}.Models
+            namespace {modelNamespace}.Models
             {{
                 public class {modelName}
                 {{
@@ -121,7 +130,7 @@ namespace WildHare.Web
 
             bool isSuccess = output
                              .RemoveIndents()
-                             .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
+                             .WriteToFile($"{outputFolder}/{modelName}.cs", overwrite);
 
             return isSuccess;
 		}
