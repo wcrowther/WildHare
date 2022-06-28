@@ -1,25 +1,76 @@
 ====================================================================================================
-ClassTag List  generated using codetemplate CodeGenClassTagList on 6/26/2022 12:26:58 PM
-for all .cshtml files under root C:\Git\WildHare\WildHare.Web\Pages\
-====================================================================================================
+ClassTag List  (generated from AnalyticsTests.cs)
 
-	------------------------------------------------------------------------------------------
-	16 class references
-	------------------------------------------------------------------------------------------
-	body-content                             count: 1 
-	collapse                                 count: 1 
-	container                                count: 2 
-	example-div                              count: 2 
-	icon-bar                                 count: 3 
-	nav                                      count: 1 
-	navbar                                   count: 1 
-	navbar-brand                             count: 1 
-	navbar-collapse                          count: 1 
-	navbar-fixed-top                         count: 1 
-	navbar-header                            count: 1 
-	navbar-inverse                           count: 1 
-	navbar-nav                               count: 1 
-	navbar-toggle                            count: 1 
-	sr-only                                  count: 1 
-	text-danger                              count: 2 
+		   ------------------------------------------------------------------------------------------
+		   69 class references
+		   ------------------------------------------------------------------------------------------
+		   @Html.ActiveToggle(                      count: 7 
+		   accountRow                               count: 1 
+		   accountTable                             count: 2 
+		   badge                                    count: 1 
+		   badge-warning-light                      count: 1 
+		   body-content                             count: 1 
+		   bottomSpace                              count: 1 
+		   bubble                                   count: 1 
+		   byline                                   count: 2 
+		   collapse                                 count: 1 
+		   collapsed                                count: 1 
+		   col-lg-3                                 count: 2 
+		   col-md-12                                count: 19 
+		   col-md-4                                 count: 7 
+		   col-md-6                                 count: 14 
+		   col-md-8                                 count: 11 
+		   col-md-offset-4                          count: 1 
+		   col-md-offset-6                          count: 1 
+		   col-sm-3                                 count: 4 
+		   col-xs-12                                count: 4 
+		   col-xs-3                                 count: 2 
+		   col-xs-6                                 count: 2 
+		   conference-box                           count: 2 
+		   container                                count: 2 
+		   contentBox                               count: 1 
+		   elapsedTime                              count: 2 
+		   form-control                             count: 1 
+		   gameBox                                  count: 5 
+		   glyphicon                                count: 6 
+		   glyphicon-triangle-right                 count: 6 
+		   hidden-xs                                count: 1 
+		   hotBox                                   count: 2 
+		   icon-bar                                 count: 3 
+		   invoice                                  count: 1 
+		   invoiceHeader                            count: 1 
+		   invoiceTable                             count: 1 
+		   mainContent                              count: 1 
+		   nav                                      count: 2 
+		   navbar                                   count: 1 
+		   navbar-collapse                          count: 1 
+		   navbar-fixed-top                         count: 1 
+		   navbar-header                            count: 1 
+		   navbar-inverse                           count: 1 
+		   navbar-nav                               count: 1 
+		   navbar-toggle                            count: 1 
+		   nav-tabs                                 count: 1 
+		   nextpage                                 count: 6 
+		   pull-right                               count: 10 
+		   randomSeed                               count: 1 
+		   row                                      count: 41 
+		   rowCounter                               count: 1 
+		   row-no-gutters                           count: 2 
+		   sectionContent                           count: 1 
+		   sectionHeader                            count: 3 
+		   seedOne                                  count: 1 
+		   sr-only                                  count: 1 
+		   table                                    count: 23 
+		   table-collapse                           count: 5 
+		   table-collapse-sm                        count: 9 
+		   table-striped                            count: 18 
+		   team-box                                 count: 2 
+		   teamsSeed                                count: 1 
+		   thirdWidth                               count: 3 
+		   topSpace                                 count: 22 
+		   visible-lg                               count: 1 
+		   visible-md                               count: 1 
+		   visible-sm                               count: 1 
+		   visible-xs                               count: 1 
+		   widget                                   count: 1 
 ====================================================================================================
