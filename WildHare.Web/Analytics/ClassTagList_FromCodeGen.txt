@@ -1,0 +1,25 @@
+====================================================================================================
+ClassTag List  generated using codetemplate CodeGenClassTagList on 6/28/2022 11:28:44 AM
+for all .cshtml files under root C:\Git\WildHare\WildHare.Web\Pages\
+====================================================================================================
+
+	------------------------------------------------------------------------------------------
+	16 class references
+	------------------------------------------------------------------------------------------
+	body-content                             count: 1 
+	collapse                                 count: 1 
+	container                                count: 2 
+	example-div                              count: 2 
+	icon-bar                                 count: 3 
+	nav                                      count: 1 
+	navbar                                   count: 1 
+	navbar-brand                             count: 1 
+	navbar-collapse                          count: 1 
+	navbar-fixed-top                         count: 1 
+	navbar-header                            count: 1 
+	navbar-inverse                           count: 1 
+	navbar-nav                               count: 1 
+	navbar-toggle                            count: 1 
+	sr-only                                  count: 1 
+	text-danger                              count: 2 
+====================================================================================================

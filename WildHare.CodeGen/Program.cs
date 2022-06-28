@@ -11,10 +11,8 @@ using static System.Environment;
 
 namespace WildHare.CodeGen
 {
-    class Program
-    {
-        static string line = "=".Repeat(60);
-        
+    public class Program
+    {      
         static void Main(string[] args)
         {
             bool showMenu = true;
@@ -26,14 +24,7 @@ namespace WildHare.CodeGen
 
         private static bool MainMenu()
         {
-            // Console.Clear();
-            Console.WriteLine(line);
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine(line);
-            Console.WriteLine("1) Generate Css ");
-            Console.WriteLine("2) Generate Models for each table in SQL DB");
-            Console.WriteLine("x) Exit");
-            Console.Write("\r\nSelect an option: ");
+            CodeGen.GenerateMenu();
 
             var serviceProvider = ConfigureServices().BuildServiceProvider();
 
@@ -43,7 +34,6 @@ namespace WildHare.CodeGen
             if (result)
             { 
                 Console.WriteLine(  $"{NewLine}Code Generation suceeded. Hit any key to proceed.");
-                // Console.ReadLine();
             }
 
             return result;

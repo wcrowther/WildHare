@@ -11,25 +11,28 @@ using static System.Environment;
 
 namespace WildHare.Web
 {
-    public static class CodeGenClassTagList
+    public static class CodeGenCssClassesUsedInProject
     {
         public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
         {
             if (sourceFolderRootPath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenClassTagList)}.{nameof(Init)} sourceFolderPath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} sourceFolderPath is null or empty.");
 
             if (writeToFilePath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenClassTagList)}.{nameof(Init)} writeToFilePath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} writeToFilePath is null or empty.");
 
             string start = "\t";
+
             var classTags = new List<ClassTag>();
 
-            var allFiles = $@"{sourceFolderRootPath}".GetAllFiles("*.cshtml");
+            var allFiles = $@"{sourceFolderRootPath}"
+                .GetAllFiles("*.cshtml");
 
             var sb = new StringBuilder();
             sb.AppendLine("=".Repeat(100));
-            sb.AppendLine($"ClassTag List  generated using codetemplate {nameof(CodeGenClassTagList)} on {DateTime.Now}");
-            sb.AppendLine($"for all .cshtml files under root {sourceFolderRootPath}");
+            sb.AppendLine("List of CSS Classes Used in the Project");
+            sb.AppendLine($"For All Files Under {sourceFolderRootPath}");
+            sb.AppendLine($"Generated Using CodeTemplate {nameof(CodeGenCssClassesUsedInProject)} On {DateTime.Now}");
             sb.AppendLine("=".Repeat(100) + NewLine);
 
             foreach (var file in allFiles)
@@ -63,7 +66,8 @@ namespace WildHare.Web
 
             bool success = sb.ToString().WriteToFile(writeToFilePath, overwrite);
 
-            string result = $"{nameof(CodeGenClassTagList)}.{nameof(Init)} code written to '{writeToFilePath}'.{NewLine}" +
+            string result = $"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} code written to {NewLine}" +
+                            $" '{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
                             $"Overwrite: {overwrite}{NewLine}";
 
@@ -87,6 +91,7 @@ namespace WildHare.Web
 
             // ---------------------------------------------------
             // Get class info
+            // ---------------------------------------------------
 
             foreach (var classTag in classTagList)
             {

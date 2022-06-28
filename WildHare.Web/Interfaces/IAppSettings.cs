@@ -2,12 +2,20 @@
 {
     public interface IAppSettings
     {
-        string WildHareXmlDocumentationPath { get; set; }
+        public string WildHareXmlDocumentationPath { get; set; }
 
-        string ClassTagListSourceFolderRootPath { get; set; }
+        public string SourceFolderRootPath { get; set; }
 
-        string ClassTagListWriteToFilePath { get; set; }
+        public string WwwFolderRootPath { get; set; }
 
-        bool ClassTagList_Overwrite { get; set; }
+        public string CssWriteToFolderPath { get; set; }
+
+        public string CssSummaryByFileName_Filename { get; set; }
+
+        public string CssListOfStylesheets_Filename { get; set; }
+
+        public string CssListOfClasses_Filename { get; set; }
+
+        public bool CodeGenOverwrite { get; set; }
     }
 }

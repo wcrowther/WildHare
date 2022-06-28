@@ -1,0 +1,24 @@
+====================================================================================================
+
+CSS Stylesheets In The Project
+Under C:\Git\WildHare\WildHare.Web\wwwroot\ (omits bootstrap and min files)
+
+Generated Using CodeTemplate CodeGenCssSummaryReport On 6/28/2022 3:21:36 PM
+====================================================================================================
+css        site.css
+====================================================================================================
+
+class selector
+
+	body-content                                       
+	carousel-caption                                   p
+	carousel-inner                                     .item img[src$=".svg"]
+
+element selector
+
+	body                                               
+
+id selector
+
+	qrCode                                             
+

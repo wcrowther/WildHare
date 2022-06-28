@@ -7,10 +7,18 @@ namespace WildHare.Web.Models
     {
         public string WildHareXmlDocumentationPath { get; set; }    
 
-        public string ClassTagListSourceFolderRootPath { get; set; }
+        public string SourceFolderRootPath { get; set; }
 
-        public string ClassTagListWriteToFilePath { get; set; }
+        public string WwwFolderRootPath { get; set; }
 
-        public bool ClassTagList_Overwrite { get; set; }
+        public string CssWriteToFolderPath { get; set; }
+
+        public string CssSummaryByFileName_Filename { get; set; }
+
+        public string CssListOfStylesheets_Filename { get; set; }
+
+        public string CssListOfClasses_Filename { get; set; }
+
+        public bool CodeGenOverwrite { get; set; }
     }
 }
