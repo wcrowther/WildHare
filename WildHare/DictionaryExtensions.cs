@@ -84,6 +84,17 @@ namespace WildHare.Extensions
             dictionary[key] = value;
         }
 
+        public static bool IsValid<T>(this IDictionary<string, string> dictionary, string key)
+        {
+            if (dictionary.TryGetValue(key, out string str))
+            {
+                var value = (T)Convert.ChangeType(str, typeof(T));
+
+                return value is null ? false : true;
+            }
+            return false;
+        }
+
         // ==============================================================================================================
 
 
