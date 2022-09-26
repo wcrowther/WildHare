@@ -66,6 +66,19 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void MonthName_Test_for_out_of_range_int()
+        {
+            int outOfRangeInt = 13;
+
+            var ex = Assert.Throws<ArgumentOutOfRangeException>
+            (
+                () => outOfRangeInt.MonthName()
+            );
+
+            Assert.IsNotNull(ex);
+        }
+
+        [Test]
         public void ShortMonthName_Test()
         {
             // Test will when CurrentCulture is en-US (or similar culture)
@@ -100,6 +113,22 @@ namespace WildHare.Tests
             var april_5_2020 = new DateTime(2020, 4, 5);
 
             Assert.AreEqual("20200405", april_5_2020.YearMonthDay());
+        }
+
+        [Test]
+        public void StartOfWeek_Test()
+        {
+            var december_1_2020 = new DateTime(2020, 12, 1);  // is a Tuesday
+
+            // For Sunday - start is Nov 29 2022
+            Assert.AreEqual(new DateTime(2020, 11, 29), december_1_2020.StartOfWeek(DayOfWeek.Sunday));
+
+            // For Monday - start is Nov 30 2022
+            Assert.AreEqual(new DateTime(2020, 11, 30), december_1_2020.StartOfWeek(DayOfWeek.Monday));
+
+            // Typically start of the week is usually Sunday or Monday but for completeness...
+            // For Tuesday - start is Dec 1 2022
+            Assert.AreEqual(new DateTime(2020, 12, 01), december_1_2020.StartOfWeek(DayOfWeek.Tuesday));
         }
     }
 }

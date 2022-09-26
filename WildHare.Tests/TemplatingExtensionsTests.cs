@@ -50,7 +50,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_Template_For_Object_With_String_Template()
         {
-            string template = "InvoiceId [InvoiceId] for AccountId [AccountId].";
+            string template = "InvoiceId [InvoiceId] for AccountId [AccountId]." + NewLine;
 
             var invoice = new Invoice
             {
@@ -60,7 +60,7 @@ namespace WildHare.Tests
 
             string result = invoice.Template(template);
 
-            Assert.AreEqual("InvoiceId 222 for AccountId 1000.", result);
+            Assert.AreEqual("InvoiceId 222 for AccountId 1000." + NewLine, result);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace WildHare.Tests
 
             string result = invoice.Template(fileToRead);
 
-            Assert.AreEqual("InvoiceId 222 for AccountId 1000.\r\n", result);
+            Assert.AreEqual("InvoiceId 222 for AccountId 1000." + NewLine, result);
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace WildHare.Tests
             string lineTemplate = "    <div>ItemId: [InvoiceItemId] Product: [Product] Fee: [Fee]</div>";
             string docTemplate = $@"
             <div>InvoiceId: [InvoiceId] AccountId: [AccountId]
-            {invoice.InvoiceItems.TemplateList(lineTemplate, "\n")}
+            {invoice.InvoiceItems.TemplateList(lineTemplate, NewLine)}
             </div>"
             .RemoveIndents();
 
@@ -118,6 +118,5 @@ namespace WildHare.Tests
 
             Assert.AreEqual(expected, getInvoiceHtml);
         }
-
     }
 }

@@ -406,18 +406,32 @@ namespace WildHare.Extensions
             return new StringBuilder(str.Length * number).Insert(0, str, number).ToString();
         }
 
+        /// <summary>A simplified overload of StartsWith that accepts a bool for {ignorecase}. 
+        /// Defaults to false using CultureInfo.InvariantCulture
+        public static bool StartsWith(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
+        {
+            return str.StartsWith(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
+        }
+
         /// <summary>An overload of StartsWith that accepts a string array.
         /// Will return true if any of the values in the {valuesArray} is true.</summary>
         public static bool StartsWith(this string str, string[] valuesArray, bool ignoreCase = false, CultureInfo culture = null)
         {
             foreach (string value in valuesArray)
             {
-                if (str.StartsWith(value, ignoreCase, culture ?? CultureInfo.CurrentCulture))
+                if (str.StartsWith(value, ignoreCase, culture ?? CultureInfo.InvariantCulture))
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        /// <summary>A simplified overload of EndsWith that accepts a bool for {ignorecase}. 
+        /// Defaults to false using CultureInfo.InvariantCulture
+        public static bool EndsWith(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
+        {
+            return str.EndsWith(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
         }
 
         /// <summary>An overload of EndsWith that accepts a string array.
@@ -426,7 +440,28 @@ namespace WildHare.Extensions
         {
             foreach (string value in valuesArray)
             {
-                if (str.EndsWith(value, ignoreCase, culture ?? CultureInfo.CurrentCulture))
+                if (str.EndsWith(value, ignoreCase, culture ?? CultureInfo.InvariantCulture))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>A simplified overload of Contains that accepts a bool for {ignorecase}. 
+        /// Defaults to false using CultureInfo.InvariantCulture
+        public static bool Contains(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
+        {
+            return str.Contains(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>An overload of Contains that accepts a string array.
+        /// Will return true if any of the values in the {valuesArray} is true.</summary>
+        public static bool Contains(this string str, string[] valuesArray, bool ignoreCase = false, CultureInfo culture = null)
+        {
+            foreach (string value in valuesArray)
+            {
+                if (str.Contains(value, ignoreCase, culture ?? CultureInfo.InvariantCulture))
                 {
                     return true;
                 }
@@ -547,8 +582,10 @@ namespace WildHare.Extensions
             return (str.Length > length) ? str.Substring(str.Length - length, length) : str;
         }
 
-        public static string ForEachLine(this string input, Func<string, string> func)
+        public static string ForEachLine(this string input, Func<string, string> func, string joinString = "\r\n") 
         {
+            // "\r\n" is Windows equivalent to Evironment.NewLine
+
             var lines = input.Split("\n", StringSplitOptions.None);
             var returnChars = new[] { "\n", "\r", "\n\r" };
 
@@ -557,7 +594,7 @@ namespace WildHare.Extensions
                 string line = lines[i].RemoveEnd(returnChars);
                 lines[i] = func(line);
             }
-            return string.Join(NewLine, lines);
+            return string.Join(joinString, lines);
         }
 
         /// Succinct overload of Equals() that compares the {str} to the {compareTo} and returns a bool true if equal.

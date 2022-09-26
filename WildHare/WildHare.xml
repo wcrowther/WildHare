@@ -137,8 +137,21 @@
         <member name="M:WildHare.Extensions.DateTimeExtensions.IsInTheSameMonth(System.DateTime,System.DateTime)">
             <summary>Returns a boolean true if the {datetime} and {target} are in the same month.</summary>
         </member>
-        <member name="M:WildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime)">
-            <summary>Returns a boolean true if the {datetime} is today or before.</summary>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime,System.Boolean)">
+            <summary>Returns a boolean true if the {datetime} is before DateTime.Today with time component set to 00.00.00 
+            (the C# definition). When {includeAllOfToday} is true, any time in today is included.
+            </summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.NextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)">
+            <summary>Given a DateTime {date}, returns the first instance of the day of the week. 
+            If {includeCurrentDate} is true, then {date} is included. 
+            ex. NextDayOfWeek for dayOfWeek "Wednesday" for {date} Sunday Aug 21, 2022 would be Aug 24, 2022.
+            ex2. For the same {date}, for dayOfWeek "Sunday", and {includeCurrentDate} is true, 
+            it the would return Aug 21, 2022, as it is a Sunday.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>Given a DateTime {date}, returns the starting day of the week. Typically {startOfWeek} 
+            would be either a Sunday or Monday. This version is not culture aware.</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)">
             <summary>(EXPERIMENTAL) Returns a list Xml Documentation elements.

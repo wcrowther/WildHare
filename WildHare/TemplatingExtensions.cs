@@ -186,36 +186,32 @@ namespace WildHare.Extensions.ForTemplating
     // Other possible Template Extensions
 
 
-    public static bool TemplateToFiles(this Dictionary<string, object> filesList, string template, string templateDir, string extension = ".txt", string startTag = startTag, string endTag = endTag)
+    public static bool TemplateToFiles(this Dictionary<string, object> filesList, string template, string outputDirectory, string extension = ".txt", string startTag = startTag, string endTag = endTag)
     {
         foreach (var file in filesList)
         {
-            FileInfo fileinfo = new FileInfo(templateDir + file.Key + extension);
+            var fileinfo = new FileInfo(outputDirectory + file.Key + extension);
             if (fileinfo.Exists)
             {
                 fileinfo.Delete();
             }
-            file.Value.Template(template, startTag, endTag).WriteToFile(templateDir + file.Key + extension);
+            file.Value.Template(template, startTag, endTag).WriteToFile(outputDirectory + file.Key + extension);
         }
         return true;
     }
 
-    public static bool TemplateToFiles(this Dictionary<string, object> filesList, FileInfo templateFile, string templateDir, string extension = ".txt", string startTag = startTag, string endTag = endTag)
+    public static bool TemplateToFiles(this Dictionary<string, object> filesList, FileInfo templateFile, string outputDirectory, string extension = ".txt", string startTag = startTag, string endTag = endTag)
     {
-        string template;
-        using (StreamReader reader = templateFile.OpenText())
-        {
-            template = reader.ReadToEnd();
-        }
+        string template = templateFile.ReadFile();
 
         foreach (var file in filesList)
         {
-            FileInfo fileinfo = new FileInfo(templateDir + file.Key + extension);
+            var fileinfo = new FileInfo(outputDirectory + file.Key + extension);
             if (fileinfo.Exists)
             {
                 fileinfo.Delete();
             }
-            file.Value.Template(template, startTag, endTag).WriteToFile(templateDir + file.Key + extension);
+            file.Value.Template(template, startTag, endTag).WriteToFile(outputDirectory + file.Key + extension);
         }
         return true;
     }

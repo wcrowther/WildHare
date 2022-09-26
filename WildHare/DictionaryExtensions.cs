@@ -21,8 +21,7 @@ namespace WildHare.Extensions
 
         public static bool TryGet<T>(this IDictionary<string, object> dictionary, string key, out T value)
         {
-            object result;
-            if (dictionary.TryGetValue(key, out result) && result is T)
+            if (dictionary.TryGetValue(key, out object result) && result is T)
             {
                 value = (T)result;
                 return true;
@@ -71,6 +70,19 @@ namespace WildHare.Extensions
                 return str;
             }
             return defaultVal;
+        }
+
+        public static bool TryGet<T>(this IDictionary<string, string> dictionary, string key, out T value)
+        {
+            if (dictionary.TryGetValue(key, out string str))
+            {
+                value = (T)Convert.ChangeType(str, typeof(T));
+
+                return true;
+            }
+            value = default(T);
+
+            return false;
         }
 
         public static void Set(this IDictionary<string, string> dictionary, string key, object value)

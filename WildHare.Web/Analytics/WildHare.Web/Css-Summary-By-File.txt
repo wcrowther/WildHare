@@ -1,8 +1,7 @@
 ====================================================================================================
 CSS Summary Report for .cshtml files
-Inline Styles, Classes, & Stylesheets by Folder/FileName
-For Files Under C:\Git\WildHare\WildHare.Web\Pages\
-Generated Using CodeTemplate CodeGenCssSummaryReport On 6/28/2022 3:17:27 PM
+Inline Styles, Classes, & Stylesheets by Folder / FileName
+For Files Under C:\Git\WildHare\WildHare.Web\Pages
 ====================================================================================================
 FOLDER     FILENAME
 ====================================================================================================
