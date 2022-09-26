@@ -485,12 +485,28 @@
         <member name="M:WildHare.Extensions.StringExtensions.Repeat(System.String,System.Int32)">
             <summary>Returns a string {str} x {number} of times</summary>
         </member>
+        <member name="M:WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)">
+            <summary>A simplified overload of StartsWith that accepts a bool for {ignorecase}. 
+            Defaults to false using CultureInfo.InvariantCulture</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.StartsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
             <summary>An overload of StartsWith that accepts a string array.
             Will return true if any of the values in the {valuesArray} is true.</summary>
         </member>
+        <member name="M:WildHare.Extensions.StringExtensions.EndsWith(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)">
+            <summary>A simplified overload of EndsWith that accepts a bool for {ignorecase}. 
+            Defaults to false using CultureInfo.InvariantCulture</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.EndsWith(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
             <summary>An overload of EndsWith that accepts a string array.
+            Will return true if any of the values in the {valuesArray} is true.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Contains(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)">
+            <summary>A simplified overload of Contains that accepts a bool for {ignorecase}. 
+            Defaults to false using CultureInfo.InvariantCulture</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.Contains(System.String,System.String[],System.Boolean,System.Globalization.CultureInfo)">
+            <summary>An overload of Contains that accepts a string array.
             Will return true if any of the values in the {valuesArray} is true.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.Replace(System.String,System.String[],System.String)">

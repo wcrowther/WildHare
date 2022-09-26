@@ -407,7 +407,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>A simplified overload of StartsWith that accepts a bool for {ignorecase}. 
-        /// Defaults to false using CultureInfo.InvariantCulture
+        /// Defaults to false using CultureInfo.InvariantCulture</summary>
         public static bool StartsWith(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
         {
             return str.StartsWith(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
@@ -428,7 +428,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>A simplified overload of EndsWith that accepts a bool for {ignorecase}. 
-        /// Defaults to false using CultureInfo.InvariantCulture
+        /// Defaults to false using CultureInfo.InvariantCulture</summary>
         public static bool EndsWith(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
         {
             return str.EndsWith(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
@@ -449,7 +449,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>A simplified overload of Contains that accepts a bool for {ignorecase}. 
-        /// Defaults to false using CultureInfo.InvariantCulture
+        /// Defaults to false using CultureInfo.InvariantCulture</summary>
         public static bool Contains(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
         {
             return str.Contains(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
