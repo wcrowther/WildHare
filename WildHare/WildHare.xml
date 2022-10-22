@@ -251,7 +251,7 @@
             <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
             when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.PatternMatch``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.PatternMatch``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean})">
             <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
             returns the list item if the {func} returns true for the match to the pattern item.
             The list enumerates to the next item regardless of a match or not, but pattern does not
@@ -342,18 +342,23 @@
             <summary>Writes the {stringToWrite} to the end of the {fileName} FileInfo content, returning true or false.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.GetAllDirectoriesAndFiles(System.IO.DirectoryInfo,System.Int32)">
-            <summary>Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. Defaults to a depth of 2.</summary>
+            <summary>Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. 
+            Defaults to a depth of 2.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.IsDirectory(System.IO.FileSystemInfo)">
             <summary>Returns bool whether current FileSystemInfo is a directory.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String)">
-            <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.</summary>
+            <summary>Gets a list of all files matching the {searchPattern} in current the directory and all subdirectories.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[])">
             <summary>This overload gets a list of all files matching a string array of {fileExtensions}
             in current directory and all subdirectories, and does NOT use a searchPattern.
             Example: new[] { ".cshtml", ".razor" }</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IOExtensions.GetAllDirectories(System.String,System.Int32)">
+            <summary>Gets a list of all directories in the current directory and 
+            all subdirectories to the depth of {maxDepth}. Default {maxDepth} is 2.</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.ReadFile(System.IO.FileInfo,System.Boolean)">
             <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
@@ -619,6 +624,10 @@
             the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.
             Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
             <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
+        </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.EqualsAny``1(``0,``0[])">
+            <summary>Returns true if any of the T in the {list} is equal to the {number} this.
+            Works for T </summary>
         </member>
         <member name="T:WildHare.DynamicExpando">
             <summary>Test Class Summary</summary>

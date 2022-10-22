@@ -31,11 +31,6 @@ namespace WildHare.CodeGen
             string input = Console.ReadLine();
             bool result = serviceProvider.GetService<CodeGen>().Generate(input);
 
-            if (result)
-            { 
-                Console.WriteLine(  $"{NewLine}Code Generation suceeded. Hit any key to proceed.");
-            }
-
             return result;
         }
 

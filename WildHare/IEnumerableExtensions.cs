@@ -222,9 +222,9 @@ namespace WildHare.Extensions
         /// returns the list item if the {func} returns true for the match to the pattern item.
         /// The list enumerates to the next item regardless of a match or not, but pattern does not
         /// enumerate to the next pattern unless it matched.</summary>
-        public static IEnumerable<T> PatternMatch<T>(this IEnumerable<T> list,
-                                                          IEnumerable<T> pattern,
-                                                          Func<T, T, bool> func
+        public static IEnumerable<T> PatternMatch<T,P>(this IEnumerable<T> list,
+                                                          IEnumerable<P> pattern,
+                                                          Func<T, P, bool> func
                                                      )
         {
             var listEnumerator = list.GetEnumerator();
@@ -254,6 +254,11 @@ namespace WildHare.Extensions
             int count = list?.Count() ?? default;
 
             return count.Pluralize(singular, plural);
+        }
+
+        public static bool AnyEquals<T>(this IEnumerable<T> list, T value)
+        {
+            return list.Any(a => a.Equals(value));
         }
     }
 }

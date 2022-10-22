@@ -63,8 +63,8 @@ namespace WildHare.Extensions
         // Gets FileSystemInfo - the base class for both FileInfo and DirectoryInfo
         // ==============================================================================
 
-
-        /// <summary>Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. Defaults to a depth of 2.</summary>
+        /// <summary>Gets a recursive list of FileSystemInfos (both directories and files) to a depth of {maxDepth}. 
+        /// Defaults to a depth of 2.</summary>
         public static List<FileSystemInfo> GetAllDirectoriesAndFiles(this DirectoryInfo directory, int maxDepth = 2)
         {
             int level = 0;
@@ -121,7 +121,7 @@ namespace WildHare.Extensions
             return (info.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
         }
 
-        /// <summary>Gets a list of all files matching the {searchPattern} in current directory and all subdirectories.</summary>
+        /// <summary>Gets a list of all files matching the {searchPattern} in current the directory and all subdirectories.</summary>
         public static List<FileInfo> GetAllFiles(this string directoryPath, string searchPattern = "*")
         {
             var di = new DirectoryInfo(directoryPath);
@@ -144,6 +144,17 @@ namespace WildHare.Extensions
                                 .Any(a => file.Name.EndsWith(a, StringComparison.OrdinalIgnoreCase)));
 
             return fileList.ToList();
+        }
+
+        /// <summary>Gets a list of all directories in the current directory and 
+        /// all subdirectories to the depth of {maxDepth}. Default {maxDepth} is 2.</summary>
+        public static List<DirectoryInfo> GetAllDirectories(this string directoryPath, int maxDepth = 2)
+        {
+            var di = new DirectoryInfo(directoryPath);
+
+            var directoryList = GetAllDirectoriesAndFiles(di, maxDepth); 
+
+            return directoryList.OfType<DirectoryInfo>().ToList();
         }
 
         /// <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),

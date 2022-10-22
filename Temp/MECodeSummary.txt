@@ -1,0 +1,111 @@
+====================================================================================================
+Summary Report for .cshtml files
+
+For Files Under C:\Git\MachineEnglish\ME2\Pages
+Generated Using CodeTemplate 'CodeGenSummary' On 10/22/2022 2:42:32 PM
+====================================================================================================
+Pages Folder
+====================================================================================================
+
+		TestPage.cshtml     
+				 Custom: rp-x
+				 Custom: rp-xxx
+
+====================================================================================================
+Admin Folder
+====================================================================================================
+
+		Index.cshtml        
+				Partial: _AdminWords
+				Partial: _AdminRules
+				Partial: _AdminPatterns
+				Partial: _AdminTests
+
+====================================================================================================
+Demo Folder
+====================================================================================================
+
+		Index.cshtml        
+				Partial: _DemoInput
+				Partial: _DemoDetails
+				Partial: _DemoAnswers
+				Partial: _DemoGraph
+
+		_DemoDetails.cshtml 
+				Partial: _DemoDetailsMeanings
+				Partial: _DemoDetailsTokens
+				Partial: _DemoDetailsSymbols
+
+		_DemoDetailsMeanings.cshtml
+				Partial: _DemoDetailsMeaning
+				Partial: _DemoDetailsMeaning_ForListMember
+				Partial: _DemoDetailsMeaning_ForListMember
+				Partial: _DemoDetailsMeaning_ForListMember
+
+		_DemoDetailsMeaning_ForListMember.cshtml
+				Partial: _DemoDetailsMeaning
+
+		_DemoDetailsTokens.cshtml
+				Partial: _Capsule
+				Partial: _Capsule
+
+		_DemoGraph.cshtml   
+				Partial: @token.GetType().Name
+
+====================================================================================================
+DisplayTemplates Folder
+====================================================================================================
+
+		GroupToken.cshtml   
+				Partial: _Meaning
+				Partial: _Symbols
+
+		NumberToken.cshtml  
+				Partial: _Meaning
+				Partial: _Symbols
+
+		PhraseToken.cshtml  
+				Partial: _Meaning
+				Partial: _Symbols
+
+		PunctuationToken.cshtml
+				Partial: _Symbols
+
+		TextToken.cshtml    
+				Partial: _Symbols
+
+		Token.cshtml        
+				Partial: _Symbols
+
+		WordToken.cshtml    
+				Partial: _Meaning
+				Partial: _Symbols
+
+====================================================================================================
+Rules Folder
+====================================================================================================
+
+		Index.cshtml        
+				Partial: _RulesForSymbols
+				Partial: _RulesForTokens
+				Partial: _RulesForMeanings
+				Partial: _RulesForAnswers
+
+====================================================================================================
+Shared Folder
+====================================================================================================
+
+		_Capsule.cshtml     
+				Partial: _Capsule
+
+		_Layout.cshtml      
+				Partial: _Nav
+
+====================================================================================================
+Tests Folder
+====================================================================================================
+
+		Index.cshtml        
+				Partial: _TrafficLights
+
+====================================================================================================

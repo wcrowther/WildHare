@@ -211,5 +211,12 @@ namespace WildHare.Extensions
             return interfaces;
         }
 
+        /// <summary>Returns true if any of the T in the {list} is equal to the {number} this.
+        /// Works for T </summary>
+        public static bool EqualsAny<T>(this T value, params T[] list)
+        {
+            return list.Any(a => a.Equals(value));
+        }
+
     }
 }

@@ -25,8 +25,7 @@ namespace WildHare.Web
 
         private static bool overWrite = false;
         private static readonly string namespaceRoot = "WildHare.Web";
-        private static string rootPath;
-        private static string outputDir = $@"{rootPath}\WildHare\WildHare.Web\Adapters\";
+        private static string outputDir = @"\WildHare\WildHare.Web\Adapters\";
 
         private static readonly string mapName1 = "entity";
         private static readonly string mapName2 = "model";
@@ -40,7 +39,7 @@ namespace WildHare.Web
             if (projectRoot.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenAdapters)}.{nameof(Init)} projectRoot is null or empty.");
 
-            rootPath = projectRoot;
+            outputDir = $"{projectRoot}{outputDir}";
 
             Debug.WriteLine("=".Repeat(50));
             Debug.WriteLine("Running CodeGenAdapters");
@@ -63,6 +62,7 @@ namespace WildHare.Web
             Debug.WriteLine("=".Repeat(50));
 
             string result = $"{nameof(CodeGenAdapters)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
+            
             Debug.WriteLine(result);
 
             return result;

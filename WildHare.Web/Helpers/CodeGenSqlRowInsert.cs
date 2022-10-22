@@ -37,6 +37,7 @@ namespace WildHare.Web
             //GenereateSQLInserts<ControlValue>(5002, "ControlValues", "dbo", "ControlValueId", true, false);
 
             string result = $"{nameof(CodeGenSqlRowInsert)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: varied";
+            
             Debug.WriteLine(result);
 
             return result;

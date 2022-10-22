@@ -19,10 +19,10 @@ namespace WildHare.Web
         public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
         {
             if (sourceFolderRootPath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenCssSummaryReport)}.{nameof(Init)} sourceFolderPath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} sourceFolderPath is null or empty.");
 
             if (writeToFilePath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenCssSummaryReport)}.{nameof(Init)} writeToFilePath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} writeToFilePath is null or empty.");
 
             var allFiles = $@"{sourceFolderRootPath}"
                                     .GetAllFiles("*.css")
@@ -33,7 +33,7 @@ namespace WildHare.Web
             sb.AppendLine("=".Repeat(100));
             sb.AppendLine($"CSS Stylesheets In The Project");
             sb.AppendLine($"Under {sourceFolderRootPath} (omits bootstrap and min files){NewLine}");
-            sb.AppendLine($"Generated Using CodeTemplate {nameof(CodeGenCssSummaryReport)} On {DateTime.Now}");
+            sb.AppendLine($"Generated Using CodeTemplate {nameof(CodeGenSummary)} On {DateTime.Now}");
 
             foreach (var file in allFiles)
             {
@@ -43,13 +43,12 @@ namespace WildHare.Web
             bool success =  sb.ToString()
                               .WriteToFile(writeToFilePath, overwrite);
 
-            string result = $"{nameof(CodeGenCssSummaryReport)}.{nameof(Init)} code written to {NewLine}" +
+            string result = $"{nameof(CodeGenSummary)}.{nameof(Init)} code written to {NewLine}" +
                             $"'{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
                             $"Overwrite: {overwrite}{NewLine}";
 
             Debug.WriteLine(result);
-            Console.WriteLine(result);
 
             return result;
         }

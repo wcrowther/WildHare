@@ -54,7 +54,6 @@ namespace WildHare.Web
                             $"Overwrite: {overwrite}{NewLine}";
 
             Debug.WriteLine(result);
-            Console.WriteLine(result);
 
             return result;
         }

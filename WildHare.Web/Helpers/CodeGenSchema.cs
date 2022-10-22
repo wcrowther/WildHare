@@ -58,6 +58,7 @@ namespace WildHare.Web
 			CreateSqlServerSchemaModel("UserDefinedTypes", false);
 
 			string result = $"{nameof(CodeGenSchema)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: varied";
+			
 			Debug.WriteLine(result);
 
 			return result;

@@ -5,9 +5,11 @@ namespace WildHare.Web.Models
 {
     public class AppSettings : IAppSettings
     {
-        public string WildHareXmlDocumentationPath { get; set; }    
+        public string WildHareXmlDocumentationPath { get; set; }
 
         public string SourceFolderRootPath { get; set; }
+
+        public string MESourceFolderRootPath { get; set; }
 
         public string WwwFolderRootPath { get; set; }
 
@@ -20,5 +22,7 @@ namespace WildHare.Web.Models
         public string CssListOfClasses_Filename { get; set; }
 
         public bool CodeGenOverwrite { get; set; }
+
+        public bool RemainOpenAfterCodeGen { get; set; }
     }
 }

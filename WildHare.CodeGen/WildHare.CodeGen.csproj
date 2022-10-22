@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WildHare.Web\WildHare.Web.csproj" />
+    <ProjectReference Include="..\WildHare\WildHare.csproj" />
   </ItemGroup>
 
   <ItemGroup>
