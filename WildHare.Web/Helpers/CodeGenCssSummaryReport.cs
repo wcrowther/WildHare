@@ -7,9 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Web;
 using static System.Environment;
 
-namespace WildHare.Web
+namespace CodeGen
 {
     public static class CodeGenCssSummaryReport
     {

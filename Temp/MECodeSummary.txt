@@ -2,11 +2,7 @@
 Summary Report for .cshtml files
 
 For Files Under C:\Git\MachineEnglish\ME2\Pages
-Generated Using CodeTemplate 'CodeGenSummary' On 10/22/2022 2:42:32 PM
-====================================================================================================
-Pages Folder
-====================================================================================================
-
+Generated Using CodeTemplate 'CodeGenSummary' On 10/27/2022 3:30:54 PM
 		TestPage.cshtml     
 				 Custom: rp-x
 				 Custom: rp-xxx

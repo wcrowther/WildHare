@@ -6,7 +6,7 @@ using WildHare.Web.Models;
 using static System.Environment;
 using static System.Console;
 
-namespace WildHare.CodeGen
+namespace CodeGen
 {
     public class CodeGen
     {
@@ -26,7 +26,7 @@ namespace WildHare.CodeGen
                    {divider}        
                    Choose an option:
                    {divider}
-                   1) CSS Summary Report
+                   1) Summary Report
                    2) List Of Stylesheets
                    3) List Of CSS Classes
                    4) Generate Models for each table in SQL DB
@@ -53,12 +53,14 @@ namespace WildHare.CodeGen
                 return false; // remain open
             }
 
+            Clear();
+
             string result = input.ToLower() switch
             {
                 "1" => CodeGenSummary.Init(sourceRoot, writeToRoot + _app.CssSummaryByFileName_Filename, overwrite),
                 "2" => CodeGenCssStylesheets.Init(wwwRoot, writeToRoot + _app.CssListOfStylesheets_Filename, overwrite),
                 "3" => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssListOfClasses_Filename, overwrite),
-                "4" => CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
+                "4" => "This choice has not been configured", // CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
                 "5" => CodeGenSummary.Init(_app.MESourceFolderRootPath, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
                  _  => $"The input {input} is not valid.",
             };

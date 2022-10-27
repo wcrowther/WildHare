@@ -9,7 +9,7 @@ using WildHare.Web.Interfaces;
 using WildHare.Web.Models;
 using static System.Environment;
 
-namespace WildHare.CodeGen
+namespace CodeGen
 {
     public class Program
     {      

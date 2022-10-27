@@ -1,8 +1,7 @@
 ====================================================================================================
-
 List of CSS Classes Used in the Project
 For All Files Under C:\Git\WildHare\WildHare.Web\Pages\
-Generated Using CodeTemplate CodeGenCssClassesUsedInProject On 6/28/2022 3:18:13 PM
+Generated Using CodeTemplate CodeGenCssClassesUsedInProject On 10/27/2022 3:30:47 PM
 ====================================================================================================
 
 	------------------------------------------------------------------------------------------
