@@ -427,6 +427,20 @@ namespace WildHare.Extensions
             return false;
         }
 
+        /// <summary>An overload of StartsWith that accepts a string array.
+        /// Will return true if any of the values in the params {valuesArray} is true.</summary>
+        public static bool StartsWith(this string str, bool ignoreCase, params string[] valuesArray)
+        {
+            foreach (string value in valuesArray)
+            {
+                if (str.StartsWith(value, ignoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>A simplified overload of EndsWith that accepts a bool for {ignorecase}. 
         /// Defaults to false using CultureInfo.InvariantCulture</summary>
         public static bool EndsWith(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
@@ -448,20 +462,48 @@ namespace WildHare.Extensions
             return false;
         }
 
+        /// <summary>An overload of EndsWith that accepts a string array.
+        /// Will return true if any of the values in the params {valuesArray} is true.</summary>
+        public static bool EndsWith(this string str,  bool ignoreCase, params string[] valuesArray)
+        {
+            foreach (string value in valuesArray)
+            {
+                if (str.EndsWith(value, ignoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>A simplified overload of Contains that accepts a bool for {ignorecase}. 
         /// Defaults to false using CultureInfo.InvariantCulture</summary>
-        public static bool Contains(this string str, string value, bool ignoreCase = false, CultureInfo culture = null)
+        public static bool Contains(this string str, string value, bool ignoreCase = false)
         {
-            return str.Contains(value, ignoreCase, culture ?? CultureInfo.InvariantCulture);
+            return str.Contains(value, ignoreCase);
         }
 
         /// <summary>An overload of Contains that accepts a string array.
         /// Will return true if any of the values in the {valuesArray} is true.</summary>
-        public static bool Contains(this string str, string[] valuesArray, bool ignoreCase = false, CultureInfo culture = null)
+        public static bool Contains(this string str, string[] valuesArray, bool ignoreCase = false)
         {
             foreach (string value in valuesArray)
             {
-                if (str.Contains(value, ignoreCase, culture ?? CultureInfo.InvariantCulture))
+                if (str.Contains(value, ignoreCase ))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>An overload of Contains that accepts a string array.
+        /// Will return true if any of the values in the params {valuesArray} is true.</summary>
+        public static bool Contains(this string str, bool ignoreCase, params string[] valuesArray)
+        {
+            foreach (string value in valuesArray)
+            {
+                if (str.Contains(value, ignoreCase))
                 {
                     return true;
                 }

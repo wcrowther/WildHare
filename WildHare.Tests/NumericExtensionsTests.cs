@@ -46,7 +46,7 @@ namespace WildHare.Tests
             Assert.IsTrue (onePointFive.EqualsAny(1.4m, 1.5m, 1.6m));
             Assert.IsFalse(onePointFive.EqualsAny(0m));
             Assert.IsTrue (trueVal.EqualsAny(false, false, true));
-            Assert.IsTrue (trueVal.EqualsAny(false, false, false));
+            Assert.IsFalse (trueVal.EqualsAny(false, false, false));
 
             Assert.IsFalse(four.EqualsAny<int>());
 

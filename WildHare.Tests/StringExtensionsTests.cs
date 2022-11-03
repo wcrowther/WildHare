@@ -611,6 +611,23 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_Contains_Overload_Basic()
+        {
+            string bob = "bob";
+            Assert.IsTrue(!string.IsNullOrEmpty(bob));
+            
+            //string str = "hideInString";
+
+            //bool result1 = str.Contains("In", true);
+            //bool result2 = str.Contains("in", true);
+            //bool result3 = str.Contains("in", false);
+
+            //Assert.IsTrue(result1);
+            //Assert.IsTrue(result2);
+            //Assert.IsFalse(result3);
+        }
+
+        [Test]
         public void Test_Replace_With_Two_Array_Overload()
         {
             string str = "Favorite animals: cat dog rabbit.";
