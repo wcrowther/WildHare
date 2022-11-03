@@ -48,7 +48,7 @@ namespace CodeGen
 
             if (input.EqualsAny(true, "exit", "x"))
             {
-                Console.WriteLine($"{NewLine}--> Exiting console...");
+                WriteLine($"{NewLine}--> Exiting console...");
 
                 return false; // remain open
             }
@@ -65,7 +65,7 @@ namespace CodeGen
                  _  => $"The input {input} is not valid.",
             };
 
-            Console.WriteLine(NewLine + result);
+            WriteLine(NewLine + result);
 
             return remainOpen;
         }
