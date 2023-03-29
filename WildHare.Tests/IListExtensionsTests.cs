@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Permissions;
 using WildHare.Extensions;
 using WildHare.Tests.Helpers;
 using WildHare.Tests.Models;
@@ -501,8 +502,6 @@ namespace WildHare.Tests
             Assert.AreEqual("the president of a foreign country", string.Join(" ", tokens.Select(s => s.Text)));
         }
 
-
-
         [Test]
         public void Test_IList_Left_Outer_Join_With_Selected_Ints()
         {
@@ -534,5 +533,41 @@ namespace WildHare.Tests
 
         }
 
+        [Test]
+        public void Test_Hierarchical_Sort_Version_1()
+        {
+            var data   = GetTempHierarchicalData();
+            var result = data.OrderBy(d => d.SortOrder).ThenBy(d => d.ParentID);
+
+            Assert.IsNotNull(result);
+        }
+
+        private List<TempTable> GetTempHierarchicalData()
+        {
+            return new List<TempTable>
+            {
+                new TempTable { ID = 1, ParentID = null, Name = "Test 1", SortOrder = 1 },
+                new TempTable { ID = 2, ParentID = 1,    Name = "Test 2", SortOrder = 1 },
+                new TempTable { ID = 3, ParentID = 1,    Name = "Test 3", SortOrder = 3 },
+                new TempTable { ID = 4, ParentID = 2,    Name = "Test 4", SortOrder = 1 },
+                new TempTable { ID = 5, ParentID = 1,    Name = "Test 5", SortOrder = 2 }
+            };
+        }
+    }
+
+    public class TempTable
+    {
+        public int ID { get; set; }
+
+        public int? ParentID { get; set; }
+
+        public String Name { get; set; }
+
+        public int SortOrder { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} Sort: {SortOrder} ParentID: {ParentID}";
+        }
     }
 }

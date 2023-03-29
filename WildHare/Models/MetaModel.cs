@@ -33,7 +33,7 @@ namespace WildHare
 
         public string TypeNamespace => _type.Namespace; 
 
-        public string PrimaryKeyName => PrimaryKeyMeta.Is() ? PrimaryKeyMeta.Name : ""; 
+        public string PrimaryKeyName => PrimaryKeyMeta != null ? PrimaryKeyMeta.Name : ""; 
 
         public bool IsDictionary => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); 
 

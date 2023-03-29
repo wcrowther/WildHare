@@ -91,6 +91,12 @@ namespace WildHare.Extensions
             dictionary[key] = str;
         }
 
+        public static void Set(this IDictionary<string, string> dictionary, string key, DateTime value)
+        {
+            //  This overload is need or the DateTime value will lose it's milliseconds on ChangeType
+            dictionary[key] = value.ToString("o");
+        }
+
         public static void Set(this IDictionary<string, string> dictionary, string key, string value)
         {
             dictionary[key] = value;

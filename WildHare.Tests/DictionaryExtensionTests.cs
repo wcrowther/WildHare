@@ -153,7 +153,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_String_String_Dictionary_Get_With_Missing_Values()
         {
-            var fiftyYearsAgo = DateTime.Now.AddYears(-50);
+            DateTime fiftyYearsAgo = DateTime.Now.AddYears(-50);
             string fiftyYearsStr = fiftyYearsAgo.ToString();
             string warning = "test warning";
 
@@ -185,6 +185,10 @@ namespace WildHare.Tests
 
             dictionary.Set("Numeric", 1234);
             Assert.AreEqual(1234, dictionary.Get<int>("Numeric"));
+
+            // Uses DateTime Set overload
+            dictionary.Set("Date", fiftyYearsAgo);
+            Assert.AreEqual(fiftyYearsAgo, fiftyYearsAgo);
         }
     }
 }

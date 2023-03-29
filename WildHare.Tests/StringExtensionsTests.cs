@@ -49,6 +49,95 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_CharactersOnly_Basic()
+        {
+            string str = "<*will22@wildhare.com* />";
+            string filteredStr = str.CharactersOnly("</>");
+
+            Assert.AreEqual("</>", filteredStr);
+        }
+
+        [Test]
+        public void Test_IsNumbersOnly()
+        {
+            string numbers = "123456";
+            string numbersAndWords = "123SomeWord456";
+
+            Assert.IsTrue(numbers.IsNumbersOnly());
+            Assert.IsFalse(numbersAndWords.IsNumbersOnly());
+        }
+
+        [Test]
+        public void Test_IsNumbersOnly_With_Other_Characters()
+        {
+            string numbers = "$123456.00";
+            string numbersAndWords = "$123SomeWord456.00";
+
+            Assert.IsTrue(numbers.IsNumbersOnly("$."));
+            Assert.IsFalse(numbersAndWords.IsNumbersOnly("$."));
+        }
+
+        [Test]
+        public void Test_IsLettersOnly_With_Other_Characters()
+        {
+            string trueStr = "wildhare.com";
+            string falseStr = "22@wildhare.com";
+
+            Assert.IsTrue(trueStr.IsLettersOnly("."));
+            Assert.IsFalse(falseStr.IsLettersOnly("@."));
+        }
+
+        [Test]
+        public void Test_IsLettersOnly_With_Null_And_Empty()
+        {
+            string falseStr = null;
+            string trueStr = "";
+
+            Assert.IsFalse(falseStr.IsLettersOnly("."));
+            Assert.IsTrue (trueStr.IsLettersOnly("."));
+        }
+
+        [Test]
+        public void Test_IsNumbersAndLettersOnly_With_Other_Characters()
+        {
+            string trueStr = "will22@wildhare.com";
+            string falseStr = "<*will22@wildhare.com*/>";
+
+            Assert.IsTrue(trueStr.IsNumbersAndLettersOnly("@."));
+            Assert.IsFalse(falseStr.IsNumbersAndLettersOnly("@."));
+        }
+
+        [Test]
+        public void Test_IsLettersAndNumbersOnly_With_Null_And_Empty()
+        {
+            string falseStr = null;
+            string trueStr  = "";
+
+            Assert.IsFalse(falseStr.IsNumbersAndLettersOnly("@."));
+            Assert.IsTrue (trueStr.IsNumbersAndLettersOnly("@."));
+        }
+
+        [Test]
+        public void Test_IsCharactersOnly_Basic()
+        {
+            string trueStr = "<!-- -->";
+            string falseStr = "<*will22@wildhare.com*/>";
+
+            Assert.IsTrue(trueStr.IsCharactersOnly("<!- >"));
+            Assert.IsFalse(falseStr.IsCharactersOnly("<!- >"));
+        }
+
+        [Test]
+        public void Test_IsCharactersOnly_With_Null_And_Empty()
+        {
+            string falseStr = null;
+            string trueStr = "";
+
+            Assert.IsFalse(falseStr.IsCharactersOnly("@."));
+            Assert.IsTrue (trueStr.IsCharactersOnly("@."));
+        }
+
+        [Test]
         public void Test_Truncate_Basic()
         {
             string str = "12345678901234567890123456789012345678901234567890";
@@ -613,18 +702,38 @@ namespace WildHare.Tests
         [Test]
         public void Test_Contains_Overload_Basic()
         {
-            string bob = "bob";
-            Assert.IsTrue(!string.IsNullOrEmpty(bob));
-            
-            //string str = "hideInString";
+            string str = "=====In=====";
 
-            //bool result1 = str.Contains("In", true);
-            //bool result2 = str.Contains("in", true);
-            //bool result3 = str.Contains("in", false);
+            bool result1 = str.Contains("In", true);
+            bool result2 = str.Contains("in", true);
+            bool result3 = str.Contains("in", false);
+            bool result4 = str.Contains("in");
 
-            //Assert.IsTrue(result1);
-            //Assert.IsTrue(result2);
-            //Assert.IsFalse(result3);
+            Assert.IsTrue(result1);
+            Assert.IsTrue(result2);
+            Assert.IsFalse(result3);
+            Assert.IsFalse(result4);
+        }
+
+        [Test]
+        public void Test_Contains_Params_Basic()
+        {
+            string str = "====hide===In=====";
+
+            bool result1 = str.Contains(true, "In");
+            bool result2 = str.Contains(true, "in");
+            bool result3 = str.Contains(true, "bob", "hide");
+            bool result4 = str.Contains(true, "hide", "BOB", "Jean");
+            bool result5 = str.Contains(false, "fred", "BOB", "Jean");
+            bool result6 = str.Contains(false, "will", "Joe", "in");
+
+            Assert.IsTrue(result1);
+            Assert.IsTrue(result2);
+            Assert.IsTrue(result3);
+            Assert.IsTrue(result4); 
+
+            Assert.IsFalse(result5);
+            Assert.IsFalse(result6);
         }
 
         [Test]

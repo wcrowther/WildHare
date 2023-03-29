@@ -260,5 +260,11 @@ namespace WildHare.Extensions
         {
             return list.Any(a => a.Equals(value));
         }
+
+        /// <summary>Compact version of OrderBy / OrderDescending where you can pass in a bool.</summary>
+        public static IOrderedEnumerable<T> OrderBy<T,TKey>(this IEnumerable<T> list, Func<T,TKey> keySelector, bool isDescending)
+        {
+            return isDescending ? list.OrderByDescending(keySelector) : list.OrderBy(keySelector);
+        }
     }
 }

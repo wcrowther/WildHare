@@ -4,7 +4,7 @@ using WildHare.Extensions;
 using WildHare.Tests.Models;
 using WildHare.Extensions.ForTemplating;
 using System.IO;
-using WildHare.Extensions.Xtra;
+using WildHare.Xtra;
 using static System.Environment;
 
 namespace WildHare.Tests

@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
-using WildHare.Extensions.Xtra;
+using WildHare.Xtra;
 
 namespace WildHare.Tests
 {

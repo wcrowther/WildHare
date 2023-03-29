@@ -475,9 +475,12 @@ namespace WildHare.Tests
             var numbers = new List<int> { 1, 2, 3 };
 
             Assert.IsTrue(numbers.AnyEquals(2));
-        }
 
-        [Test]
+            // Can also use built-in:
+			Assert.IsTrue(numbers.Any(a => a == 2));
+		}
+
+		[Test]
         public void Test_AnyEquals_Basic_String()
         {
             var numbers = new List<string> { "one", "two", "three" };

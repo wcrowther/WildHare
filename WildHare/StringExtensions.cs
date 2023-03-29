@@ -304,6 +304,7 @@ namespace WildHare.Extensions
                     output.Append(input[i]);
                 }
             }
+
             return output.ToString();
         }
 
@@ -319,6 +320,56 @@ namespace WildHare.Extensions
                 }
             }
             return output.ToString();
+        }
+
+        /// <summary>Returns a string with only characters in {includeCharacters}.</summary>
+        public static string CharactersOnly(this string input, string includeCharacters)
+        {
+            var output = new StringBuilder("");
+            for (int i = 0; i < input.IfNullOrEmpty().Length; i++)
+            {
+                if (includeCharacters.IndexOf(input[i]) != -1)
+                {
+                    output.Append(input[i]);
+                }
+            }
+            return output.ToString();
+        }
+
+        /// <summary>Returns true if the string includes only numbers and any additional characters in {otherCharacters}.</summary>
+        public static bool IsNumbersOnly(this string input, string otherCharacters = "")
+        {
+            if (input is null)
+                return false;
+            
+            return input.Count() == input.NumbersOnly(otherCharacters).Count();
+        }
+
+        /// <summary>Returns true if the string includes only letters, and any additional characters in {otherCharacters}.</summary>
+        public static bool IsLettersOnly(this string input, string otherCharacters = "")
+        {
+            if (input is null)
+                return false;
+
+            return input.Count() == input.LettersOnly(otherCharacters).Count();
+        }
+
+        /// <summary>Returns true if the string includes only numbers, letters, and any additional characters in {otherCharacters}.</summary>
+        public static bool IsNumbersAndLettersOnly(this string input, string otherCharacters = "")
+        {
+            if (input is null)
+                return false;
+            
+            return input.Count() == input.NumbersAndLettersOnly(otherCharacters).Count();
+        }
+
+        /// <summary>Returns true if the string includes only characters in {includeCharacters}.</summary>
+        public static bool IsCharactersOnly(this string input, string includeCharacters)
+        {
+            if (input is null)
+                return false; 
+
+            return input.Count() == input.NumbersAndLettersOnly(includeCharacters).Count();
         }
 
         /// <summary>Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter
@@ -480,7 +531,9 @@ namespace WildHare.Extensions
         /// Defaults to false using CultureInfo.InvariantCulture</summary>
         public static bool Contains(this string str, string value, bool ignoreCase = false)
         {
-            return str.Contains(value, ignoreCase);
+            var comparison = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+
+            return str.Contains(value, comparison);
         }
 
         /// <summary>An overload of Contains that accepts a string array.

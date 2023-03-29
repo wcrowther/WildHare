@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using WildHare.Extensions;
-using WildHare.Extensions.Xtra;
+using WildHare.Xtra;
 using WildHare.Tests.Models;
 using System.Collections.Generic;
 using System.Linq;
