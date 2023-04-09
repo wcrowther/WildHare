@@ -113,9 +113,11 @@ namespace WildHare.Tests
         [Test]
         public void Test_ToIntArray_Not_Strict()
         {
-            string intString = "-1, 0,1,02,3,sss4,,6,Seven,8, 9 , 10";
 
+            string intString = "-1, 0,1,02,3,sss4,,6,Seven,8, 9 , 10";
             var array = intString.ToIntArray();
+
+            // ignores letters in "sss4" to make it 4, ignores empty entry and 'Seven'
             Assert.AreEqual(10, array.Length);
         }
 
@@ -161,96 +163,6 @@ namespace WildHare.Tests
 
             string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
             Assert.AreEqual(errorMessage, ex.Message);
-        }
-
-        [Test]
-        public void Test_ToIntArray_Strict_Empty_Values()
-        {
-            string intString = "1,2,3,,5";
-
-            var ex = Assert.Throws<Exception>
-            (
-                () => intString.ToIntArray(true)
-            );
-
-            string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
-            Assert.AreEqual(errorMessage, ex.Message);
-        }
-
-
-        [Test]
-        public void Test_ToIntArray_Strict_Invalid_Values()
-        {
-            string intString = "sss4,Seven";
-
-            var ex = Assert.Throws<Exception>
-            (
-                () => intString.ToIntArray(true)
-            );
-
-            string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
-            Assert.AreEqual(errorMessage, ex.Message);
-        }
-
-
-        [Test]
-        public void Test_IntArray_AsString_Basic()
-        {
-            int[] intArray = { 1,2,3,4,9 };
-
-            string intArrayString = intArray.AsString();  
-
-            Assert.AreEqual("1,2,3,4,9", intArrayString);
-        }
-
-        [Test]
-        public void Test_IntArray_AsString_Empty()
-        {
-            int[] intArray = new int[0];
-
-            string intArrayString = intArray.AsString();
-
-            Assert.AreEqual("", intArrayString);
-        }
-
-        [Test]
-        public void Test_IntArray_AsString_Null()
-        {
-            int[] intArray = null;
-
-            string intArrayString = intArray.AsString();
-
-            Assert.AreEqual(null, intArrayString);
-        }
-
-        [Test]
-        public void Test_IEnumerable_Int_AsString_Basic()
-        {
-            IEnumerable<int> intList = new List<int>{ 1, 2, 3, 4, 9 };
-
-            string intListString = intList.AsString();
-
-            Assert.AreEqual("1,2,3,4,9", intListString);
-        }
-
-        [Test]
-        public void Test_IEnumerable_Int_AsString_Empty()
-        {
-            IEnumerable<int> intList = new int[0];
-
-            string intListString = intList.AsString();
-
-            Assert.AreEqual("", intListString);
-        }
-
-        [Test]
-        public void Test_IEnumerable_Int_AsString_Null()
-        {
-            IEnumerable<int> intList = null;
-
-            string intListString = intList.AsString();
-
-            Assert.AreEqual(null, intListString);
         }
     }
 }

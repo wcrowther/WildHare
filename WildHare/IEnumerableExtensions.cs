@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 
 namespace WildHare.Extensions
 {
@@ -207,7 +208,7 @@ namespace WildHare.Extensions
 
         /// <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
         /// when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
-        public static string AsString(this IEnumerable<int> intList, bool strict = false)
+        public static string AsString(this IEnumerable<int> intList, bool strict = false, string separator = ",")
         {
             if (intList is null && strict)
                 throw new Exception("IntList.AsString() cannot be null when in strict mode.");
@@ -215,7 +216,28 @@ namespace WildHare.Extensions
             if (intList is null)
                 return null;
 
-            return string.Join(",", intList);
+            return string.Join(separator, intList);
+        }
+
+        /// <summary>Works similar to an inline string.Joins implementation that concatenates 
+        /// the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
+        /// Adds the capability to delete null entries if {removeNulls} (defaults to false) is true.</summary>
+        public static string AsString(this IEnumerable<string> strList, string separator = ", ", bool removeNulls = false)
+        {
+            var sb = new StringBuilder();
+            foreach (var item in strList)
+            {
+                if (removeNulls)
+                {
+                    if (item != null)
+                        sb.Append(item + separator);
+                }
+                else
+                {
+                    sb.Append(item + separator);
+                }
+            }
+            return sb.ToString().RemoveEnd(separator);
         }
 
         /// <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and

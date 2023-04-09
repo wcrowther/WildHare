@@ -49,6 +49,7 @@ namespace WildHare.Web
 			// Get list of table from SQL database
 			sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
 
+            // ============================================================
             // 1) Loop through the tables
             // ============================================================
             // a) Generates models for all tables in the database. 
@@ -58,6 +59,7 @@ namespace WildHare.Web
                 CreateModelFromSQLTable(table.Key);
             }
 
+            // ============================================================
             // 2) Pre-Generate a list of tables - Alternate approach
             // ============================================================
             // a) Create a string list of tables to use in this Init(). 
@@ -66,31 +68,35 @@ namespace WildHare.Web
             // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
             var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", overwrite: true);"));
+            
             Debug.Write(NewLine + modelsToCreate + NewLine.Repeat(2));
 
-            //EXAMPLE: 
-            //CreateModelFromSQLTable("Abstract", overwrite:  false);
-            //CreateModelFromSQLTable("Categories", "Category", overwrite:  false);
-            //CreateModelFromSQLTable("ComplexWords", overwrite:  false);
-            //CreateModelFromSQLTable("ComplexWordsDetail", overwrite:  false);
-            //CreateModelFromSQLTable("ComplexWordToken", overwrite:  false);
-            //CreateModelFromSQLTable("Encrypted", overwrite:  false);
-            //CreateModelFromSQLTable("Features", overwrite:  false);
-            //CreateModelFromSQLTable("LinkProperties", overwrite:  false);
-            //CreateModelFromSQLTable("LinkToAbstract", overwrite:  false);
-            //CreateModelFromSQLTable("Pattern", overwrite:  false);
-            //CreateModelFromSQLTable("PatternDetail", overwrite:  false);
-            //CreateModelFromSQLTable("SymbolRule", overwrite:  false);
-            //CreateModelFromSQLTable("TestCase", overwrite:  false);
-            //CreateModelFromSQLTable("TestCaseType", overwrite:  false);
-            //CreateModelFromSQLTable("TestResult", overwrite:  false);
-            //CreateModelFromSQLTable("TestRun", overwrite:  false);
-            //CreateModelFromSQLTable("Token", overwrite:  false);
-            //CreateModelFromSQLTable("TokenProperty", overwrite:  false);
-            //CreateModelFromSQLTable("Word", overwrite:  false);
-            //CreateModelFromSQLTable("WordToken", overwrite:  false);
+            // EXAMPLE: 
+            // CreateModelFromSQLTable("Abstract",                  overwrite:  false);
+            // CreateModelFromSQLTable("Categories", "Category",    overwrite:  false);
+            // CreateModelFromSQLTable("ComplexWords",              overwrite:  false);
+            // CreateModelFromSQLTable("ComplexWordsDetail",        overwrite:  false);
+            // CreateModelFromSQLTable("ComplexWordToken",          overwrite:  false);
+            // CreateModelFromSQLTable("Encrypted",                 overwrite:  false);
+            // CreateModelFromSQLTable("Features",                  overwrite:  false);
+            // CreateModelFromSQLTable("LinkProperties",            overwrite:  false);
+            // CreateModelFromSQLTable("LinkToAbstract",            overwrite:  false);
+            // CreateModelFromSQLTable("Pattern",                   overwrite:  false);
+            // CreateModelFromSQLTable("PatternDetail",             overwrite:  false);
+            // CreateModelFromSQLTable("SymbolRule",                overwrite:  false);
+            // CreateModelFromSQLTable("TestCase",                  overwrite:  false);
+            // CreateModelFromSQLTable("TestCaseType",              overwrite:  false);
+            // CreateModelFromSQLTable("TestResult",                overwrite:  false);
+            // CreateModelFromSQLTable("TestRun",                   overwrite:  false);
+            // CreateModelFromSQLTable("Token",                     overwrite:  false);
+            // CreateModelFromSQLTable("TokenProperty",             overwrite:  false);
+            // CreateModelFromSQLTable("Word",                      overwrite:  false);
+            // CreateModelFromSQLTable("WordToken",                 overwrite:  false);
 
-            string result = $"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
+            string result = $"{nameof(CodeGenClassesFromSqlTables)}. " +
+                            $"{nameof(Init)} code written to '{outputDir}'. " +
+                            $"Overwrite: {overWrite}";
+
             Debug.WriteLine(result);
 
             return result;

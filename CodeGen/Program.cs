@@ -29,7 +29,9 @@ namespace CodeGen
             var serviceProvider = ConfigureServices().BuildServiceProvider();
 
             string input = Console.ReadLine();
-            bool result = serviceProvider.GetService<CodeGen>().Generate(input);
+            bool result  = serviceProvider
+                                .GetService<CodeGen>()
+                                .Generate(input);
 
             return result;
         }

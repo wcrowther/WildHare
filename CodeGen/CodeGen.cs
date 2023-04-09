@@ -5,6 +5,9 @@ using WildHare.Web;
 using WildHare.Web.Models;
 using static System.Environment;
 using static System.Console;
+using AngleSharp.Common;
+using System.Linq;
+using AngleSharp.Text;
 
 namespace CodeGen
 {
@@ -29,11 +32,13 @@ namespace CodeGen
                    1) Summary Report
                    2) List Of Stylesheets
                    3) List Of CSS Classes
-                   4) Generate Models for each table in SQL DB
+                   4) Generate Appsettings Class
                    5) Generate Summary
                    x) Exit
 
                    Select an option: ";
+
+            // 6) Models for each table in SQL DB
 
             Write(menu.RemoveIndents());
         }
@@ -45,12 +50,12 @@ namespace CodeGen
             string sourceRoot   = _app.SourceFolderRootPath;
             string wwwRoot      = _app.WwwFolderRootPath;
             string writeToRoot  = _app.CssWriteToFolderPath;
+            var appSettings     = _app.GetMetaProperties().Select(s => s.Name);    
 
             if (input.EqualsAny(true, "exit", "x"))
             {
                 WriteLine($"{NewLine}--> Exiting console...");
-
-                return false; // remain open
+                return false; // close window
             }
 
             Clear();
@@ -60,12 +65,15 @@ namespace CodeGen
                 "1" => CodeGenSummary.Init(sourceRoot, writeToRoot + _app.CssSummaryByFileName_Filename, overwrite),
                 "2" => CodeGenCssStylesheets.Init(wwwRoot, writeToRoot + _app.CssListOfStylesheets_Filename, overwrite),
                 "3" => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssListOfClasses_Filename, overwrite),
-                "4" => "This choice has not been configured", // CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
+                "4" => CodeGenFromAppsettings.Init(appSettings, overwrite),
                 "5" => CodeGenSummary.Init(_app.MESourceFolderRootPath, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
-                 _  => $"The input {input} is not valid.",
+                // "6" => "This choice has not been configured", // CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
+                _ => $"The input {input} is not valid.",
             };
 
             WriteLine(NewLine + result);
+
+
 
             return remainOpen;
         }

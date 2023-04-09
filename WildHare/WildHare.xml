@@ -108,11 +108,6 @@
             With {strict} equals false, the default, the method will ignore any characters except for numbers, the negative symbol,
             or commas. With {strict} equals true, empty entries, alphabetic characters, etc. will cause exceptions.</summary>
         </member>
-        <member name="M:WildHare.Extensions.ConvertExtensions.AsString(System.Int32[],System.Boolean,System.String)">
-            <summary>Converts an array of ints to a string separated by {separator} (defaulting to a comma). The method will 
-            return null if the {intArray} parameter is null when {strict} is false. When {strict} is true the method
-            will throw an exception if the {intArray} is null.</summary>
-        </member>
         <member name="M:WildHare.Extensions.DataTableExtensions.ToList``1(System.Data.DataTable)">
             <summary>Converts a DataTable to a list of T</summary>
             <typeparam name="T"></typeparam>
@@ -221,9 +216,14 @@
             }
             </example>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.Int32},System.Boolean)">
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.Int32},System.Boolean,System.String)">
             <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
             when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.String},System.String,System.Boolean)">
+            <summary>Works similar to an inline string.Joins implementation that concatenates 
+            the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
+            Adds the capability to delete null entries if {removeNulls} (defaults to false) is true.</summary>
         </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.PatternMatch``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean})">
             <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
@@ -407,6 +407,10 @@
             of text in the string as the indent to remove. The first line is typically where the verbatim and/or
             interpolation is declared and does not have an indent and so is skipped. If {removeInitialSpaces} is true
             (the default), it removes the first line if it only contains whitespace.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.StringExtensions.RemoveExtraLines(System.String,System.Int32)">
+            <summary>Removes extra lines of text in a string that are more than the {linesGreaterThan} 
+            integer - keeping the first line. If {linesGreaterThan} is negative, it does nothing.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String)">
             <summary>Gets the all the whitespace at the beginning of a string.</summary>

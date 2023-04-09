@@ -1,10 +1,13 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
+using WildHare.Tests.SourceFiles;
+using WildHare.Xtra;
 using static System.Environment;
 
 namespace WildHare.Tests
@@ -912,6 +915,26 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_ForEachlLine_From_File_To_Remove_Region()
+        {
+            string pathRoot     = XtraExtensions.GetApplicationRoot();
+            string sourcePath   = $@"{pathRoot}\SourceFiles\TestClass.cs";
+            string writePath    = $@"{pathRoot}\TextFiles\TrimmedTestClass.cs";
+
+            var fileContent     = new FileInfo(sourcePath)
+                                      .ReadFile()
+                                      .Replace("TestClass", "TrimmedTestClass");
+
+            var lineArray       = fileContent.ToLineArray();  //
+            var trimmedString   = fileContent.ForEachLine(a => a.Trim().StartsWith(false, "#region", "#endregion") ? null : a);
+
+            trimmedString.RemoveExtraLines().WriteToFile(writePath, true);
+
+            Assert.AreEqual(44, lineArray.Count());
+            Assert.AreEqual(38, trimmedString.ToLineArray().Count());
+        }
+
+        [Test]
         public void Test_Format_With_One_Arg()
         {
             string example = "https://{0}.test.com/";
@@ -998,7 +1021,6 @@ namespace WildHare.Tests
             Assert.AreEqual(15, str.CombineSpaces().Length);
         }
 
-
         [Test]
         public void Test_CombineSpaces_With_Ignore_Returns()
         {
@@ -1015,26 +1037,18 @@ namespace WildHare.Tests
             string str = "The quick brown fox jumped over the lazy dog";
             string rev = "dog lazy the over jumped fox brown quick The";
 
-            Assert.AreEqual(rev, Reverse(str));
-            Assert.AreEqual("", Reverse(""));
-            Assert.AreEqual(null, Reverse(null));
-            Assert.AreEqual(rev, Reverse2(str));
-            Assert.AreEqual("", Reverse2(""));
-            Assert.AreEqual(null, Reverse2(null));
+            Assert.AreEqual(rev,    Example_Reverse_1(str));
+            Assert.AreEqual("",     Example_Reverse_1(""));
+            Assert.AreEqual(null,   Example_Reverse_1(null));
+            Assert.AreEqual(rev,    Example_Reverse_2(str));
+            Assert.AreEqual("",     Example_Reverse_2(""));
+            Assert.AreEqual(null,   Example_Reverse_2(null));
+            Assert.AreEqual(rev,    Example_Reverse_3(str));
+            Assert.AreEqual("",     Example_Reverse_3(""));
+            Assert.AreEqual(null,   Example_Reverse_3(null));
         }
 
-        [Test]
-        public void Test_Reverse_string3()
-        {
-            string str = "The quick brown fox jumped over the lazy dog";
-            string rev = "dog lazy the over jumped fox brown quick The";
-
-            Assert.AreEqual(rev, Reverse3(str));
-            Assert.AreEqual("", Reverse3(""));
-            Assert.AreEqual(null, Reverse3(null));
-        }
-
-        private string Reverse(string str)
+        private string Example_Reverse_1(string str)
         {
             if (string.IsNullOrEmpty(str))
                 return str;
@@ -1045,7 +1059,7 @@ namespace WildHare.Tests
             return string.Join(' ', s);
         }
 
-        private string Reverse2(string str)
+        private string Example_Reverse_2(string str)
         {
             if (string.IsNullOrEmpty(str))
                 return str;
@@ -1055,7 +1069,7 @@ namespace WildHare.Tests
             return string.Join(' ', s);
         }
 
-        private string Reverse3(string str)
+        private string Example_Reverse_3(string str)
         {
             return str.IsNullOrEmpty() ? str : string.Join(' ', str.Split(new char[] { ' ' }).Reverse());
         }
@@ -1066,12 +1080,12 @@ namespace WildHare.Tests
             string str = "quick brown fox jumped";
             string rev = "kciuq nworb xof depmuj";
 
-            Assert.AreEqual(rev, ReverseLetters(str));
-            Assert.AreEqual("", ReverseLetters(""));
-            Assert.AreEqual(null, ReverseLetters(null));
+            Assert.AreEqual(rev,    Example_ReverseLetters(str));
+            Assert.AreEqual("",     Example_ReverseLetters(""));
+            Assert.AreEqual(null,   Example_ReverseLetters(null));
         }
 
-        private string ReverseLetters(string str)
+        private string Example_ReverseLetters(string str)
         {
             if (string.IsNullOrEmpty(str))
                 return str;
@@ -1086,7 +1100,6 @@ namespace WildHare.Tests
             }
             return string.Join(' ', revArr);
         }
-
 
         [Test]
         public void Test_EqualsAny_With_Params_Array()
@@ -1123,6 +1136,100 @@ namespace WildHare.Tests
             Assert.AreEqual(true, str.EqualsAny(animalArray2));
             Assert.AreEqual(false, str.EqualsAny(animalArray3));
             Assert.AreEqual(true, str.EqualsAny(true, animalArray3));
+        }
+
+        [Test]
+        public void Test_AsString_Basic()
+        {
+            string[] animals = { "lions", "tigers", "bears" };
+
+            Assert.AreEqual("lions, tigers, bears", animals.AsString());
+        }
+
+        [Test]
+        public void Test_AsString_Remove_Nulls()
+        {
+            string[] animals = { "lions", null, "tigers", null, "bears" };
+
+            Assert.AreEqual("lions, tigers, bears", animals.AsString(removeNulls: true));
+        }
+
+        [Test]
+        public void Test_Use_StringBuilder_In_Linq_Aggregate_Overload()
+        {
+            string[] strings = { "lions", "tigers", "bears" };
+            var aggregate = strings.Aggregate(new StringBuilder(), (sb, t) => sb.Append($"{t}") ).ToString();
+
+            Assert.AreEqual("lions*, tigers*, bears*", aggregate); 
+        }
+
+
+        [Test]
+        public void Test_RemoveExtraLines_Basic()
+        {
+            string text        = @"""
+                                    Trim 
+
+
+                                    this
+
+
+
+                                    text.
+                                 """;
+            string trimmedText = @"""
+                                    Trim 
+
+                                    this
+
+                                    text.
+                                 """;
+
+            Assert.AreEqual(trimmedText, text.RemoveExtraLines());
+            Assert.AreEqual(trimmedText, text.RemoveExtraLines(1));
+        }
+
+        [Test]
+        public void Test_RemoveExtraLines_Zero_Lines()
+        {
+            string        text = @"""
+                                    Trim 
+
+
+                                    this
+
+
+
+                                    text.
+                                 """;
+            string trimmedText = @"""
+                                    Trim 
+                                    this
+                                    text.
+                                 """;
+
+            Assert.AreEqual(trimmedText, text.RemoveExtraLines(0));
+        }
+
+        [Test]
+        public void Test_RemoveExtraLines_Disable()
+        {
+            string text         = @"""
+                                    Trim 
+
+                                    this
+
+                                    text.
+                                 """;
+            string trimmedText  = @"""
+                                    Trim 
+
+                                    this
+
+                                    text.
+                                 """;
+
+            Assert.AreEqual(trimmedText, text.RemoveExtraLines(-1));
         }
     }
 }

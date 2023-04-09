@@ -21,19 +21,19 @@ namespace WildHare.Tests
             Type itemType = typeof(Item);
             var metaModel = itemType.GetMetaModel();
 
-            Assert.AreEqual("Item", metaModel.TypeName);
-            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
-            Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
+            Assert.AreEqual("Item",     metaModel.TypeName);
+            Assert.AreEqual(5,          metaModel.GetMetaProperties().Count);
+            Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId", metaModel.GetMetaProperties()[0].Name);
+            Assert.AreEqual("ItemId",   metaModel.GetMetaProperties()[0].Name);
             Assert.AreEqual("ItemName", metaModel.GetMetaProperties()[1].Name);
-            Assert.AreEqual("Created", metaModel.GetMetaProperties()[2].Name);
-            Assert.AreEqual("Stuff", metaModel.GetMetaProperties()[3].Name);
+            Assert.AreEqual("Created",  metaModel.GetMetaProperties()[2].Name);
+            Assert.AreEqual("Stuff",    metaModel.GetMetaProperties()[3].Name);
 
-            Assert.AreEqual(typeof(int), metaModel.GetMetaProperties()[0].PropertyType);
-            Assert.AreEqual(typeof(string), metaModel.GetMetaProperties()[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime), metaModel.GetMetaProperties()[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>), metaModel.GetMetaProperties()[3].PropertyType);
+            Assert.AreEqual(typeof(int),            metaModel.GetMetaProperties()[0].PropertyType);
+            Assert.AreEqual(typeof(string),         metaModel.GetMetaProperties()[1].PropertyType);
+            Assert.AreEqual(typeof(DateTime),       metaModel.GetMetaProperties()[2].PropertyType);
+            Assert.AreEqual(typeof(List<string>),   metaModel.GetMetaProperties()[3].PropertyType);
         }
 
         [Test]

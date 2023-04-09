@@ -23,9 +23,9 @@ namespace WildHare.Web
         ========================================================================== */
 
 
-        private static bool overWrite = false;
+        private static bool overWrite = true;
         private static readonly string namespaceRoot = "WildHare.Web";
-        private static string outputDir = @"\WildHare\WildHare.Web\Adapters\";
+        private static string outputDir = @"\Adapters\";
 
         private static readonly string mapName1 = "entity";
         private static readonly string mapName2 = "model";
@@ -48,18 +48,18 @@ namespace WildHare.Web
             string adapterList = GetGeneratorAdapterList();
 
             // Write out the adapterlist to the Debug window generated from a particular namespace
-
-            Debug.Write(adapterList.AddEnd("=".Repeat(50) + NewLine));
+            Debug.Write(adapterList.AddEnd("=".Repeat(80) + NewLine));
 
             // Copy and paste adapterlist from Debug Output window here if needed.
-
-            // Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
             GenerateAdapter(typeof(InvoiceItem),typeof(InvoiceItemModel), overWrite);
             GenerateAdapter(typeof(Invoice),    typeof(InvoiceModel)    , overWrite);
             GenerateAdapter(typeof(Account),    typeof(AccountModel)    , overWrite);
 
-            Debug.WriteLine("=".Repeat(50));
+            // To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
+
+
+            Debug.WriteLine("=".Repeat(80));
 
             string result = $"{nameof(CodeGenAdapters)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: {overWrite}";
             
@@ -75,7 +75,8 @@ namespace WildHare.Web
             string adapterName = $"{class1}Adapter.cs";
 
             string output =
-            $@"using {namespaceRoot}.Models;
+            $@"
+            using {namespaceRoot}.Models;
             using {namespaceRoot}.Entities;
             using System.Linq;
             using System.Collections.Generic;

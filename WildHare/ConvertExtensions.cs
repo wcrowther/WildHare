@@ -125,19 +125,5 @@ namespace WildHare.Extensions
 
             return intArray.Where(w => w != null).Select(w => w.Value).ToArray();
         }
-
-        /// <summary>Converts an array of ints to a string separated by {separator} (defaulting to a comma). The method will 
-        /// return null if the {intArray} parameter is null when {strict} is false. When {strict} is true the method
-        /// will throw an exception if the {intArray} is null.</summary>
-        public static string AsString(this int[] intArray, bool strict = false, string separator = ",")
-        {
-            if(intArray is null && strict)
-                throw new Exception("IntArray.AsString() cannot be null when in strict mode.");
-
-            if (intArray is null)
-                return null;
-
-            return string.Join(separator, intArray);
-        }
     }
 }

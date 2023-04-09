@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using static System.Environment;
@@ -168,6 +169,31 @@ namespace WildHare.Extensions
                 lines.RemoveAt(0);
 
             return string.Join(NewLine, lines.Select(a => a.RemoveStartEnd(start, "\r")));
+        }
+
+        /// <summary>Removes extra lines of text in a string that are more than the {linesGreaterThan} 
+        /// integer - keeping the first line. If {linesGreaterThan} is negative, it does nothing.</summary>
+        public static string RemoveExtraLines(this string input, int removeExtraLines = 1)
+        {
+            var lines           = input.Split("\n", StringSplitOptions.None);
+            int extraLineCount  = 0;
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string content = lines[i].RemoveEnd("\r");
+
+                if (content.IsNullOrSpace() && removeExtraLines >= 0)
+                {
+                    lines[i] = extraLineCount >= removeExtraLines ? null : content;
+                    extraLineCount++;
+                }
+                else
+                {
+                    lines[i] = content;
+                    extraLineCount = 0;
+                }
+            }
+            return lines.AsString(NewLine, true);
         }
 
         /// <summary>Gets the all the whitespace at the beginning of a string.</summary>
@@ -677,19 +703,28 @@ namespace WildHare.Extensions
             return (str.Length > length) ? str.Substring(str.Length - length, length) : str;
         }
 
-        public static string ForEachLine(this string input, Func<string, string> func, string joinString = "\r\n") 
+        public static string ForEachLine(this string input, Func<string, string> func, string separator = "\r\n") 
         {
-            // "\r\n" is Windows equivalent to Evironment.NewLine
-
-            var lines = input.Split("\n", StringSplitOptions.None);
-            var returnChars = new[] { "\n", "\r", "\n\r" };
+            var lines = input.ToLineArray();
 
             for (int i = 0; i < lines.Length; i++)
             {
-                string line = lines[i].RemoveEnd(returnChars);
-                lines[i] = func(line);
+                lines[i] = func(lines[i]);
             }
-            return string.Join(joinString, lines);
+
+            return lines.AsString(separator, true);
+        }
+
+        public static string[] ToLineArray(this string input)
+        {
+            var rawLines        = input.Split("\n", StringSplitOptions.None);
+            var trimmedLines    = new string[rawLines.Length];
+
+            for (int i = 0; i < rawLines.Length; i++)
+            {
+                trimmedLines[i] = rawLines[i].RemoveEnd("\r");
+            }
+            return trimmedLines;
         }
 
         /// Succinct overload of Equals() that compares the {str} to the {compareTo} and returns a bool true if equal.
@@ -734,6 +769,11 @@ namespace WildHare.Extensions
         }
 
         public static string IfTrue(this bool boolean, string ifTrueStr, string ifFalseStr = "")
+        {
+            return boolean ? ifTrueStr : ifFalseStr;
+        }
+
+        public static string IfFalse(this bool boolean, string ifFalseStr, string ifTrueStr = "")
         {
             return boolean ? ifTrueStr : ifFalseStr;
         }
@@ -843,7 +883,6 @@ namespace WildHare.Extensions
         }
     }
 }
-
 
 /*  OLD CODE
     ----------------------------------------------------------

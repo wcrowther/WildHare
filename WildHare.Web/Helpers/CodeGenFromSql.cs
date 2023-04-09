@@ -38,6 +38,7 @@ namespace WildHare.Web
             // Get list of table from SQL database
             sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
 
+            // ============================================================
             // 1) Loop through the tables
             // ============================================================
             // a) Generates models for all tables in the database. 
@@ -47,6 +48,7 @@ namespace WildHare.Web
             //     CreateModelFromSQLTable(table.Key);
             // }
 
+            // ============================================================
             // 2) Pre-Generate a list of tables - Alternate approach
             // ============================================================
             // a) Create a string list of tables to use in this Init(). 
