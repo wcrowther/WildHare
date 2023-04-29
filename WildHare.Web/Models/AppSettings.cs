@@ -13,6 +13,8 @@ namespace WildHare.Web.Models
 
         public string WwwFolderRootPath { get; set; }
 
+        public string CodeGenTempPath { get; set; }
+
         public string CssWriteToFolderPath { get; set; }
 
         public string CssSummaryByFileName_Filename { get; set; }
@@ -24,5 +26,7 @@ namespace WildHare.Web.Models
         public bool CodeGenOverwrite { get; set; }
 
         public bool RemainOpenAfterCodeGen { get; set; }
+
+
     }
 }

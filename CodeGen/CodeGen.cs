@@ -1,13 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using AngleSharp.Common;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 using WildHare.Extensions;
 using WildHare.Web;
 using WildHare.Web.Models;
-using static System.Environment;
 using static System.Console;
-using AngleSharp.Common;
-using System.Linq;
-using AngleSharp.Text;
+using static System.Environment;
 
 namespace CodeGen
 {
@@ -25,7 +23,8 @@ namespace CodeGen
         public static void GenerateMenu()
         {
             string divider = "=".Repeat(60);
-            string menu =    $@"
+            string menu =    
+                   $@"
                    {divider}        
                    Choose an option:
                    {divider}
@@ -36,21 +35,26 @@ namespace CodeGen
                    5) Generate Summary
                    x) Exit
 
-                   Select an option: ";
+                   Select an option: "
+                   .RemoveIndents();
 
-            // 6) Models for each table in SQL DB
-
-            Write(menu.RemoveIndents());
+            Write(menu);
         }
 
         public bool Generate(string input)
         {
-            bool remainOpen     = _app.RemainOpenAfterCodeGen;
-            bool overwrite      = _app.CodeGenOverwrite;
-            string sourceRoot   = _app.SourceFolderRootPath;
-            string wwwRoot      = _app.WwwFolderRootPath;
-            string writeToRoot  = _app.CssWriteToFolderPath;
-            var appSettings     = _app.GetMetaProperties().Select(s => s.Name);    
+            bool remainOpen         = _app.RemainOpenAfterCodeGen;
+            bool overwrite          = _app.CodeGenOverwrite;
+
+            string sourceRoot       = _app.SourceFolderRootPath;
+            string wwwRoot          = _app.WwwFolderRootPath;
+            string writeToRoot      = _app.CssWriteToFolderPath;
+            string codeGenTempPath  = _app.CodeGenTempPath;
+
+            var appSettings         = _config.GetSection("App")
+                                             .AsEnumerable(true)
+                                             .OrderBy(o => o.Key)
+                                             .ToDictionary(a => a.Key, a => a.Value);
 
             if (input.EqualsAny(true, "exit", "x"))
             {
@@ -65,15 +69,13 @@ namespace CodeGen
                 "1" => CodeGenSummary.Init(sourceRoot, writeToRoot + _app.CssSummaryByFileName_Filename, overwrite),
                 "2" => CodeGenCssStylesheets.Init(wwwRoot, writeToRoot + _app.CssListOfStylesheets_Filename, overwrite),
                 "3" => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssListOfClasses_Filename, overwrite),
-                "4" => CodeGenFromAppsettings.Init(appSettings, overwrite),
+                "4" => CodeGenFromAppsettings.Init(appSettings, codeGenTempPath, overwrite),
                 "5" => CodeGenSummary.Init(_app.MESourceFolderRootPath, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
                 // "6" => "This choice has not been configured", // CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
                 _ => $"The input {input} is not valid.",
             };
 
             WriteLine(NewLine + result);
-
-
 
             return remainOpen;
         }

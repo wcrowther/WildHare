@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -96,6 +97,28 @@ namespace WildHare.Extensions.ForTemplating
 
             return nullableIgnoreList.Any(cstype.Contains) ? cstype : $"{cstype}{nullable}"; // string? not currently supported
 		}
+
+        /// <summary>Given something like a string appsetting {value}, returns the string name from the first parsable type 
+        /// (using invariant culture) in the following: bool, int, long, double, or string. If the param {strict} is true,
+        /// the function will throw an exception. The {errorMessage} thrown can be customized.</summary>
+        public static string BasicTypeNameFromValue(this string value, bool strict = false, string errorMessage = null)
+        {
+            if (strict && value.IsNullOrEmpty())
+                throw new Exception(errorMessage ?? "The BasicTypeNameFromValue value cannot be empty or null when in strict mode.");
+            
+            var style   = NumberStyles.Any;
+            var culture = CultureInfo.InvariantCulture;
+            value       = value.IfNull().Replace(",", "");
+
+            return value switch
+            {
+                { } when value.Equals("true", true) || value.Equals("false", true) => "bool",
+                { } when !value.Contains(".") && int.TryParse (value, style, culture, out int intValue) => "int",
+                { } when !value.Contains(".") && long.TryParse(value, style, culture, out long longValue) => "long",
+                { } when decimal.TryParse(value, style, culture, out decimal decimalValue) => "decimal",
+                _ => "string"
+            };
+        }
 
         /// <summary>Returns a string that replaces the placeholder elements [placeholder] in the {string} template with the matching the dictionary 
         /// lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>

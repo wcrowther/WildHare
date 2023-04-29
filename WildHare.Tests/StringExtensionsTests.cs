@@ -1158,7 +1158,8 @@ namespace WildHare.Tests
         public void Test_Use_StringBuilder_In_Linq_Aggregate_Overload()
         {
             string[] strings = { "lions", "tigers", "bears" };
-            var aggregate = strings.Aggregate(new StringBuilder(), (sb, t) => sb.Append($"{t}") ).ToString();
+            var aggregate = strings.Aggregate(new StringBuilder(), (sb, t) => sb.Append($"{t}*, ") )
+                                   .ToString().RemoveEnd(", ");
 
             Assert.AreEqual("lions*, tigers*, bears*", aggregate); 
         }

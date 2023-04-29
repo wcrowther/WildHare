@@ -176,6 +176,30 @@ namespace WildHare.Extensions
                     return null;
             }
         }
+
+        /// <summary>Gets the child DirectoryInfo that equals {directoryName}. Returns null if no matches.</summary>
+        public static DirectoryInfo Child(this DirectoryInfo directoryInfo, string directoryName)
+        {
+            string exMessage = "The DirectoryInfo.Child extension method requires a directoryName that is not null and not just whitespace.";
+
+            if (directoryName.IsNullOrSpace())
+                throw new Exception(exMessage);
+            
+            return directoryInfo.GetDirectories()
+                                .FirstOrDefault(f => f.Name == directoryName);
+        }
+
+        /// <summary>Gets the sibling directory (at the same level as the DirectoryInfo) that 
+        /// equals {directoryName}.  Returns null if no matches.</summary>
+        public static DirectoryInfo Sibling(this DirectoryInfo directoryInfo, string directoryName)
+        {
+            string exMessage = "The DirectoryInfo.Sibling extension method requires a directoryName that is not null and not just whitespace.";
+
+            if (directoryName.IsNullOrSpace())
+                throw new Exception(exMessage);
+
+            return directoryInfo.Parent.Child(directoryName);
+        }
     }
 }
 

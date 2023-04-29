@@ -62,18 +62,18 @@ namespace WildHare.Tests
             var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now };
             var metaModel = item.GetMetaModel();
 
-            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
-            Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
+            Assert.AreEqual(5,          metaModel.GetMetaProperties().Count);
+            Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId", metaModel.GetMetaProperties()[0].Name);
+            Assert.AreEqual("ItemId",   metaModel.GetMetaProperties()[0].Name);
             Assert.AreEqual("ItemName", metaModel.GetMetaProperties()[1].Name);
-            Assert.AreEqual("Created", metaModel.GetMetaProperties()[2].Name);
-            Assert.AreEqual("Stuff", metaModel.GetMetaProperties()[3].Name);
+            Assert.AreEqual("Created",  metaModel.GetMetaProperties()[2].Name);
+            Assert.AreEqual("Stuff",    metaModel.GetMetaProperties()[3].Name);
 
-            Assert.AreEqual(typeof(int), metaModel.GetMetaProperties()[0].PropertyType);
-            Assert.AreEqual(typeof(string), metaModel.GetMetaProperties()[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime), metaModel.GetMetaProperties()[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>), metaModel.GetMetaProperties()[3].PropertyType);
+            Assert.AreEqual(typeof(int),            metaModel.GetMetaProperties()[0].PropertyType);
+            Assert.AreEqual(typeof(string),         metaModel.GetMetaProperties()[1].PropertyType);
+            Assert.AreEqual(typeof(DateTime),       metaModel.GetMetaProperties()[2].PropertyType);
+            Assert.AreEqual(typeof(List<string>),   metaModel.GetMetaProperties()[3].PropertyType);
         }
 
         [Test]
@@ -114,11 +114,11 @@ namespace WildHare.Tests
             var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now }; ;
             var metaProperties = item.GetMetaProperties();
 
-            Assert.AreEqual(5, metaProperties.Count);
-            Assert.AreEqual("ItemId", metaProperties[0].Name);
+            Assert.AreEqual(5,          metaProperties.Count);
+            Assert.AreEqual("ItemId",   metaProperties[0].Name);
             Assert.AreEqual("ItemName", metaProperties[1].Name);
-            Assert.AreEqual("Created", metaProperties[2].Name);
-            Assert.AreEqual("Stuff", metaProperties[3].Name);
+            Assert.AreEqual("Created",  metaProperties[2].Name);
+            Assert.AreEqual("Stuff",    metaProperties[3].Name);
         }
 
         [Test]
@@ -127,9 +127,9 @@ namespace WildHare.Tests
             var itemList = new List<Item>();
             var metaProperties = itemList.GetMetaProperties("ItemId, ItemName");
 
-            Assert.AreEqual(3, metaProperties.Count);
-            Assert.AreEqual("Created", metaProperties[0].Name);
-            Assert.AreEqual("Stuff", metaProperties[1].Name);
+            Assert.AreEqual(3,          metaProperties.Count);
+            Assert.AreEqual("Created",  metaProperties[0].Name);
+            Assert.AreEqual("Stuff",    metaProperties[1].Name);
         }
 
         [Test]
@@ -244,13 +244,13 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(6, typesDerivedFromTeam.Count());
-            Assert.AreEqual("ArsenalTeam", typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("ManUnitedTeam", typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("NflTeam", typesDerivedFromTeam[4].Name);
-            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[5].Name);
+            Assert.AreEqual(6,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
+            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
         }
 
         [Test]
@@ -267,11 +267,11 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(new[] { "BaseballTeam", "NflTeam" }).ToList();
 
-            Assert.AreEqual(4, typesDerivedFromTeam.Count());
-            Assert.AreEqual("ArsenalTeam", typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("ManUnitedTeam", typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[3].Name);
+            Assert.AreEqual(4,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[3].Name);
             // BaseballTeam     excluded
             // NflTeam          excluded
         }
@@ -281,14 +281,14 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(includeBaseType: true).ToList();
 
-            Assert.AreEqual(7, typesDerivedFromTeam.Count());
-            Assert.AreEqual("ArsenalTeam", typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("BaseballTeam", typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("FootballTeam", typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("ManUnitedTeam", typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("NflTeam", typesDerivedFromTeam[4].Name);
-            Assert.AreEqual("SoccerTeam", typesDerivedFromTeam[5].Name);
-            Assert.AreEqual("Team", typesDerivedFromTeam[6].Name); // Included
+            Assert.AreEqual(7,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
+            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
+            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
+            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
+            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
+            Assert.AreEqual("Team",             typesDerivedFromTeam[6].Name); // Included
         }
 
         [Test]

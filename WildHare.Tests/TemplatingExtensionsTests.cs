@@ -6,6 +6,7 @@ using WildHare.Extensions.ForTemplating;
 using System.IO;
 using WildHare.Xtra;
 using static System.Environment;
+using System;
 
 namespace WildHare.Tests
 {
@@ -45,6 +46,82 @@ namespace WildHare.Tests
             Assert.AreEqual("bool?", boolString2.DotNetTypeToCSharpType());
             Assert.AreEqual("bool?", boolString3.DotNetTypeToCSharpType());
 
+        }
+
+        [Test]
+        public void BasicTypeNameFromValue_Basic()
+        {
+            string string1 = "frog";
+            string string2 = "";
+            string string3 = null;
+
+            Assert.AreEqual("string", string1.BasicTypeNameFromValue());
+            Assert.AreEqual("string", string2.BasicTypeNameFromValue());
+            Assert.AreEqual("string", string3.BasicTypeNameFromValue());
+        }
+
+        [Test]
+        public void BasicTypeNameFromValue_Bool()
+        {
+            string string1 = "true";
+            string string2 = "false";
+            string string3 = "True";
+            string string4 = "false";
+
+            Assert.AreEqual("bool", string1.BasicTypeNameFromValue());
+            Assert.AreEqual("bool", string2.BasicTypeNameFromValue());
+            Assert.AreEqual("bool", string3.BasicTypeNameFromValue());
+            Assert.AreEqual("bool", string4.BasicTypeNameFromValue());
+        }
+
+        [Test]
+        public void BasicTypeNameFromValue_Numbers()
+        {
+            string string1 = "0";
+            string string2 = "1";
+            string string3 = "12000";
+            string string4 = "12,000";
+            string string5 = "2,147,483,647";
+            string string6 = "2,147,483,648";
+            string string7 = "1.0";
+            string string8 = "1.333";
+
+            Assert.AreEqual("int",      string1.BasicTypeNameFromValue());
+            Assert.AreEqual("int",      string2.BasicTypeNameFromValue());
+            Assert.AreEqual("int",      string3.BasicTypeNameFromValue());
+            Assert.AreEqual("int",      string4.BasicTypeNameFromValue());
+            Assert.AreEqual("int",      string5.BasicTypeNameFromValue());
+            Assert.AreEqual("long",     string6.BasicTypeNameFromValue());
+            Assert.AreEqual("decimal",  string7.BasicTypeNameFromValue());
+            Assert.AreEqual("decimal",  string8.BasicTypeNameFromValue());
+        }
+
+        [Test]
+        public void BasicTypeNameFromValue_Strict_Throws_For_Empty()
+        {
+            string string1 = "";
+
+            var ex = Assert.Throws<Exception>
+            (
+                () => string1.BasicTypeNameFromValue(true)
+            );
+
+            string expectedMessage = "The BasicTypeNameFromValue value cannot be empty or null when in strict mode.";
+            Assert.AreEqual(expectedMessage, ex.Message);
+        }
+
+        [Test]
+        public void BasicTypeNameFromValue_Strict_Throws_For_Null()
+        {
+            string string1 = null;
+            string customErrorMessage = "Something went wrong...";
+
+            var ex = Assert.Throws<Exception>
+            (
+                () => string1.BasicTypeNameFromValue(true, customErrorMessage)
+            );
+
+            Assert.AreEqual("Something went wrong...", ex.Message);
         }
 
         [Test]

@@ -8,6 +8,8 @@
 
         public string WwwFolderRootPath { get; set; }
 
+        public string CodeGenTempPath { get; set; }
+
         public string CssWriteToFolderPath { get; set; }
 
         public string CssSummaryByFileName_Filename { get; set; }

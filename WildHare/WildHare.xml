@@ -341,6 +341,13 @@
             <summary>Gets the string content from a System.Io.FileInfo. If {strict} is true (the default),
             will throw an exception if the file is not found. If {strict} is false, will return null.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IOExtensions.Child(System.IO.DirectoryInfo,System.String)">
+            <summary>Gets the child DirectoryInfo that equals {directoryName}. Returns null if no matches.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.IOExtensions.Sibling(System.IO.DirectoryInfo,System.String)">
+            <summary>Gets the sibling directory (at the same level as the DirectoryInfo) that 
+            equals {directoryName}.  Returns null if no matches.</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringExtensions.IsNullOrEmpty(System.String)">
             <summary>Inline version of string.IsNullOrEmpty()</summary>
         </member>
@@ -558,6 +565,11 @@
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.DotNetTypeToCSharpType(System.String,System.Boolean)">
             <summary>Converts a .Net type name to a C# type name. It will remove the "System." namespace, if present</summary>
+        </member>
+        <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.BasicTypeNameFromValue(System.String,System.Boolean,System.String)">
+            <summary>Given something like a string appsetting {value}, returns the string name from the first parsable type 
+            (using invariant culture) in the following: bool, int, long, double, or string. If the param {strict} is true,
+            the function will throw an exception. The {errorMessage} thrown can be customized.</summary>
         </member>
         <member name="M:WildHare.Extensions.ForTemplating.TemplatingExtensions.Template(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String)">
             <summary>Returns a string that replaces the placeholder elements [placeholder] in the {string} template with the matching the dictionary 

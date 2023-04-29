@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Common;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Xml;
 using WildHare.Extensions;
+using WildHare.Extensions.ForTemplating;
 using WildHare.Web;
 using static System.Environment;
 
@@ -17,51 +19,45 @@ namespace CodeGen
 {
     public class CodeGenFromAppsettings
     {
-        private static readonly string indent = "\t\t"; 
+        private static readonly string indent = "\t\t";
+        private static readonly string namespaceStr = "Me2.Models";
 
-        public static string Init(IEnumerable<string> appSettings, bool overwrite)
+        public static string Init(Dictionary<string,string> appSettings, string writeToFilePath, bool overwrite)
         {
-            string writeToFilePath = "C:\\Git\\WildHare\\WildHare.Web\\Entities\\Appsettings.cs";
-
-            var sb = new StringBuilder();
-            sb.AppendLine
-            (
-                $@"
-                namespace Me2.Models
+            bool success =
+            $@"
+            namespace { namespaceStr }
+            {{
+                public class AppSettings
                 {{
-                    public class AppSettings
-                    {{
-                        { WriteSettings(appSettings) }
-                    }}
-                }}"
-                .RemoveIndents(false) 
-            )
-            .ToString()
-            
+                    { GenerateSettings(appSettings) }
+                }}
+            }}"
+            .RemoveIndents(false)
             .WriteToFile(writeToFilePath, overwrite);
 
-            bool success  = sb.ToString()
-                              .WriteToFile(writeToFilePath, overwrite);
-
-            string result = $"{nameof(CodeGenFromAppsettings)}.{nameof(Init)} code written to '{writeToFilePath}'.{NewLine}" +
-                            $"Success: {success}{NewLine}" +
-                            $"Overwrite: {overwrite}{NewLine}";
-            return result;
+            return Result($"{nameof(CodeGenFromAppsettings)}.{nameof(Init)}", writeToFilePath, success, overwrite);
         }
 
-        private static string WriteSettings(IEnumerable<string> appProps)
+        private static string GenerateSettings(Dictionary<string, string> appProps)
         {
             var sb = new StringBuilder();
             foreach (var prop in appProps)
             {
-                sb.AppendLine($"{indent}public string {prop} {{ get; set; }}{NewLine}");
+                sb.AppendLine($"{indent}public {prop.Value.BasicTypeNameFromValue()} {prop.Key} {{ get; set; }}{NewLine}");
             }
             return sb.ToString()
                      .RemoveStartEnd(indent, NewLine + NewLine);
         }
+
+        private static string Result(string methodName, string writeToFilePath, bool success, bool overwrite)
+        {
+            return $"{methodName} code written to '{writeToFilePath}'.{NewLine}" +
+                   $"Success: {success}{NewLine}" +
+                   $"Overwrite: {overwrite}{NewLine}";
+        }
     }
 }
-
 
 
 

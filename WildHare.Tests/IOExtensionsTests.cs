@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using WildHare.Extensions;
 using WildHare.Xtra;
@@ -211,5 +212,35 @@ namespace WildHare.Tests
 
             Assert.IsNull(fileToRead.ReadFile(false));
         }
+
+        [Test]
+        public void TestContext_CurrentContext_TestDirectory()
+        {
+            string testDirectory = TestContext.CurrentContext.TestDirectory;
+
+            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", testDirectory);
+            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", testDirectory.GetStartBefore("bin"));
+        }
+
+        [Test]
+        public void Get_FileInfo_Child_FileInfo()
+        {
+            string testDirectory    = TestContext.CurrentContext.TestDirectory;
+            var helpersDirectory    = new DirectoryInfo(testDirectory.GetStartBefore("bin")).Child("Helpers");
+
+            Assert.IsNotNull(helpersDirectory);
+            Assert.AreEqual("Helpers", helpersDirectory.Name);
+        }
+
+        [Test]
+        public void Get_FileInfo_Sibling_FileInfo()
+        {
+            string testDirectory    = TestContext.CurrentContext.TestDirectory;
+            var wildHareDirectory   = new DirectoryInfo(testDirectory.GetStartBefore("bin")).Sibling("WildHare");
+
+            Assert.IsNotNull(wildHareDirectory);
+            Assert.AreEqual("WildHare", wildHareDirectory.Name);
+        }
     }
+
 }

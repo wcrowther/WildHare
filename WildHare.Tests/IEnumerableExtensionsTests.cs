@@ -314,9 +314,9 @@ namespace WildHare.Tests
             funcs["divide"] = Divide;
 
             Assert.AreEqual(10, funcs["add"].DynamicInvoke(5, 5));
-            Assert.AreEqual(0, funcs["subtract"].DynamicInvoke(5, 5));
+            Assert.AreEqual(0,  funcs["subtract"].DynamicInvoke(5, 5));
             Assert.AreEqual(25, funcs["multiply"].DynamicInvoke(5, 5));
-            Assert.AreEqual(1, funcs["divide"].DynamicInvoke(5, 5));
+            Assert.AreEqual(1,  funcs["divide"].DynamicInvoke(5, 5));
         }
 
         [Test]
@@ -405,9 +405,9 @@ namespace WildHare.Tests
         public void Test_PatternMatch_Basic()
         {
             string[] phraseList = { "is", "the", "president", "of", "the", "united", "states", "a", "politician" };
-            var pattern = "president of the united states".Split(' ');
+            string[] pattern = "president of the united states".Split(' ');
 
-            var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
+            List<string> matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
 
             Assert.AreEqual(5, matches.Count);
             Assert.AreEqual("president of the united states", string.Join(' ', matches));
@@ -536,6 +536,18 @@ namespace WildHare.Tests
             string intListString = intList.AsString();
 
             Assert.AreEqual(null, intListString);
+        }
+
+        [Test]
+        public void Test_OrderBy_Overload_With_Descending_Shortcut()
+        {
+            int[] ascending     = { 1, 2, 3, 4, 5 };
+            int[] descending    = { 5, 4, 3, 2, 1 };
+            int[] jumbled       = { 2, 4, 1, 3, 5 };
+
+            Assert.AreEqual(ascending,  jumbled.OrderBy(o => o));
+            Assert.AreEqual(ascending,  jumbled.OrderBy(o => o, false));
+            Assert.AreEqual(descending, jumbled.OrderBy(o => o, true));
         }
 
         // ================================================================================================

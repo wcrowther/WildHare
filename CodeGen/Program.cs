@@ -38,10 +38,10 @@ namespace CodeGen
 
         private static IServiceCollection ConfigureServices()
         {
+            // =========================================================================
             // NOTE: Console app will use appsettings.json if included and Properties
             // marked as 'Copy if Newer', otherwise will use the one in the Web proj.
-            
-            IServiceCollection serviceCollection = new ServiceCollection();
+            // =========================================================================
 
             IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -49,7 +49,8 @@ namespace CodeGen
                 .AddUserSecrets("bce71bbc-0b7c-4fb3-bd9f-77582fdf3b51")
                 .Build();
 
-            // add services
+            var serviceCollection = new ServiceCollection();
+
             serviceCollection.AddSingleton(configuration)
                              .AddSingleton(configuration.GetSection("App").Get<AppSettings>())
                              .AddSingleton<IHostEnvironment, HostingEnvironment>()
