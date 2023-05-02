@@ -3,7 +3,7 @@
 CSS Stylesheets In The Project
 Under C:\Git\WildHare\WildHare.Web\wwwroot (omits bootstrap and min files)
 
-Generated Using a CodeTemplate On 4/16/2023 12:56:07 AM
+Generated Using a CodeTemplate On 5/1/2023 8:38:14 PM
 ====================================================================================================
 css        site.css
 ====================================================================================================
