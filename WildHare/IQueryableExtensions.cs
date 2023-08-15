@@ -11,7 +11,7 @@ namespace WildHare.Extensions
         {
             var typeOfT = typeof(T);
             var parameter = Expression.Parameter(typeOfT, "parameter");
-            var property = (!string.IsNullOrWhiteSpace(propertyName)) ? typeOfT.GetProperty(propertyName) : typeOfT.GetProperty(defaultProperty);
+            var property = (!propertyName.IsNullOrSpace()) ? typeOfT.GetProperty(propertyName) : typeOfT.GetProperty(defaultProperty);
             if (property == null) // Invalid propertyName - use first property
             {
                 property = typeOfT.GetProperties()[0];

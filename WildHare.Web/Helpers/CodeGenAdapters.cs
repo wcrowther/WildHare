@@ -8,6 +8,7 @@ using WildHare.Extensions;
 using WildHare.Web.Entities;
 using WildHare.Web.Models;
 using static System.Environment;
+using static System.Console;
 
 namespace WildHare.Web
 {
@@ -47,7 +48,7 @@ namespace WildHare.Web
 
             string adapterList = GetGeneratorAdapterList();
 
-            // Write out the adapterlist to the Debug window generated from a particular namespace
+            // Write out the adapterlist to the Debug window generated from toTypeProps particular namespace
             Debug.Write(adapterList.AddEnd("=".Repeat(80) + NewLine));
 
             // Copy and paste adapterlist from Debug Output window here if needed.
@@ -103,12 +104,12 @@ namespace WildHare.Web
 
                     public static List<{class2}> To{class2}List (this IEnumerable<{class1}> {mapName1}List)
                     {{
-                        return {mapName1}List?.Select(a => a.To{class2}()).ToList() ?? new List<{class2}>();
+                        return {mapName1}List?.Select(toTypeProps => toTypeProps.To{class2}()).ToList() ?? new List<{class2}>();
                     }}
 
                     public static List<{class1}> To{class1}List (this IEnumerable<{class2}> {mapName2}List)
                     {{
-                       return {mapName2}List?.Select(a => a.To{class1}()).ToList() ?? new List<{class1}>();
+                       return {mapName2}List?.Select(toTypeProps => toTypeProps.To{class1}()).ToList() ?? new List<{class1}>();
                     }}
                 }}
             }}";
@@ -129,7 +130,10 @@ namespace WildHare.Web
 
             foreach (var prop in type.GetProperties())
             {
-                if (toType.GetProperties().Any(a => a.Name.ToLower() == prop.Name.ToLower()))
+                // var toTypeProps = toType.GetProperties().Select(n => n.Name.ToLower()).ToArray();
+                // if (prop.Name.EqualsAny(true, toTypeProps))
+
+                if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
                 {
                     sb.Append($"{indent}{prop.Name, pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
                 }

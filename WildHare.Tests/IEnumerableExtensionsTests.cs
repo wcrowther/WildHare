@@ -550,6 +550,64 @@ namespace WildHare.Tests
             Assert.AreEqual(descending, jumbled.OrderBy(o => o, true));
         }
 
+        [Test]
+        public void Test_ToArray_Overload_String()
+        {
+            var list = new List<Item>
+             {
+                 new Item{ ItemId = 1, ItemName = "One" },
+                 new Item{ ItemId = 2, ItemName = "Two" },
+                 new Item{ ItemId = 3, ItemName = "Three" },
+             };
+
+            string[] stringArray = list.Select(n => n.ItemName).ToArray();
+
+            Assert.AreEqual(stringArray, list.ToArray(n => n.ItemName));
+        }
+
+        [Test]
+        public void Test_ToArray_Overload_Int()
+        {
+            var list = new List<Item>
+             {
+                 new Item{ ItemId = 1, ItemName = "One" },
+                 new Item{ ItemId = 2, ItemName = "Two" },
+                 new Item{ ItemId = 3, ItemName = "Three" },
+             };
+
+            int[] intArray = list.Select(n => n.ItemId).ToArray();
+
+            Assert.AreEqual(intArray, list.ToArray(n => n.ItemId));
+        }
+
+        [Test]
+        public void Test_ToArray_Overload_Object()
+        {
+            // Same as native implementation
+
+            var list = new List<Item>
+             {
+                 new Item{ ItemId = 1, ItemName = "One" },
+                 new Item{ ItemId = 2, ItemName = "Two" },
+                 new Item{ ItemId = 3, ItemName = "Three" },
+             };
+
+            Item[] itemArray = list.Select(n => n).ToArray();
+
+            Assert.AreEqual(itemArray, list.ToArray(n => n));
+        }
+
+        [Test]
+        public void Test_ToArray_Overload_Empty()
+        {
+            var list = new List<Item>();
+
+            string[] stringArray = list.Select(n => n.ItemName).ToArray();
+
+            Assert.AreEqual(stringArray, list.ToArray(n => n.ItemName));
+        }
+
+
         // ================================================================================================
         // PRIVATE FUNCTIONS
         // ================================================================================================

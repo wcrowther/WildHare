@@ -103,7 +103,7 @@ namespace WildHare.Tests
             Assert.AreEqual(null,       first.TestNull);
             Assert.AreEqual("Default",  first.TestNullDefault);
 
-            var second = tests.ElementAt(1);
+            var second = tests.ElementAt(1); // zero-based second element
 
             Assert.AreEqual(2,          second.TestId);
             Assert.AreEqual("Two",      second.TestName);
@@ -122,12 +122,12 @@ namespace WildHare.Tests
 
         private IDbConnection GetConnection()
         {
-            var config = new ConfigurationBuilder()
-                             //.SetBasePath(Directory.GetCurrentDirectory())
-                             .AddJsonFile("appSettings.json")
-                             .Build();
+            var builder     = new ConfigurationBuilder()
+                                //.SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appSettings.json")
+                                .Build();
 
-            string connStr = config["App:SQLiteData"];
+            string connStr = builder["App:SQLiteData"];
 
             return new SqliteConnection(connStr);
         }
