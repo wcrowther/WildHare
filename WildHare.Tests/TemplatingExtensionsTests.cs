@@ -166,6 +166,9 @@ namespace WildHare.Tests
         [Test]
         public void Test_TemplateList_With_String_Basic()
         {
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string outputPath = $@"{pathRoot}\Directory0\SimpleOutput.txt";
+
             var invoice = new Invoice
             {
                 InvoiceId = 1000,
@@ -196,13 +199,9 @@ namespace WildHare.Tests
             </div>"
             .RemoveIndents();
 
-            // GET .RemoveIndents() working correctly with this sample
             string getInvoiceHtml = invoice.Template(docTemplate);
 
             Assert.AreEqual(expected, getInvoiceHtml);
-
-            string pathRoot = XtraExtensions.GetApplicationRoot();
-            string outputPath = $@"{pathRoot}\Directory0\SimpleOutput.txt";
 
             getInvoiceHtml.WriteToFile(outputPath);
 
