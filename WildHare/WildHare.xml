@@ -114,6 +114,9 @@
             <param name="table"></param>
             <returns>List{T}</returns>
         </member>
+        <member name="T:WildHare.Extensions.DateTimeExtensions">
+            <summary>DateTime Extensions</summary>
+        </member>
         <member name="M:WildHare.Extensions.DateTimeExtensions.GetNextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)">
             <summary>Given a DateTime like {date}, gets the next {DayOfWeek}, like Sunday, Saturday, etc. as DateTime.
             If {includeDate} is true and {date} is that day of the week, then return that {date}.</summary>
@@ -134,8 +137,7 @@
         </member>
         <member name="M:WildHare.Extensions.DateTimeExtensions.TodayOrBefore(System.DateTime,System.Boolean)">
             <summary>Returns a boolean true if the {datetime} is before DateTime.Today with time component set to 00.00.00 
-            (the C# definition). When {includeAllOfToday} is true, any time in today is included.
-            </summary>
+            (the C# definition). When {includeAllOfToday} is true, any time in today is included.</summary>
         </member>
         <member name="M:WildHare.Extensions.DateTimeExtensions.NextDayOfWeek(System.DateTime,System.DayOfWeek,System.Boolean)">
             <summary>Given a DateTime {date}, returns the first instance of the day of the week. 
@@ -144,9 +146,30 @@
             ex2. For the same {date}, for dayOfWeek "Sunday", and {includeCurrentDate} is true, 
             it the would return Aug 21, 2022, as it is a Sunday.</summary>
         </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.MonthName(System.DateTime)">
+            <summary>Full name of the month for the given {date}</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.MonthName(System.Int32)">
+            <summary>Full name of the month for the given int from 1 to 12. Throws an error if it is outside this range.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.ShortMonthName(System.DateTime)">
+            <summary>Short name of the month for the given {date}</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.ShortMonthName(System.Int32)">
+            <summary>Short name of the month for the given int from 1 to 12. Throws an error if it is outside this range.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.YearMonth(System.DateTime)">
+            <summary>Returns a string with the four digit year and two digit month combined with no spaces.</summary>
+        </member>
+        <member name="M:WildHare.Extensions.DateTimeExtensions.YearMonthDay(System.DateTime)">
+            <summary>Returns a string with the four digit year, two digit month, and two digit day combined with no spaces.</summary>
+        </member>
         <member name="M:WildHare.Extensions.DateTimeExtensions.StartOfWeek(System.DateTime,System.DayOfWeek)">
             <summary>Given a DateTime {date}, returns the starting day of the week. Typically {startOfWeek} 
             would be either a Sunday or Monday. This version is not culture aware.</summary>
+        </member>
+        <member name="T:WildHare.Extensions.Xtra.XtraExtensions">
+            <summary>Xtra Extensions</summary>
         </member>
         <member name="M:WildHare.Extensions.Xtra.XtraExtensions.GetXmlDocumentation(System.String,System.Reflection.Assembly)">
             <summary>(EXPERIMENTAL) Returns a list Xml Documentation elements.

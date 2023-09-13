@@ -120,7 +120,7 @@ namespace WildHare.Tests
             string filesAndFolders = folders.ToString() + files.ToString();
             filesAndFolders.WriteToFile(outputPath, true);
 
-            Assert.AreEqual(8, allFilesAndFolders.Count());
+            Assert.AreEqual(9, allFilesAndFolders.Count());
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace WildHare.Tests
             string filesAndFolders = folders.ToString() + files.ToString();
             filesAndFolders.WriteToFile(outputPath, true);
 
-            Assert.AreEqual(15, allFilesAndFolders.Count());
+            Assert.AreEqual(16, allFilesAndFolders.Count());
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace WildHare.Tests
 
             sb.ToString().WriteToFile(outputPath, true);
 
-            Assert.AreEqual(13, list.Count());
+            Assert.AreEqual(14, list.Count());
         }
 
         [Test]
@@ -218,7 +218,7 @@ namespace WildHare.Tests
         {
             string testDirectory = TestContext.CurrentContext.TestDirectory;
 
-            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", testDirectory);
+            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net6.0", testDirectory);
             Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", testDirectory.GetStartBefore("bin"));
         }
 

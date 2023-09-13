@@ -1,5 +1,6 @@
 Directory: Directory1a
 Directory: Directory1b
+File: SimpleOutput.txt
 File: SimpleTemplate.txt
 File: TextFile0.txt
 File: WildHare.txt.old

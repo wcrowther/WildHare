@@ -1285,5 +1285,30 @@ namespace WildHare.Tests
 
             Assert.AreEqual(trimmedText, text.RemoveExtraLines(-1));
         }
+
+
+        [Test]
+        public void Test_String_Split()
+        {
+            string text = "  ; https://www.google.com;https://www.yahoo.com; https://www.willcrowther.com ";
+            var strArray = text.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries  );
+            
+            // intial empty string is removed
+
+            Assert.AreEqual(3, strArray.Count());
+            Assert.AreEqual("https://www.google.com", strArray[0]);
+            Assert.AreEqual("https://www.yahoo.com", strArray[1]);
+            Assert.AreEqual("https://www.willcrowther.com", strArray[2]);
+        }
+
+        [Test]
+        public void Test_String_Split_Alternate()
+        {
+            string text = "9811456789,    ";
+            var strArray = text.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            Assert.AreEqual(1, strArray.Count());
+            Assert.AreEqual("9811456789", strArray[0]);
+        }
     }
 }
