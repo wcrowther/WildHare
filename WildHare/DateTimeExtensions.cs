@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace WildHare.Extensions
 {
+    /// <summary>DateTime Extensions</summary>
     public static class DateTimeExtensions
     {
         /// <summary>Given a DateTime like {date}, gets the next {DayOfWeek}, like Sunday, Saturday, etc. as DateTime.
@@ -45,8 +46,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Returns a boolean true if the {datetime} is before DateTime.Today with time component set to 00.00.00 
-        /// (the C# definition). When {includeAllOfToday} is true, any time in today is included.
-        /// </summary>
+        /// (the C# definition). When {includeAllOfToday} is true, any time in today is included.</summary>
         public static bool TodayOrBefore(this DateTime datetime, bool includeAllOfToday = false)
         {
             if (includeAllOfToday)
@@ -68,13 +68,13 @@ namespace WildHare.Extensions
             return date.AddDays(7 - (int)date.DayOfWeek);
         }
 
-        // Full name of the month for the given {date}
+        /// <summary>Full name of the month for the given {date}</summary>
         public static string MonthName(this DateTime date)
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(date.Month);
         }
 
-        // Full name of the month for the given int from 1 to 12. Throws an error if it is outside this range.
+        /// <summary>Full name of the month for the given int from 1 to 12. Throws an error if it is outside this range.</summary>
         public static string MonthName(this int monthInt)
         {
             // Throws and exception for any ints out of this range, including 13 (which returns an empty string in c#)
@@ -84,13 +84,13 @@ namespace WildHare.Extensions
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthInt);
         }
 
-        // Short name of the month for the given {date}
+        /// <summary>Short name of the month for the given {date}</summary>
         public static string ShortMonthName(this DateTime date)
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(date.Month);
         }
 
-        // Short name of the month for the given int from 1 to 12. Throws an error if it is outside this range.
+        /// <summary>Short name of the month for the given int from 1 to 12. Throws an error if it is outside this range.</summary>
         public static string ShortMonthName(this int monthInt)
         {
             // Throws and exception for any ints out of this range, including 13 (which returns an empty string in c#)
@@ -100,13 +100,13 @@ namespace WildHare.Extensions
             return CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(monthInt);
         }
 
-        // Returns a string with the four digit year and two digit month combined with no spaces.
+        /// <summary>Returns a string with the four digit year and two digit month combined with no spaces.</summary>
         public static string YearMonth(this DateTime date)
         {
             return $"{date.Year}{date.Month:00}";
         }
 
-        // Returns a string with the four digit year, two digit month, and two digit day combined with no spaces.
+        /// <summary>Returns a string with the four digit year, two digit month, and two digit day combined with no spaces.</summary>
         public static string YearMonthDay(this DateTime date)
         {
             return $"{date.Year}{date.Month:00}{date.Day:00}";

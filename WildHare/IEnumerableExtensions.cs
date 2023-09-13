@@ -214,15 +214,15 @@ namespace WildHare.Extensions
                 throw new Exception("IntList.AsString() cannot be null when in strict mode.");
 
             if (intList is null)
-                return null;
+                return null; ; 
 
             return string.Join(separator, intList);
         }
 
-        /// <summary>Works similar to an inline string.Joins implementation that concatenates 
+        /// <summary>Works similar to an inline string.Join implementation that concatenates 
         /// the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
-        /// Adds the capability to delete null entries if {removeNulls} (defaults to false) is true.</summary>
-        public static string AsString(this IEnumerable<string> strList, string separator = ", ", bool removeNulls = false)
+        /// Adds the capability to delete null entries if {removeNulls} is true (defaults to false) .</summary>
+        public static string AsString(this IEnumerable<string> strList, string separator = ", ", bool removeNulls = true)
         {
             var sb = new StringBuilder();
             foreach (var item in strList)
@@ -287,6 +287,24 @@ namespace WildHare.Extensions
         public static IOrderedEnumerable<T> OrderBy<T,TKey>(this IEnumerable<T> list, Func<T,TKey> keySelector, bool isDescending)
         {
             return isDescending ? list.OrderByDescending(keySelector) : list.OrderBy(keySelector);
+        }
+
+        ///<summary>Convenience overload of ToArray() that allows passing in a selector. </summary>
+        public static T2[] ToArray<T, T2>(this IEnumerable<T> list, Func<T, T2> selector)
+        {
+            // LINQ version: return list.Select(a => selector(a)).ToArray();
+            // THIS EQUIVALENT: return list.ToArray(a => selector(a));
+
+            var items = new T2[list.Count()];
+            int index = 0;
+
+            foreach (var item in list)
+            {
+               items[index] = (selector(item));
+               index++;
+            }
+
+            return items;
         }
     }
 }

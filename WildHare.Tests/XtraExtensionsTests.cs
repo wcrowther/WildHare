@@ -31,17 +31,17 @@ namespace WildHare.Tests
         [Test]
         public void Test_WriteToFile_Get_Base_Directory_Alternatives()
         {
-            string codeBase			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-            string localPath		= Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            string codeBase			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string localPath		= Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().Location).LocalPath);
             string location			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string applicationRoot	= XtraExtensions.GetApplicationRoot();
 			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-			Assert.AreEqual($@"file:\{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", codeBase);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", localPath);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", location);
+			Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net6.0", codeBase);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net6.0", localPath);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net6.0", location);
             Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests", applicationRoot);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\netcoreapp3.1", entryAssembly);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net6.0", entryAssembly);
         }
 
         [Test]

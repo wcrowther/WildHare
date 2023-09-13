@@ -504,7 +504,7 @@ namespace WildHare.Extensions
             return false;
         }
 
-        /// <summary>An overload of StartsWith that accepts a string array.
+        /// <summary>An overload of StartsWith that accepts a string params array.
         /// Will return true if any of the values in the params {valuesArray} is true.</summary>
         public static bool StartsWith(this string str, bool ignoreCase, params string[] valuesArray)
         {

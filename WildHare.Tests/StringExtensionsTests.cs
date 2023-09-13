@@ -719,6 +719,35 @@ namespace WildHare.Tests
         }
 
         [Test]
+        public void Test_Contains_ValuesArray_Basic()
+        {
+            string str = "====hide===In=====";
+
+            string[] array1 = { "In" };
+            string[] array2 = { "in" };
+            string[] array3 = { "bob", "hide" };
+            string[] array4 = { "hide", "BOB", "Jean" };
+            string[] array5 = { "fred", "BOB", "Jean" };
+            string[] array6 = { "will", "Joe", "in" };
+
+            bool result1 = str.Contains(array1, true);
+            bool result2 = str.Contains(array2, true);
+            bool result3 = str.Contains(array3, true);
+            bool result4 = str.Contains(array4, true);
+            bool result5 = str.Contains(array5);
+            bool result6 = str.Contains(array6);
+
+            Assert.IsTrue(result1);
+            Assert.IsTrue(result2);
+            Assert.IsTrue(result3);
+            Assert.IsTrue(result4);
+
+            Assert.IsFalse(result5);
+            Assert.IsFalse(result6);
+        }
+
+
+        [Test]
         public void Test_Contains_Params_Basic()
         {
             string str = "====hide===In=====";
@@ -903,6 +932,20 @@ namespace WildHare.Tests
             Assert.AreEqual("R", str.Right(1));  // get 1 from right end   
             Assert.AreEqual("MR", str.Right(2)); // get 2 from right end   
 
+        }
+
+        [Test]
+        public void Test_ToLineArray_Basic()
+        {
+            string str = @" line1
+                            line2
+                            line3";
+            string[] lineArray = str.ToLineArray();
+
+            Assert.AreEqual(3, lineArray.Length);
+            Assert.AreEqual("line1", lineArray[0].Trim());
+            Assert.AreEqual("line2", lineArray[1].Trim());
+            Assert.AreEqual("line3", lineArray[2].Trim());
         }
 
         [Test]
@@ -1147,11 +1190,21 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_AsString_Remove_Nulls()
+        public void Test_String_Joins_With_Nulls()
         {
             string[] animals = { "lions", null, "tigers", null, "bears" };
 
-            Assert.AreEqual("lions, tigers, bears", animals.AsString(removeNulls: true));
+            Assert.AreEqual("lions, , tigers, , bears", string.Join(", ", animals));
+        }
+
+        [Test]
+        public void Test_AsString_Remove_Nulls()
+        {
+            // Removes null
+
+            string[] animals = { "lions", null, "tigers", null, "bears" };
+
+            Assert.AreEqual("lions, tigers, bears", animals.AsString());
         }
 
         [Test]
@@ -1231,6 +1284,31 @@ namespace WildHare.Tests
                                  """;
 
             Assert.AreEqual(trimmedText, text.RemoveExtraLines(-1));
+        }
+
+
+        [Test]
+        public void Test_String_Split()
+        {
+            string text = "  ; https://www.google.com;https://www.yahoo.com; https://www.willcrowther.com ";
+            var strArray = text.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries  );
+            
+            // intial empty string is removed
+
+            Assert.AreEqual(3, strArray.Count());
+            Assert.AreEqual("https://www.google.com", strArray[0]);
+            Assert.AreEqual("https://www.yahoo.com", strArray[1]);
+            Assert.AreEqual("https://www.willcrowther.com", strArray[2]);
+        }
+
+        [Test]
+        public void Test_String_Split_Alternate()
+        {
+            string text = "9811456789,    ";
+            var strArray = text.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            Assert.AreEqual(1, strArray.Count());
+            Assert.AreEqual("9811456789", strArray[0]);
         }
     }
 }

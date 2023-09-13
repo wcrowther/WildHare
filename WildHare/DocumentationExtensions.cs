@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace WildHare.Extensions.Xtra
 {
+    /// <summary>Xtra Extensions</summary>
     public static partial class XtraExtensions
     {
-
         /// <summary>(EXPERIMENTAL) Returns a list Xml Documentation elements.
         /// Enable in VS by checking the Properties/Build/Enable Xml Documentation checkbox. On build,
         /// an XML file is generated to the file location with all the /// comments (like this one)

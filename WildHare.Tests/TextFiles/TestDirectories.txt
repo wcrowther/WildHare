@@ -2,6 +2,7 @@ Directory: Directory1a
 Directory: Directory1b
 Directory: Directory2a
 Directory: Directory3a
+File: SimpleOutput.txt
 File: SimpleTemplate.txt
 File: TextFile0.txt
 File: WildHare.txt.old

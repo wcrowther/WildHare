@@ -1,12 +1,12 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using WildHare.Extensions;
-using WildHare.Tests.Models;
-using WildHare.Extensions.ForTemplating;
 using System.IO;
+using WildHare.Extensions;
+using WildHare.Extensions.ForTemplating;
+using WildHare.Tests.Models;
 using WildHare.Xtra;
 using static System.Environment;
-using System;
 
 namespace WildHare.Tests
 {
@@ -66,7 +66,7 @@ namespace WildHare.Tests
             string string1 = "true";
             string string2 = "false";
             string string3 = "True";
-            string string4 = "false";
+            string string4 = "False";
 
             Assert.AreEqual("bool", string1.BasicTypeNameFromValue());
             Assert.AreEqual("bool", string2.BasicTypeNameFromValue());
@@ -81,19 +81,23 @@ namespace WildHare.Tests
             string string2 = "1";
             string string3 = "12000";
             string string4 = "12,000";
-            string string5 = "2,147,483,647";
-            string string6 = "2,147,483,648";
-            string string7 = "1.0";
-            string string8 = "1.333";
+            string string5 = "-1,000,000";
+            string string6 = "2,147,483,647";
+            string string7 = "2,147,483,648";
+            string string8 = "1.0";
+            string string9 = "1.333";
+            string string0 = "-1.333";
 
             Assert.AreEqual("int",      string1.BasicTypeNameFromValue());
             Assert.AreEqual("int",      string2.BasicTypeNameFromValue());
             Assert.AreEqual("int",      string3.BasicTypeNameFromValue());
             Assert.AreEqual("int",      string4.BasicTypeNameFromValue());
             Assert.AreEqual("int",      string5.BasicTypeNameFromValue());
-            Assert.AreEqual("long",     string6.BasicTypeNameFromValue());
-            Assert.AreEqual("decimal",  string7.BasicTypeNameFromValue());
+            Assert.AreEqual("int",      string6.BasicTypeNameFromValue());
+            Assert.AreEqual("long",     string7.BasicTypeNameFromValue());
             Assert.AreEqual("decimal",  string8.BasicTypeNameFromValue());
+            Assert.AreEqual("decimal",  string9.BasicTypeNameFromValue());
+            Assert.AreEqual("decimal",  string0.BasicTypeNameFromValue());
         }
 
         [Test]
@@ -162,6 +166,9 @@ namespace WildHare.Tests
         [Test]
         public void Test_TemplateList_With_String_Basic()
         {
+            string pathRoot = XtraExtensions.GetApplicationRoot();
+            string outputPath = $@"{pathRoot}\Directory0\SimpleOutput.txt";
+
             var invoice = new Invoice
             {
                 InvoiceId = 1000,
@@ -174,7 +181,9 @@ namespace WildHare.Tests
                     new InvoiceItem { InvoiceItemId = 4, Product = "ThingaMaGig",    Fee = 4.00m  }
                 }
             };
+
             string lineTemplate = "    <div>ItemId: [InvoiceItemId] Product: [Product] Fee: [Fee]</div>";
+            
             string docTemplate = $@"
             <div>InvoiceId: [InvoiceId] AccountId: [AccountId]
             {invoice.InvoiceItems.TemplateList(lineTemplate, NewLine)}
@@ -190,10 +199,16 @@ namespace WildHare.Tests
             </div>"
             .RemoveIndents();
 
-            // GET .RemoveIndents() working correctly with this sample
             string getInvoiceHtml = invoice.Template(docTemplate);
 
             Assert.AreEqual(expected, getInvoiceHtml);
+
+            getInvoiceHtml.WriteToFile(outputPath);
+
+            string outputString = new FileInfo(outputPath).ReadFile();
+
+            Assert.AreEqual(getInvoiceHtml, getInvoiceHtml);
+
         }
     }
 }

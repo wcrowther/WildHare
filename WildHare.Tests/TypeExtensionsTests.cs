@@ -25,15 +25,17 @@ namespace WildHare.Tests
             Assert.AreEqual(5,          metaModel.GetMetaProperties().Count);
             Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId",   metaModel.GetMetaProperties()[0].Name);
-            Assert.AreEqual("ItemName", metaModel.GetMetaProperties()[1].Name);
-            Assert.AreEqual("Created",  metaModel.GetMetaProperties()[2].Name);
-            Assert.AreEqual("Stuff",    metaModel.GetMetaProperties()[3].Name);
+            var props = metaModel.GetMetaProperties();
 
-            Assert.AreEqual(typeof(int),            metaModel.GetMetaProperties()[0].PropertyType);
-            Assert.AreEqual(typeof(string),         metaModel.GetMetaProperties()[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime),       metaModel.GetMetaProperties()[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>),   metaModel.GetMetaProperties()[3].PropertyType);
+            Assert.AreEqual("ItemId",   props[0].Name);
+            Assert.AreEqual("ItemName", props[1].Name);
+            Assert.AreEqual("Created",  props[2].Name);
+            Assert.AreEqual("Stuff",    props[3].Name);
+
+            Assert.AreEqual(typeof(int),            props[0].PropertyType);
+            Assert.AreEqual(typeof(string),         props[1].PropertyType);
+            Assert.AreEqual(typeof(DateTime),       props[2].PropertyType);
+            Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
         [Test]
@@ -41,19 +43,20 @@ namespace WildHare.Tests
         {
             var itemList = new List<Item>();
             var metaModel = itemList.GetMetaModel();
+            var props = metaModel.GetMetaProperties();
 
-            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
-            Assert.AreEqual("ItemId", metaModel.PrimaryKeyName);
+            Assert.AreEqual(5,          props.Count);
+            Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId", metaModel.GetMetaProperties()[0].Name);
-            Assert.AreEqual("ItemName", metaModel.GetMetaProperties()[1].Name);
-            Assert.AreEqual("Created", metaModel.GetMetaProperties()[2].Name);
-            Assert.AreEqual("Stuff", metaModel.GetMetaProperties()[3].Name);
+            Assert.AreEqual("ItemId",   props[0].Name);
+            Assert.AreEqual("ItemName", props[1].Name);
+            Assert.AreEqual("Created",  props[2].Name);
+            Assert.AreEqual("Stuff",    props[3].Name);
 
-            Assert.AreEqual(typeof(int), metaModel.GetMetaProperties()[0].PropertyType);
-            Assert.AreEqual(typeof(string), metaModel.GetMetaProperties()[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime), metaModel.GetMetaProperties()[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>), metaModel.GetMetaProperties()[3].PropertyType);
+            Assert.AreEqual(typeof(int),            props[0].PropertyType);
+            Assert.AreEqual(typeof(string),         props[1].PropertyType);
+            Assert.AreEqual(typeof(DateTime),       props[2].PropertyType);
+            Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
         [Test]
@@ -61,19 +64,20 @@ namespace WildHare.Tests
         {
             var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now };
             var metaModel = item.GetMetaModel();
+            var props = metaModel.GetMetaProperties();
 
-            Assert.AreEqual(5,          metaModel.GetMetaProperties().Count);
+            Assert.AreEqual(5,          props.Count);
             Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId",   metaModel.GetMetaProperties()[0].Name);
-            Assert.AreEqual("ItemName", metaModel.GetMetaProperties()[1].Name);
-            Assert.AreEqual("Created",  metaModel.GetMetaProperties()[2].Name);
-            Assert.AreEqual("Stuff",    metaModel.GetMetaProperties()[3].Name);
+            Assert.AreEqual("ItemId",   props[0].Name);
+            Assert.AreEqual("ItemName", props[1].Name);
+            Assert.AreEqual("Created",  props[2].Name);
+            Assert.AreEqual("Stuff",    props[3].Name);
 
-            Assert.AreEqual(typeof(int),            metaModel.GetMetaProperties()[0].PropertyType);
-            Assert.AreEqual(typeof(string),         metaModel.GetMetaProperties()[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime),       metaModel.GetMetaProperties()[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>),   metaModel.GetMetaProperties()[3].PropertyType);
+            Assert.AreEqual(typeof(int),            props[0].PropertyType);
+            Assert.AreEqual(typeof(string),         props[1].PropertyType);
+            Assert.AreEqual(typeof(DateTime),       props[2].PropertyType);
+            Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
         [Test]
@@ -81,16 +85,17 @@ namespace WildHare.Tests
         {
             var dictionay = new Dictionary<string, Item>();
             var metaModel = dictionay.GetMetaModel();
+            var props = metaModel.GetMetaProperties();
 
             Assert.AreEqual("String", metaModel.DictionaryKeyType.Name); // Not string (lowercase) for some reason
-            Assert.AreEqual("Item", metaModel.DictionaryValueType.Name);
+            Assert.AreEqual("Item",   metaModel.DictionaryValueType.Name);
 
-            Assert.AreEqual(5, metaModel.GetMetaProperties().Count);
-            Assert.AreEqual("Comparer", metaModel.GetMetaProperties()[0].Name);
-            Assert.AreEqual("Count", metaModel.GetMetaProperties()[1].Name);
-            Assert.AreEqual("Keys", metaModel.GetMetaProperties()[2].Name);
-            Assert.AreEqual("Values", metaModel.GetMetaProperties()[3].Name);
-            Assert.AreEqual("Item", metaModel.GetMetaProperties()[4].Name);
+            Assert.AreEqual(5,          props.Count);
+            Assert.AreEqual("Comparer", props[0].Name);
+            Assert.AreEqual("Count",    props[1].Name);
+            Assert.AreEqual("Keys",     props[2].Name);
+            Assert.AreEqual("Values",   props[3].Name);
+            Assert.AreEqual("Item",     props[4].Name);
         }
 
 
@@ -522,6 +527,16 @@ namespace WildHare.Tests
             }
 
             Assert.AreEqual(2, typeParameters.Count());
+        }
+
+        [Test]
+        public void GetMetaAssembly_Basic()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var metaAssembly = assembly.GetMetaAssembly();
+
+            Assert.IsNotNull(metaAssembly);
+            // Assert.AreEqual("I_Fruit", );
         }
     }
 }
