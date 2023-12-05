@@ -11,7 +11,9 @@ namespace WildHare.Extensions
         {
             var typeOfT = typeof(T);
             var parameter = Expression.Parameter(typeOfT, "parameter");
-            var property = (!propertyName.IsNullOrSpace()) ? typeOfT.GetProperty(propertyName) : typeOfT.GetProperty(defaultProperty);
+            var property = (!propertyName.IsNullOrSpace()) ? 
+                                typeOfT.GetProperty(propertyName) : 
+                                typeOfT.GetProperty(defaultProperty);
             if (property == null) // Invalid propertyName - use first property
             {
                 property = typeOfT.GetProperties()[0];
@@ -21,7 +23,8 @@ namespace WildHare.Extensions
             string orderString = (desc == false) ? "OrderBy" : "OrderByDescending";
 
             var expression = Expression.Call(typeof(Queryable), orderString,
-                new Type[] { typeOfT, property.PropertyType }, items.Expression, Expression.Quote(orderExpression));
+                                    new Type[] { typeOfT, property.PropertyType }, 
+                                    items.Expression, Expression.Quote(orderExpression));
 
             return items.Provider.CreateQuery<T>(expression);
         }

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>bce71bbc-0b7c-4fb3-bd9f-77582fdf3b51</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
@@ -30,5 +30,6 @@
     <Folder Include="Adapters\" />
     <Folder Include="GeneratedModels\" />
     <Folder Include="SqlInserts\" />
+    <Folder Include="TestDb\" />
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Tests.Models;
 using WildHare.Xtra;
 
 namespace WildHare.Tests
@@ -218,7 +219,7 @@ namespace WildHare.Tests
         {
             string testDirectory = TestContext.CurrentContext.TestDirectory;
 
-            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net6.0", testDirectory);
+            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net7.0", testDirectory);
             Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", testDirectory.GetStartBefore("bin"));
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
@@ -25,10 +26,10 @@ namespace WildHare.Web
         // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
         private static bool overWrite = false;
-        private static string rootPath;
+        private static string outputPath;
         private static string sqlConnString;
         private static readonly string namespaceRoot = "Me.Logic";
-		private static readonly string outputDir     = $@"{rootPath}\WildHare\WildHare.Web\NewtonModels\";
+		private static readonly string outputDir = @"\TestDb\";
 
 		private static readonly string start = "\t\t"; // Indentation
         private static readonly string end = NewLine;
@@ -43,7 +44,7 @@ namespace WildHare.Web
             if (dbConnString.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} dbConnString is null or empty.");
 
-            rootPath = projectRoot;
+            outputPath = projectRoot + outputDir;
             sqlConnString = dbConnString;
 
 			// Get list of table from SQL database
@@ -54,10 +55,10 @@ namespace WildHare.Web
             // ============================================================
             // a) Generates models for all tables in the database. 
 
-            foreach (var table in sqlTables)
-            {
-                CreateModelFromSQLTable(table.Key);
-            }
+            // foreach (var table in sqlTables)
+            // {
+            //     CreateModelFromSQLTable(table.Key);
+            // }
 
             // ============================================================
             // 2) Pre-Generate a list of tables - Alternate approach
@@ -67,11 +68,15 @@ namespace WildHare.Web
             // c) This gives you the ability to remove tables that are not needed. 
             // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
-            var modelsToCreate = string.Join("\r\n", sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", overwrite: true);"));
+            var modelsToCreate = string.Join(NewLine, sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", overwrite: false);"));
             
             Debug.Write(NewLine + modelsToCreate + NewLine.Repeat(2));
 
-            // EXAMPLE: 
+            // EXAMPLE 1:
+            CreateModelFromSQLTable("CommonNames", overwrite: true);
+            CreateModelFromSQLTable("USCities", "USCity", overwrite: true);
+
+            // EXAMPLE 2: 
             // CreateModelFromSQLTable("Abstract",                  overwrite:  false);
             // CreateModelFromSQLTable("Categories", "Category",    overwrite:  false);
             // CreateModelFromSQLTable("ComplexWords",              overwrite:  false);
@@ -94,7 +99,7 @@ namespace WildHare.Web
             // CreateModelFromSQLTable("WordToken",                 overwrite:  false);
 
             string result = $"{nameof(CodeGenClassesFromSqlTables)}. " +
-                            $"{nameof(Init)} code written to '{outputDir}'. " +
+                            $"{nameof(Init)} code written to '{outputPath}'. " +
                             $"Overwrite: {overWrite}";
 
             Debug.WriteLine(result);
@@ -123,23 +128,22 @@ namespace WildHare.Web
 		{
             modelName = modelName ?? tableName.RemoveEnd("s");;
 
-            string output =  
-            $@"using System;
+            string output = $$"""
+            using System;
             using System.ComponentModel.DataAnnotations;
     
-            // Generated from table: {tableName}
+            // Generated from table: {{ tableName }}
 
-            namespace {namespaceRoot}.Models
-            {{
-                public class {modelName}
-                {{
-                    { CreateModelPropertiesWithKeys(tableName) }
-                }}
-            }}";
+            namespace {{ namespaceRoot }}.Models
+            {
+                public class {{ modelName}}
+                {
+                    {{ CreateModelPropertiesWithKeys(tableName) }}
+                }
+            }
+            """;
 
-            bool isSuccess = output
-                             .RemoveIndents()
-                             .WriteToFile($"{outputDir}/{modelName}.cs", overwrite);
+            bool isSuccess = output.WriteToFile($"{outputPath}/{modelName}.cs", overwrite);
 
             return isSuccess;
 		}

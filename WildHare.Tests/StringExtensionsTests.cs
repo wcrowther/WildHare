@@ -388,7 +388,6 @@ namespace WildHare.Tests
             Assert.AreEqual("xxxTest", result);
         }
 
-
         [Test]
         public void Test_AddStart_Optional_QueryString()
         {
@@ -948,8 +947,18 @@ namespace WildHare.Tests
             Assert.AreEqual("line3", lineArray[2].Trim());
         }
 
+
         [Test]
-        public void Test_ApplyToAllLines_Basic()
+        public void Test_ApplyToAllLines_Basic1()
+        {
+            string str = $"line1\r\nline2\r\nline3";
+            string expected = $"\t\txxxline1\r\n\t\txxxline2\r\n\t\txxxline3";
+
+            Assert.AreEqual(expected, str.ForEachLine(a => "\t\t" + "xxx" + a));
+        }
+
+        [Test]
+        public void Test_ApplyToAllLines_Basic2()
         {
             string str = $"line1\r\nline2\r\nline3";
             string expected = $"x_line1_x\r\nx_line2_x\r\nx_line3_x";
@@ -981,6 +990,7 @@ namespace WildHare.Tests
         public void Test_Format_With_One_Arg()
         {
             string example = "https://{0}.test.com/";
+
             string subDomain1 = "www";
             string subDomain2 = "admin";
             string subDomain3 = "shop";
@@ -1152,7 +1162,7 @@ namespace WildHare.Tests
             Assert.AreEqual(false, str.EqualsAny());
             Assert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
             Assert.AreEqual(false, str.EqualsAny("GIRAFFE", "lions", "tigers", "bears"));
-            Assert.AreEqual(true, str.EqualsAny("giraffe", "lions", "tigers", "bears"));
+            Assert.AreEqual(true,  str.EqualsAny("giraffe", "lions", "tigers", "bears"));
         }
 
         [Test]
@@ -1162,7 +1172,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
             Assert.AreEqual(false, str.EqualsAny(false, "GIRAFFE", "Lions", "TIGERS", "bears"));
-            Assert.AreEqual(true, str.EqualsAny(true, "GIRAFFE", "Lions", "TIGERS", "bears"));
+            Assert.AreEqual(true,  str.EqualsAny(true, "GIRAFFE", "Lions", "TIGERS", "bears"));
         }
 
         [Test]
@@ -1176,9 +1186,9 @@ namespace WildHare.Tests
 
             Assert.AreEqual(false, str.EqualsAny(animalArray0));
             Assert.AreEqual(false, str.EqualsAny(animalArray1));
-            Assert.AreEqual(true, str.EqualsAny(animalArray2));
+            Assert.AreEqual(true,  str.EqualsAny(animalArray2));
             Assert.AreEqual(false, str.EqualsAny(animalArray3));
-            Assert.AreEqual(true, str.EqualsAny(true, animalArray3));
+            Assert.AreEqual(true,  str.EqualsAny(true, animalArray3));
         }
 
         [Test]

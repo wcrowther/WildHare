@@ -28,15 +28,6 @@ namespace WildHare.Web.Adapters
 				Invoices             = model.Invoices.ToInvoiceList()
             };
         }
-
-        public static List<AccountModel> ToAccountModelList (this IEnumerable<Account> entityList)
-        {
-            return entityList?.Select(a => a.ToAccountModel()).ToList() ?? new List<AccountModel>();
-        }
-
-        public static List<Account> ToAccountList (this IEnumerable<AccountModel> modelList)
-        {
-           return modelList?.Select(a => a.ToAccount()).ToList() ?? new List<Account>();
-        }
+        
     }
 }

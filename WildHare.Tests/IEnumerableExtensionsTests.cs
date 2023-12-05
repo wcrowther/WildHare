@@ -1,10 +1,5 @@
 using NUnit.Framework;
-using SeedPacket.DataSources;
-using SeedPacket.Extensions;
-using SeedPacket.Functions;
-using SeedPacket.Generators;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;

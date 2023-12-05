@@ -86,7 +86,10 @@ namespace WildHare.Tests
             string string7 = "2,147,483,648";
             string string8 = "1.0";
             string string9 = "1.333";
-            string string0 = "-1.333";
+            string string10 = "-1.333";
+            string string11 = "giraffe";
+            string string12 = "";
+            string string13 = null;
 
             Assert.AreEqual("int",      string1.BasicTypeNameFromValue());
             Assert.AreEqual("int",      string2.BasicTypeNameFromValue());
@@ -97,7 +100,10 @@ namespace WildHare.Tests
             Assert.AreEqual("long",     string7.BasicTypeNameFromValue());
             Assert.AreEqual("decimal",  string8.BasicTypeNameFromValue());
             Assert.AreEqual("decimal",  string9.BasicTypeNameFromValue());
-            Assert.AreEqual("decimal",  string0.BasicTypeNameFromValue());
+            Assert.AreEqual("decimal",  string10.BasicTypeNameFromValue());
+            Assert.AreEqual("string",   string11.BasicTypeNameFromValue());
+            Assert.AreEqual("string",   string12.BasicTypeNameFromValue());
+            Assert.AreEqual("string",   string13.BasicTypeNameFromValue());
         }
 
         [Test]
@@ -209,6 +215,68 @@ namespace WildHare.Tests
 
             Assert.AreEqual(getInvoiceHtml, getInvoiceHtml);
 
+        }
+
+        [Test]
+        public void Test_Raw_String_LineBreaks()
+        {
+            // For line ends in Raw String to be CR/LF same as NewLine 
+            // See Advanced Save Options (may have to be added to File menu)
+            
+            var expected = @"
+            <div>InvoiceId: 1000 AccountId: 9999
+                <div>ItemId: 1 Product: DooHickey Fee: 1.00</div>
+                <div>ItemId: 2 Product: WhatZit Fee: 2.00</div>
+                <div>ItemId: 3 Product: WhatDoYaCallIt Fee: 3.00</div>
+                <div>ItemId: 4 Product: ThingaMaGig Fee: 4.00</div>
+            </div>"
+            .RemoveIndents();
+
+            var actual = """
+            <div>InvoiceId: 1000 AccountId: 9999
+                <div>ItemId: 1 Product: DooHickey Fee: 1.00</div>
+                <div>ItemId: 2 Product: WhatZit Fee: 2.00</div>
+                <div>ItemId: 3 Product: WhatDoYaCallIt Fee: 3.00</div>
+                <div>ItemId: 4 Product: ThingaMaGig Fee: 4.00</div>
+            </div>
+            """;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Test_Template_With_Dictionary()
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                { "AccountNumber", "ABC12345" },
+                { "NameOne", "John" },
+                { "NameTwo", "Jean" },
+                { "NameThree", "Joan" },
+                { "NameFour", "Jeez" },
+            };
+
+            var template = @"
+            <div>Account Number: {{AccountNumber}}
+                <div>NameOne:   {{NameOne}}</div>
+                <div>NameTwo:   {{NameTwo}}</div>
+                <div>NameThree: {{NameThree}}</div>
+                <div>NameFour:  {{NameFour}}</div>
+            </div>"
+            .RemoveIndents();
+
+            string actual = dictionary.Template(template,"{{","}}");
+
+            var expected = @"
+            <div>Account Number: ABC12345
+                <div>NameOne:   John</div>
+                <div>NameTwo:   Jean</div>
+                <div>NameThree: Joan</div>
+                <div>NameFour:  Jeez</div>
+            </div>"
+            .RemoveIndents();
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

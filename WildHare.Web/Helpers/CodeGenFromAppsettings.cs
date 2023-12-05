@@ -25,15 +25,15 @@ namespace CodeGen
         public static string Init(Dictionary<string,string> appSettings, string writeToFilePath, bool overwrite)
         {
             bool success =
-            $@"
-            namespace { namespaceStr }
-            {{
+            $$"""
+            namespace {{ namespaceStr}}
+            {
                 public class AppSettings
-                {{
-                    { GenerateSettings(appSettings) }
-                }}
-            }}"
-            .RemoveIndents(false)
+                {
+                    {{GenerateSettings(appSettings)}}
+                }
+            }
+            """
             .WriteToFile(writeToFilePath, overwrite);
 
             return Result($"{nameof(CodeGenFromAppsettings)}.{nameof(Init)}", writeToFilePath, success, overwrite);

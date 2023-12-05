@@ -877,6 +877,11 @@ namespace WildHare.Extensions
             return list.Any(a => a.Equals(str));
         }
 
+        public static bool EqualsAnyIgnoreCase(this string str, params string[] list)
+        {
+            return list.Any(a => a.Equals(str, true));
+        }
+
         public static bool EqualsAny(this string str, bool ignorecase, params string[] list)
         {
             return list.Any(a => a.Equals(str, ignorecase));

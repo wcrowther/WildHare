@@ -29,7 +29,7 @@ namespace WildHare.Web
 
             services.AddSingleton(Configuration.GetSection("App").Get<AppSettings>());
 
-            _dbConnString = Configuration["ConnectionStrings:ExampleDB"];
+            _dbConnString = Configuration["ConnectionStrings:TestDB"];
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,10 +63,10 @@ namespace WildHare.Web
         {
             if (env.IsDevelopment())
             {
-                // CodeGenCssMap.Init(env.ContentRootPath);
-                // CodeGenAdapters.Init(env.ContentRootPath);
-                // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
                 // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString);
+                // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
+                // CodeGenAdapters.Init(env.ContentRootPath);
+                // CodeGenCssMap.Init(env.ContentRootPath);
                 // CodeGenSqlRowInsert.Init(env.ContentRootPath);
                 // CodeGenSchema.Init(env.ContentRootPath);
             }
