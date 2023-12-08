@@ -76,14 +76,30 @@ namespace WildHare.Extensions
         }
 
         /// <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
-        public static Type[] GetTypesInNamespace(this Assembly assembly, string nameSpace = null)
+        // public static Type[] GetTypesInNamespace(this Assembly assembly, string nameSpace = null)
+        // {
+        //     Type[] types = assembly.GetTypes().Where(t => !t.Name.StartsWith("<")).ToArray();
+        // 
+        //     if (!nameSpace.IsNullOrEmpty())
+        //         types = types.Where(t => nameSpace.Equals(t.Namespace, StringComparison.Ordinal)).ToArray();
+        // 
+        //     return types.OrderBy(t => t.Name).ToArray();
+        // }
+
+        /// <summary>Given an Assembly, returns a Type array of the types in the {namspace}. If {excludeList}
+        /// is populated, any types with names that match a value in the list will be excluded.</summary>
+        public static Type[] GetTypesInNamespace(this Assembly assembly, string nameSpace = null, string[] excludeList = null)
         {
+            excludeList = excludeList ?? new string[0];
 
             Type[] types = assembly.GetTypes().Where(t => !t.Name.StartsWith("<")).ToArray();
 
             if (!nameSpace.IsNullOrEmpty())
-                types = types.Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToArray();
-
+            {
+                types = types.Where(t => nameSpace.Equals(t.Namespace, StringComparison.Ordinal) &&
+                                         !t.Name.EqualsAny(excludeList)
+                                    ).ToArray();
+            }
             return types.OrderBy(t => t.Name).ToArray();
         }
 

@@ -63,6 +63,8 @@ namespace WildHare.Web
         {
             if (env.IsDevelopment())
             {
+                CodeGenValidators.Init(env.ContentRootPath, "/Validators/", true);
+
                 // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString);
                 // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
                 // CodeGenAdapters.Init(env.ContentRootPath);

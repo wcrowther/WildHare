@@ -538,6 +538,28 @@ namespace WildHare.Tests
             Assert.IsNotNull(metaAssembly);
             // Assert.AreEqual("I_Fruit", );
         }
+
+        [Test]
+        public void Test_GetTypesInNamespace_Basic()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var types = assembly.GetTypesInNamespace("WildHare.Tests.Models");
+
+            Assert.IsNotNull(types);
+            Assert.AreEqual(35, types.Count());
+            Assert.AreEqual("Apple", types[1].Name);
+        }
+
+        [Test]
+        public void Test_GetTypesInNamespace_ExcludeList()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var types = assembly.GetTypesInNamespace("WildHare.Tests.Models", "Account,Apple".Split(','));
+        
+            Assert.IsNotNull(types);
+            Assert.AreEqual(33, types.Count());
+            Assert.AreEqual("Automobile", types[1].Name);
+        }
     }
 }
 

@@ -442,7 +442,7 @@
             (the default), it removes the first line if it only contains whitespace.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.RemoveExtraLines(System.String,System.Int32)">
-            <summary>Removes extra lines of text in a string that are more than the {linesGreaterThan} 
+            <summary>Removes extra whitespace lines of text in a string that are more than the {linesGreaterThan} 
             integer - keeping the first line. If {linesGreaterThan} is negative, it does nothing.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.GetStartWhitespaces(System.String)">
@@ -452,7 +452,7 @@
             <summary>Adds {addToStart} to the beginning of the string if string {s} is not NULL or EMPTY.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddEnd(System.String,System.String)">
-            <summary>Adds {addToEnd} to the end of the string if string {s} is not NULL or EMPTY.</summary>
+            <summary>Adds {addToEnd} to the end of the string if string to add to {s} is not NULL or EMPTY.</summary>
         </member>
         <member name="M:WildHare.Extensions.StringExtensions.AddStartEnd(System.String,System.String,System.String)">
             <summary>Adds {addToStart} to the beginning of the string and {addToEnd} to the end of the string {s} if is not NULL or EMPTY.
@@ -655,8 +655,9 @@
             <summary>Gets a list of MetaProperties for the Type for the current instance for use in code generation. You can 
             include either an include or exclude list (but not both) to filter in/out these properties.</summary>
         </member>
-        <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
-            <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String,System.String[])">
+            <summary>Given an Assembly, returns a Type array of the types in the {namspace}. If {excludeList}
+            is populated, any types with names that match a value in the list will be excluded.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)">
             <summary></summary>

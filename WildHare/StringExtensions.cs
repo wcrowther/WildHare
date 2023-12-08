@@ -171,7 +171,7 @@ namespace WildHare.Extensions
             return string.Join(NewLine, lines.Select(a => a.RemoveStartEnd(start, "\r")));
         }
 
-        /// <summary>Removes extra lines of text in a string that are more than the {linesGreaterThan} 
+        /// <summary>Removes extra whitespace lines of text in a string that are more than the {linesGreaterThan} 
         /// integer - keeping the first line. If {linesGreaterThan} is negative, it does nothing.</summary>
         public static string RemoveExtraLines(this string input, int removeExtraLines = 1)
         {
@@ -222,7 +222,7 @@ namespace WildHare.Extensions
             return (str.Trim().Length > 0) ? (addToStart + str) : s;
         }
 
-        /// <summary>Adds {addToEnd} to the end of the string if string {s} is not NULL or EMPTY.</summary>
+        /// <summary>Adds {addToEnd} to the end of the string if string to add to {s} is not NULL or EMPTY.</summary>
         public static string AddEnd(this string s, string addToEnd)
         {
             string str = s ?? "";
