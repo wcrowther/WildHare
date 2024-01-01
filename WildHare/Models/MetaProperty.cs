@@ -32,6 +32,10 @@ namespace WildHare
 
         public bool CanWrite { get => propertyInfo.CanWrite; }
 
+        public object[] Attributes() => propertyInfo.GetCustomAttributes(true);
+
+        public T AttributeOfType<T>() => propertyInfo.GetCustomAttributes(true).OfType<T>().FirstOrDefault();
+
         public bool Implements(string interfaceName) => PropertyType.GetInterfaces().Any(a => a.Name == interfaceName);
 
         // Public Methods

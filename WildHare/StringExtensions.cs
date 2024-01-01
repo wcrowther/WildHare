@@ -639,7 +639,7 @@ namespace WildHare.Extensions
         }
 
         /// <summary>An overload of Split that accepts a single string as separator.</summary>
-        public static string[] Split(this string str, string separator, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+        public static string[] Split(this string str, string separator, StringSplitOptions options = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries )
         {
             string[] s = new string[] { separator };
             

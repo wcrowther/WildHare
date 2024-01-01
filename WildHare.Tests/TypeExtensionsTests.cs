@@ -560,6 +560,18 @@ namespace WildHare.Tests
             Assert.AreEqual(33, types.Count());
             Assert.AreEqual("Automobile", types[1].Name);
         }
+
+        [Test]
+        public void GetObject_Attributes()
+        {
+            var obj = new Item();
+
+            var attributes = obj.GetMetaModel().Attributes();
+            var serializable = obj.GetMetaModel().AttributeOfType<SerializableAttribute>();
+
+            Assert.AreEqual(1, attributes.Length);
+            Assert.IsNotNull(serializable);
+        }
     }
 }
 

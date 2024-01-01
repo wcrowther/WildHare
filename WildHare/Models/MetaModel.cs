@@ -45,7 +45,11 @@ namespace WildHare
 
         public bool IsStaticType => _type.IsAbstract && _type.IsSealed; 
 
-        public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true); 
+        public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true);
+
+        public object[] Attributes() => _type.GetCustomAttributes(true);
+
+        public T AttributeOfType<T>() => _type.GetCustomAttributes(true).OfType<T>().FirstOrDefault();
 
         public bool Implements(string interfaceName) => _type.GetInterfaces().Any(a => a.Name == interfaceName);
 

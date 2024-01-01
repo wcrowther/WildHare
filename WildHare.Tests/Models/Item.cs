@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WildHare.Tests.Models
 {
+    [Serializable]
     public class Item
     {
         [Key]
