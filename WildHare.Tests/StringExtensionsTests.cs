@@ -967,7 +967,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_ForEachlLine_From_File_To_Remove_Region()
+        public void Test_ForEachLine_From_File_To_Remove_Region()
         {
             string pathRoot     = XtraExtensions.GetApplicationRoot();
             string sourcePath   = $@"{pathRoot}\SourceFiles\TestClass.cs";

@@ -480,9 +480,6 @@
         <member name="M:WildHare.Extensions.StringExtensions.NumbersOnly(System.String,System.String)">
             <summary>Returns a string with only numbers and any additional characters in {otherCharacters}.</summary>
         </member>
-        <member name="M:WildHare.Extensions.StringExtensions.IsNumeric(System.String)">
-            <summary>Returns true if a string is only numbers</summary>
-        </member>
         <member name="M:WildHare.Extensions.StringExtensions.LettersOnly(System.String,System.String)">
             <summary>Returns a string with only letters, and any additional characters in {otherCharacters}.</summary>
         </member>
