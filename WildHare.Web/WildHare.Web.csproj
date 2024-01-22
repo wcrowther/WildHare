@@ -17,7 +17,7 @@
     <PackageReference Include="AngleSharp.Css" Version="0.16.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	<PackageReference Include="SeedPacket" Version="3.0.5.3" />
     <PackageReference Include="Cloudmersive.APIClient.NETCore.NLP" Version="2.1.2" />
   </ItemGroup>
