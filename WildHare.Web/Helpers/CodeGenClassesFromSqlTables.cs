@@ -80,26 +80,26 @@ namespace WildHare.Web
             CreateModelFromSQLTable("data", "USCities", "USCity", overwrite: true);
 
             // EXAMPLE 2: 
-            // CreateModelFromSQLTable("Abstract",                  overwrite:  false);
-            // CreateModelFromSQLTable("Categories", "Category",    overwrite:  false);
-            // CreateModelFromSQLTable("ComplexWords",              overwrite:  false);
-            // CreateModelFromSQLTable("ComplexWordsDetail",        overwrite:  false);
-            // CreateModelFromSQLTable("ComplexWordToken",          overwrite:  false);
-            // CreateModelFromSQLTable("Encrypted",                 overwrite:  false);
-            // CreateModelFromSQLTable("Features",                  overwrite:  false);
-            // CreateModelFromSQLTable("LinkProperties",            overwrite:  false);
-            // CreateModelFromSQLTable("LinkToAbstract",            overwrite:  false);
-            // CreateModelFromSQLTable("Pattern",                   overwrite:  false);
-            // CreateModelFromSQLTable("PatternDetail",             overwrite:  false);
-            // CreateModelFromSQLTable("SymbolRule",                overwrite:  false);
-            // CreateModelFromSQLTable("TestCase",                  overwrite:  false);
-            // CreateModelFromSQLTable("TestCaseType",              overwrite:  false);
-            // CreateModelFromSQLTable("TestResult",                overwrite:  false);
-            // CreateModelFromSQLTable("TestRun",                   overwrite:  false);
-            // CreateModelFromSQLTable("Token",                     overwrite:  false);
-            // CreateModelFromSQLTable("TokenProperty",             overwrite:  false);
-            // CreateModelFromSQLTable("Word",                      overwrite:  false);
-            // CreateModelFromSQLTable("WordToken",                 overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Abstract",                  overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Categories", "Category",    overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "ComplexWords",              overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "ComplexWordsDetail",        overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "ComplexWordToken",          overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Encrypted",                 overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Features",                  overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "LinkProperties",            overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "LinkToAbstract",            overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Pattern",                   overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "PatternDetail",             overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "SymbolRule",                overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "TestCase",                  overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "TestCaseType",              overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "TestResult",                overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "TestRun",                   overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Token",                     overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "TokenProperty",             overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "Word",                      overwrite:  false);
+            // CreateModelFromSQLTable("dbo", "WordToken",                 overwrite:  false);
 
             string result = $"{nameof(CodeGenClassesFromSqlTables)}. " +
                             $"{nameof(Init)} code written to '{outputPath}'. " +
