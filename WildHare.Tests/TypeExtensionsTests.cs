@@ -1,14 +1,18 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using WildHare.Extensions;
-using WildHare.Extensions.Xtra;
 using WildHare.Models;
 using WildHare.Tests.Interfaces;
 using WildHare.Tests.Models;
+using WildHare.Xtra;
+using static System.Environment;
+using static WildHare.Xtra.XtraExtensions;
 
 namespace WildHare.Tests
 {
@@ -439,7 +443,6 @@ namespace WildHare.Tests
             Assert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
 
-
         [Test]
         public void GetCommonInterfaces_With_Common_I_Fruit_GetSpecificity()
         {
@@ -457,7 +460,6 @@ namespace WildHare.Tests
             Assert.AreEqual("I_Fruit", interfaces[0].Name);
             Assert.AreEqual(3m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
-
 
         [Test]
         public void GetCommonInterfaces_With_Common_I_Fruit_Sorted_By_Specificity()
@@ -565,13 +567,117 @@ namespace WildHare.Tests
         public void GetObject_Attributes()
         {
             var obj = new Item();
+            var meta = obj.GetMetaModel();
 
-            var attributes = obj.GetMetaModel().Attributes();
-            var serializable = obj.GetMetaModel().AttributeOfType<SerializableAttribute>();
+            var attributes      = meta.Attributes();
+            var serializable    = meta.AttributeOfType<SerializableAttribute>();
+            var props           = meta.GetMetaProperties();
 
             Assert.AreEqual(1, attributes.Length);
             Assert.IsNotNull(serializable);
+            Assert.AreEqual(5, props.Count);
+            Assert.AreEqual(4, props[1].Attributes().Count());
+            Assert.AreEqual("ItemName", props[1].Name);
+            Assert.IsNotNull(props[1].AttributeOfType<MinLengthAttribute>());
+            Assert.AreEqual(2, props[1].AttributeOfType<MinLengthAttribute>().Length);
+            Assert.AreEqual(50, props[1].AttributeOfType<MaxLengthAttribute>().Length);
         }
+
+        [Test] //, Ignore("CodeGen")]
+        public void GetObject_Write_Attributes_ToString()
+        {
+            string   testRoot           = GetApplicationRoot();
+            string   fileName           = "Validators.js";
+            string   namespaceStr       = "WildHare.Tests.Models";
+            string   pathToWriteTo      = $@"{testRoot}\TextFiles\{fileName}";
+            string[] classesToExclude   = "Item, Account".Split(',');
+
+            var assembly = Assembly.Load("WildHare.Tests");
+            bool success = GenerateValidators(assembly, namespaceStr, pathToWriteTo, classesToExclude);
+
+            Assert.IsTrue(success);
+        }
+
+        // =============================================================================================
+
+        static List<string> validatorsList = new();
+
+        private static bool GenerateValidators(Assembly assembly, string namespaceStr, string pathToWriteTo, string[] excludeClasses = null)
+        {
+            var sb          = new StringBuilder();
+            var typeList    = assembly.GetTypesInNamespace(namespaceStr, excludeClasses); // exclude: 
+
+            foreach (var type in typeList)
+            {
+                var meta = type.GetMetaModel();
+                var props = meta.GetMetaProperties();
+                var attributeCount = props.SelectMany(p => p.Attributes()).Count();
+
+                if (attributeCount == 0)
+                    continue;
+
+                string classStr = $$"""
+                    export const {{meta.TypeName}}Validator =
+                    {
+                    {{WriteProps(props, validatorsList)}}
+                    }
+
+
+                    """;
+
+                sb.Append(classStr);
+            }
+
+            string listStr = validatorsList.Distinct().AsString();
+
+            string output = sb.ToString()
+                            .AddStart($"import {{ {listStr} }} from '@vuelidate/validators'{NewLine}{NewLine}");
+
+            bool success = output.WriteToFile(pathToWriteTo, true);
+            return success;
+        }
+
+        private static string WriteProps(List<MetaProperty> props, List<string> validatorsList)
+        {
+            const int pad = -20;
+            var wp = new StringBuilder();
+
+            foreach (var prop in props)
+            {
+                wp.Append($"\t{prop.Name + ":", pad}{{");
+                wp.Append(WriteAttributes(prop, validatorsList).AddStartEnd(" "," "));
+                wp.Append($"}},{NewLine}");
+            }
+
+            return wp.ToString().RemoveEnd("," + NewLine);
+        }
+
+        private static string WriteAttributes(MetaProperty prop, List<string> validatorsList)
+        {
+            var wa = new StringBuilder();
+
+            foreach (var attr in prop.Attributes().OfType<Attribute>())
+            {
+                string attrStr = AttributeString(attr);
+
+                validatorsList.Add(attrStr.GetStartBefore(":"));
+
+                wa.Append(attrStr.AddEnd(", "));
+            }
+
+            return wa.ToString().RemoveEnd(", ");
+        }
+
+        private static string AttributeString(Attribute attribute) => attribute switch
+        {
+            RequiredAttribute   _ => $"required",
+            MinLengthAttribute  _ => $"minLength: minLength({(attribute as MinLengthAttribute).Length})",
+            MaxLengthAttribute  _ => $"maxLength: maxLength({(attribute as MaxLengthAttribute).Length})",
+            null or _ => null
+        };
+
+        // =============================================================================================
+
     }
 }
 

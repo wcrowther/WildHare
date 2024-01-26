@@ -55,10 +55,13 @@ namespace WildHare.Web
             // ============================================================
             // a) Generates models for all tables in the database. 
 
-            // foreach (var table in sqlTables)
-            // {
-            //     CreateModelFromSQLTable(table.Key);
-            // }
+            foreach (var table in sqlTables)
+            {
+                string tableSchema = table.First().Table_Schema;
+                string tableName    = table.First().Table_Name;
+
+                CreateModelFromSQLTable(tableSchema, tableName);
+            }
 
             // ============================================================
             // 2) Pre-Generate a list of tables - Alternate approach
@@ -73,8 +76,8 @@ namespace WildHare.Web
             Debug.Write(NewLine + modelsToCreate + NewLine.Repeat(2));
 
             // EXAMPLE 1:
-            CreateModelFromSQLTable("CommonNames", overwrite: true);
-            CreateModelFromSQLTable("USCities", "USCity", overwrite: true);
+            CreateModelFromSQLTable("data", "CommonNames", overwrite: true);
+            CreateModelFromSQLTable("data", "USCities", "USCity", overwrite: true);
 
             // EXAMPLE 2: 
             // CreateModelFromSQLTable("Abstract",                  overwrite:  false);
@@ -119,12 +122,12 @@ namespace WildHare.Web
 				var tablesList = tables.ToList<ColumnsSchema>()
                                 .Where(w => !excludeList.Any(e => w.Table_Name == e))
                                 .OrderBy(o => o.Ordinal_Position)
-					            .ToLookup(g => $"{g.Table_Name}");
+					            .ToLookup(g => $"{g.Table_Schema}.{g.Table_Name}");
                 return tablesList;
 			};
 		}
 
-		private static bool CreateModelFromSQLTable(string tableName, string modelName = null, bool overwrite = true)
+		private static bool CreateModelFromSQLTable(string tableSchema, string tableName, string modelName = null, bool overwrite = true)
 		{
             modelName = modelName ?? tableName.RemoveEnd("s");;
 
@@ -138,7 +141,7 @@ namespace WildHare.Web
             {
                 public class {{ modelName}}
                 {
-                    {{ CreateModelPropertiesWithKeys(tableName) }}
+                    {{ CreateModelPropertiesWithKeys(tableSchema, tableName) }}
                 }
             }
             """;
@@ -153,7 +156,7 @@ namespace WildHare.Web
         // TECHNIQUE WITH PK Data Required - EXTRA SQL QUERIES
         // ===============================================================================
 
-        private static string CreateModelPropertiesWithKeys(string tableName)
+        private static string CreateModelPropertiesWithKeys(string tableSchema, string tableName)
         {
             // REFERENCE: https ://docs.microsoft.com/en-us/dotnet/api/system.data.datatablereader.getschematable?redirectedfrom=MSDN&view=netframework-4.8
 
@@ -165,10 +168,11 @@ namespace WildHare.Web
             {
                 conn.Open();
 
-                var adapter = new SqlDataAdapter("SELECT * FROM " + tableName + " WHERE 0=1", conn)
+                var adapter = new SqlDataAdapter($"SELECT * FROM {tableSchema.AddEnd(".")}{tableName} WHERE 0=1", conn)
                 {
                     MissingSchemaAction = MissingSchemaAction.AddWithKey
                 };
+
                 adapter.FillSchema(dataTable, SchemaType.Mapped);
             };
 
