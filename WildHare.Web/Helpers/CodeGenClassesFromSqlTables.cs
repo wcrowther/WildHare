@@ -55,13 +55,13 @@ namespace WildHare.Web
             // ============================================================
             // a) Generates models for all tables in the database. 
 
-            foreach (var table in sqlTables)
-            {
-                string tableSchema = table.First().Table_Schema;
-                string tableName    = table.First().Table_Name;
-
-                CreateModelFromSQLTable(tableSchema, tableName);
-            }
+            // foreach (var table in sqlTables)
+            // {
+            //     string tableSchema = table.First().Table_Schema;
+            //     string tableName    = table.First().Table_Name;
+            // 
+            //     CreateModelFromSQLTable(tableSchema, tableName);
+            // }
 
             // ============================================================
             // 2) Pre-Generate a list of tables - Alternate approach
@@ -71,13 +71,13 @@ namespace WildHare.Web
             // c) This gives you the ability to remove tables that are not needed. 
             // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
-            var modelsToCreate = string.Join(NewLine, sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.Key}\", overwrite: false);"));
+            var modelsToCreate = string.Join(NewLine, sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.First().Table_Schema}\", \"{s.Key}\", overwrite: false);"));
             
             Debug.Write(NewLine + modelsToCreate + NewLine.Repeat(2));
 
             // EXAMPLE 1:
-            CreateModelFromSQLTable("data", "CommonNames", overwrite: true);
-            CreateModelFromSQLTable("data", "USCities", "USCity", overwrite: true);
+            // CreateModelFromSQLTable("data", "CommonNames", overwrite: true);
+            // CreateModelFromSQLTable("data", "USCities", "USCity", overwrite: true);
 
             // EXAMPLE 2: 
             // CreateModelFromSQLTable("dbo", "Abstract",                  overwrite:  false);
