@@ -564,7 +564,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void GetObject_Attributes()
+        public void Test_GetObject_Attributes()
         {
             var obj = new Item();
             var meta = obj.GetMetaModel();
@@ -576,14 +576,30 @@ namespace WildHare.Tests
             Assert.AreEqual(1, attributes.Length);
             Assert.IsNotNull(serializable);
             Assert.AreEqual(5, props.Count);
-            Assert.AreEqual(4, props[1].Attributes().Count());
+            Assert.AreEqual(3, props[1].Attributes().Count());
             Assert.AreEqual("ItemName", props[1].Name);
             Assert.IsNotNull(props[1].AttributeOfType<MinLengthAttribute>());
             Assert.AreEqual(2, props[1].AttributeOfType<MinLengthAttribute>().Length);
             Assert.AreEqual(50, props[1].AttributeOfType<MaxLengthAttribute>().Length);
         }
 
-        [Test] //, Ignore("CodeGen")]
+        [Test]
+        public void Test_Types_In_Assembly_And_Namespace_By_Member()
+        {
+            Type type    = typeof(Item);
+            var typesInNamespace = type.GetAssemblyFromType()
+                                       .GetTypesInNamespace(type.Namespace);
+
+            Assert.AreEqual(35, typesInNamespace.Length);
+
+            var typesInAssembly = type.GetAssemblyFromType()
+                                      .GetTypesInNamespace();
+
+            Assert.AreEqual(82, typesInAssembly.Length);
+        }
+
+
+        //[Test, Ignore("CodeGen")]
         public void GetObject_Write_Attributes_ToString()
         {
             string   testRoot           = GetApplicationRoot();

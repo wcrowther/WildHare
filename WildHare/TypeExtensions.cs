@@ -234,5 +234,10 @@ namespace WildHare.Extensions
             return list.Any(a => a.Equals(value));
         }
 
+        /// <summary>Gets the Assembly of a type. IE: an extension method version of Assembly.GetAssembly(type).</summary>
+        public static Assembly GetAssemblyFromType(this Type type)
+        {
+            return Assembly.GetAssembly(type);
+        }
     }
 }

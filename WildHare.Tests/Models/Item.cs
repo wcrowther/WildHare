@@ -10,7 +10,7 @@ namespace WildHare.Tests.Models
         [Key]
         public int ItemId { get; set; }
 
-        [Editable(true)]
+        [Editable(true), MinLength(2), MaxLength(50)]
         public string ItemName { get; set; }
 
         public DateTime Created { get; set; }
