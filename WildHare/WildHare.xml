@@ -676,6 +676,12 @@
             <summary>Returns true if any of the T in the {list} is equal to the {number} this.
             Works for T </summary>
         </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetAssemblyFromType(System.Type)">
+            <summary>Gets the Assembly of a type. IE: an extension method version of Assembly.GetAssembly(type).</summary>
+        </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetTypeFromName(System.String)">
+            <summary>Gets a type from the string name of the type.</summary>
+        </member>
         <member name="T:WildHare.DynamicExpando">
             <summary>Test Class Summary</summary>
         </member>

@@ -9,7 +9,7 @@ using System.Text;
 using WildHare.Extensions;
 using static System.Environment;
 
-namespace WildHare.Web
+namespace CodeGen.Generators
 {
     public static class CodeGenCssClassesUsedInProject
     {
@@ -72,7 +72,7 @@ namespace WildHare.Web
                             $"Overwrite: {overwrite}{NewLine}";
 
             Debug.WriteLine(result);
-            
+
             return result;
         }
 

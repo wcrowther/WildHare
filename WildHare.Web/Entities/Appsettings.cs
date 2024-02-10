@@ -1,4 +1,3 @@
-
 namespace Me2.Models
 {
     public class AppSettings

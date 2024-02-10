@@ -1,5 +1,6 @@
 using AngleSharp.Css.Dom;
 using AngleSharp.Css.Parser;
+using CodeGen.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,59 +8,68 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using WildHare.Extensions;
+using WildHare.Web;
 using static System.Environment;
 
-namespace WildHare.Web
+namespace CodeGen.Generators
 {
-    public static class CodeGenCssStylesheets
+    public class CodeGenCssStylesheets
     {
-        const string start = "\t";
-        const int columnWidth = -10;
+        private App _app;
+        private const int columnWidth = -30;
 
-        public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
+        public CodeGenCssStylesheets(App app)
         {
-            if (sourceFolderRootPath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} sourceFolderPath is null or empty.");
+            _app = app;
+        }
+
+        public string Init()
+        {
+            string writeToFilePath = $@"{_app.WriteToRoot}{_app.CssSummaryByFileName}";
+
+            if (_app.SourceRoot.IsNullOrEmpty())
+                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} SourceRoot is null or empty.");
 
             if (writeToFilePath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} writeToFilePath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} WriteToFilePath is null or empty.");
 
-            var allFiles = $@"{sourceFolderRootPath}"
+            var allFiles = $@"{_app.WwwRoot}"
                                     .GetAllFiles("*.css")
                                     .Where(w => !w.Name.Contains("bootstrap", StringComparison.OrdinalIgnoreCase) &&
                                                 !w.Name.Contains("min", StringComparison.OrdinalIgnoreCase));
 
             var sb = new StringBuilder();
-            sb.AppendLine("=".Repeat(100));
-            sb.AppendLine($"CSS Stylesheets In The Project");
-            sb.AppendLine($"Under {sourceFolderRootPath} (omits bootstrap and min files){NewLine}");
-            sb.AppendLine($"Generated Using CodeTemplate {nameof(CodeGenSummary)} On {DateTime.Now}");
+            sb.AppendLine();
+            sb.AppendLine($"// CSS Stylesheets In The Project");
+            sb.AppendLine($"// Under {_app.WwwRoot} (omits bootstrap and min files)");
+            sb.AppendLine($"// Generated Using CodeTemplate {nameof(CodeGenSummary)} On {DateTime.Now}{NewLine}");
 
             foreach (var file in allFiles)
             {
                 GetStylesheetInfo(sb, file);
             }
 
-            bool success =  sb.ToString()
-                              .WriteToFile(writeToFilePath, overwrite);
+            sb.AppendLine("=".Repeat(100));
+
+            bool success = sb.ToString()
+                              .WriteToFile(writeToFilePath, _app.Overwrite);
 
             string result = $"{nameof(CodeGenSummary)}.{nameof(Init)} code written to {NewLine}" +
                             $"'{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
-                            $"Overwrite: {overwrite}{NewLine}";
+                            $"Overwrite: {_app.Overwrite}{NewLine}";
 
             Debug.WriteLine(result);
 
             return result;
         }
 
-        private static void GetStylesheetInfo(StringBuilder sb, FileInfo file)
+        private void GetStylesheetInfo(StringBuilder sb, FileInfo file)
         {
             // https: //www.meziantou.net/a-tool-to-help-you-identifying-unused-css-rules.htm
             // https: //stackoverflow.com/questions/59219106/parsing-css-with-anglesharp
             // https: //csharp.hotexamples.com/examples/AngleSharp.Parser.Css/CssParser/-/php-cssparser-class-examples.html
 
-            string start = "\t";
             string source = File.ReadAllText(file.FullName);
 
             var parser = new CssParser(new CssParserOptions { });
@@ -68,6 +78,7 @@ namespace WildHare.Web
             sb.AppendLine("=".Repeat(100));
             sb.AppendLine($"{file.Directory.Name,-10} {file.Name}");
             sb.AppendLine("=".Repeat(100));
+            sb.AppendLine();
 
             //=========================================================================
             // Get Css for file
@@ -92,10 +103,13 @@ namespace WildHare.Web
 
             foreach (var group in selectorGroups.OrderBy(o => o.Key))
             {
-                sb.AppendLine($"{NewLine}{group.Key} selector{NewLine}");
+                sb.AppendLine("-".Repeat(100));
+                sb.AppendLine($"{group.Key} selector");
+                sb.AppendLine("-".Repeat(100));
+
                 foreach (var selector in group.Value)
                 {
-                    sb.AppendLine($"{start}{selector.Main,-50} {selector.Secondary}"); // {rule.Selector.Specificity}
+                    sb.AppendLine($"{_app.LineStart}{selector.Main, columnWidth} {selector.Secondary}"); // {rule.Selector.Specificity}
                 }
             }
 
@@ -104,7 +118,7 @@ namespace WildHare.Web
 
         // Get all selectors of a CSS rule
         // ".a, .b, .c" contains 3 selectors ".a", ".b" and ".c"
-        private static IEnumerable<ISelector> GetAllSelectors(ISelector selector)
+        private IEnumerable<ISelector> GetAllSelectors(ISelector selector)
         {
             if (selector is IEnumerable<ISelector> selectors)
             {

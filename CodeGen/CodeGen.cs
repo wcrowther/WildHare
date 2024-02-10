@@ -1,9 +1,9 @@
 ﻿using AngleSharp.Common;
+using CodeGen.Generators;
+using CodeGen.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using WildHare.Extensions;
-using WildHare.Web;
-using WildHare.Web.Models;
 using static System.Console;
 using static System.Environment;
 
@@ -11,10 +11,10 @@ namespace CodeGen
 {
     public class CodeGen
     {
-        private readonly AppSettings _app;
+        private readonly App _app;
         private readonly IConfiguration _config;
 
-        public CodeGen(AppSettings appSettings, IConfiguration configuration)
+        public CodeGen(App appSettings, IConfiguration configuration)
         {
             _app    = appSettings;
             _config = configuration;
@@ -43,20 +43,16 @@ namespace CodeGen
 
         public bool Generate(string input)
         {
-            bool remainOpen         = _app.RemainOpenAfterCodeGen;
-            bool overwrite          = _app.CodeGenOverwrite;
+            // bool remainOpen         = _app.ConsoleRemainOpen;
+            // bool overwrite          = _app.Overwrite;
 
-            string sourceRoot       = _app.SourceFolderRootPath;
-            string wwwRoot          = _app.WwwFolderRootPath;
-            string writeToRoot      = _app.CssWriteToFolderPath;
-            string codeGenTempPath  = _app.CodeGenTempPath;
+            // string sourceRoot       = _app.SourceRoot;
+            // string wwwRoot          = _app.WwwRoot;
+            // string writeToRoot      = _app.WriteToRoot;
+            // string codeGenTempPath  = _app.TempPath;
 
-            var appSettings         = _config.GetSection("App")
-                                             .AsEnumerable(true)
-                                             .OrderBy(o => o.Key)
-                                             .ToDictionary(a => a.Key, a => a.Value);
 
-            if (input.EqualsAny(true, "exit", "x"))
+            if (input.EqualsAnyIgnoreCase("exit", "x"))
             {
                 WriteLine($"{NewLine}--> Exiting console...");
                 return false; // close window
@@ -66,18 +62,18 @@ namespace CodeGen
 
             string result = input.ToLower() switch
             {
-                "1" => CodeGenSummary.Init(sourceRoot, writeToRoot + _app.CssSummaryByFileName_Filename, overwrite),
-                "2" => CodeGenCssStylesheets.Init(wwwRoot, writeToRoot + _app.CssListOfStylesheets_Filename, overwrite),
-                "3" => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssListOfClasses_Filename, overwrite),
-                "4" => CodeGenFromAppsettings.Init(appSettings, codeGenTempPath, overwrite),
-                "5" => CodeGenSummary.Init(_app.MESourceFolderRootPath, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
+                "1" => new CodeGenSummary(_app).Init(),
+                "2" => new CodeGenCssStylesheets(_app).Init(),
+                // "3" => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssClassesFilename, overwrite),
+                // "4" => CodeGenFromAppsettings.Init(_config, "app", codeGenTempPath, overwrite),
+                // "5" => CodeGenSummary.Init(_app.SourceRoot, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
                 // "6" => "This choice has not been configured", // CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
                 _ => $"The input {input} is not valid.",
             };
 
             WriteLine(NewLine + result);
 
-            return remainOpen;
+            return _app.ConsoleRemainOpen;
         }
     }
 }

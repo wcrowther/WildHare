@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CodeGen.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
@@ -6,7 +7,6 @@ using System;
 using System.IO;
 using WildHare.Extensions;
 using WildHare.Web.Interfaces;
-using WildHare.Web.Models;
 using static System.Environment;
 
 namespace CodeGen
@@ -52,7 +52,7 @@ namespace CodeGen
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton(configuration)
-                             .AddSingleton(configuration.GetSection("App").Get<AppSettings>())
+                             .AddSingleton(configuration.GetSection("App").Get<App>())
                              .AddSingleton<IHostEnvironment, HostingEnvironment>()
                               //.AddScoped<ICodeGenManager, CodeGenManager>()
                               //.AddScoped<IDataRepo, DataRepo>()

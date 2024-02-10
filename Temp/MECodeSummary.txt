@@ -2,7 +2,11 @@
 Summary Report for .cshtml files
 
 For Files Under C:\Git\MachineEnglish\ME2\Pages
-Generated Using CodeTemplate 'CodeGenSummary' On 10/27/2022 3:30:54 PM
+Generated Using CodeTemplate 'CodeGenSummary' On 2/7/2024 11:38:03 PM
+====================================================================================================
+Pages Folder
+====================================================================================================
+
 		TestPage.cshtml     
 				 Custom: rp-x
 				 Custom: rp-xxx
@@ -33,13 +37,13 @@ Demo Folder
 				Partial: _DemoDetailsSymbols
 
 		_DemoDetailsMeanings.cshtml
-				Partial: _DemoDetailsMeaning
-				Partial: _DemoDetailsMeaning_ForListMember
-				Partial: _DemoDetailsMeaning_ForListMember
-				Partial: _DemoDetailsMeaning_ForListMember
+				Partial: _DemoDetailsMeanings_Meaning
+				Partial: _DemoDetailsMeanings_MeaningNested
+				Partial: _DemoDetailsMeanings_MeaningNested
+				Partial: _DemoDetailsMeanings_MeaningNested
 
-		_DemoDetailsMeaning_ForListMember.cshtml
-				Partial: _DemoDetailsMeaning
+		_DemoDetailsMeanings_MeaningNested.cshtml
+				Partial: _DemoDetailsMeanings_Meaning
 
 		_DemoDetailsTokens.cshtml
 				Partial: _Capsule

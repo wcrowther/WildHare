@@ -10,9 +10,9 @@ using WildHare.Extensions.ForTemplating;
 using WildHare.Web.SchemaModels;
 using static System.Environment;
 
-namespace WildHare.Web
+namespace CodeGen.Generators
 {
-	public static class CodeGenClassesFromSqlTables
+    public static class CodeGenClassesFromSqlTables
     {
         /* ==========================================================================
          * DIRECTIONS:
@@ -29,14 +29,14 @@ namespace WildHare.Web
         private static string outputPath;
         private static string sqlConnString;
         private static readonly string namespaceRoot = "Me.Logic";
-		private static readonly string outputDir = @"\TestDb\";
+        private static readonly string outputDir = @"\TestDb\";
 
-		private static readonly string start = "\t\t"; // Indentation
+        private static readonly string start = "\t\t"; // Indentation
         private static readonly string end = NewLine;
 
         private static ILookup<string, ColumnsSchema> sqlTables;
 
-		public static string Init(string projectRoot, string dbConnString)
+        public static string Init(string projectRoot, string dbConnString)
         {
             if (projectRoot.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} projectRoot is null or empty.");
@@ -47,8 +47,8 @@ namespace WildHare.Web
             outputPath = projectRoot + outputDir;
             sqlConnString = dbConnString;
 
-			// Get list of table from SQL database
-			sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
+            // Get list of table from SQL database
+            sqlTables = GetTablesFromSQL(exclude: "__MigrationHistory");
 
             // ============================================================
             // 1) Loop through the tables
@@ -72,7 +72,7 @@ namespace WildHare.Web
             // d) Mark the 'overwrite' property as false if it has customizations that should not be overridden later.
 
             var modelsToCreate = string.Join(NewLine, sqlTables.Select(s => $"CreateModelFromSQLTable(\"{s.First().Table_Schema}\", \"{s.Key}\", overwrite: false);"));
-            
+
             Debug.Write(NewLine + modelsToCreate + NewLine.Repeat(2));
 
             // EXAMPLE 1:
@@ -110,38 +110,38 @@ namespace WildHare.Web
             return result;
         }
 
-		private static ILookup<string, ColumnsSchema> GetTablesFromSQL(string exclude = "")
-		{
+        private static ILookup<string, ColumnsSchema> GetTablesFromSQL(string exclude = "")
+        {
             string[] excludeList = exclude.Split(',').Select(a => a.Trim()).ToArray();
 
             using (var conn = new SqlConnection(sqlConnString))
-			{
-				conn.Open();
+            {
+                conn.Open();
 
-				DataTable tables = conn.GetSchema("Columns");
-				var tablesList = tables.ToList<ColumnsSchema>()
+                DataTable tables = conn.GetSchema("Columns");
+                var tablesList = tables.ToList<ColumnsSchema>()
                                 .Where(w => !excludeList.Any(e => w.Table_Name == e))
                                 .OrderBy(o => o.Ordinal_Position)
-					            .ToLookup(g => $"{g.Table_Schema}.{g.Table_Name}");
+                                .ToLookup(g => $"{g.Table_Schema}.{g.Table_Name}");
                 return tablesList;
-			};
-		}
+            };
+        }
 
-		private static bool CreateModelFromSQLTable(string tableSchema, string tableName, string modelName = null, bool overwrite = true)
-		{
-            modelName = modelName ?? tableName.RemoveEnd("s");;
+        private static bool CreateModelFromSQLTable(string tableSchema, string tableName, string modelName = null, bool overwrite = true)
+        {
+            modelName = modelName ?? tableName.RemoveEnd("s"); ;
 
             string output = $$"""
             using System;
             using System.ComponentModel.DataAnnotations;
     
-            // Generated from table: {{ tableName }}
+            // Generated from table: {{tableName}}
 
-            namespace {{ namespaceRoot }}.Models
+            namespace {{namespaceRoot}}.Models
             {
-                public class {{ modelName}}
+                public class {{modelName}}
                 {
-                    {{ CreateModelPropertiesWithKeys(tableSchema, tableName) }}
+                    {{CreateModelPropertiesWithKeys(tableSchema, tableName)}}
                 }
             }
             """;
@@ -149,7 +149,7 @@ namespace WildHare.Web
             bool isSuccess = output.WriteToFile($"{outputPath}/{modelName}.cs", overwrite);
 
             return isSuccess;
-		}
+        }
 
 
         // ===============================================================================
@@ -184,7 +184,7 @@ namespace WildHare.Web
                 string columnName = col.ColumnName;
 
                 string isKey = dataTable.PrimaryKey.Contains(col) ? $"{start}[Key]{end}" : "";
-                bool hasMaxLength = (dataTypeName == "string" && col.MaxLength > 0 && col.MaxLength < 10000);
+                bool hasMaxLength = dataTypeName == "string" && col.MaxLength > 0 && col.MaxLength < 10000;
                 string stringLength = hasMaxLength ? $"{start}[StringLength({col.MaxLength})]{end}" : "";
 
                 sb.Append($"{isKey}");
@@ -196,11 +196,11 @@ namespace WildHare.Web
 
             sb.AppendLine($"{start}public override string ToString()");
             sb.AppendLine($"{start}{{");
-            sb.AppendLine($"{start}\treturn $\"{ pkColumn.ColumnName}: {{{pkColumn.ColumnName}}}\";");
+            sb.AppendLine($"{start}\treturn $\"{pkColumn.ColumnName}: {{{pkColumn.ColumnName}}}\";");
             sb.AppendLine($"{start}}}");
 
             return sb.ToString().RemoveStartEnd(start, end);
-		}
+        }
 
 
         // ===============================================================================

@@ -75,7 +75,7 @@ namespace WildHare.Extensions
             return new MetaModel(instance.GetType(), instance).GetMetaProperties(exclude, include);
         }
 
-        /// <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
+        // <summary>Given an Assembly, returns a Type array of the types in the {namspace}.</summary>
         // public static Type[] GetTypesInNamespace(this Assembly assembly, string nameSpace = null)
         // {
         //     Type[] types = assembly.GetTypes().Where(t => !t.Name.StartsWith("<")).ToArray();
@@ -238,6 +238,12 @@ namespace WildHare.Extensions
         public static Assembly GetAssemblyFromType(this Type type)
         {
             return Assembly.GetAssembly(type);
+        }
+
+        /// <summary>Gets a type from the string name of the type.</summary>
+        public static Type GetTypeFromName(this string typeName)
+        {
+            return Type.GetType(typeName);
         }
     }
 }

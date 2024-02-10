@@ -598,6 +598,14 @@ namespace WildHare.Tests
             Assert.AreEqual(82, typesInAssembly.Length);
         }
 
+        [Test]
+        public void Test_Get_Type_From_String_TypeName()
+        {
+            Type type = "WildHare.Tests.Models.Item".GetTypeFromName();
+
+            Assert.IsNotNull(type); 
+            Assert.AreEqual("Item", type.Name);
+        }
 
         //[Test, Ignore("CodeGen")]
         public void GetObject_Write_Attributes_ToString()

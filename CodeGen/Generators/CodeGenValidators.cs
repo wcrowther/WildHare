@@ -13,7 +13,7 @@ using Microsoft.Extensions.Primitives;
 using AngleSharp.Dom;
 using System.Threading;
 
-namespace WildHare.Web
+namespace CodeGen.Generators
 {
     public static class CodeGenValidators
     {
@@ -22,10 +22,10 @@ namespace WildHare.Web
            WildHare.Web.CodeGenAdapters.Init(c:\github\WildHare);
         ========================================================================== */
 
-        private static readonly string assemblyName     = "WildHare.Web";
-        private static readonly string namespaceName    = "WildHare.Web.Models";
-        private static readonly string excludeList      = "AppSettings";
-        private static readonly string indent  = "\t";
+        private static readonly string assemblyName = "WildHare.Web";
+        private static readonly string namespaceName = "WildHare.Web.Models";
+        private static readonly string excludeList = "AppSettings";
+        private static readonly string indent = "\t";
         private static readonly string end = $",{NewLine}";
         private static readonly object namespaceRoot;
         private const int pad = -20;
@@ -53,9 +53,9 @@ namespace WildHare.Web
         {
             string validatorsFileName = $"Validators.js";
             Type[] typeList = GetTypeList(assemblyName, namespaceName);
-            
 
-            string output = 
+
+            string output =
             $$"""
             The typelist
             {{BuildTypeList(typeList)}}
@@ -84,10 +84,10 @@ namespace WildHare.Web
             foreach (var type in types)
             {
                 sb.AppendLine($"{indent}{type.Name}");
-                
+
                 foreach (var prop in type.GetProperties())
                 {
-                    sb.AppendLine($"{indent}{indent}{prop.Name + ":", pad} {{}}");
+                    sb.AppendLine($"{indent}{indent}{prop.Name + ":",pad} {{}}");
                 }
                 sb.AppendLine();
             }

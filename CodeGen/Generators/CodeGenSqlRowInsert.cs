@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using WildHare;
 using WildHare.Extensions;
 using WildHare.Web.Models;
 using static System.Environment;
 
-namespace WildHare.Web
+namespace CodeGen.Generators
 {
     public static class CodeGenSqlRowInsert
     {
@@ -23,8 +24,8 @@ namespace WildHare.Web
 
         private static string rootPath;
         private static readonly string outputDir = $@"{rootPath}\Trunk\WildHare\WildHare.Web\SqlInserts\";
-		private static readonly string start = "\t"; // Indentation
-		private static readonly string end = NewLine;
+        private static readonly string start = "\t"; // Indentation
+        private static readonly string end = NewLine;
         private static readonly int randomSeed = 34335;
         private static readonly int batchSize = 1000;
 
@@ -37,29 +38,29 @@ namespace WildHare.Web
             //GenereateSQLInserts<ControlValue>(5002, "ControlValues", "dbo", "ControlValueId", true, false);
 
             string result = $"{nameof(CodeGenSqlRowInsert)}.{nameof(Init)} code written to '{outputDir}'. Overwrite: varied";
-            
+
             Debug.WriteLine(result);
 
             return result;
         }
 
-        public static bool GenereateSQLInserts<T>(  int count, string tableName = null,
+        public static bool GenereateSQLInserts<T>(int count, string tableName = null,
                                                     string schema = null,
-                                                    string excludeColumns = null, 
+                                                    string excludeColumns = null,
                                                     bool identityInsertOn = false,
-                                                    bool overwrite = true )
+                                                    bool overwrite = true)
         {
             var metaModel = typeof(T).GetMetaModel();
             var metaProperties = typeof(T).GetMetaProperties(excludeColumns);
-            var rowList =   new List<T>()
+            var rowList = new List<T>()
                             .Seed(count, new Random(randomSeed))
                             .ToList();
 
             tableName = tableName ?? metaModel.TypeName;
             schema = schema ?? "dbo";
 
-            string identity_insert     = identityInsertOn ? $"SET IDENTITY_INSERT [{schema}].[{tableName}]" : "";
-            string identity_insert_ON  = identity_insert.AddEnd(" ON");
+            string identity_insert = identityInsertOn ? $"SET IDENTITY_INSERT [{schema}].[{tableName}]" : "";
+            string identity_insert_ON = identity_insert.AddEnd(" ON");
             string identity_insert_OFF = identity_insert.AddEnd(" OFF");
 
             string output =
@@ -70,7 +71,7 @@ namespace WildHare.Web
             
             {identity_insert_ON}
 
-            { CreateData(rowList, schema, tableName, metaProperties, batchSize) }
+            {CreateData(rowList, schema, tableName, metaProperties, batchSize)}
 
             {identity_insert_OFF}
             ";
@@ -82,7 +83,7 @@ namespace WildHare.Web
                              .RemoveIndents()
                              .WriteToFile($"{outputDir}{fileName}", overwrite);
 
-            LogResult (fileName, isSuccess);
+            LogResult(fileName, isSuccess);
 
             return isSuccess;
         }
@@ -91,7 +92,7 @@ namespace WildHare.Web
         {
             var sb = new StringBuilder();
 
-            for (int i = 0; i <= (rowList.Count/batchSize); i++)
+            for (int i = 0; i <= rowList.Count / batchSize; i++)
             {
                 var rows = rowList.Skip(i * batchSize).Take(batchSize).ToList();
                 if (rows.Count > 0)
@@ -104,7 +105,7 @@ namespace WildHare.Web
         }
 
         private static string CreateDataBatch<T>(List<T> rowList, string schema, string tableName, List<MetaProperty> metaProperties)
-		{
+        {
             var tableColumns = string.Join("", metaProperties.Select(a => $"[{a.Name}],")).RemoveEnd(",");
 
             string output =
@@ -113,12 +114,12 @@ namespace WildHare.Web
                 {tableColumns}
             )
             VALUES
-                { CreateRows(rowList, metaProperties) }
+                {CreateRows(rowList, metaProperties)}
             GO
             ";
 
             return output;
-		}
+        }
 
         private static object CreateRows<T>(List<T> rowList, List<MetaProperty> metaProperties)
         {

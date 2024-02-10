@@ -1,6 +1,7 @@
 ﻿using AngleSharp.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,18 +16,25 @@ using WildHare.Extensions.ForTemplating;
 using WildHare.Web;
 using static System.Environment;
 
-namespace CodeGen
+namespace CodeGen.Generators
 {
     public class CodeGenFromAppsettings
     {
         private static readonly string indent = "\t\t";
         private static readonly string namespaceStr = "Me2.Models";
 
-        public static string Init(Dictionary<string,string> appSettings, string writeToFilePath, bool overwrite)
+        public static string Init(IConfiguration configuration, string appSectionName, string writeToFilePath, bool overwrite)
         {
+            var appSettings = GetAppSectionDictionary(configuration, appSectionName);
+
+            if (appSettings == null || appSettings.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(appSettings));
+            }
+
             bool success =
             $$"""
-            namespace {{ namespaceStr}}
+            namespace {{namespaceStr}}
             {
                 public class AppSettings
                 {
@@ -37,6 +45,15 @@ namespace CodeGen
             .WriteToFile(writeToFilePath, overwrite);
 
             return Result($"{nameof(CodeGenFromAppsettings)}.{nameof(Init)}", writeToFilePath, success, overwrite);
+        }
+
+        private static Dictionary<string, string> GetAppSectionDictionary(IConfiguration configuration, string appSectionName)
+        {
+            var appSettings = configuration.GetSection(appSectionName)
+                                           .AsEnumerable(true)
+                                           .OrderBy(o => o.Key)
+                                           .ToDictionary(a => a.Key, a => a.Value);
+            return appSettings;
         }
 
         private static string GenerateSettings(Dictionary<string, string> appProps)

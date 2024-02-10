@@ -10,7 +10,7 @@ using WildHare.Extensions;
 using WildHare.Web;
 using static System.Environment;
 
-namespace CodeGen
+namespace CodeGen.Generators
 {
     public static class CodeGenCssSummaryReport
     {
@@ -69,7 +69,7 @@ namespace CodeGen
             var doc = parser.ParseDocument(source);
 
             sb.AppendLine("=".Repeat(100));
-            sb.AppendLine($"{file.Directory.Name, columnWidth} {file.Name}");
+            sb.AppendLine($"{file.Directory.Name,columnWidth} {file.Name}");
 
             // ---------------------------------------------------
             // Get inline style info
