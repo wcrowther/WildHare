@@ -14,36 +14,37 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-    public class CodeGenSummary
+    public class CodeGenPartialsSummary
     {
         private App _app;
-        private const int columnWidth   = -10;
-        private string start            = "\t".Repeat(4);
+        private const int columnWidth           = -10;
+        private string currentDirectoryName     = "";
+        private string start                    = "\t".Repeat(4);
 
-        public CodeGenSummary(App app)
+        public CodeGenPartialsSummary(App app)
         {
             _app        = app;
         }
 
         public string Init()
         {
-            string writeToFilePath = $@"{_app.WriteToRoot}{_app.CssSummaryByFileName}";
+            string writeToFilePath = $@"{_app.WriteToRoot}{_app.PartialsSummaryFileName}";
             string start = _app.LineStart.Repeat(4);
 
             if (_app.SourceRoot.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} sourceFolderPath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} sourceFolderPath is null or empty.");
 
             if (writeToFilePath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} writeToFilePath is null or empty.");
-
-            var allFiles = _app.SourceRoot
-                               .GetAllFiles("*.cshtml");
+                throw new ArgumentNullException($"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} writeToFilePath is null or empty.");
 
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.AppendLine($"// Summary Report for .cshtml files");
+            sb.AppendLine($"// Summary of Partials for .cshtml files");
             sb.AppendLine($"// For Files Under {_app.SourceRoot}");
-            sb.AppendLine($"// Generated Using CodeTemplate '{nameof(CodeGenSummary)}' On {DateTime.Now}{NewLine}");
+            sb.AppendLine($"// Generated Using CodeTemplate '{nameof(CodeGenPartialsSummary)}' On {DateTime.Now}{NewLine}");
+
+            var allFiles = _app.SourceRoot
+                               .GetAllFiles("*.cshtml");
 
             foreach (var file in allFiles)
             {
@@ -52,11 +53,13 @@ namespace CodeGen.Generators
 
             if (allFiles.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
+            else
+                sb.AppendLine("No Files To Process");
 
             bool success = sb.ToString()
                              .WriteToFile(writeToFilePath, _app.Overwrite);
 
-            string result = $"{nameof(CodeGenSummary)}.{nameof(Init)} code written to {NewLine}" +
+            string result = $"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} code written to {NewLine}" +
                             $"'{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
                             $"Overwrite: {_app.Overwrite}{NewLine}";
@@ -69,8 +72,6 @@ namespace CodeGen.Generators
 
         private void GetPartialsForFile(StringBuilder sb, FileInfo file)
         {
-            string currentDirectoryName = "";
-
             string source = File.ReadAllText(file.FullName);
 
             var parser = new HtmlParser(new HtmlParserOptions { IsKeepingSourceReferences = true });
@@ -87,7 +88,7 @@ namespace CodeGen.Generators
 
             if (partials.Count() > 0)
             {
-                sb.AppendLine($"\t\t{file.Name, columnWidth}");
+                sb.AppendLine($"\t{file.Name, columnWidth}");
 
                 foreach (var p in partials)
                 {
@@ -102,7 +103,7 @@ namespace CodeGen.Generators
 
             if (customTags.Count() > 0)
             {
-                sb.AppendLine($"\t\t{file.Name, columnWidth}");
+                sb.AppendLine($"\t{file.Name, columnWidth}");
 
                 foreach (var c in customTags)
                 {

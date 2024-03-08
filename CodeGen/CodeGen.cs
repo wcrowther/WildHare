@@ -4,6 +4,7 @@ using CodeGen.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using WildHare.Extensions;
+using WildHare.Web.Entities;
 using static System.Console;
 using static System.Environment;
 
@@ -24,34 +25,25 @@ namespace CodeGen
         {
             string divider = "=".Repeat(60);
             string menu =    
-                   $@"
-                   {divider}        
-                   Choose an option:
-                   {divider}
-                   1) Summary Report
-                   2) List Of Stylesheets
-                   3) List Of CSS Classes
-                   4) Generate Appsettings Class
-                   5) Generate Summary
-                   x) Exit
+            $@"
+             {divider}        
+             Choose an option:
+             {divider}
+             
+             1) Generate Adapters
+             2) Partials Summary Report
+             3) List Of Stylesheets
+             4) Copy Entities to Models Folder
+             x) Exit
 
-                   Select an option: "
-                   .RemoveIndents();
+             Select an option: "
+            .RemoveIndents();
 
             Write(menu);
         }
 
         public bool Generate(string input)
         {
-            // bool remainOpen         = _app.ConsoleRemainOpen;
-            // bool overwrite          = _app.Overwrite;
-
-            // string sourceRoot       = _app.SourceRoot;
-            // string wwwRoot          = _app.WwwRoot;
-            // string writeToRoot      = _app.WriteToRoot;
-            // string codeGenTempPath  = _app.TempPath;
-
-
             if (input.EqualsAnyIgnoreCase("exit", "x"))
             {
                 WriteLine($"{NewLine}--> Exiting console...");
@@ -62,8 +54,10 @@ namespace CodeGen
 
             string result = input.ToLower() switch
             {
-                "1" => new CodeGenSummary(_app).Init(),
-                "2" => new CodeGenCssStylesheets(_app).Init(),
+                "1" => new GenAdapters(_app).Init(typeof(Account)),
+                "2" => new CodeGenPartialsSummary(_app).Init(),
+                "3" => new CodeGenCssStylesheets(_app).Init(),
+                "4" => new CopyEntitiesToModelsFolder(_app).Init(),
                 // "3" => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssClassesFilename, overwrite),
                 // "4" => CodeGenFromAppsettings.Init(_config, "app", codeGenTempPath, overwrite),
                 // "5" => CodeGenSummary.Init(_app.SourceRoot, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),

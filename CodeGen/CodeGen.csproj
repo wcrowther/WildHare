@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Examples\" />
+    <Folder Include="Examples\Adapters\" />
   </ItemGroup>
 
 </Project>

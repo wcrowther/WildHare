@@ -12,7 +12,7 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-    public static class CodeGenClassesFromSqlTables
+    public static class GenClassesFromSqlTables
     {
         /* ==========================================================================
          * DIRECTIONS:
@@ -20,7 +20,7 @@ namespace CodeGen.Generators
          * PLACE FOLLOWING LINE OF CODE SOMEWHERE IT WILL BE RUN ON COMPILE, RUN IN THE IMMEDIATE WINDOW, 
          * or in the .NET Core StartUp Configure() -> passing in env.ContentRootPath
 
-           WildHare.Web.CodeGenClassesFromSqlTables.Init(c:\github\WildHare, dbConnString);
+           WildHare.Web.GenClassesFromSqlTables.Init(c:\github\WildHare, dbConnString);
         ========================================================================== */
 
         // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
@@ -39,10 +39,10 @@ namespace CodeGen.Generators
         public static string Init(string projectRoot, string dbConnString)
         {
             if (projectRoot.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} projectRoot is null or empty.");
+                throw new ArgumentNullException($"{nameof(GenClassesFromSqlTables)}.{nameof(Init)} projectRoot is null or empty.");
 
             if (dbConnString.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} dbConnString is null or empty.");
+                throw new ArgumentNullException($"{nameof(GenClassesFromSqlTables)}.{nameof(Init)} dbConnString is null or empty.");
 
             outputPath = projectRoot + outputDir;
             sqlConnString = dbConnString;
@@ -101,7 +101,7 @@ namespace CodeGen.Generators
             // CreateModelFromSQLTable("dbo", "Word",                      overwrite:  false);
             // CreateModelFromSQLTable("dbo", "WordToken",                 overwrite:  false);
 
-            string result = $"{nameof(CodeGenClassesFromSqlTables)}. " +
+            string result = $"{nameof(GenClassesFromSqlTables)}. " +
                             $"{nameof(Init)} code written to '{outputPath}'. " +
                             $"Overwrite: {overWrite}";
 

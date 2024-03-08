@@ -25,13 +25,13 @@ namespace CodeGen.Generators
 
         public string Init()
         {
-            string writeToFilePath = $@"{_app.WriteToRoot}{_app.CssSummaryByFileName}";
+            string writeToFilePath = $@"{_app.WriteToRoot}{_app.CssStylesheetsFileName}";
 
             if (_app.SourceRoot.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} SourceRoot is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} SourceRoot is null or empty.");
 
             if (writeToFilePath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenSummary)}.{nameof(Init)} WriteToFilePath is null or empty.");
+                throw new ArgumentNullException($"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} WriteToFilePath is null or empty.");
 
             var allFiles = $@"{_app.WwwRoot}"
                                     .GetAllFiles("*.css")
@@ -42,7 +42,7 @@ namespace CodeGen.Generators
             sb.AppendLine();
             sb.AppendLine($"// CSS Stylesheets In The Project");
             sb.AppendLine($"// Under {_app.WwwRoot} (omits bootstrap and min files)");
-            sb.AppendLine($"// Generated Using CodeTemplate {nameof(CodeGenSummary)} On {DateTime.Now}{NewLine}");
+            sb.AppendLine($"// Generated Using CodeTemplate {nameof(CodeGenPartialsSummary)} On {DateTime.Now}{NewLine}");
 
             foreach (var file in allFiles)
             {
@@ -54,7 +54,7 @@ namespace CodeGen.Generators
             bool success = sb.ToString()
                               .WriteToFile(writeToFilePath, _app.Overwrite);
 
-            string result = $"{nameof(CodeGenSummary)}.{nameof(Init)} code written to {NewLine}" +
+            string result = $"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} code written to {NewLine}" +
                             $"'{writeToFilePath}'.{NewLine}" +
                             $"Success: {success}{NewLine}" +
                             $"Overwrite: {_app.Overwrite}{NewLine}";
@@ -109,7 +109,7 @@ namespace CodeGen.Generators
 
                 foreach (var selector in group.Value)
                 {
-                    sb.AppendLine($"{_app.LineStart}{selector.Main, columnWidth} {selector.Secondary}"); // {rule.Selector.Specificity}
+                    sb.AppendLine($"{_app.LineStart}{selector.Main, columnWidth} {selector.Secondary}"); //  {selector.Specificity}
                 }
             }
 

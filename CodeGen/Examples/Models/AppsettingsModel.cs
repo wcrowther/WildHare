@@ -1,4 +1,4 @@
-namespace WildHare.Web.Entities
+namespace CodeGen.Models
 {
     public class AppSettings
     {

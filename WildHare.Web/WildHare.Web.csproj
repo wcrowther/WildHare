@@ -28,7 +28,6 @@
     <ProjectReference Include="..\WildHare\WildHare.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Adapters\" />
     <Folder Include="GeneratedModels\" />
     <Folder Include="SqlInserts\" />
     <Folder Include="TestDb\" />
