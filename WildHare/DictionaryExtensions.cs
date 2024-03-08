@@ -108,7 +108,7 @@ namespace WildHare.Extensions
             {
                 var value = (T)Convert.ChangeType(str, typeof(T));
 
-                return value is null ? false : true;
+                return value != null ? false : true;
             }
             return false;
         }

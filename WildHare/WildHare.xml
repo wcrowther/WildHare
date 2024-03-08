@@ -693,18 +693,5 @@
             <summary>(EXPERIMENTAL) Gets the root path of an application. This can have different meanings in
             different types of applications, so check that your usage fully meets your needs before proceeding...</summary>
         </member>
-        <member name="M:WildHare.Xtra.XtraExtensions.DynamicListOfType(System.Object)">
-            <example>
-            var list = CreateListOfType(typeof(Category)); // Is IList of object
-            list.Add(new Category() { CategoryName = "Will"});
-            </example>
-        </member>
-        <member name="M:WildHare.Xtra.XtraExtensions.DynamicArrayOfType(System.Object)">
-            Alternative to DynamicListOfType. Not sure which is better.
-            <example>
-            var list = CreateListOfType(typeof(Category)); // Is IList of object
-            list.Add(new Category() { CategoryName = "Will"});
-            </example>
-        </member>
     </members>
 </doc>

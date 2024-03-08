@@ -553,14 +553,17 @@ namespace WildHare.Extensions
             return false;
         }
 
-        /// <summary>A simplified overload of Contains that accepts a bool for {ignorecase}. 
-        /// Defaults to false using CultureInfo.InvariantCulture</summary>
-        public static bool Contains(this string str, string value, bool ignoreCase = false)
+#if (NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER)
+
+	   /// <summary>A simplified overload of Contains that accepts a bool for {ignorecase}. 
+	   /// Defaults to false using CultureInfo.InvariantCulture</summary>
+	   public static bool Contains(this string str, string value, bool ignoreCase = false)
         {
             var comparison = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 
             return str.Contains(value, comparison);
         }
+
 
         /// <summary>An overload of Contains that accepts a string array.
         /// Will return true if any of the values in the {valuesArray} is true.</summary>
@@ -589,7 +592,7 @@ namespace WildHare.Extensions
             }
             return false;
         }
-
+#endif
         /// <summary>An overload of Replace that accepts a string array.
         /// For the supplied string, replaces all values in the {oldValues} array with the {newValue} string.</summary>
         /// <example>Shortcut for y.Replace("cat", "").Replace("dog", "") etc...</example>.

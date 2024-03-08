@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net5.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
+	<TargetFrameworks>net6.0;netstandard2.1;netstandard2.0;net48</TargetFrameworks>
     <!--  OLD:<TargetFrameworks>netstandard2.0;net45;net471;net472</TargetFrameworks>
         Multitargeting so use the line above. 
         To see targets google: NET SDKs for Visual Studio
@@ -14,7 +14,7 @@
     <Authors>Will Crowther</Authors>
     <Product>WildHare Extensions</Product>
     <Description>WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
-    <Copyright>Ⓒ 2023 Will Crowther</Copyright>
+    <Copyright>Ⓒ 2024 Will Crowther</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wcrowther/WildHare</PackageProjectUrl>
     <PackageTags>extension methods</PackageTags>
@@ -22,12 +22,12 @@
     <FileVersion>2.0.0.0</FileVersion>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageReleaseNotes>
-		2.0.0.0 Many updates to Including CodeGen, DataReader Extensions, etc.
-		1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.
-		1.6.0.0 Minor code simplifications. Added Summaries to DateTime extensions, Added TryGet to Dictionary extensions,
-		Added simplified overloads of StartsWith, EndsWith, Contains. Added joinString to ForEachLine.
-		1.5.9.0 Added TryGet to Dictionary&lt;string,string&gt;
-		1.5.8.0 Added IsValid to Dictionary&lt;string,string&gt;
+         2.0.0.0 Compatibility build for older framework but includes some updates to Including CodeGen, DataReader Extensions, etc. 
+        1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.
+        1.6.0.0 Minor code simplifications. Added Summaries to DateTime extensions, Added TryGet to Dictionary extensions,
+           Added simplified overloads of StartsWith, EndsWith, Contains. Added joinString to ForEachLine.
+        1.5.9.0 Added TryGet to Dictionary&lt;string,string&gt;
+        1.5.8.0 Added IsValid to Dictionary&lt;string,string&gt;
         1.5.7.0 Added TryGet[T] to library. Removed WildHare.Extensions.List
         1.5.6.0 Added IDictionary functionality  
         1.5.5.0 Updated site URL  
@@ -68,6 +68,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Git\WildHare\WildHare\WildHare.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/wcrowther/WildHare</RepositoryUrl>
+    <Title>WildHare</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">

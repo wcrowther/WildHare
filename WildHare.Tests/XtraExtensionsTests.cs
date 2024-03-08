@@ -67,53 +67,53 @@ namespace WildHare.Tests
         }
 
 
-        [Test]
-        public void Test_DynamicListOfType()
-        {
-            dynamic list = XtraExtensions.DynamicListOfType(typeof(Person));// Is IList of object
-            list.Add(new Person() { FirstName = "Will", LastName="Crowther"});
+       //  [Test]
+       //  public void Test_DynamicListOfType()
+       //  {
+       //      dynamic list = XtraExtensions.DynamicListOfType(typeof(Person));// Is IList of object
+       //      list.Add(new Person() { FirstName = "Will", LastName="Crowther"});
+       // 
+       //      Assert.AreEqual(1, list.Count);
+       //      Assert.AreEqual("Person", ((IEnumerable) list).GetMetaModel().TypeName);
+       // 
+       //      var listOfPerson = new List<Person>()
+       //      {
+       //          new Person{ FirstName="Patricia", LastName="Crowther"}
+       //      };
+       // 
+       //      list.AddRange(listOfPerson);
+       // 
+       //      Assert.AreEqual(2, list.Count);
+       //  }
 
-            Assert.AreEqual(1, list.Count);
-            Assert.AreEqual("Person", ((IEnumerable) list).GetMetaModel().TypeName);
 
-            var listOfPerson = new List<Person>()
-            {
-                new Person{ FirstName="Patricia", LastName="Crowther"}
-            };
-
-            list.AddRange(listOfPerson);
-
-            Assert.AreEqual(2, list.Count);
-        }
-
-
-        [Test]
-        public void Test_DynamicArrayOfType()
-        {
-            var type = typeof(Person);
-
-            // Create list of Abstract
-
-            List<Person> listOfAbstract = new List<Person>
-            {
-                new Person { FirstName = "Will" }
-            };
-
-            // Creates an IList of <dynamic>
-
-            List<dynamic> dynamicArray = XtraExtensions.DynamicArrayOfType(type).ToList();
-            dynamicArray.Add(new Person() { FirstName = "Fred" });
-            dynamicArray.Add(new Person() { FirstName = "Patricia" });
-
-            Assert.AreEqual(2, dynamicArray.Count);
-
-            // listOfAbstract.AddRange(listOfDynamicObjects);  DOES NOT WORK SO USE:
-
-            var listOfDynamicAbstracts = dynamicArray.OfType<Person>(); // var is IEnumerable<Abstract>
-
-            listOfAbstract.AddRange(listOfDynamicAbstracts);
-
-            Assert.AreEqual(3, listOfAbstract.Count);
-        }
+        // [Test]
+        // public void Test_DynamicArrayOfType()
+        // {
+        //     var type = typeof(Person);
+        // 
+        //     // Create list of Abstract
+        // 
+        //     List<Person> listOfAbstract = new List<Person>
+        //     {
+        //         new Person { FirstName = "Will" }
+        //     };
+        // 
+        //     // Creates an IList of <dynamic>
+        // 
+        //     List<dynamic> dynamicArray = XtraExtensions.DynamicArrayOfType(type).ToList();
+        //     dynamicArray.Add(new Person() { FirstName = "Fred" });
+        //     dynamicArray.Add(new Person() { FirstName = "Patricia" });
+        // 
+        //     Assert.AreEqual(2, dynamicArray.Count);
+        // 
+        //     // listOfAbstract.AddRange(listOfDynamicObjects);  DOES NOT WORK SO USE:
+        // 
+        //     var listOfDynamicAbstracts = dynamicArray.OfType<Person>(); // var is IEnumerable<Abstract>
+        // 
+        //     listOfAbstract.AddRange(listOfDynamicAbstracts);
+        // 
+        //     Assert.AreEqual(3, listOfAbstract.Count);
+        // }
     }
 }

@@ -110,15 +110,18 @@ namespace WildHare.Extensions.ForTemplating
             var culture = CultureInfo.InvariantCulture;
             value       = value.IfNull().Replace(",", "");
 
-            return value switch
-            {
-                { } when value.Equals("true", true) || value.Equals("false", true) => "bool",
-                { } when !value.Contains(".") && int.TryParse (value, style, culture, out int intValue) => "int",
-                { } when !value.Contains(".") && long.TryParse(value, style, culture, out long longValue) => "long",
-                { } when decimal.TryParse(value, style, culture, out decimal decimalValue) => "decimal",
-                _ => "string"
-            };
-        }
+		  if (value.Equals("true", true) || value.Equals("false", true))
+			 return "bool";
+		  else if (!value.Contains(".") && int.TryParse(value, style, culture, out int _))
+			 return "int";
+		  else if (!value.Contains(".") && long.TryParse(value, style, culture, out long _))
+
+			 return "long";
+		  else if (decimal.TryParse(value, style, culture, out decimal decimalValue))
+			 return "decimal";
+		  else
+			 return "string";
+	   }
 
         /// <summary>Returns a string that replaces the placeholder elements [placeholder] in the {string} template with the matching the dictionary 
         /// lookup value with the. It will call .ToString() on non-string objects values in the dictionary if necessary.</summary>
