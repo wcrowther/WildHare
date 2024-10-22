@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
 
@@ -62,48 +63,91 @@ namespace WildHare.Tests
             // =======================================================================
         }
 
-        static DataTable GetPrescriptionTable()
-		{
-			return new DataTable()
-			{
-				Columns = 
-                {
-					{ "Dosage",	 typeof(int)      },
-					{ "Drug",	 typeof(string)   },
-					{ "Patient", typeof(string)   },
-					{ "Created", typeof(DateTime) }
-				},
-				Rows = 
-                {
-					{ 25, "Indocin",     "David",     DateTime.Now },
-					{ 50, "Enebrel",     "Sam",       DateTime.Now },
-					{ 10, "Hydralazine", "Christoff", DateTime.Now },
-					{ 21, "Combivent",   "Janet",     DateTime.Now },
-					{ 100,"Dilantin",    "Melanie",   DateTime.Now }
-				}
-			};
-		}
+		  [Test]
+		  public void DataSet_ToList_Prescriptions()
+		  {
+			   var dataSet = new DataSet("DataSet1")
+			   {
+					Tables =
+					{
+						GetPrescriptionTable(),
+						GetMerchandiseTable()
+					}
+			   };
 
-        static DataTable GetMerchandiseTable()
-        {
-            return new DataTable()
-            {
-                Columns = 
-                {
-                    { "ProductId",      typeof(int)      },
-                    { "ProductName",    typeof(string)   },
-                    { "Created",        typeof(DateTime) }
-                },
-                Rows = 
-                {
-                    { 1, "Toy",         DateTime.Now },
-                    { 2, "Candy",       DateTime.Now },
-                    { 3, "Toothpaste",  DateTime.Now },
-                    { 4, "Toothbrush",  DateTime.Now },
-                    { 5, "Soda",        DateTime.Now }
-                }
-            };
-        }
+			   var prescriptions = dataSet.Tables[0].ToList<Prescription>();
+
+			   Assert.AreEqual(25,			 prescriptions.First().Dosage);
+			   Assert.AreEqual("Indocin",	 prescriptions.First().Drug);
+			   Assert.AreEqual("David",		 prescriptions.First().Patient);
+		  }
+
+
+		  [Test]
+		  public void DataSet_ToList_Merchandise()
+		  {
+			   var dataSet = new DataSet("DataSet1")
+			   {
+					Tables =
+					{
+						GetPrescriptionTable(),
+						GetMerchandiseTable()
+					}
+			   };
+
+			   var merchandise = dataSet.Tables[1].ToList<Merchandise>();
+
+			   Assert.AreEqual(1, merchandise.First().ProductId);
+			   Assert.AreEqual("Toy", merchandise.First().ProductName);
+			   Assert.AreEqual(typeof(DateTime), merchandise.First().Created.GetType());
+		  }
+
+		  // ===================================================================
+		  // LOAD DATA TABLES
+		  // ===================================================================
+
+		  static DataTable GetPrescriptionTable()
+		  {
+		  	   return new DataTable()
+		  	   {
+		  	   		Columns = 
+					{
+		  	   			{ "Dosage",	 typeof(int)      },
+		  	   			{ "Drug",	 typeof(string)   },
+		  	   			{ "Patient", typeof(string)   },
+		  	   			{ "Created", typeof(DateTime) }
+		  	   		},
+		  	   		Rows = 
+					{
+		  	   			{ 25, "Indocin",     "David",     DateTime.Now },
+		  	   			{ 50, "Enebrel",     "Sam",       DateTime.Now },
+		  	   			{ 10, "Hydralazine", "Christoff", DateTime.Now },
+		  	   			{ 21, "Combivent",   "Janet",     DateTime.Now },
+		  	   			{ 100,"Dilantin",    "Melanie",   DateTime.Now }
+		  	   		}
+		  	   };
+		  }
+
+		  static DataTable GetMerchandiseTable()
+		  {
+		      return new DataTable()
+		      {
+		          Columns = 
+		          {
+		              { "ProductId",      typeof(int)      },
+		              { "ProductName",    typeof(string)   },
+		              { "Created",        typeof(DateTime) }
+		          },
+		          Rows = 
+		          {
+		              { 1, "Toy",         DateTime.Now },
+		              { 2, "Candy",       DateTime.Now },
+		              { 3, "Toothpaste",  DateTime.Now },
+		              { 4, "Toothbrush",  DateTime.Now },
+		              { 5, "Soda",        DateTime.Now }
+		          }
+		      };
+		  }
     }
 
     public class Prescription

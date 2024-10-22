@@ -1,3 +1,4 @@
+using CodeGen.Models;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -5,13 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using WildHare.Extensions;
-using WildHare.Web.Entities;
-using WildHare.Web.Models;
 using static System.Environment;
-using static System.Console;
-using Microsoft.Extensions.Primitives;
-using CodeGen.Models;
-using System.IO;
 
 namespace CodeGen.Generators
 {
@@ -19,19 +14,19 @@ namespace CodeGen.Generators
 	{
 		private App _app;
 
-        private string projectRoot;
-        private string outputFolder;
+		private string projectRoot;
+		private string outputFolder;
 
-        private readonly string indent	= "\t".Repeat(4);
-		private readonly string end		= $",{NewLine}";
-		private const int pad			= -20;
+		private readonly string indent = "\t".Repeat(4);
+		private readonly string end = $",{NewLine}";
+		private const int pad = -20;
 
 		public GenAdapters(App app)
 		{
-			_app			= app;
-			projectRoot		= string.Empty;
-            outputFolder	= $"{projectRoot}{_app.AdapterOutputFolder}";
-        }
+			_app            = app;
+			projectRoot     = string.Empty;
+			outputFolder    = $"{projectRoot}{_app.AdapterOutputFolder}";
+		}
 
 		public string Init(Type typeInNamespace)
 		{
@@ -39,20 +34,20 @@ namespace CodeGen.Generators
 			Debug.WriteLine("Generate Adapters");
 			Debug.WriteLine("=".Repeat(50));
 
-			Type[] adapterList			= GetGeneratorAdapterList(typeInNamespace);
-			string adapterListString	= WriteGeneratorAdapterList(adapterList, "Model");
+			Type[] adapterList = GetGeneratorAdapterList(typeInNamespace);
+			string adapterListString = WriteGeneratorAdapterList(adapterList, "Model");
 
 			// Write out the adapterlist to the Debug window generated from toTypeProps particular namespace
 			Debug.Write(adapterListString.AddEnd("=".Repeat(80) + NewLine));
 
-            foreach (var type in adapterList)
-            {
-                GenerateAdapter(type, typeof(InvoiceItemModel), _app.Overwrite);
-            }
+			foreach (var type in adapterList)
+			{
+				GenerateAdapter(type, typeof(InvoiceItemModel), _app.Overwrite);
+			}
 
-            // Copy and paste adapterlist from Debug Output window here if needed.
+			// Copy and paste adapterlist from Debug Output window here if needed.
 
-            GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel), _app.Overwrite);
+			GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel), _app.Overwrite);
 			GenerateAdapter(typeof(Invoice), typeof(InvoiceModel), _app.Overwrite);
 			GenerateAdapter(typeof(Account), typeof(AccountModel), _app.Overwrite);
 
@@ -69,20 +64,20 @@ namespace CodeGen.Generators
 
 		public bool GenerateAdapter(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
 		{
-			string class1		= type1.Name;
-			string class2		= type2.Name;
-            string map1			= _app.AdapterMapName1;
-            string map2			= _app.AdapterMapName2;
+			string class1 = type1.Name;
+			string class2 = type2.Name;
+			string map1 = _app.AdapterMapName1;
+			string map2 = _app.AdapterMapName2;
 
-            string adapterFileName = $"{class1}Adapter.cs";
+			string adapterFileName = $"{class1}Adapter.cs";
 
-            string output =
-			$$"""
-			using {{_app.Namespace1}};
-			using {{_app.Namespace2}};
+			string output =
+			   $$"""
+			using {{_app.AdapterNamespace1}};
+			using {{_app.AdapterNamespace2}};
 			using System.Linq;
 			using System.Collections.Generic;
-
+			
 			namespace {{_app.AdapterNamespace}}
 			{ 
 				public static partial class Adapter
@@ -94,7 +89,7 @@ namespace CodeGen.Generators
 							{{PropertiesList(type1, type2, map1)}}
 						};
 					}
-
+			
 					public static {{class1}} To{{class1}} (this {{class2}} {{map2}})
 					{
 						return {{map2}} == null ? null : new {{class1}}
@@ -108,7 +103,7 @@ namespace CodeGen.Generators
 			""";
 
 			string outputPath = $"{_app.AdapterOutputFolder}{adapterFileName}";
-            bool isSuccess = output.WriteToFile(outputPath, overwrite);
+			bool isSuccess = output.WriteToFile(outputPath, overwrite);
 
 			if (isSuccess)
 				Debug.WriteLine($"Generated file {adapterFileName} in {outputPath}.");
@@ -127,14 +122,14 @@ namespace CodeGen.Generators
 
 				if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
 				{
-					sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+					sb.Append($"{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
 				}
 				else
 				{
-					sb.Append($"// No Match // {indent}{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+					sb.Append($"// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
 				}
 			}
-			return sb.ToString().RemoveStartEnd(indent, end);
+			return sb.ToString().RemoveEnd(end);
 		}
 
 		private string GetListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
@@ -143,7 +138,7 @@ namespace CodeGen.Generators
 				return "";
 
 			string template =
-			$$"""
+			   $$"""
 			
 			public static List<{{class2}}> To{{class2}}List (this IEnumerable<{{class1}}> {{mapName1}}List)
 			{
@@ -156,7 +151,7 @@ namespace CodeGen.Generators
 			}
 			""";
 
-			return template.ForEachLine(a => "\t\t" + a);   // Add initial line formatting if needed
+			return template; //.ForEachLine(a => "\t\t" + a);   // Add initial line formatting if needed
 		}
 
 		private string UseListAdapter(PropertyInfo prop)
@@ -171,13 +166,13 @@ namespace CodeGen.Generators
 			return sb.ToString();
 		}
 
-        public Type[] GetGeneratorAdapterList(Type typeInNamespace)
-        {
-            var assembly = typeInNamespace.GetAssemblyFromType();
-            return assembly.GetTypesInNamespace(typeInNamespace.Namespace);
-        }
+		public Type[] GetGeneratorAdapterList(Type typeInNamespace)
+		{
+			var assembly = typeInNamespace.GetAssemblyFromType();
+			return assembly.GetTypesInNamespace(typeInNamespace.Namespace);
+		}
 
-        public string WriteGeneratorAdapterList(Type[] typeList, string suffix) // Use this string to set up models in CodeGen constructor
+		public string WriteGeneratorAdapterList(Type[] typeList, string suffix) // Use this string to set up models in CodeGen constructor
 		{
 			var sb = new StringBuilder();
 

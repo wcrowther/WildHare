@@ -145,9 +145,6 @@ namespace WildHare.Tests
 
         public string TestNullDefault { get; set; }
 
-        public override string ToString()
-        {
-            return $"{TestId} TestName: {TestName} - {TestNumber}";
-        }
+	   public override string ToString() => $"{TestId} TestName: {TestName} - {TestNumber}";
     }
 }

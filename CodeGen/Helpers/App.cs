@@ -29,9 +29,9 @@ namespace CodeGen.Models
 
         public string AdapterNamespace { get; set; }
 
-        public string Namespace1 { get; set; }
+        public string AdapterNamespace1 { get; set; }
 
-        public string Namespace2 { get; set; }
+        public string AdapterNamespace2 { get; set; }
 
         public string AdapterMapName1 { get; set; }
 

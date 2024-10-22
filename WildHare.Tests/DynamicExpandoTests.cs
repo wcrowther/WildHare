@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
-using ex = WildHare.Extensions.ExpandoExtensions;
+using Ex = WildHare.Extensions.ExpandoExtensions;
 
 namespace WildHare.Tests
 {

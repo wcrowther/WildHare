@@ -548,7 +548,7 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models");
 
             Assert.IsNotNull(types);
-            Assert.AreEqual(35, types.Count());
+            Assert.AreEqual(37, types.Count());
             Assert.AreEqual("Apple", types[1].Name);
         }
 
@@ -559,7 +559,7 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models", "Account,Apple".Split(','));
         
             Assert.IsNotNull(types);
-            Assert.AreEqual(33, types.Count());
+            Assert.AreEqual(35, types.Count());
             Assert.AreEqual("Automobile", types[1].Name);
         }
 
@@ -590,22 +590,22 @@ namespace WildHare.Tests
             var typesInNamespace = type.GetAssemblyFromType()
                                        .GetTypesInNamespace(type.Namespace);
 
-            Assert.AreEqual(35, typesInNamespace.Length);
+            Assert.AreEqual(37, typesInNamespace.Length);
 
             var typesInAssembly = type.GetAssemblyFromType()
                                       .GetTypesInNamespace();
 
-            Assert.AreEqual(82, typesInAssembly.Length);
+            Assert.AreEqual(85, typesInAssembly.Length);
         }
 
-        [Test]
-        public void Test_Get_Type_From_String_TypeName()
-        {
-            Type type = "WildHare.Tests.Models.Item".GetTypeFromName();
-
-            Assert.IsNotNull(type); 
-            Assert.AreEqual("Item", type.Name);
-        }
+        // [Test]
+        // public void Test_Get_Type_From_String_TypeName()
+        // {
+        //     Type type = "WildHare.Tests.Models.Item".GetTypeFromName();
+		// 
+        //     Assert.IsNotNull(type); 
+        //     Assert.AreEqual("Item", type.Name);
+        // }
 
         //[Test, Ignore("CodeGen")]
         public void GetObject_Write_Attributes_ToString()

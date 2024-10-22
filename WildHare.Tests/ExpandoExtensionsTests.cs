@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
-using ex = WildHare.Extensions.ExpandoExtensions;
+using Ex = WildHare.Extensions.ExpandoExtensions;
 
 namespace WildHare.Tests
 {
@@ -69,10 +69,10 @@ namespace WildHare.Tests
             Assert.AreEqual(5678, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Invoke with non-extension method syntax alternative (with ex using statement above)
-            Assert.AreEqual(1, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
-            Assert.AreEqual(7890, ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
-            Assert.AreEqual(99.99M, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
+            Assert.AreEqual(1, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
+            Assert.AreEqual(7890, Ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
+            Assert.AreEqual(99.99M, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
+            Assert.AreEqual(5678, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
         }
 
         [Test]

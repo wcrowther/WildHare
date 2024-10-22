@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using WildHare.Web.Entities;
 
-namespace CodeGen.Models;
+namespace CodeGen.Entities;
 
-public class InvoiceModel
+public class Invoice
 {
     public int InvoiceId { get; set; }
 
@@ -16,8 +15,5 @@ public class InvoiceModel
 
     public virtual List<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
 
-    public override string ToString()
-    {
-        return $"{InvoiceId} AccountId: {AccountId}";
-    }
+     public override string ToString() => $"{InvoiceId} AccountId: {AccountId}";
 }

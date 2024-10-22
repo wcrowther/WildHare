@@ -1,106 +1,96 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<!--  OLD:
-		<TargetFrameworks>netstandard2.0;net45;net471;net472</TargetFrameworks>
-		For Multitargeting use the line above. To see targets google: NET SDKs for Visual Studio
-		Rick Strahl at: https://weblog.west-wind.com/posts/2017/Jun/22/MultiTargeting-and-Porting-a-NET-Library-to-NET-Core-20
-	-->
-	
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>7.0.0.1</Version>
-		<Authors>Will Crowther</Authors>
-		<Product>WildHare Extensions</Product>
-		<Description>WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
-		<Copyright>Ⓒ 2024 Will Crowther</Copyright>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/wcrowther/WildHare</PackageProjectUrl>
-		<PackageTags>extension methods</PackageTags>
-		<AssemblyVersion>7.0.0.0</AssemblyVersion>
-		<FileVersion>7.0.0.0</FileVersion>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<PackageReleaseNotes>
-			7.0.0.0 WildHare versions now matche lowest version of .NET that it can run on.
-			2.0.0.0 Many updates to Including CodeGen, DataReader Extensions, etc.
-			1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.
-			1.6.0.0 Minor code simplifications. Added Summaries to DateTime extensions, Added TryGet to Dictionary extensions,
-			Added simplified overloads of StartsWith, EndsWith, Contains. Added joinString to ForEachLine.
-			1.5.9.0 Added TryGet to Dictionary&lt;string,string&gt;
-			1.5.8.0 Added IsValid to Dictionary&lt;string,string&gt;
-			1.5.7.0 Added TryGet[T] to library. Removed WildHare.Extensions.List
-			1.5.6.0 Added IDictionary functionality
-			1.5.5.0 Updated site URL
-			1.5.3.0 Added OtherAssembly param to GetDerivedTypes()
-			1.5.2.0 Added/Updated Format, GetCommonInterfaces, SingularOrPlural() name changed to Pluralize()
-			1.5.1.1 Fixed order of params in ToIntArray(). Added (IntArray).AsString().
-			1.5.1.0 Added optoinal Separator to ToIntArray(), Datetime.StartOfWeek(), ToQueryDictionary() and ToQueryString().
-			1.5.0.0 Now targeting net5.0;netstandard2.1;netcoreapp3.1;net48
-			1.0.4.5 Renamed GetStart to GetStartBefore: GetEnd to GetEndAfter; Added NextInWhile and PreviousInWhile
-			1.0.4.3 Added New PatternMatch() function
-			1.0.4.2 Added GetDerivedTypes() new includeBaseType bool parameter
-			1.0.4.1 Added IEnumerable int method .AsString()
-			1.0.4.0 Added int array method .AsString()
-			1.0.3.9 Added IDictionary.FromQueryFormat and ToQueryFormat. Added ToLIst to DynamicExpando.
-			1.0.3.8 Additions to IListExtensions
-			1.0.3.7 Added distance to PreviousIn and NextIn
-			1.0.3.6 Fix bug in ToBool, ToBoolNullable() if string is null
-			1.0.3.5 Fixed bug in ToDecimalNullable()
-			1.0.3.4 Fixed Remove for DynamicExpando. Added First() and FirstOrDefault() (use .Key or .Value)
-			1.0.3.3 Added Count to DynamicExpando
-			1.0.3.2 Improved DynamicExpando with an indexer
-			1.0.3.1 Added succinct overload of Equals()
-			1.0.3.0 Added ILIst methods and tests
-			1.0.2.2 Renamed GetDerivedClasses to GetDerivedTypes
-			1.0.2.1 Char extensions moved to WildHare.Extensions namespace (as intended)
-			1.0.2.0 Added TemplateList() method. Added IList NextIn() and PreviousIn()
-			1.0.1.0 Added GetDerivedClasses
-			1.0.0.1 Inlist bug fix.
-			1.0.0.0 Added InList and tests
-			0.9.9.8 Added DynamicExpando and DynamicDictionary
-			0.9.9.7 Added IEnumerable.Sequence and ToCollection
-			0.9.9.6 Additional Char and Templating extensions
-			0.9.9.4 Adds IList.TakeNextOne() and IList.TakeRandomOne()
-			0.9.9.3 Adds DateTime extensions
-			0.9.9.2 Adds missing  exclude, include params to List&lt;MetaProperty&gt; GetMetaProperties(this Type type) method.
-			0.9.9.1 Contains some methods that have been renamed, so some refactoring may need to be done after upgrading to this version. These type of changes are winding down and when WildHare goes out of BETA with 1.0.0.0 (sometime before the end of the year), the only changes from that point on will be additive.
-		</PackageReleaseNotes>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile>C:\Git\WildHare\WildHare\WildHare.xml</DocumentationFile>
-		<RepositoryUrl>https://github.com/wcrowther/WildHare</RepositoryUrl>
-	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <NoWarn>1701;1702;1591</NoWarn>
-	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <NoWarn>1701;1702;1591</NoWarn>
-	</PropertyGroup>
+    <PropertyGroup>
+	   <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+	   <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	   <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	   <Version>7.0.0.1</Version>
+	   <Authors>Will Crowther</Authors>
+	   <Product>WildHare Extensions</Product>
+	   <Description>WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
+	   <Copyright>Ⓒ 2024 Will Crowther</Copyright>
+	   <PackageLicenseUrl></PackageLicenseUrl>
+	   <PackageProjectUrl>https://github.com/wcrowther/WildHare</PackageProjectUrl>
+	   <PackageTags>extension methods</PackageTags>
+	   <AssemblyVersion>7.0.0.1</AssemblyVersion>
+	   <FileVersion>7.0.0.1</FileVersion>
+	   <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	   <PackageReleaseNotes>
+		  7.0.0.0 WildHare versions now matche lowest version of .NET that it can run on.
+		  2.0.0.0 Many updates to Including CodeGen, DataReader Extensions, etc.
+		  1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.
+		  1.6.0.0 Minor code simplifications. Added Summaries to DateTime extensions, Added TryGet to Dictionary extensions,
+		  Added simplified overloads of StartsWith, EndsWith, Contains. Added joinString to ForEachLine.
+		  1.5.9.0 Added TryGet to Dictionary&lt;string,string&gt;
+		  1.5.8.0 Added IsValid to Dictionary&lt;string,string&gt;
+		  1.5.7.0 Added TryGet[T] to library. Removed WildHare.Extensions.List
+		  1.5.6.0 Added IDictionary functionality
+		  1.5.5.0 Updated site URL
+		  1.5.3.0 Added OtherAssembly param to GetDerivedTypes()
+		  1.5.2.0 Added/Updated Format, GetCommonInterfaces, SingularOrPlural() name changed to Pluralize()
+		  1.5.1.1 Fixed order of params in ToIntArray(). Added (IntArray).AsString().
+		  1.5.1.0 Added optoinal Separator to ToIntArray(), Datetime.StartOfWeek(), ToQueryDictionary() and ToQueryString().
+		  1.5.0.0 Now targeting net5.0;netstandard2.1;netcoreapp3.1;net48
+		  1.0.4.5 Renamed GetStart to GetStartBefore: GetEnd to GetEndAfter; Added NextInWhile and PreviousInWhile
+		  1.0.4.3 Added New PatternMatch() function
+		  1.0.4.2 Added GetDerivedTypes() new includeBaseType bool parameter
+		  1.0.4.1 Added IEnumerable int method .AsString()
+		  1.0.4.0 Added int array method .AsString()
+		  1.0.3.9 Added IDictionary.FromQueryFormat and ToQueryFormat. Added ToLIst to DynamicExpando.
+		  1.0.3.8 Additions to IListExtensions
+		  1.0.3.7 Added distance to PreviousIn and NextIn
+		  1.0.3.6 Fix bug in ToBool, ToBoolNullable() if string is null
+		  1.0.3.5 Fixed bug in ToDecimalNullable()
+		  1.0.3.4 Fixed Remove for DynamicExpando. Added First() and FirstOrDefault() (use .Key or .Value)
+		  1.0.3.3 Added Count to DynamicExpando
+		  1.0.3.2 Improved DynamicExpando with an indexer
+		  1.0.3.1 Added succinct overload of Equals()
+		  1.0.3.0 Added ILIst methods and tests
+		  1.0.2.2 Renamed GetDerivedClasses to GetDerivedTypes
+		  1.0.2.1 Char extensions moved to WildHare.Extensions namespace (as intended)
+		  1.0.2.0 Added TemplateList() method. Added IList NextIn() and PreviousIn()
+		  1.0.1.0 Added GetDerivedClasses
+		  1.0.0.1 Inlist bug fix.
+		  1.0.0.0 Added InList and tests
+		  0.9.9.8 Added DynamicExpando and DynamicDictionary
+		  0.9.9.7 Added IEnumerable.Sequence and ToCollection
+		  0.9.9.6 Additional Char and Templating extensions
+		  0.9.9.4 Adds IList.TakeNextOne() and IList.TakeRandomOne()
+		  0.9.9.3 Adds DateTime extensions
+		  0.9.9.2 Adds missing  exclude, include params to List&lt;MetaProperty&gt; GetMetaProperties(this Type type) method.
+		  0.9.9.1 Contains some methods that have been renamed, so some refactoring may need to be done after upgrading to this version. These type of changes are winding down and when WildHare goes out of BETA with 1.0.0.0 (sometime before the end of the year), the only changes from that point on will be additive.
+	   </PackageReleaseNotes>
+	   <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	   <DocumentationFile>C:\Git\WildHare\WildHare\WildHare.xml</DocumentationFile>
+	   <RepositoryUrl>https://github.com/wcrowther/WildHare</RepositoryUrl>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="..\.editorconfig" Link=".editorconfig" />
-	</ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	   <NoWarn>1701;1702;1591</NoWarn>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
-		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
-	</ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	   <NoWarn>1701;1702;1591</NoWarn>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
+    <ItemGroup>
+	   <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+	   <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+    <ItemGroup>
+	   <Compile Update="Properties\Resources.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Resources.resx</DependentUpon>
+	   </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+	   <EmbeddedResource Update="Properties\Resources.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	   </EmbeddedResource>
+    </ItemGroup>
 
 </Project>

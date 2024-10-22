@@ -1,8 +1,8 @@
 using System;
 
-namespace CodeGen.Models;
+namespace CodeGen.Entities;
 
-public class InvoiceItemModel
+public class InvoiceItem
 {
     public int InvoiceItemId { get; set; }
 
@@ -16,8 +16,5 @@ public class InvoiceItemModel
 
     public DateTime Created { get; set; }
 
-    public override string ToString()
-    {
-        return $"{InvoiceItemId} Product: {Product} Fee: {Fee}";
-    }
+     public override string ToString() => $"{InvoiceItemId} Product: {Product} Fee: {Fee}";
 }

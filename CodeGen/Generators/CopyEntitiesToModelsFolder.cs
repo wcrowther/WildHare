@@ -26,7 +26,6 @@ namespace CodeGen.Generators
         public CopyEntitiesToModelsFolder(App app)
         {
             _app            = app;
-
         }
 
         public string Init()

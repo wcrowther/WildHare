@@ -1,3 +1,3 @@
-@echo off
-csc /Program.cs
+REM @echo off
+csc Program.cs
 Program.exe

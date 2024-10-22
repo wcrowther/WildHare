@@ -206,7 +206,7 @@ namespace WildHare.Extensions
 
         public static Type[] GetCommonInterfaces(this object[] objects)
         {
-            var interfaces = new Type[0];
+            var interfaces = Array.Empty<Type>();
             
             foreach (var o in objects)
             {
@@ -227,23 +227,14 @@ namespace WildHare.Extensions
             return interfaces;
         }
 
-        /// <summary>Returns true if any of the T in the {list} is equal to the {number} this.
-        /// Works for T </summary>
-        public static bool EqualsAny<T>(this T value, params T[] list)
-        {
-            return list.Any(a => a.Equals(value));
-        }
+		/// <summary>Returns true if any of the T in the {list} is equal to the this {value}.
+		/// Works for T </summary>
+		public static bool EqualsAny<T>(this T value, params T[] list) => list.Any(a => a.Equals(value));
 
-        /// <summary>Gets the Assembly of a type. IE: an extension method version of Assembly.GetAssembly(type).</summary>
-        public static Assembly GetAssemblyFromType(this Type type)
-        {
-            return Assembly.GetAssembly(type);
-        }
+		/// <summary>Gets the Assembly of a type. IE: an extension method version of Assembly.GetAssembly(type).</summary>
+		public static Assembly GetAssemblyFromType(this Type type) => Assembly.GetAssembly(type);
 
-        /// <summary>Gets a type from the string name of the type.</summary>
-        public static Type GetTypeFromName(this string typeName)
-        {
-            return Type.GetType(typeName);
-        }
-    }
+		/// <summary>Gets a type from the string name of the type.</summary>
+		// public static Type GetTypeFromName(this string typeName) => Type.GetType(typeName);
+	}
 }
