@@ -1,63 +1,42 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using WildHare.Extensions;
 
 namespace WildHare.Tests.Models;
 
-public class Result<T>
+public class Result<T> 
 {
-
-    public bool Success { get; init; }
-
-	 public string Message { get; init; }
+	 public bool Success => Exception is null && Data is not null;
 
 	 public Exception Exception { get; init; }
 
 	 public T Data { get; init; }
 
-	 public static Result<T> Ok(T data = default, string message = null) 
+	 public static implicit operator Result<T>(T data)			 => new(){ Data = data };
+
+	 public static implicit operator Result<T>(Exception ex)	 => new() { Exception = ex };
+
+	 public static Result<T> Ok(T data)
 	 {
-		  return new() { Success = true, Data = data, Message = message };
+		  return new() { Data = data };
 	 }
 
-	 public static Result<T> Return(T data = default, string message = null)
+	 public static Result<T> Error(string message, T data = default)
 	 {
-		  return new() { Success = true, Data = data, Message = message };
+		  return new() { Exception = new Exception(message), Data = data };
 	 }
 
-	 public static Result<T> Error(string message = null, Exception exception = null)
+	 public static Result<T> Error(Exception exception, T data = default)
 	 {
-		  string msg = (message is null && exception is not null) ? exception.Message : message;
-		  
-		  return new() { Success = false, Message = msg, Exception = exception };
-	 }
-
-	 public static Result<T> HasData(T data = default, string message = null, string noDataMessage = null)
-	 {
-		  bool hasData = data is not null;
-		  return new() { Success = hasData, Data = data, Message = hasData ? message : noDataMessage };
-	 }
-	 
-	 public static Result<T> HasCount(T data = default, string message = null, string noDataMessage = null)
-	 {
-		  string nullError		  = noDataMessage.IsNullOrEmpty() ? "HasCount() data type cannot be null" : noDataMessage;
-		  string ienumerableError = "HasCount() data type must be able to be converted to type IEnumerable<object>";
-
-		  if (data is null)
-			   return Error(nullError, new Exception(nullError));
-
-		  if (data is IEnumerable<object> e)
-			   return  new() { Success = e.Any(), Data = data, Message = e.Any() ? message : noDataMessage };
-
-		  return Error(ienumerableError,  new Exception(ienumerableError));
+		  return new() { Exception = exception, Data = data };
 	 }
 }
 
-public class Result : Result<int>
+public class Result : Result<string>
 {
-	 public static new Result Ok(int data = default, string message = null) => Ok(data, message);
+	 public static implicit operator Result(string data)	=> new(){ Data = data };
 
-	 public static new Result Error(string message, Exception exception = null) => Error(message, exception);
+	 public static implicit operator Result(Exception ex)	=> new(){ Exception = ex };
+
+	 public override string ToString() => Success ? Data : Exception.Message;
 }
+
 

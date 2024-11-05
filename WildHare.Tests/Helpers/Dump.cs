@@ -27,10 +27,10 @@ namespace WildHare.Tests.Helpers
             string name = title ?? nameof(obj);
             string str = obj switch
             {
-                string s => s,
-                null => null,
-                int i => i.ToString(),
-                object o => o.ToJson()
+                string s	  => s,
+                null		  => null,
+                int i		  => i.ToString(),
+                object o	  => o.ToJson()
             };
             Debug.WriteLine($"{separator}{NewLine}{name}{NewLine}{separator}");
             Debug.WriteLine(str);
@@ -40,6 +40,8 @@ namespace WildHare.Tests.Helpers
         {
             return JsonConvert.SerializeObject(obj, formatting);
         }
+
+		  
 
     }
 }

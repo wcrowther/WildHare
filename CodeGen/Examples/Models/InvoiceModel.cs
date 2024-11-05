@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using WildHare.Web.Entities;
 
 namespace CodeGen.Models;
 
@@ -14,10 +13,7 @@ public class InvoiceModel
 
     public DateTime Created { get; set; }
 
-    public virtual List<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
+    public virtual List<InvoiceItemModel> InvoiceItems { get; set; } = new List<InvoiceItemModel>();
 
-    public override string ToString()
-    {
-        return $"{InvoiceId} AccountId: {AccountId}";
-    }
+     public override string ToString() => $"{InvoiceId} AccountId: {AccountId}";
 }

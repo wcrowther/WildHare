@@ -7,36 +7,33 @@ namespace CodeGen.Adapters
 { 
 	public static partial class Adapter
 	{
-		public static InvoiceItemModel ToInvoiceItemModel (this Account entity)
+		public static AccountModel ToAccountModel (this Account entity)
 		{
-			return entity == null ? null : new InvoiceItemModel
+			return entity == null ? null : new AccountModel
 			{
-				// No Match // AccountId            = entity.AccountId,
-			   // No Match // AccountName          = entity.AccountName,
-			   Created							   = entity.Created,
-			   // No Match // Invoices             = entity.Invoices.ToInvoiceModelList()
+				AccountId            = entity.AccountId,
+				AccountName          = entity.AccountName,
+				Created              = entity.Created,
+				Invoices             = entity.Invoices.ToInvoiceModelList()
 			};
 		}
 
-		public static Account ToAccount (this InvoiceItemModel model)
+		public static Account ToAccount (this AccountModel model)
 		{
 			return model == null ? null : new Account
 			{
-				// No Match // InvoiceItemId      = model.InvoiceItemId,
-			   // No Match // InvoiceId           = model.InvoiceId,
-			   // No Match // Fee                 = model.Fee,
-			   // No Match // Product             = model.Product,
-			   // No Match // Description         = model.Description,
-			   Created							  = model.Created
+				AccountId            = model.AccountId,
+				AccountName          = model.AccountName,
+				Created              = model.Created,
+				Invoices             = model.Invoices.ToInvoiceList()
 			};
 		}
-		
-		public static List<InvoiceItemModel> ToInvoiceItemModelList (this IEnumerable<Account> entityList)
+		public static List<AccountModel> ToAccountModelList (this IEnumerable<Account> entityList)
 		{
-			return entityList?.Select(a => a.ToInvoiceItemModel()).ToList() ?? new List<InvoiceItemModel>();
+			return entityList?.Select(a => a.ToAccountModel()).ToList() ?? new List<AccountModel>();
 		}
 		
-		public static List<Account> ToAccountList (this IEnumerable<InvoiceItemModel> modelList)
+		public static List<Account> ToAccountList (this IEnumerable<AccountModel> modelList)
 		{
 			return modelList?.Select(a => a.ToAccount()).ToList() ?? new List<Account>();
 		}

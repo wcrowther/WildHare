@@ -1,6 +1,8 @@
+using CodeGen.Entities;
 using CodeGen.Models;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -34,26 +36,28 @@ namespace CodeGen.Generators
 			Debug.WriteLine("Generate Adapters");
 			Debug.WriteLine("=".Repeat(50));
 
-			Type[] adapterList = GetGeneratorAdapterList(typeInNamespace);
-			string adapterListString = WriteGeneratorAdapterList(adapterList, "Model");
+			var adapterList				= GetGeneratorAdapterList(typeInNamespace);
+			string adapterListString	= WriteGeneratorAdapterList(adapterList, "Model");
 
 			// Write out the adapterlist to the Debug window generated from toTypeProps particular namespace
 			Debug.Write(adapterListString.AddEnd("=".Repeat(80) + NewLine));
 
-			foreach (var type in adapterList)
-			{
-				GenerateAdapter(type, typeof(InvoiceItemModel), _app.Overwrite);
-			}
+			   //adapterList.ForEach(type => GenerateAdapter(type, Type.GetType($"{type.Name}Model, CodeGen"), _app.Overwrite));
 
-			// Copy and paste adapterlist from Debug Output window here if needed.
+			   // foreach (var type in adapterList)
+			   // {
+			   //	GenerateAdapter(type, Type.GetType($"CodeGen.Models.{type.Name}Model, CodeGen"), _app.Overwrite);
+			   // }
 
-			GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel), _app.Overwrite);
-			GenerateAdapter(typeof(Invoice), typeof(InvoiceModel), _app.Overwrite);
-			GenerateAdapter(typeof(Account), typeof(AccountModel), _app.Overwrite);
+			   // Copy and paste adapterlist from Debug Output window here if needed.
 
-			// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
+			   GenerateAdapter(typeof(Account), typeof(AccountModel), true);
+			   GenerateAdapter(typeof(Invoice), typeof(InvoiceModel), true);
+			   GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel), true);
 
-			Debug.WriteLine("=".Repeat(80));
+			   // To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
+
+			   Debug.WriteLine("=".Repeat(80));
 
 			string result = $"{nameof(GenAdapters)}.{nameof(Init)} code written to '{_app.AdapterOutputFolder}'. Overwrite: {_app.Overwrite}";
 
@@ -72,7 +76,7 @@ namespace CodeGen.Generators
 			string adapterFileName = $"{class1}Adapter.cs";
 
 			string output =
-			   $$"""
+			$$"""
 			using {{_app.AdapterNamespace1}};
 			using {{_app.AdapterNamespace2}};
 			using System.Linq;
@@ -103,7 +107,8 @@ namespace CodeGen.Generators
 			""";
 
 			string outputPath = $"{_app.AdapterOutputFolder}{adapterFileName}";
-			bool isSuccess = output.WriteToFile(outputPath, overwrite);
+			bool isSuccess = output
+						     .WriteToFile(outputPath, overwrite);
 
 			if (isSuccess)
 				Debug.WriteLine($"Generated file {adapterFileName} in {outputPath}.");
@@ -117,19 +122,20 @@ namespace CodeGen.Generators
 
 			foreach (var prop in type.GetProperties())
 			{
-				// var toTypeProps = toType.GetProperties().Select(n => n.Name.ToLower()).ToArray();
-				// if (prop.Name.EqualsAny(true, toTypeProps))
+				var toTypeProps = toType.GetProperties().Select(n => n.Name.ToLower()).ToArray();
 
-				if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
+				if (prop.Name.EqualsAnyIgnoreCase(toTypeProps))
 				{
-					sb.Append($"{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+					sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
 				}
 				else
 				{
-					sb.Append($"// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+					sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
 				}
-			}
-			return sb.ToString().RemoveEnd(end);
+
+			    // if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
+			 }
+			 return sb.ToString().RemoveStartEnd(indent, end);
 		}
 
 		private string GetListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
@@ -138,20 +144,20 @@ namespace CodeGen.Generators
 				return "";
 
 			string template =
-			   $$"""
-			
-			public static List<{{class2}}> To{{class2}}List (this IEnumerable<{{class1}}> {{mapName1}}List)
-			{
-				return {{mapName1}}List?.Select(a => a.To{{class2}}()).ToList() ?? new List<{{class2}}>();
-			}
-			
-			public static List<{{class1}}> To{{class1}}List (this IEnumerable<{{class2}}> {{mapName2}}List)
-			{
-				return {{mapName2}}List?.Select(a => a.To{{class1}}()).ToList() ?? new List<{{class1}}>();
-			}
-			""";
+			   $$"""			
+			   public static List<{{class2}}> To{{class2}}List (this IEnumerable<{{class1}}> {{mapName1}}List)
+			   {
+			   	return {{mapName1}}List?.Select(a => a.To{{class2}}()).ToList() ?? new List<{{class2}}>();
+			   }
+			   
+			   public static List<{{class1}}> To{{class1}}List (this IEnumerable<{{class2}}> {{mapName2}}List)
+			   {
+			   	return {{mapName2}}List?.Select(a => a.To{{class1}}()).ToList() ?? new List<{{class1}}>();
+			   }
+			   """;
 
-			return template; //.ForEachLine(a => "\t\t" + a);   // Add initial line formatting if needed
+			   return template.ForEachLine(a => $"\t\t{a}")
+						      .RemoveStart("\t\t");   // Add initial line formatting if needed
 		}
 
 		private string UseListAdapter(PropertyInfo prop)
@@ -166,13 +172,13 @@ namespace CodeGen.Generators
 			return sb.ToString();
 		}
 
-		public Type[] GetGeneratorAdapterList(Type typeInNamespace)
+		public List<Type> GetGeneratorAdapterList(Type typeInNamespace)
 		{
 			var assembly = typeInNamespace.GetAssemblyFromType();
-			return assembly.GetTypesInNamespace(typeInNamespace.Namespace);
+			return assembly.GetTypesInNamespace(typeInNamespace.Namespace).ToList();
 		}
 
-		public string WriteGeneratorAdapterList(Type[] typeList, string suffix) // Use this string to set up models in CodeGen constructor
+		public static string WriteGeneratorAdapterList(List<Type> typeList, string suffix) // Use this string to set up models in CodeGen constructor
 		{
 			var sb = new StringBuilder();
 
