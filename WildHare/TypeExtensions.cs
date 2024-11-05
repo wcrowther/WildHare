@@ -234,7 +234,7 @@ namespace WildHare.Extensions
 		/// <summary>Gets the Assembly of a type. IE: an extension method version of Assembly.GetAssembly(type).</summary>
 		public static Assembly GetAssemblyFromType(this Type type) => Assembly.GetAssembly(type);
 
-		/// <summary>Gets a type from the string name of the type.</summary>
+		// <summary>Gets a type from the string name of the type.</summary>
 		// public static Type GetTypeFromName(this string typeName) => Type.GetType(typeName);
 	}
 }
