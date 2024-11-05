@@ -17,7 +17,7 @@ public class MiscTests
 	 {
 		  var result = new Result<string>();
 
-		  Assert.AreEqual(false,	  result.Success);
+		  Assert.AreEqual(false,  result.Success);
 		  Assert.AreEqual(null,	  result.Data);
 	 }
 
@@ -162,6 +162,49 @@ public class MiscTests
 		  Assert.AreEqual(false,   result.Success);
 		  Assert.AreEqual(null,	   result.Data);
 		  Assert.AreEqual("Error", result.Exception.Message);
+	 }
+
+	 [Test]
+	 public void Test_Implicit_Result_NotImplementedException()
+	 {
+		  Result result = new NotImplementedException();
+
+		  Assert.AreEqual(false, result.Success);
+		  Assert.AreEqual(null, result.Data);
+		  Assert.AreEqual("The method or operation is not implemented.", result.Exception.Message);
+	 }
+
+	 [Test]
+	 public void Test_Implicit_Typed_Result_NotImplementedException()
+	 {
+		  Result<int[]> result = new NotImplementedException();
+
+		  Assert.AreEqual(false, result.Success);
+		  Assert.AreEqual(null, result.Data);
+		  Assert.AreEqual("The method or operation is not implemented.", result.Exception.Message);
+	 }
+
+	 [Test]
+	 public void Test_Ternary_Boolean()
+	 {
+		  Result<bool?> result = Result<bool?>.Ok(null);
+
+		  Assert.AreEqual(false, result.Success); // null values are not Success
+		  Assert.AreEqual(null, result.Success ? result.Data : null);
+
+		  Result<bool?> result2 = Result<bool?>.Ok(true);
+
+		  Assert.AreEqual(true, result2.Success); 
+		  Assert.AreEqual(true, result2.Success ? result2.Data : null);
+	 }
+
+	 [Test]
+	 public void Test_Object()
+	 {
+		  Result<Person> result = new Person { FirstName = "Will" };
+
+		  Assert.AreEqual(true,   result.Success); 
+		  Assert.AreEqual("Will", result.Data.FirstName);
 	 }
 
 	 [Test]
