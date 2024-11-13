@@ -37,11 +37,11 @@ namespace WildHare.Tests
             string applicationRoot	= XtraExtensions.GetApplicationRoot();
 			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-			Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net7.0", codeBase);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net7.0", localPath);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net7.0", location);
+			Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net8.0", codeBase);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net8.0", localPath);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net8.0", location);
             Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests", applicationRoot);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net7.0", entryAssembly);
+            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net8.0", entryAssembly);
         }
 
         [Test]

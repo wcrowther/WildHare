@@ -17,8 +17,9 @@ public class MiscTests
 	 {
 		  var result = new Result<string>();
 
-		  Assert.AreEqual(false,  result.Success);
-		  Assert.AreEqual(null,	  result.Data);
+		  Assert.AreEqual(null,	   result.Data);
+		  Assert.AreEqual(false,   result.HasData);
+		  Assert.AreEqual(true,	   result.Success);
 	 }
 
 	 [Test]
@@ -26,8 +27,9 @@ public class MiscTests
 	 {
 		  var result = Result<string>.Ok(null);
 
-		  Assert.AreEqual(false,   result.Success);
+		  Assert.AreEqual(true,	   result.Success);
 		  Assert.AreEqual(null,	   result.Data);
+		  Assert.AreEqual(false,   result.HasData);
 	 }
 
 	 [Test]
@@ -37,6 +39,7 @@ public class MiscTests
 
 		  Assert.AreEqual(true,				 result.Success);
 		  Assert.AreEqual("String value",	 result.Data);
+		  Assert.AreEqual(true,			 result.HasData);
 	 }
 
 	 [Test]
@@ -88,10 +91,33 @@ public class MiscTests
 	 public void Test_Result_List()
 	 {
 		  var list		 = new List<string> { "one", "two", "three" };
-		  var result	 = Result<List<string>>.Ok(list ?? new List<string>());
+		  var result	 = Result<List<string>>.Ok(list);
+
+		  Assert.AreEqual(true,	   result.Success);
+		  Assert.AreEqual("two",   result.Data[1]);
+		  Assert.AreEqual(null,	   result.Exception);
+	 }
+
+
+	 [Test]
+	 public void Test_Result_List_Empty()
+	 {
+		  List<string> nullList = null;
+		  var result = Result<List<string>>.Ok(nullList);
+
+		  Assert.AreEqual(true,	   result.Success);
+		  Assert.AreEqual(false,   result.HasData);
+		  Assert.AreEqual(null,	   result.Exception);
+	 }
+
+	 [Test]
+	 public void Test_Result_Array_Empty()
+	 {
+		  string[] array = null;
+		  var result = Result<string[]>.Ok(array);
 
 		  Assert.AreEqual(true, result.Success);
-		  Assert.AreEqual("two", result.Data[1]);
+		  Assert.AreEqual(false, result.HasData);
 		  Assert.AreEqual(null, result.Exception);
 	 }
 
@@ -189,13 +215,14 @@ public class MiscTests
 	 {
 		  Result<bool?> result = Result<bool?>.Ok(null);
 
-		  Assert.AreEqual(false, result.Success); // null values are not Success
-		  Assert.AreEqual(null, result.Success ? result.Data : null);
+		  Assert.AreEqual(true,    result.Success); // null values are Success if no exception
+		  Assert.AreEqual(null,	   result.Data);
+		  Assert.AreEqual(false,   result.HasData);
 
 		  Result<bool?> result2 = Result<bool?>.Ok(true);
 
 		  Assert.AreEqual(true, result2.Success); 
-		  Assert.AreEqual(true, result2.Success ? result2.Data : null);
+		  Assert.AreEqual(true, result2.HasData ? result2.Data : null);
 	 }
 
 	 [Test]
@@ -211,7 +238,7 @@ public class MiscTests
 	 public void Test_Result_HasData_Three()
 	 {
 	 	 var list = new List<string> { "one", "two", "three" };
-	 	 Result<List<string>> result = list ?? new List<string>();
+	 	 Result<List<string>> result = list ?? [];
 	 
 	 	 Assert.AreEqual(true,	   result.Success);
 	 	 Assert.AreEqual(3,		   result.Data.Count);

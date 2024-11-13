@@ -1,33 +1,31 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace WildHare.Tests.Models;
 
 public class Result<T> 
 {
-	 public bool Success => Exception is null && Data is not null;
+	 public T Data { get; init; }
 
 	 public Exception Exception { get; init; }
 
-	 public T Data { get; init; }
+	 public bool Success => Exception is null;
 
-	 public static implicit operator Result<T>(T data)			 => new(){ Data = data };
+	 public bool HasData => Data is not null;
 
-	 public static implicit operator Result<T>(Exception ex)	 => new() { Exception = ex };
+	 public static implicit operator Result<T>(T data) => new(){ Data = data };
 
-	 public static Result<T> Ok(T data)
-	 {
-		  return new() { Data = data };
-	 }
+	 public static implicit operator Result<T>(Exception ex) => new() { Exception = ex };
 
-	 public static Result<T> Error(string message, T data = default)
-	 {
-		  return new() { Exception = new Exception(message), Data = data };
-	 }
 
-	 public static Result<T> Error(Exception exception, T data = default)
-	 {
-		  return new() { Exception = exception, Data = data };
-	 }
+	 public static Result<T> Ok(T data) => new() { Data = data };
+
+	 public static Result<T> Error(string message, T data = default) => new() 
+								  { Exception = new Exception(message), Data = data };
+
+	 public static Result<T> Error(Exception exception, T data = default) => new() 
+								  { Exception = exception, Data = data };
 }
 
 public class Result : Result<string>
@@ -38,5 +36,20 @@ public class Result : Result<string>
 
 	 public override string ToString() => Success ? Data : Exception.Message;
 }
+
+
+
+
+// private static D GetDefault<D>()
+// {
+// 	 return typeof(D) switch
+// 	 {
+// 		  Type t when t == typeof(string) => (D)(object)"",
+// 		  Type t when t.IsArray => (D)(object)Array.CreateInstance(t.GetElementType()!, 0),
+// 		  Type t when typeof(IEnumerable).IsAssignableFrom(t)  && t.IsGenericType =>
+// 			  (D)(object)Activator.CreateInstance(typeof(List<>).MakeGenericType(t.GetGenericArguments()))!,
+// 		  _ => default
+// 	 };
+// }
 
 
