@@ -53,6 +53,31 @@ public class MiscTests
 	 }
 
 	 [Test]
+	 public void Test_Result_Array_Ok_With_Null_Guard()
+	 {
+		  string[] values = null;
+		  var result = Result<string[]>.Ok(values ?? []);
+
+		  Assert.AreEqual(true,	   result.Success); // no exception
+		  Assert.AreEqual(true,	   result.HasData); 
+		  Assert.AreEqual(0,	   result.Data.Length);
+	 }
+
+	 [Test]
+	 public void Test_Result_Array_With_Null_Guard()
+	 {
+		  // You need a null guard as null will NOT
+		  // implicitly convert to Result<string>
+		  
+		  string[] values = null;
+		  Result<string[]> result = values ?? [];
+
+		  Assert.AreEqual(true,	   result.Success); // no exception
+		  Assert.AreEqual(true,	   result.HasData);
+		  Assert.AreEqual(0,	   result.Data.Length);
+	 }
+
+	 [Test]
 	 public void Test_Result_String_Error_With_String()
 	 {
 		  string message	  = "The result is an error.";
@@ -252,10 +277,10 @@ public class MiscTests
 							     .Step1()
 							     .Step2()
 							     .Step3();
-		  Assert.AreEqual(false, result.Success);
-	 	  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual("Error", result.Exception.InnerException.Message);
-		  Assert.AreEqual("Error2", result.Exception.Message);
+		  Assert.AreEqual(false,		result.Success);
+	 	  Assert.AreEqual(null,			result.Data);
+		  Assert.AreEqual("Error",		result.Exception.InnerException.Message);
+		  Assert.AreEqual("Error2",		result.Exception.Message);
 	 }
 
 }

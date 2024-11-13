@@ -40,6 +40,9 @@ public class Result : Result<string>
 
 
 
+
+
+
 // private static D GetDefault<D>()
 // {
 // 	 return typeof(D) switch
