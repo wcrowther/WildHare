@@ -25,27 +25,31 @@ namespace CodeGen.Models
 
         public int ColumnWidth { get; set; }
 
-        public string AdapterOutputFolder { get; set; }
+		public string EntitiesSourceFolder { get; set; }
 
-        public string AdapterNamespace { get; set; }
+        public string ModelsTargetFolder { get; set; }
 
-        public string AdapterNamespace1 { get; set; }
+		public Adapter Adapter { get; set; }
 
-        public string AdapterNamespace2 { get; set; }
-
-        public string AdapterMapName1 { get; set; }
-
-        public string AdapterMapName2 { get; set; }
-
-        public string EntitiesSourceFolder { get; set; }
-
-        public string ModelsTargetFolder { get; set; }  
-
-        public Copy Copy { get; set; }
+		public Copy Copy { get; set; }
     }
 
+	public class Adapter
+	{
+		public string OutputFolder { get; set; }
 
-    public class Copy
+		public string Namespace { get; set; }
+
+		public string Namespace1 { get; set; }
+
+		public string Namespace2 { get; set; }
+
+		public string MapName1 { get; set; }
+
+		public string MapName2 { get; set; }
+	}
+
+	public class Copy
     {
         public string ModelSuffix { get; set; }
 

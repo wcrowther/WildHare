@@ -6,19 +6,19 @@ using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.IO;
 using WildHare.Extensions;
-using WildHare.Web.Interfaces;
 using static System.Environment;
 
 namespace CodeGen
 {
     public class Program
-    {      
-        static void Main(string[] args)
+    {
+		static bool _showMenu = true;
+
+		static void Main(string[] args)
         {
-            bool showMenu = true;
-            while (showMenu)
+            while (_showMenu)
             {
-                showMenu = MainMenu();
+                _showMenu = MainMenu();
             }
         }
 
@@ -26,17 +26,17 @@ namespace CodeGen
         {
             CodeGen.GenerateMenu();
 
-            var serviceProvider = ConfigureServices().BuildServiceProvider();
-
             string input = Console.ReadLine();
-            bool result  = serviceProvider
-                                .GetService<CodeGen>()
-                                .Generate(input);
 
+			var serviceProvider = ConfigureServices().BuildServiceProvider();
+
+			bool result			= serviceProvider
+										.GetService<CodeGen>()
+										.Generate(input);
             return result;
         }
 
-        private static IServiceCollection ConfigureServices()
+        private static ServiceCollection ConfigureServices()
         {
             // =========================================================================
             // NOTE: Console app will use appsettings.json if included and Properties

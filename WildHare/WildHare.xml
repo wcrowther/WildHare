@@ -665,6 +665,11 @@
             <summary>Given an Assembly, returns a Type array of the types in the {namspace}. If {excludeList}
             is populated, any types with names that match a value in the list will be excluded.</summary>
         </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Type,System.String,System.String[])">
+            <summary>Given a Type, gets the Assembly from that type then returns a Type array of the types
+            in the {namspace}. If {excludeList} is populated, any types with names that match a value
+            in the list will be excluded.</summary>
+        </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)">
             <summary></summary>
         </member>

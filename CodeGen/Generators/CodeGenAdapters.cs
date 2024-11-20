@@ -12,7 +12,7 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-	public class GenAdapters
+	public class CodeGenAdapters
 	{
 		private App _app;
 
@@ -23,11 +23,11 @@ namespace CodeGen.Generators
 		private readonly string end = $",{NewLine}";
 		private const int pad = -20;
 
-		public GenAdapters(App app)
+		public CodeGenAdapters(App app)
 		{
 			_app            = app;
 			projectRoot     = string.Empty;
-			outputFolder    = $"{projectRoot}{_app.AdapterOutputFolder}";
+			outputFolder    = $"{projectRoot}{_app.Adapter.OutputFolder}";
 		}
 
 		public string Init(Type typeInNamespace)
@@ -59,7 +59,7 @@ namespace CodeGen.Generators
 
 			   Debug.WriteLine("=".Repeat(80));
 
-			string result = $"{nameof(GenAdapters)}.{nameof(Init)} code written to '{_app.AdapterOutputFolder}'. Overwrite: {_app.Overwrite}";
+			string result = $"{nameof(CodeGenAdapters)}.{nameof(Init)} code written to '{_app.Adapter.OutputFolder}'. Overwrite: {_app.Overwrite}";
 
 			Debug.WriteLine(result);
 
@@ -70,19 +70,19 @@ namespace CodeGen.Generators
 		{
 			string class1 = type1.Name;
 			string class2 = type2.Name;
-			string map1 = _app.AdapterMapName1;
-			string map2 = _app.AdapterMapName2;
+			string map1 = _app.Adapter.MapName1;
+			string map2 = _app.Adapter.MapName2;
 
 			string adapterFileName = $"{class1}Adapter.cs";
 
 			string output =
 			$$"""
-			using {{_app.AdapterNamespace1}};
-			using {{_app.AdapterNamespace2}};
+			using {{_app.Adapter.Namespace1}};
+			using {{_app.Adapter.Namespace2}};
 			using System.Linq;
 			using System.Collections.Generic;
 			
-			namespace {{_app.AdapterNamespace}}
+			namespace {{_app.Adapter.Namespace}}
 			{ 
 				public static partial class Adapter
 				{
@@ -106,7 +106,7 @@ namespace CodeGen.Generators
 			}
 			""";
 
-			string outputPath = $"{_app.AdapterOutputFolder}{adapterFileName}";
+			string outputPath = $"{_app.Adapter.OutputFolder}{adapterFileName}";
 			bool isSuccess = output
 						     .WriteToFile(outputPath, overwrite);
 
@@ -188,7 +188,5 @@ namespace CodeGen.Generators
 			}
 			return sb.ToString();
 		}
-
-
 	}
 }

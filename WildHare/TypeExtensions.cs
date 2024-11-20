@@ -103,8 +103,18 @@ namespace WildHare.Extensions
             return types.OrderBy(t => t.Name).ToArray();
         }
 
-        /// <summary></summary>
-        public static MetaAssembly GetMetaAssembly(this Assembly assembly, string xmlDocumentationPath =  null)
+		/// <summary>Given a Type, gets the Assembly from that type then returns a Type array of the types
+		/// in the {namspace}. If {excludeList} is populated, any types with names that match a value
+		/// in the list will be excluded.</summary>
+		public static Type[] GetTypesInNamespace(this Type type, string nameSpace = null, string[] excludeList = null)
+		{
+		  var assembly = type.GetAssemblyFromType();
+
+		  return assembly.GetTypesInNamespace(nameSpace, excludeList);
+		}
+
+		/// <summary></summary>
+		public static MetaAssembly GetMetaAssembly(this Assembly assembly, string xmlDocumentationPath =  null)
         {
             return new MetaAssembly(assembly, xmlDocumentationPath);
         }

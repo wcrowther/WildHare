@@ -18,7 +18,7 @@ namespace WildHare.Extensions
                 throw new NullReferenceException("ElementIn() source cannnot be null.");
             }
 
-            if (source.Count() == 0)
+            if (!source.Any())
                 throw new Exception("ElementIn() source contains no elements.");
 
             index = Math.Abs(index);
@@ -57,7 +57,7 @@ namespace WildHare.Extensions
                 throw new NullReferenceException("ElementIn() source cannnot be null.");
             }
 
-            if (source.Count() == 0)
+            if (!source.Any())
                 return defaultItem;
 
             index = Math.Abs(index);

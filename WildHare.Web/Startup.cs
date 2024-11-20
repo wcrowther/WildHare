@@ -1,38 +1,36 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WildHare.Extensions;
 using WildHare.Web.Models;
 
 namespace WildHare.Web
 {
-    public class Startup
-    {
-        private string _dbConnString = null;
+    public class Startup(IConfiguration configuration)
+	{
+        private string _dbConnString;
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+		public IConfiguration Configuration { get; } = configuration;
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+		// ================================================================================
+		public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
 
             services.AddSingleton(Configuration.GetSection("App").Get<AppSettings>());
 
             _dbConnString = Configuration["ConnectionStrings:MachineEnglishDB"];  // TestDB
-        }
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // ================================================================================
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -56,22 +54,25 @@ namespace WildHare.Web
                 endpoints.MapRazorPages();
             });
 
-            // RunCodeGen(env);
+			// RunCodeGen(env);
         }
-
-        // private void RunCodeGen(IWebHostEnvironment env)
-        // {
-        //     if (env.IsDevelopment())
-        //     {
-        //         //CodeGenValidators.Init(env.ContentRootPath, "/Validators/", true);
-        // 
-        //         // CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString); 
-        //         // CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
-        //         // CodeGenAdapters.Init(env.ContentRootPath);
-        //         // CodeGenCssMap.Init(env.ContentRootPath);
-        //         // CodeGenSqlRowInsert.Init(env.ContentRootPath);
-        //         // CodeGenSchema.Init(env.ContentRootPath);
-        //     }
-        // }
     }
 }
+
+
+
+
+// private void RunCodeGen(IWebHostEnvironment env)
+// {
+//     if (env.IsDevelopment())
+//     {
+// 			//CodeGenValidators.Init(env.ContentRootPath, "/Validators/", true);
+// 
+// 			// CodeGenClassesFromSqlTables.Init(env.ContentRootPath, _dbConnString); 
+// 			// CodeGenFromSql.Init(env.ContentRootPath, _dbConnString);
+// 			// CodeGenAdapters.Init(env.ContentRootPath);
+// 			// CodeGenCssMap.Init(env.ContentRootPath);
+// 			// CodeGenSqlRowInsert.Init(env.ContentRootPath);
+// 			// CodeGenSchema.Init(env.ContentRootPath);
+// 	   }
+// }

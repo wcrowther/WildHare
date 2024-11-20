@@ -1,24 +1,16 @@
 ﻿using AngleSharp.Common;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Xml;
 using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
-using WildHare.Web;
 using static System.Environment;
 
 namespace CodeGen.Generators
 {
-    public class CodeGenFromAppsettings
+	public class CodeGenFromAppsettings
     {
         private static readonly string indent = "\t\t";
         private static readonly string namespaceStr = "Me2.Models";
