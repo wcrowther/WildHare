@@ -10,20 +10,18 @@ using WildHare.Extensions;
 using WildHare.Models;
 using WildHare.Tests.Interfaces;
 using WildHare.Tests.Models;
-using WildHare.Xtra;
 using static System.Environment;
 using static WildHare.Xtra.XtraExtensions;
 
 namespace WildHare.Tests
 {
-    [TestFixture]
+	 [TestFixture]
     public class TypeExtensionsTests
     {
         [Test]
         public void GetMetaModel_Basic()
         {
-            Type itemType = typeof(Item);
-            var metaModel = itemType.GetMetaModel();
+            var metaModel = typeof(Item).GetMetaModel();
 
             Assert.AreEqual("Item",     metaModel.TypeName);
             Assert.AreEqual(5,          metaModel.GetMetaProperties().Count);
@@ -548,7 +546,7 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models");
 
             Assert.IsNotNull(types);
-            Assert.AreEqual(37, types.Count());
+            Assert.AreEqual(35, types.Count());
             Assert.AreEqual("Apple", types[1].Name);
         }
 
@@ -559,7 +557,7 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models", "Account,Apple".Split(','));
         
             Assert.IsNotNull(types);
-            Assert.AreEqual(35, types.Count());
+            Assert.AreEqual(33, types.Count());
             Assert.AreEqual("Automobile", types[1].Name);
         }
 
@@ -590,7 +588,7 @@ namespace WildHare.Tests
             var typesInNamespace = type.GetAssemblyFromType()
                                        .GetTypesInNamespace(type.Namespace);
 
-            Assert.AreEqual(37, typesInNamespace.Length);
+            Assert.AreEqual(35, typesInNamespace.Length);
 
             var typesInAssembly = type.GetAssemblyFromType()
                                       .GetTypesInNamespace();

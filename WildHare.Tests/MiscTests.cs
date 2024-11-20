@@ -6,6 +6,8 @@ using System.Linq;
 using WildHare.Tests.Models;
 using WildHare.Tests.Extensions;
 using NUnit.Framework.Constraints;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using WildHare.Tests.Models.Generics;
 
 namespace WildHare.Tests;
 
@@ -81,7 +83,7 @@ public class MiscTests
 	 public void Test_Result_String_Error_With_String()
 	 {
 		  string message	  = "The result is an error.";
-		  var result		  = Result<string>.Error(message);
+		  var result		  = Result<string>.Error(new Exception(message));
 
 		  Assert.AreEqual(false,	result.Success);
 		  Assert.AreEqual(null,		result.Data);
@@ -89,15 +91,15 @@ public class MiscTests
 	 }
 
 	 [Test]
-	 public void Test_Result_String_Error_With_Exception()
+	 public void Test_Result_String_Error_With_Inner_Exception()
 	 {
-		  string message	  = "The result is an error.";
-		  var exception		  = new Exception(message);
-		  var result		  = Result<string>.Error(exception);
+		  var ex	 = new Exception("InnerException");
+		  var result = Result<string>.Error(new Exception("Exception", ex));
 
 		  Assert.AreEqual(false, result.Success);
 		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual(message, result.Exception.Message);
+		  Assert.AreEqual("Exception", result.Exception.Message);
+		  Assert.AreEqual("InnerException", result.Exception.InnerException.Message);
 	 }
 
 	 [Test]
@@ -260,12 +262,24 @@ public class MiscTests
 	 }
 
 	 [Test]
-	 public void Test_Result_HasData_Three()
+	 public void Test_Result_HasData_None()
+	 {
+	 	 List<string> list = null;
+	 	 Result<List<string>> result = list ?? [];
+
+		 Assert.AreEqual(true,	   result.Success);  // no exception
+		 Assert.AreEqual(true,	   result.HasData);
+	 	 Assert.AreEqual(0,		   result.Data.Count);
+	 }
+
+	 [Test]
+	 public void Test_Result_Has_Data_Three()
 	 {
 	 	 var list = new List<string> { "one", "two", "three" };
 	 	 Result<List<string>> result = list ?? [];
 	 
 	 	 Assert.AreEqual(true,	   result.Success);
+	 	 Assert.AreEqual(true,	   result.HasData);
 	 	 Assert.AreEqual(3,		   result.Data.Count);
 	 	 Assert.AreEqual("two",	   result.Data.ElementAt(1));
 	 }

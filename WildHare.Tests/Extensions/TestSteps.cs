@@ -1,5 +1,5 @@
 ﻿using System;
-using WildHare.Tests.Models;
+using WildHare.Tests.Models.Generics;
 
 namespace WildHare.Tests.Extensions
 {

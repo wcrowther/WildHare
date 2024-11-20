@@ -109,52 +109,52 @@ namespace WildHare.Tests
         {
             var wordList_A = new List<Word>
             {
-                new Word{ WordId = 1, Text="the" },
-                new Word{ WordId = 2, Text="president" },
-                new Word{ WordId = 3, Text="of" },
-                new Word{ WordId = 1, Text="the" },
-                new Word{ WordId = 4, Text="united" },
-                new Word{ WordId = 5, Text="states" },
-                new Word{ WordId = 6, Text="is" },
-                new Word{ WordId = 7, Text="a" },
-                new Word{ WordId = 8, Text="politician" },
+                new(){ WordId = 1, Text="the" },
+                new(){ WordId = 2, Text="president" },
+                new(){ WordId = 3, Text="of" },
+                new(){ WordId = 1, Text="the" },
+                new(){ WordId = 4, Text="united" },
+                new(){ WordId = 5, Text="states" },
+                new(){ WordId = 6, Text="is" },
+                new(){ WordId = 7, Text="a" },
+                new(){ WordId = 8, Text="politician" },
 
             };
             var wordList_B = new List<Word>
             {
-                new Word{ WordId = 1, Text="the" },
-                new Word{ WordId = 2, Text="president" },
-                new Word{ WordId = 3, Text="of" },
-                new Word{ WordId = 1, Text="the" },
-                new Word{ WordId = 4, Text="united" },
-                new Word{ WordId = 5, Text="states" }
+                new(){ WordId = 1, Text="the" },
+                new(){ WordId = 2, Text="president" },
+                new(){ WordId = 3, Text="of" },
+                new(){ WordId = 1, Text="the" },
+                new(){ WordId = 4, Text="united" },
+                new(){ WordId = 5, Text="states" }
 
             };
             var wordList_C = new List<Word>
             {
-                new Word{ WordId = 4, Text="united" },
-                new Word{ WordId = 5, Text="states" }
+                new(){ WordId = 4, Text="united" },
+                new(){ WordId = 5, Text="states" }
 
             };
 
             var matches = wordList_A.MatchList(wordList_B, (a, b) => a.Text == b.Text).ToArray();
 
-            Assert.AreEqual(6, matches.Count());
+            Assert.AreEqual(6, matches.Length);
             Assert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.Text)));
 
             var matches2 = wordList_A.MatchList(wordList_C, (a, c) => a.Text == c.Text).ToArray();
 
-            Assert.AreEqual(0, matches2.Count());
+            Assert.AreEqual(0, matches2.Length);
 
             var matches3 = wordList_B.MatchList(wordList_C, (b, c) => b.Text == c.Text).ToArray();
 
-            Assert.AreEqual(0, matches3.Count());
+            Assert.AreEqual(0, matches3.Length);
         }
 
         [Test]
         public void Test_InList_Basic()
         {
-            string[] phraseArray = { "the", "president", "of", "the", "united", "states", "is", "a", "politician" };
+            string[] phraseArray = ["the", "president", "of", "the", "united", "states", "is", "a", "politician"];
             var splitSentence = "the united states".Split(' ');
 
             int[] indexes = phraseArray.InList(splitSentence, (a, b) => a == b);
@@ -237,32 +237,47 @@ namespace WildHare.Tests
             // the president of the united states lives in the United States (of America)
 
             Word[] wordArray = {
-                new Word{ WordId=1, Text="the" },
-                new Word{ WordId=2, Text="president" },
-                new Word{ WordId=3, Text="of" },
-                new Word{ WordId=1, Text="the" },
-                new Word{ WordId=4, Text="United" },
-                new Word{ WordId=5, Text="States" },
-                new Word{ WordId=6, Text="lives" },
-                new Word{ WordId=7, Text="in" },
-                new Word{ WordId=1, Text="the" },
-                new Word{ WordId=4, Text="united" },
-                new Word{ WordId=5, Text="states" }
+                new(){ WordId=1, Text="the" },
+                new(){ WordId=2, Text="president" },
+                new(){ WordId=3, Text="of" },
+                new(){ WordId=1, Text="the" },
+                new(){ WordId=4, Text="United" },
+                new(){ WordId=5, Text="States" },
+                new(){ WordId=6, Text="lives" },
+                new(){ WordId=7, Text="in" },
+                new(){ WordId=1, Text="the" },
+                new(){ WordId=4, Text="united" },
+                new(){ WordId=5, Text="states" }
             };
 
             var wordList = new List<List<Word>>
             {
-                new List<Word>
-                {
-                    new Word{ WordId=1, Text="the"   }, new Word{ WordId=2, Text="president" },
-                    new Word{ WordId=3, Text="of"    }, new Word{ WordId=1, Text="the" },
-                    new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"}
+                new(){
+                    new(){ WordId=1, Text="the"   }, 
+					new(){ WordId=2, Text="president" },
+                    new(){ WordId=3, Text="of"    }, 
+					new(){ WordId=1, Text="the" },
+                    new(){ WordId=4, Text="united"}, 
+					new(){ WordId=5, Text="states"}
                 },
-                new List<Word>{ new Word{ WordId=1, Text="the" },  new Word{ WordId=2, Text="president"} },
-                new List<Word>{ new Word{ WordId=1, Text="the" },  new Word{ WordId=4, Text="united"}, new Word{ WordId=5, Text="states"} },
-                new List<Word>{ new Word{ WordId=1, Text="the" } },
-                new List<Word>{ new Word{ WordId=8, Text="not" }, new Word{ WordId=9, Text="found" } },
-                new List<Word>{ new Word{ WordId=10, Text="other" }, new Word{ WordId=11, Text= "strings" }  },
+                new(){ 
+					 new Word{ WordId=1, Text="the" },  
+					 new Word{ WordId=2, Text="president"} 
+				},
+                new(){ 
+					 new Word{ WordId=1, Text="the" },  
+					 new Word{ WordId=4, Text="united"}, 
+					 new Word{ WordId=5, Text="states"} 
+				},
+                new(){ 
+					 new Word{ WordId=1, Text="the" } },
+                new(){ 
+					 new Word{ WordId=8, Text="not" }, 
+					 new Word{ WordId=9, Text="found" } },
+                new(){ 
+					 new Word{ WordId=10, Text="other" }, 
+					 new Word{ WordId=11, Text= "strings" }  
+				},
             };
 
             var lookupList = new Collection<(int Index, List<Word> List)>();
@@ -435,7 +450,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_PatternMatch_List_Is_Empty()
         {
-            string[] phraseList = { };
+            string[] phraseList = [];
             var pattern = "the president".Split(' ');
 
             var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
@@ -444,9 +459,9 @@ namespace WildHare.Tests
             Assert.AreEqual("", string.Join(' ', matches));
         }
 
-        [TestCase("1 clown in the list.", new[] { "Bozo" }, "clown")]
+        [TestCase("1 clown in the list.",  new[] { "Bozo" }, "clown")]
         [TestCase("3 clowns in the list.", new[] { "Bozo", "Bonzo", "Clapo" }, "clown", null)]
-        [TestCase("1 fox in the list.", new[] { "Wily" }, "fox")]
+        [TestCase("1 fox in the list.",    new[] { "Wily" }, "fox")]
         public void Test_Pluralize_With_IEnumerable_Basic(string result, IEnumerable<string> list, string singular, string plural = null)
         {
             string message = $"{list.Count()} {list.Pluralize(singular)} in the list.";
@@ -454,8 +469,8 @@ namespace WildHare.Tests
             Assert.AreEqual(result, message);
         }
 
-        [TestCase("3 foxes in the list.", new[] { "Wily", "Willy", "Wooly" }, "fox", "")]
-        [TestCase("1 octopus in the list.", new[] { "Squishy" }, "octopus", "octopi")]
+        [TestCase("3 foxes in the list.",	 new[] { "Wily", "Willy", "Wooly" }, "fox", "")]
+        [TestCase("1 octopus in the list.",	 new[] { "Squishy" }, "octopus", "octopi")]
         [TestCase("3 octopi in the list.", new[] { "Squishy", "Squashy", "Slimy" }, "octopus", "octopi")]
         public void Test_Pluralize_With_IEnumerable_Basic_With_Plural(string result, IEnumerable<string> list, string singular, string plural = null)
         {
@@ -478,7 +493,7 @@ namespace WildHare.Tests
 		[Test]
         public void Test_AnyEquals_Basic_String()
         {
-            var numbers = new List<string> { "one", "two", "three" };
+			List<string> numbers = ["one", "two", "three" ];
 
             Assert.IsTrue(numbers.AnyEquals("two"));
         }
@@ -486,7 +501,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_IntArray_AsString_Empty()
         {
-            int[] intArray = new int[0];
+            int[] intArray = [];
 
             string intArrayString = intArray.AsString();
 
@@ -506,7 +521,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_IEnumerable_Int_AsString_Basic()
         {
-            IEnumerable<int> intList = new List<int> { 1, 2, 3, 4, 9 };
+            IEnumerable<int> intList = [1, 2, 3, 4, 9];
 
             string intListString = intList.AsString();
 
@@ -516,7 +531,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_IEnumerable_Int_AsString_Empty()
         {
-            IEnumerable<int> intList = new int[0];
+            IEnumerable<int> intList = [];
 
             string intListString = intList.AsString();
 
@@ -536,9 +551,9 @@ namespace WildHare.Tests
         [Test]
         public void Test_OrderBy_Overload_With_Descending_Shortcut()
         {
-            int[] ascending     = { 1, 2, 3, 4, 5 };
-            int[] descending    = { 5, 4, 3, 2, 1 };
-            int[] jumbled       = { 2, 4, 1, 3, 5 };
+            int[] ascending     = [1, 2, 3, 4, 5];
+            int[] descending    = [5, 4, 3, 2, 1];
+            int[] jumbled       = [2, 4, 1, 3, 5];
 
             Assert.AreEqual(ascending,  jumbled.OrderBy(o => o));
             Assert.AreEqual(ascending,  jumbled.OrderBy(o => o, false));
@@ -550,9 +565,9 @@ namespace WildHare.Tests
         {
             var list = new List<Item>
              {
-                 new Item{ ItemId = 1, ItemName = "One" },
-                 new Item{ ItemId = 2, ItemName = "Two" },
-                 new Item{ ItemId = 3, ItemName = "Three" },
+                 new() { ItemId = 1, ItemName = "One" },
+                 new() { ItemId = 2, ItemName = "Two" },
+                 new() { ItemId = 3, ItemName = "Three" },
              };
 
             string[] stringArray = list.Select(n => n.ItemName).ToArray();
@@ -615,7 +630,7 @@ namespace WildHare.Tests
 
         private int Divide(int arg1, int arg2) => arg1 / arg2;
 
-        private List<int[]> GetRandomIntList(int count, int maxInt, int seed)
+        private static List<int[]> GetRandomIntList(int count, int maxInt, int seed)
         {
             var list = new List<int[]>();
             var random = new Random(seed);
