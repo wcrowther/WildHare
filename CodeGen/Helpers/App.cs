@@ -3,7 +3,9 @@ namespace CodeGen.Models
 {
     public class App 
     {
-        public string SourceRoot { get; set; }
+		public bool ClearConsole { get; set; }
+
+		public string SourceRoot { get; set; }
 
         public string WwwRoot { get; set; }
 

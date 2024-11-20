@@ -47,7 +47,7 @@ namespace CodeGen
 			var inputs  = inputStr.Split(' ');
 			var @params = inputs.Skip(1).ToArray();
 
-			Clear();
+			if(_app.ClearConsole) Clear();
 
 			string result = inputs[0].ToInt() switch
 			{
