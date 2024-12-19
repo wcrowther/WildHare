@@ -18,15 +18,16 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wcrowther/WildHare</PackageProjectUrl>
     <PackageTags>extension methods</PackageTags>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageReleaseNotes>
-         2.0.0.0 Compatibility build for older framework but includes some updates to Including CodeGen, DataReader Extensions, etc. 
-        1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.
-        1.6.0.0 Minor code simplifications. Added Summaries to DateTime extensions, Added TryGet to Dictionary extensions,
-           Added simplified overloads of StartsWith, EndsWith, Contains. Added joinString to ForEachLine.
-        1.5.9.0 Added TryGet to Dictionary&lt;string,string&gt;
+		2.0.1.0 Fix for MetaPropery setting Name
+		2.0.0.0 Compatibility build for older framework but includes some updates to Including CodeGen, DataReader Extensions, etc.
+		1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.
+		1.6.0.0 Minor code simplifications. Added Summaries to DateTime extensions, Added TryGet to Dictionary extensions,
+		Added simplified overloads of StartsWith, EndsWith, Contains. Added joinString to ForEachLine.
+		1.5.9.0 Added TryGet to Dictionary&lt;string,string&gt;
         1.5.8.0 Added IsValid to Dictionary&lt;string,string&gt;
         1.5.7.0 Added TryGet[T] to library. Removed WildHare.Extensions.List
         1.5.6.0 Added IDictionary functionality  
