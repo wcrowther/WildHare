@@ -24,15 +24,11 @@ namespace CodeGen
 
         private static bool MainMenu()
         {
-            CodeGen.GenerateMenu();
-
-            string input = Console.ReadLine();
-
 			var serviceProvider = ConfigureServices().BuildServiceProvider();
 
-			bool result			= serviceProvider
-										.GetService<CodeGen>()
-										.Generate(input);
+			bool result	= serviceProvider
+							.GetService<CodeGen>()
+							.GenerateMenu();
             return result;
         }
 

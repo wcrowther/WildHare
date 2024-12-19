@@ -982,8 +982,8 @@ namespace WildHare.Tests
 
             trimmedString.RemoveExtraLines().WriteToFile(writePath, true);
 
-            Assert.AreEqual(44, lineArray.Count());
-            Assert.AreEqual(38, trimmedString.ToLineArray().Count());
+            Assert.AreEqual(44, lineArray.Length);
+            Assert.AreEqual(38, trimmedString.ToLineArray().Length);
         }
 
         [Test]

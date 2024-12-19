@@ -163,22 +163,20 @@ namespace WildHare.Extensions
         {
             try
             {
-                using (StreamReader reader = fileInfo.OpenText())
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
+				using StreamReader reader = fileInfo.OpenText();
+				return reader.ReadToEnd();
+			}
+            catch
             {
                 if (strict)
-                    throw ex;
-                else
+					throw;
+				else
                     return null;
             }
         }
 
-        /// <summary>Gets the child DirectoryInfo that equals {directoryName}. Returns null if no matches.</summary>
-        public static DirectoryInfo Child(this DirectoryInfo directoryInfo, string directoryName)
+		/// <summary>Gets the child DirectoryInfo that equals {directoryName}. Returns null if no matches.</summary>
+		public static DirectoryInfo Child(this DirectoryInfo directoryInfo, string directoryName)
         {
             string exMessage = "The DirectoryInfo.Child extension method requires a directoryName that is not null and not just whitespace.";
 

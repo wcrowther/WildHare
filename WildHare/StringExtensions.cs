@@ -638,14 +638,6 @@ namespace WildHare.Extensions
             return result;
         }
 
-        /// <summary>An overload of Split that accepts a single string as separator.</summary>
-        public static string[] Split(this string str, string separator, StringSplitOptions options = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries )
-        {
-            string[] s = new string[] { separator };
-            
-            return str.Split(s, options);
-        }
-
 		/// <summary>An overload of Split with bools {trimEntries} and {removeEmptyEntries}.</summary>
 		public static string[] Split(this string str, string separator, bool removeEmptyEntries, bool trimEntries = true)
 		{

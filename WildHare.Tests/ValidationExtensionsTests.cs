@@ -1,16 +1,11 @@
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using WildHare.Extensions;
-using WildHare.Tests.Models;
 using WildHare.Extensions.DataAnnotations;
-using static System.Environment;
+using WildHare.Tests.Models;
 
 namespace WildHare.Tests
 {
-    [TestFixture]
+	[TestFixture]
     public class ValidationExtensionsTests
     {
 		[Test]

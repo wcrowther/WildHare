@@ -64,7 +64,7 @@ namespace CodeGen.Generators
             // }
 
             // ============================================================
-            // 2) Pre-Generate a list of tables - Alternate approach
+            // 2) Pre-GenerateMenu a list of tables - Alternate approach
             // ============================================================
             // a) Create a string list of tables to use in this Init(). 
             // b) ie: generate a string using the modelsToCreate function below and paste it into this Init. 

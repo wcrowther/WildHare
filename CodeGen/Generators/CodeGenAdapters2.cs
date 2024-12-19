@@ -12,34 +12,31 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-	public class CodeGenAdapters
+	public class CodeGenAdapters2
 	{
-
-		private static readonly string indent		= "\t".Repeat(4);
-		private static readonly string end			= $",{NewLine}";
-		private static readonly string separator	= "=".Repeat(50);
-		private const int pad = -20;
-
 		private App _app;
 
 		private string projectRoot;
 		private string outputFolder;
 
+		private readonly string indent = "\t".Repeat(4);
+		private readonly string _end = $",{NewLine}";
+		private const int pad = -20;
 
-		public CodeGenAdapters(App app)
+		public CodeGenAdapters2(App app)
 		{
 			_app            = app;
 			projectRoot     = string.Empty;
 			outputFolder    = $"{projectRoot}{_app.Adapter.OutputFolder}";
 		}
 
-		public string Init(Type typeInNamespace)
+		public string Init(Type typeInFromNamespace, Type typeInToNamespace)
 		{
 			Debug.WriteLine("=".Repeat(50));
 			Debug.WriteLine("GenerateMenu Adapters");
 			Debug.WriteLine("=".Repeat(50));
 
-			var adapterList				= GetGeneratorAdapterList(typeInNamespace);
+			var adapterList				= GetFromTypes(typeInFromNamespace);
 			string adapterListString	= WriteGeneratorAdapterList(adapterList, "Model");
 
 			// Write out the adapterlist to the Debug window generated from toTypeProps particular namespace
@@ -129,16 +126,16 @@ namespace CodeGen.Generators
 
 				if (prop.Name.EqualsAnyIgnoreCase(toTypeProps))
 				{
-					sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+					sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{_end}");
 				}
 				else
 				{
-					sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+					sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{_end}");
 				}
 
 			    // if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
 			 }
-			 return sb.ToString().RemoveStartEnd(indent, end);
+			 return sb.ToString().RemoveStartEnd(indent, _end);
 		}
 
 		private string GetListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
@@ -176,7 +173,7 @@ namespace CodeGen.Generators
 			return sb.ToString();
 		}
 
-		public static List<Type> GetGeneratorAdapterList(Type typeInNamespace)
+		public static List<Type> GetFromTypes(Type typeInNamespace)
 		{
 			var assembly = typeInNamespace.GetAssemblyFromType();
 			return assembly.GetTypesInNamespace(typeInNamespace.Namespace).ToList();

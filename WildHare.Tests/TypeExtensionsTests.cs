@@ -40,12 +40,21 @@ namespace WildHare.Tests
             Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
-        [Test]
+		[Test]
+		public void GetMetaModel_With_String()
+		{
+			string name = "Fred";
+			var metaModel = name.GetMetaModel();
+
+			Assert.AreEqual("String", metaModel.TypeName);
+		}
+
+		[Test]
         public void GetMetaModel_FromIEnumerable()
         {
-            var itemList = new List<Item>();
-            var metaModel = itemList.GetMetaModel();
-            var props = metaModel.GetMetaProperties();
+            var itemList	= new List<Item>();
+            var metaModel	= itemList.GetMetaModel();
+            var props		= metaModel.GetMetaProperties();
 
             Assert.AreEqual(5,          props.Count);
             Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
@@ -64,9 +73,9 @@ namespace WildHare.Tests
         [Test]
         public void GetMetaModel_FromInstance()
         {
-            var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now };
-            var metaModel = item.GetMetaModel();
-            var props = metaModel.GetMetaProperties();
+            var item		= new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now };
+            var metaModel	= item.GetMetaModel();
+            var props		= metaModel.GetMetaProperties();
 
             Assert.AreEqual(5,          props.Count);
             Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
@@ -87,7 +96,7 @@ namespace WildHare.Tests
         {
             var dictionay = new Dictionary<string, Item>();
             var metaModel = dictionay.GetMetaModel();
-            var props = metaModel.GetMetaProperties();
+            var props	  = metaModel.GetMetaProperties();
 
             Assert.AreEqual("String", metaModel.DictionaryKeyType.Name); // Not string (lowercase) for some reason
             Assert.AreEqual("Item",   metaModel.DictionaryValueType.Name);

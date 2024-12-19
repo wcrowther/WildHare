@@ -1,12 +1,8 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using WildHare.Extensions;
 using System.Linq;
 using WildHare.Tests.Models;
-using WildHare.Tests.Extensions;
-using NUnit.Framework.Constraints;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using WildHare.Tests.Models.Generics;
 
 namespace WildHare.Tests;
@@ -293,8 +289,34 @@ public class MiscTests
 							     .Step3();
 		  Assert.AreEqual(false,		result.Success);
 	 	  Assert.AreEqual(null,			result.Data);
-		  Assert.AreEqual("Error",		result.Exception.InnerException.Message);
-		  Assert.AreEqual("Error2",		result.Exception.Message);
+		  Assert.AreEqual("Step2 Error",		result.Exception.InnerException.Message);
+		  Assert.AreEqual("Step3 Error",		result.Exception.Message);
 	 }
+}
 
+// ==================================================================================
+// TestSteps class for tests above ^^^
+// ==================================================================================
+
+public static class TestSteps
+{
+	public static Result Start(this string s)
+	{
+		return s;
+	}
+
+	public static Result Step1(this Result result)
+	{
+		return result.Data.ToUpper();
+	}
+
+	public static Result Step2(this Result result)
+	{
+		return new Exception("Step2 Error");
+	}
+
+	public static Result Step3(this Result result)
+	{
+		return result.Success ? "Success" : new Exception("Step3 Error", result.Exception);
+	}
 }
