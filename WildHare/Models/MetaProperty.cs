@@ -10,23 +10,26 @@ namespace WildHare
     /// <summary>Simplified PropertyInfo meta data with custom Get and Set of the instance.</summary>
     public class MetaProperty
     {
-        private PropertyInfo propertyInfo;
-        private object modelInstance;
+		private string name;
+		private PropertyInfo propertyInfo;
+		private object modelInstance;
 
-        public MetaProperty(PropertyInfo propertyinfo)
-        {
-            propertyInfo = propertyinfo;
-        }
+		public MetaProperty(PropertyInfo propertyinfo)
+		{
+			propertyInfo = propertyinfo;
+			name = propertyInfo.Name;
+		}
 
-        public MetaProperty(PropertyInfo propertyinfo, object modelinstance)
-        {
-            propertyInfo = propertyinfo;
-            modelInstance = modelinstance;
-        }
+		public MetaProperty(PropertyInfo propertyinfo, object modelinstance)
+		{
+			propertyInfo = propertyinfo;
+			modelInstance = modelinstance;
+			name = propertyInfo.Name;
+		}
 
-        public string Name  { get => propertyInfo.Name; }
+		public string Name { get => name; set => name = value; }
 
-        public Type PropertyType { get => propertyInfo.PropertyType;  }
+		public Type PropertyType { get => propertyInfo.PropertyType;  }
 
         public bool IsKey { get => propertyInfo.IsDefined(typeof(KeyAttribute), false); }
 

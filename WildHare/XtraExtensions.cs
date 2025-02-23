@@ -43,16 +43,16 @@ public static partial class XtraExtensions
     public static string GetApplicationRoot()
     {
         var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-	Debug.WriteLine("exePath: " + exePath);
+		Debug.WriteLine("exePath: " + exePath);
 
-	var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
+		var appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
         var appRoot = appPathMatcher.Match(exePath).Value;
-	Debug.WriteLine("appRoot: " + appRoot);
+		Debug.WriteLine("appRoot: " + appRoot);
 
-	string entryAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-	Debug.WriteLine("entryAssembly: " + entryAssembly);
+		string entryAssembly = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		Debug.WriteLine("entryAssembly: " + entryAssembly);
 
-	return appRoot;
+		return appRoot;
     }
 
     /// <example>

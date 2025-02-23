@@ -1344,5 +1344,17 @@ namespace WildHare.Tests
 			Assert.AreEqual(1, strArray.Count());
 			Assert.AreEqual("9811456789", strArray[0]);
 		}
+
+		// [Test]
+		// public void Test_String_Get_Last_20_Charaters()
+		// {
+		// 	string text = "123456789012345678901234567890A234567890B23456789C";
+		   
+		// 	Assert.AreEqual("A234567890B23456789C", text[^20..]);
+		// 	// Will error if text is less than 20 characters	
+		   
+		// 	Assert.AreEqual("A234567890B23456789C", text.Substring(text.Length - 100));
+		// }
+
 	}
 }

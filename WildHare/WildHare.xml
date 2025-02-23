@@ -354,10 +354,12 @@
         <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String)">
             <summary>Gets a list of all files matching the {searchPattern} in current the directory and all subdirectories.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[])">
+        <member name="M:WildHare.Extensions.IOExtensions.GetAllFiles(System.String,System.String[],System.Boolean)">
             <summary>This overload gets a list of all files matching a string array of {fileExtensions}
-            in current directory and all subdirectories, and does NOT use a searchPattern.
-            Example: new[] { ".cshtml", ".razor" }</summary>
+            in current directory and all subdirectories, and does NOT require a searchPattern. 
+            The {topDirectoryOnly} default to true to only get the top level of files. If false it will
+            get all matching children and then filter so use with caution if there are many files.
+            Example: [".cshtml", ".razor"]</summary>
         </member>
         <member name="M:WildHare.Extensions.IOExtensions.GetAllDirectories(System.String,System.Int32)">
             <summary>Gets a list of all directories in the current directory and 

@@ -565,9 +565,9 @@ namespace WildHare.Tests
         {
             var list = new List<Item>
              {
-                 new() { ItemId = 1, ItemName = "One" },
-                 new() { ItemId = 2, ItemName = "Two" },
-                 new() { ItemId = 3, ItemName = "Three" },
+                 new(){ ItemId = 1, ItemName = "One" },
+                 new(){ ItemId = 2, ItemName = "Two" },
+                 new(){ ItemId = 3, ItemName = "Three" },
              };
 
             string[] stringArray = list.Select(n => n.ItemName).ToArray();
@@ -580,9 +580,9 @@ namespace WildHare.Tests
         {
             var list = new List<Item>
              {
-                 new Item{ ItemId = 1, ItemName = "One" },
-                 new Item{ ItemId = 2, ItemName = "Two" },
-                 new Item{ ItemId = 3, ItemName = "Three" },
+                 new(){ ItemId = 1, ItemName = "One" },
+                 new(){ ItemId = 2, ItemName = "Two" },
+                 new(){ ItemId = 3, ItemName = "Three" },
              };
 
             int[] intArray = list.Select(n => n.ItemId).ToArray();
@@ -597,9 +597,9 @@ namespace WildHare.Tests
 
             var list = new List<Item>
              {
-                 new Item{ ItemId = 1, ItemName = "One" },
-                 new Item{ ItemId = 2, ItemName = "Two" },
-                 new Item{ ItemId = 3, ItemName = "Three" },
+                 new(){ ItemId = 1, ItemName = "One" },
+                 new(){ ItemId = 2, ItemName = "Two" },
+                 new(){ ItemId = 3, ItemName = "Three" },
              };
 
             Item[] itemArray = list.Select(n => n).ToArray();

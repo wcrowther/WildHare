@@ -38,9 +38,10 @@ namespace CodeGen
 			{
 				1 => new CodeGenAdapters(_app).Init(typeof(Account)),
 				// 2 => new CodeGenAdapters2(_app).Init(typeof(Account)),
-				3 => new CodeGenPartialsSummary(_app).Init(),
-				4 => new CodeGenCssStylesheets(_app).Init(),
-				5 => new CopyEntitiesToModelsFolder(_app).Init(),
+				2 => new CodeGenPartialsSummary(_app).Init(),
+				3 => new CodeGenCssStylesheets(_app).Init(),
+				4 => new CopyEntitiesToModelsFolder(_app).Init(),
+				5 => new CodeGenValidators().Init("","",true), // Needs work
 				9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
 				_ => $"Your input {inputStr} is not valid.",
 			};
@@ -61,6 +62,7 @@ namespace CodeGen
 				 2) Partials Summary Report
 				 3) List Of Stylesheets
 				 4) Copy Entities to Models Folder
+				 5) Generate JS validators
 				 x) Exit
 				 
 				 {_message}
