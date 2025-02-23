@@ -51,9 +51,9 @@ namespace CodeGen.Generators
 
 			// Copy and paste adapterlist from Debug Output window here if needed.
 
-			GenerateAdapter(typeof(Account),		typeof(AccountModel),		true);
-			GenerateAdapter(typeof(Invoice),		typeof(InvoiceModel),		true);
-			GenerateAdapter(typeof(InvoiceItem),	typeof(InvoiceItemModel),	true);
+			// GenerateAdapter(typeof(Account),		typeof(AccountModel),		true);
+			// GenerateAdapter(typeof(Invoice),		typeof(InvoiceModel),		true);
+			// GenerateAdapter(typeof(InvoiceItem),	typeof(InvoiceItemModel),	true);
 
 			// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 

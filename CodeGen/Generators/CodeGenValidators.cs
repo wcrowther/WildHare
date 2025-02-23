@@ -15,14 +15,14 @@ using System.Threading;
 
 namespace CodeGen.Generators
 {
-    public static class CodeGenValidators
+    public partial class CodeGenValidators
     {
-        /* ==========================================================================
+		/* ==========================================================================
          * DIRECTIONS:
-           WildHare.Web.CodeGenAdapters.Init(c:\github\WildHare);
+           new CodeGenValidators().Init();
         ========================================================================== */
 
-        private static readonly string assemblyName = "WildHare.Web";
+		private static readonly string assemblyName = "WildHare.Web";
         private static readonly string namespaceName = "WildHare.Web.Models";
         private static readonly string excludeList = "AppSettings";
         private static readonly string indent = "\t";
@@ -31,7 +31,7 @@ namespace CodeGen.Generators
         private const int pad = -20;
 
 
-        public static string Init(string projectRoot, string outputDir, bool overWrite = false)
+        public string Init(string projectRoot, string outputDir, bool overWrite = false)
         {
             if (projectRoot.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenValidators)}.{nameof(Init)} projectRoot is null or empty.");

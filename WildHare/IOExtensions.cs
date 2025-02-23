@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Xml.Schema;
 
 namespace WildHare.Extensions
 {
@@ -131,17 +132,23 @@ namespace WildHare.Extensions
             return fileList.ToList();
         }
 
-        /// <summary>This overload gets a list of all files matching a string array of {fileExtensions}
-        /// in current directory and all subdirectories, and does NOT use a searchPattern.
-        /// Example: new[] { ".cshtml", ".razor" }</summary>
-        public static List<FileInfo> GetAllFiles(this string directoryPath, string[] fileExtensions)
+		/// <summary>This overload gets a list of all files matching a string array of {fileExtensions}
+		/// in current directory and all subdirectories, and does NOT require a searchPattern. 
+		/// The {topDirectoryOnly} default to true to only get the top level of files. If false it will
+		/// get all matching children and then filter so use with caution if there are many files.
+		/// Example: [".cshtml", ".razor"]</summary>
+		public static List<FileInfo> GetAllFiles(this string directoryPath, string[] fileExtensions, bool topDirectoryOnly = true)
         {
-            // https ://stackoverflow.com/questions/7039580/multiple-file-extensions-searchpattern-for-system-io-directory-getfiles
+			// https ://stackoverflow.com/questions/7039580/multiple-file-extensions-searchpattern-for-system-io-directory-getfiles
 
-            var fileList = new DirectoryInfo(directoryPath)
-                                .GetFiles(directoryPath)
-                                .Where(file => fileExtensions
-                                .Any(a => file.Name.EndsWith(a, StringComparison.OrdinalIgnoreCase)));
+			var searchOption = topDirectoryOnly ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
+
+			if (fileExtensions.Length == 0)
+				throw new Exception($"The fileExtensions param of {nameof(GetAllFiles)} must be populated with at least 1 value.");
+
+			var fileList = new DirectoryInfo(directoryPath)
+							.GetFiles("*", searchOption)
+							.Where(f => fileExtensions.Any(a => f.Name.EndsWith(a, true)));
 
             return fileList.ToList();
         }

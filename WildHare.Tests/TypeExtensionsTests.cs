@@ -614,17 +614,16 @@ namespace WildHare.Tests
         //     Assert.AreEqual("Item", type.Name);
         // }
 
-        //[Test, Ignore("CodeGen")]
-        public void GetObject_Write_Attributes_ToString()
+        [Test]
+		public void GetObject_Write_Attributes_ToString()
         {
             string   testRoot           = GetApplicationRoot();
             string   fileName           = "Validators.js";
             string   namespaceStr       = "WildHare.Tests.Models";
             string   pathToWriteTo      = $@"{testRoot}\TextFiles\{fileName}";
-            string[] classesToExclude   = "Item, Account".Split(',');
 
             var assembly = Assembly.Load("WildHare.Tests");
-            bool success = GenerateValidators(assembly, namespaceStr, pathToWriteTo, classesToExclude);
+            bool success = GenerateValidators(assembly, namespaceStr, pathToWriteTo, ["ArsenalTeam", "ManUnitedTeam"]);
 
             Assert.IsTrue(success);
         }
@@ -650,8 +649,7 @@ namespace WildHare.Tests
                 string classStr = $$"""
                     export const {{meta.TypeName}}Validator =
                     {
-                    {{WriteProps(props, validatorsList)}}
-                    }
+                    {{WriteProps(props, validatorsList)}}}
 
 
                     """;
@@ -665,38 +663,49 @@ namespace WildHare.Tests
                             .AddStart($"import {{ {listStr} }} from '@vuelidate/validators'{NewLine}{NewLine}");
 
             bool success = output.WriteToFile(pathToWriteTo, true);
-            return success;
+
+			if(success) Debug.WriteLine($"Validators written to {pathToWriteTo}");
+
+			return success;
         }
 
         private static string WriteProps(List<MetaProperty> props, List<string> validatorsList)
         {
-            const int pad = -20;
             var wp = new StringBuilder();
 
             foreach (var prop in props)
             {
-                wp.Append($"\t{prop.Name + ":", pad}{{");
-                wp.Append(WriteAttributes(prop, validatorsList).AddStartEnd(" "," "));
-                wp.Append($"}},{NewLine}");
+                wp.Append(WriteAttributesLine(prop, validatorsList).AddStartEnd(" "," "));
             }
 
-            return wp.ToString().RemoveEnd("," + NewLine);
+            return wp.ToString().RemoveEnd(" ");
         }
 
-        private static string WriteAttributes(MetaProperty prop, List<string> validatorsList)
+        private static string WriteAttributesLine(MetaProperty prop, List<string> validatorsList)
         {
-            var wa = new StringBuilder();
+			const int pad = -20;
+			var attributes = prop.Attributes().OfType<Attribute>();
 
-            foreach (var attr in prop.Attributes().OfType<Attribute>())
-            {
-                string attrStr = AttributeString(attr);
+			if (attributes.Any())
+			{
+				var wa = new StringBuilder();
 
-                validatorsList.Add(attrStr.GetStartBefore(":"));
+				wa.Append($"\t{prop.Name + ":",pad}{{");
 
-                wa.Append(attrStr.AddEnd(", "));
-            }
+				foreach (var attr in attributes)
+				{
+				    string attrStr = AttributeString(attr);
 
-            return wa.ToString().RemoveEnd(", ");
+				    validatorsList.Add(attrStr.GetStartBefore(":"));
+
+				    wa.Append(attrStr.AddStartEnd(" ", ", "));
+				}
+				return wa.ToString()
+								.RemoveEnd(", ")
+								.AddEnd($" }},{NewLine}");
+			}
+
+			return ""; // $"\t// {prop.Name}{NewLine}";
         }
 
         private static string AttributeString(Attribute attribute) => attribute switch
