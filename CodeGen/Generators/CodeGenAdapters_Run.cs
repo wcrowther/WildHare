@@ -7,8 +7,8 @@ public partial class CodeGenAdapters
 {
 	public void RunAdapterList()
 	{
-		//GenerateAdapter(typeof(Account), typeof(AccountModel), true);
-		//GenerateAdapter(typeof(Invoice), typeof(InvoiceModel), true);
-		//GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel), true);
+		GenerateAdapter(typeof(Account), typeof(AccountModel), true);
+		GenerateAdapter(typeof(Invoice), typeof(InvoiceModel), true);
+		GenerateAdapter(typeof(InvoiceItem), typeof(InvoiceItemModel), true);
 	}
 }

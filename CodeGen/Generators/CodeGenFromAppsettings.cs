@@ -21,7 +21,7 @@ namespace CodeGen.Generators
 
             if (appSettings == null || appSettings.Count == 0)
             {
-                throw new ArgumentNullException(nameof(appSettings));
+				throw new ArgumentNullException(nameof(appSettings));
             }
 
             bool success =
