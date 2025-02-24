@@ -15,7 +15,7 @@ namespace CodeGen.Generators;
 public partial class CodeGenAdapters
 {
 
-	private static readonly string indent		= "\t".Repeat(4);
+	private static readonly string indent		= "\t".Repeat(3);
 	private static readonly string end			= $",{NewLine}";
 	private static readonly string separator	= "=".Repeat(50);
 	private const int pad = -20;
@@ -72,27 +72,26 @@ public partial class CodeGenAdapters
 		using System.Linq;
 		using System.Collections.Generic;
 		
-		namespace {{_app.Adapter.Namespace}}
-		{ 
-			public static partial class Adapter
-			{
-				public static {{class2}} To{{class2}} (this {{class1}} {{map1}})
-				{
-					return {{map1}} == null ? null : new {{class2}}
-					{
-						{{PropertiesList(type1, type2, map1)}}
-					};
-				}
+		namespace {{_app.Adapter.Namespace}};
 		
-				public static {{class1}} To{{class1}} (this {{class2}} {{map2}})
+		public static partial class Adapter
+		{
+			public static {{class2}} To{{class2}} (this {{class1}} {{map1}})
+			{
+				return {{map1}} == null ? null : new {{class2}}
 				{
-					return {{map2}} == null ? null : new {{class1}}
-					{
-						{{PropertiesList(type2, type1, map2)}}
-					};
-				}
-				{{GetListCode(class1, class2, map1, map2, generateListCode)}}
+				{{PropertiesList(type1, type2, map1)}}
+				};
 			}
+		
+			public static {{class1}} To{{class1}} (this {{class2}} {{map2}})
+			{
+				return {{map2}} == null ? null : new {{class1}}
+				{
+				{{PropertiesList(type2, type1, map2)}}
+				};
+			}
+			{{GetListCode(class1, class2, map1, map2, generateListCode)}}
 		}
 		""";
 
@@ -125,7 +124,7 @@ public partial class CodeGenAdapters
 
 		    // if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
 		 }
-		 return sb.ToString().RemoveStartEnd(indent, end);
+		 return sb.ToString().RemoveStartEnd("\t\t", end);
 	}
 
 	private static string GetListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
@@ -134,21 +133,21 @@ public partial class CodeGenAdapters
 			return "";
 
 		string template =
-		   $$"""	
-		   
-		   public static List<{{class2}}> To{{class2}}List (this IEnumerable<{{class1}}> {{mapName1}}List)
-		   {
-		   	return {{mapName1}}List?.Select(a => a.To{{class2}}()).ToList() ?? [];
-		   }
-		   
-		   public static List<{{class1}}> To{{class1}}List (this IEnumerable<{{class2}}> {{mapName2}}List)
-		   {
-		   	return {{mapName2}}List?.Select(a => a.To{{class1}}()).ToList() ?? [];
-		   }
-		   """;
+		$$"""	
+		
+		public static List<{{class2}}> To{{class2}}List (this IEnumerable<{{class1}}> {{mapName1}}List)
+		{
+			return {{mapName1}}List?.Select(a => a.To{{class2}}()).ToList() ?? [];
+		}
+		
+		public static List<{{class1}}> To{{class1}}List (this IEnumerable<{{class2}}> {{mapName2}}List)
+		{
+			return {{mapName2}}List?.Select(a => a.To{{class1}}()).ToList() ?? [];
+		}
+		""";
 
-		   return template.ForEachLine(a => $"\t\t{a}")
-					      .RemoveStart("\t\t");   // Add initial line formatting if needed
+		return template.ForEachLine(a => $"\t{a}")
+					    .RemoveStart("\t");   // Add initial line formatting if needed
 	}
 
 	private static string UseListAdapter(PropertyInfo prop)
