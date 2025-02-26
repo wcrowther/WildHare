@@ -1,8 +1,6 @@
-using CodeGen.Entities;
 using CodeGen.Models;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -12,34 +10,24 @@ using static System.Environment;
 
 namespace CodeGen.Generators;
 
-public partial class CodeGenAdapters
+public partial class CodeGenAdapters(AppSettings appSettings)
 {
-
-	private static readonly string indent		= "\t".Repeat(3);
-	private static readonly string end			= $",{NewLine}";
-	private static readonly string separator	= "=".Repeat(50);
+	private readonly string indent		= "\t".Repeat(3);
+	private readonly string end			= $",{NewLine}";
+	private readonly string separator	= "=".Repeat(50);
 	private const int pad = -20;
-
-	private AppSettings _appSettings;
-
 	private string projectRoot;
 	private string outputFolder;
 
-
-	public CodeGenAdapters(AppSettings app)
-	{
-		_appSettings            = app;
-		projectRoot     = string.Empty;
-		outputFolder    = $"{projectRoot}{_appSettings.Adapter.OutputFolder}";
-	}
-
-	public string Init(Type typeInNamespace)
+	public string Init (Type typeInNamespace)
 	{
 		// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
+		outputFolder = $"{projectRoot}{appSettings.Adapter.OutputFolder}";
+
 		Debug.WriteLine($"{"=".Repeat(80)}{NewLine}GenerateMenu Adapters{"=".Repeat(80)}");
 
-		var adapterList = GetGeneratorAdapterList(typeInNamespace);
+		var adapterList = typeInNamespace.GetTypesInNamespace();
 		WriteGeneratorAdapterList(adapterList, "Model");
 
 		// ==================================================================================
@@ -50,29 +38,31 @@ public partial class CodeGenAdapters
 		RunAdapterList();
 
 		Debug.WriteLine("=".Repeat(80));
-		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to '{_appSettings.Adapter.OutputFolder}'. Overwrite: {_appSettings.Overwrite}";
+		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to '{appSettings.Adapter.OutputFolder}'. Overwrite: {appSettings.Overwrite}";
 		Debug.WriteLine(result);
 
 		return result;
 	}
 
-	public bool GenerateAdapter(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
+	// ==================================================================================
+
+	private bool GenerateAdapter(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
 	{
 		string class1 = type1.Name;
 		string class2 = type2.Name;
-		string map1 = _appSettings.Adapter.MapName1;
-		string map2 = _appSettings.Adapter.MapName2;
+		string map1 = appSettings.Adapter.MapName1;
+		string map2 = appSettings.Adapter.MapName2;
 
 		string adapterFileName = $"{class1}Adapter.cs";
 
 		string output =
 		$$"""
-		using {{_appSettings.Adapter.Namespace1}};
-		using {{_appSettings.Adapter.Namespace2}};
+		using {{appSettings.Adapter.Namespace1}};
+		using {{appSettings.Adapter.Namespace2}};
 		using System.Linq;
 		using System.Collections.Generic;
 		
-		namespace {{_appSettings.Adapter.Namespace}};
+		namespace {{appSettings.Adapter.Namespace}};
 		
 		public static partial class Adapter
 		{
@@ -80,7 +70,7 @@ public partial class CodeGenAdapters
 			{
 				return {{map1}} == null ? null : new {{class2}}
 				{
-				{{PropertiesList(type1, type2, map1)}}
+				{{GenAdapterPropertiesList(type1, type2, map1)}}
 				};
 			}
 		
@@ -88,14 +78,14 @@ public partial class CodeGenAdapters
 			{
 				return {{map2}} == null ? null : new {{class1}}
 				{
-				{{PropertiesList(type2, type1, map2)}}
+				{{GenAdapterPropertiesList(type2, type1, map2)}}
 				};
 			}
-			{{GetListCode(class1, class2, map1, map2, generateListCode)}}
+			{{GenAdapterListCode(class1, class2, map1, map2, generateListCode)}}
 		}
 		""";
 
-		string outputPath = $"{_appSettings.Adapter.OutputFolder}{adapterFileName}";
+		string outputPath = $"{appSettings.Adapter.OutputFolder}{adapterFileName}";
 		bool isSuccess = output
 					     .WriteToFile(outputPath, overwrite);
 
@@ -105,7 +95,7 @@ public partial class CodeGenAdapters
 		return isSuccess;
 	}
 
-	private static string PropertiesList(Type type, Type toType, string mapName)
+	private string GenAdapterPropertiesList(Type type, Type toType, string mapName)
 	{
 		var sb = new StringBuilder();
 
@@ -115,19 +105,17 @@ public partial class CodeGenAdapters
 
 			if (prop.Name.EqualsAnyIgnoreCase(toTypeProps))
 			{
-				sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+				sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{GenToListAdapter(prop)}{end}");
 			}
 			else
 			{
-				sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{UseListAdapter(prop)}{end}");
+				sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{GenToListAdapter(prop)}{end}");
 			}
-
-		    // if (toType.GetProperties().Any(toTypeProps => toTypeProps.Name.ToLower() == prop.Name.ToLower()))
 		 }
 		 return sb.ToString().RemoveStartEnd("\t\t", end);
 	}
 
-	private static string GetListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
+	private string GenAdapterListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
 	{
 		if (!genListCode)
 			return "";
@@ -150,25 +138,19 @@ public partial class CodeGenAdapters
 					    .RemoveStart("\t");   // Add initial line formatting if needed
 	}
 
-	private static string UseListAdapter(PropertyInfo prop)
+	private string GenToListAdapter(PropertyInfo prop)
 	{
-		var sb = new StringBuilder();
+		if (!typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) || prop.PropertyType == typeof(string))
+			return null;
 
-		if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(string))
-		{
-			var itemName = prop.PropertyType?.GenericTypeArguments.ElementAtOrDefault(0)?.Name ?? prop.Name;
-			sb.Append(itemName.Contains("Model") ? $".To{itemName.RemoveEnd("Model")}List()" : $".To{itemName}ModelList()");
-		}
-		return sb.ToString();
+		var itemName = prop.PropertyType?.GenericTypeArguments.ElementAtOrDefault(0)?.Name ?? prop.Name;
+
+		return itemName.Contains("Model") ? $".To{itemName.RemoveEnd("Model")}List()" : $".To{itemName}ModelList()";
 	}
 
-	public static List<Type> GetGeneratorAdapterList(Type typeInNamespace)
-	{
-		var assembly = typeInNamespace.GetAssemblyFromType();
-		return assembly.GetTypesInNamespace(typeInNamespace.Namespace).ToList();
-	}
+	// ==================================================================================
 
-	public static string WriteGeneratorAdapterList(List<Type> typeList, string suffix)
+	public static string WriteGeneratorAdapterList(Type[] typeList, string suffix)
 	{
 		Debug.WriteLine("=".Repeat(80));
 		Debug.WriteLine("Creating List of GeneratorAdapters to paste in to CodeGenAdapters_Run.cs");
