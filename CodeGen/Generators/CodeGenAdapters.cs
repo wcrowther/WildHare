@@ -20,17 +20,17 @@ public partial class CodeGenAdapters
 	private static readonly string separator	= "=".Repeat(50);
 	private const int pad = -20;
 
-	private App _app;
+	private AppSettings _appSettings;
 
 	private string projectRoot;
 	private string outputFolder;
 
 
-	public CodeGenAdapters(App app)
+	public CodeGenAdapters(AppSettings app)
 	{
-		_app            = app;
+		_appSettings            = app;
 		projectRoot     = string.Empty;
-		outputFolder    = $"{projectRoot}{_app.Adapter.OutputFolder}";
+		outputFolder    = $"{projectRoot}{_appSettings.Adapter.OutputFolder}";
 	}
 
 	public string Init(Type typeInNamespace)
@@ -50,7 +50,7 @@ public partial class CodeGenAdapters
 		RunAdapterList();
 
 		Debug.WriteLine("=".Repeat(80));
-		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to '{_app.Adapter.OutputFolder}'. Overwrite: {_app.Overwrite}";
+		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to '{_appSettings.Adapter.OutputFolder}'. Overwrite: {_appSettings.Overwrite}";
 		Debug.WriteLine(result);
 
 		return result;
@@ -60,19 +60,19 @@ public partial class CodeGenAdapters
 	{
 		string class1 = type1.Name;
 		string class2 = type2.Name;
-		string map1 = _app.Adapter.MapName1;
-		string map2 = _app.Adapter.MapName2;
+		string map1 = _appSettings.Adapter.MapName1;
+		string map2 = _appSettings.Adapter.MapName2;
 
 		string adapterFileName = $"{class1}Adapter.cs";
 
 		string output =
 		$$"""
-		using {{_app.Adapter.Namespace1}};
-		using {{_app.Adapter.Namespace2}};
+		using {{_appSettings.Adapter.Namespace1}};
+		using {{_appSettings.Adapter.Namespace2}};
 		using System.Linq;
 		using System.Collections.Generic;
 		
-		namespace {{_app.Adapter.Namespace}};
+		namespace {{_appSettings.Adapter.Namespace}};
 		
 		public static partial class Adapter
 		{
@@ -95,7 +95,7 @@ public partial class CodeGenAdapters
 		}
 		""";
 
-		string outputPath = $"{_app.Adapter.OutputFolder}{adapterFileName}";
+		string outputPath = $"{_appSettings.Adapter.OutputFolder}{adapterFileName}";
 		bool isSuccess = output
 					     .WriteToFile(outputPath, overwrite);
 

@@ -77,7 +77,7 @@ namespace CodeGen.Generators
 // string appSettingsPath   = "C:\\Git\\MachineEnglish\\ME2\\appsettings.json";
 // var json                 = File.ReadAllText(appSettingsPath);
 // var doc                  = JsonDocument.Parse(json);
-// var appProps             = doc.RootElement.GetProperty("App");
+// var appProps             = doc.RootElement.GetProperty("AppSettings");
 // var appSettings          = new List<string>();
 //
 // foreach (var prop in appProps.EnumerateObject())

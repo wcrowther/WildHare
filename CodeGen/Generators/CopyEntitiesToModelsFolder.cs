@@ -6,7 +6,7 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-	public class CopyEntitiesToModelsFolder(App app)
+	public class CopyEntitiesToModelsFolder(AppSettings app)
 	{
 		public string Init()
         {

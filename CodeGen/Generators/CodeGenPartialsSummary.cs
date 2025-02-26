@@ -16,12 +16,12 @@ namespace CodeGen.Generators
 {
     public class CodeGenPartialsSummary
     {
-        private App _app;
+        private AppSettings _app;
         private const int columnWidth           = -10;
         private string currentDirectoryName     = "";
         private string start                    = "\t".Repeat(4);
 
-        public CodeGenPartialsSummary(App app)
+        public CodeGenPartialsSummary(AppSettings app)
         {
             _app        = app;
         }

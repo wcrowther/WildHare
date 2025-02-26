@@ -48,7 +48,7 @@ namespace CodeGen
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton(configuration)
-                             .AddSingleton(configuration.GetSection("App").Get<App>())
+                             .AddSingleton(configuration.GetSection("AppSettings").Get<AppSettings>())
                              .AddSingleton<IHostEnvironment, HostingEnvironment>()
                               //.AddScoped<ICodeGenManager, CodeGenManager>()
                               //.AddScoped<IDataRepo, DataRepo>()

@@ -14,7 +14,7 @@ namespace CodeGen.Generators
 {
 	public class CodeGenAdapters2
 	{
-		private App _app;
+		private AppSettings _app;
 
 		private string projectRoot;
 		private string outputFolder;
@@ -23,7 +23,7 @@ namespace CodeGen.Generators
 		private readonly string _end = $",{NewLine}";
 		private const int pad = -20;
 
-		public CodeGenAdapters2(App app)
+		public CodeGenAdapters2(AppSettings app)
 		{
 			_app            = app;
 			projectRoot     = string.Empty;
@@ -42,11 +42,11 @@ namespace CodeGen.Generators
 			// Write out the adapterlist to the Debug window generated from toTypeProps particular namespace
 			Debug.Write(adapterListString.AddEnd("=".Repeat(80) + NewLine));
 
-			// adapterList.ForEach(type => GenerateAdapter(type, Type.GetType($"{type.Name}Model, CodeGen"), _app.Overwrite));
+			// adapterList.ForEach(type => GenerateAdapter(type, Type.GetType($"{type.Name}Model, CodeGen"), _appSettings.Overwrite));
 
 			// foreach (var type in adapterList)
 			// {
-			//		GenerateAdapter(type, Type.GetType($"CodeGen.Models.{type.Name}Model, CodeGen"), _app.Overwrite);
+			//		GenerateAdapter(type, Type.GetType($"CodeGen.Models.{type.Name}Model, CodeGen"), _appSettings.Overwrite);
 			// }
 
 			// Copy and paste adapterlist from Debug Output window here if needed.

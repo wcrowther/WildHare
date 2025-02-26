@@ -1,7 +1,7 @@
 ﻿
 namespace CodeGen.Models
 {
-    public class App 
+    public class AppSettings 
     {
 		public bool ClearConsole { get; set; }
 
