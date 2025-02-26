@@ -1,6 +1,6 @@
 namespace CodeGen.Models
 {
-    public class AppSettings
+    public class AppSettingsModel
     {
         public bool CodeGenOverwrite { get; set; }
 

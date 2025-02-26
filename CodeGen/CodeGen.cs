@@ -9,7 +9,7 @@ using static System.Environment;
 
 namespace CodeGen
 {
-	public class CodeGen(App _app)
+	public class CodeGen(AppSettings _app)
 	{
 		readonly static string _divider = "=".Repeat(60);
 		static string _message;
@@ -37,7 +37,7 @@ namespace CodeGen
 			_message = inputs[0].ToInt() switch
 			{
 				1 => new CodeGenAdapters(_app).Init(typeof(Account)),
-				// 2 => new CodeGenAdapters2(_app).Init(typeof(Account)),
+				// 2 => new CodeGenAdapters2(_appSettings).Init(typeof(Account)),
 				2 => new CodeGenPartialsSummary(_app).Init(),
 				3 => new CodeGenCssStylesheets(_app).Init(),
 				4 => new CopyEntitiesToModelsFolder(_app).Init(),
@@ -82,8 +82,8 @@ namespace CodeGen
 
 
 
-// 5 => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _app.CssClassesFilename, overwrite),
+// 5 => CodeGenCssClassesUsedInProject.Init(sourceRoot, writeToRoot + _appSettings.CssClassesFilename, overwrite),
 // 6 => CodeGenFromAppsettings.Init(_config, "app", codeGenTempPath, overwrite),
-// 7 => CodeGenSummary.Init(_app.SourceRoot, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
+// 7 => CodeGenSummary.Init(_appSettings.SourceRoot, @"C:\Git\WildHare\Temp\MECodeSummary.txt", overwrite),
 // 8 => "This choice has not been configured", // CodeGenFromSql.Init(@"c:\Temp\Models", "TestNamespace", _config.GetConnectionString("MachineEnglishDB"), true),
 

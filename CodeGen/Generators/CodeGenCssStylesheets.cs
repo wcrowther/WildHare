@@ -15,10 +15,10 @@ namespace CodeGen.Generators
 {
     public class CodeGenCssStylesheets
     {
-        private App _app;
+        private AppSettings _app;
         private const int columnWidth = -30;
 
-        public CodeGenCssStylesheets(App app)
+        public CodeGenCssStylesheets(AppSettings app)
         {
             _app = app;
         }
