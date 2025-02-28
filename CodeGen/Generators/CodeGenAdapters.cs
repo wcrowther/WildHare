@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using WildHare.Extensions;
+using static CodeGen.Helpers.CodeHelpers;
 using static System.Environment;
 
 namespace CodeGen.Generators;
@@ -14,34 +15,31 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 {
 	private readonly string indent		= "\t".Repeat(3);
 	private readonly string end			= $",{NewLine}";
-	private readonly string separator	= "=".Repeat(50);
 	private const int pad = -20;
 	private string projectRoot;
 	private string outputFolder;
+	private int adaptersRun = 0;
 
-	public string Init (Type typeInNamespace)
+	public string Init ()
 	{
-		// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
-
 		outputFolder = $"{projectRoot}{appSettings.Adapter.OutputFolder}";
-
-		Debug.WriteLine($"{"=".Repeat(80)}{NewLine}GenerateMenu Adapters{"=".Repeat(80)}");
-
-		var adapterList = typeInNamespace.GetTypesInNamespace();
-		WriteGeneratorAdapterList(adapterList, "Model");
-
-		// ==================================================================================
-		// Copy and paste adapterlist from Debug Output window to 
-		// partial RunAdapterList() in separate file CodeGenAdapters_Run.cs.
-		// ==================================================================================
 
 		RunAdapterList();
 
-		Debug.WriteLine("=".Repeat(80));
-		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to '{appSettings.Adapter.OutputFolder}'. Overwrite: {appSettings.Overwrite}";
-		Debug.WriteLine(result);
+		if (adaptersRun == 0)
+		{ 
+			return	$"No adapters were generated. Run 'Generate Adapters List' to populate{NewLine} " +
+					$"the RunAdapterList() method in 'CodeGenAdapters_Run.cs'";		
+		}
+
+		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to " +
+						$"'{appSettings.Adapter.OutputFolder}'. Overwrite: {appSettings.Overwrite}";
+
+		Debug.WriteLine($"{divider}{result}");
 
 		return result;
+
+		// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 	}
 
 	// ==================================================================================
@@ -86,11 +84,14 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 		""";
 
 		string outputPath = $"{appSettings.Adapter.OutputFolder}{adapterFileName}";
-		bool isSuccess = output
-					     .WriteToFile(outputPath, overwrite);
+
+		bool isSuccess = output.WriteToFile(outputPath, overwrite);
 
 		if (isSuccess)
+		{
 			Debug.WriteLine($"Generated file {adapterFileName} in {outputPath}.");
+			adaptersRun++;
+		}
 
 		return isSuccess;
 	}
@@ -138,7 +139,7 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 					    .RemoveStart("\t");   // Add initial line formatting if needed
 	}
 
-	private string GenToListAdapter(PropertyInfo prop)
+	private static string GenToListAdapter(PropertyInfo prop)
 	{
 		if (!typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) || prop.PropertyType == typeof(string))
 			return null;
@@ -146,27 +147,5 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 		var itemName = prop.PropertyType?.GenericTypeArguments.ElementAtOrDefault(0)?.Name ?? prop.Name;
 
 		return itemName.Contains("Model") ? $".To{itemName.RemoveEnd("Model")}List()" : $".To{itemName}ModelList()";
-	}
-
-	// ==================================================================================
-
-	public static string WriteGeneratorAdapterList(Type[] typeList, string suffix)
-	{
-		Debug.WriteLine("=".Repeat(80));
-		Debug.WriteLine("Creating List of GeneratorAdapters to paste in to CodeGenAdapters_Run.cs");
-		Debug.WriteLine("=".Repeat(80));
-
-		var sb = new StringBuilder();
-
-		foreach (var type in typeList)
-		{
-			sb.AppendLine($"GenerateAdapter(typeof({type.Name}), typeof({type.Name}{suffix}), true);");
-		}
-		
-		string adapterListString = sb.ToString();
-
-		Debug.WriteLine(adapterListString.AddEnd("=".Repeat(80)));
-
-		return adapterListString;
 	}
 }

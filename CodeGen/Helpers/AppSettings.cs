@@ -33,7 +33,7 @@ namespace CodeGen.Models
 
 		public Adapter Adapter { get; set; }
 
-		public Copy Copy { get; set; }
+		public TransformFiles TransformFiles { get; set; }
     }
 
 	public class Adapter
@@ -49,13 +49,19 @@ namespace CodeGen.Models
 		public string MapName1 { get; set; }
 
 		public string MapName2 { get; set; }
+
+		public string AdapterListOutputFile { get; set; }
 	}
 
-	public class Copy
+	public class TransformFiles
     {
         public string ModelSuffix { get; set; }
 
         public bool Overwrite { get; set; }
-    }
+
+		public string NamespaceFrom { get; set; }
+
+		public string NamespaceTo { get; set; } 
+	}
 }
 

@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.IO;
 using WildHare.Extensions;
-using static System.Environment;
 
 namespace CodeGen
 {
@@ -36,7 +35,7 @@ namespace CodeGen
         {
             // =========================================================================
             // NOTE: Console app will use appsettings.json if included and Properties
-            // marked as 'Copy if Newer', otherwise will use the one in the Web proj.
+            // marked as 'TransformFiles if Newer', otherwise will use the one in the Web proj.
             // =========================================================================
 
             IConfiguration configuration = new ConfigurationBuilder()
@@ -50,8 +49,7 @@ namespace CodeGen
             serviceCollection.AddSingleton(configuration)
                              .AddSingleton(configuration.GetSection("AppSettings").Get<AppSettings>())
                              .AddSingleton<IHostEnvironment, HostingEnvironment>()
-                              //.AddScoped<ICodeGenManager, CodeGenManager>()
-                              //.AddScoped<IDataRepo, DataRepo>()
+                              //LIKE .AddScoped<IDataRepo, DataRepo>()
                              .AddScoped<CodeGen>();
 
             return serviceCollection;

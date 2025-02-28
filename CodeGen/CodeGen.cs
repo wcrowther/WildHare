@@ -4,15 +4,15 @@ using CodeGen.Models;
 using System;
 using System.Linq;
 using WildHare.Extensions;
+using static CodeGen.Helpers.CodeHelpers;
 using static System.Console;
 using static System.Environment;
 
 namespace CodeGen
 {
-	public class CodeGen(AppSettings _app)
+	public class CodeGen(AppSettings appSettings)
 	{
-		readonly static string _divider = "=".Repeat(60);
-		static string _message;
+		static string menuMessage;
 
 		public bool GenerateMenu()
 		{
@@ -32,21 +32,23 @@ namespace CodeGen
 			var inputs = inputStr.Split(" ", true, true);
 			var @params = inputs.Skip(1).ToArray();
 
-			if(_app.ClearConsole) Clear();
+			if(appSettings.ClearConsole) 
+				Clear();
 
-			_message = inputs[0].ToInt() switch
+			menuMessage = inputs[0].ToInt() switch
 			{
-				1 => new CodeGenAdapters(_app).Init(typeof(Account)),
-				// 2 => new CodeGenAdapters2(_appSettings).Init(typeof(Account)),
-				2 => new CodeGenPartialsSummary(_app).Init(),
-				3 => new CodeGenCssStylesheets(_app).Init(),
-				4 => new CopyEntitiesToModelsFolder(_app).Init(),
-				5 => new CodeGenValidators().Init("","",true), // Needs work
+				1 => new CodeGenAdaptersList(appSettings)		.Init(typeof(Account)),
+				2 => new CodeGenAdapters(appSettings)			.Init(),
+				3 => new CodeGenPartialsSummary(appSettings)	.Init(),
+				4 => new CodeGenCssStylesheets(appSettings)		.Init(),
+				5 => new TransformFilesToFolder(appSettings)	.Init(),
+				6 => new CodeGenValidators()					.Init("", "", true), // Needs work
+				7 => new CodeGenClassesFromSqlTables()			.Init("",""),       // Needs work
 				9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
 				_ => $"Your input {inputStr} is not valid.",
 			};
 
-			return _app.ConsoleRemainOpen;
+			return appSettings.ConsoleRemainOpen;
 		}
 
 		public static void DisplayMenu()
@@ -54,18 +56,19 @@ namespace CodeGen
 			string menu =
 			$"""
 
-				 {_divider}        
+				 {divider}        
 				 Generate Code - Enter a number (or x to Exit)
-				 {_divider}
+				 {divider}
 				 
-				 1) Generate Adapters
-				 2) Partials Summary Report
-				 3) List Of Stylesheets
-				 4) Copy Entities to Models Folder
-				 5) Generate JS validators
+				 1) Generate Adapters List
+				 2) Generate Adapters
+				 3) Partials Summary Report
+				 4) List Of Stylesheets
+				 5) TransformFiles Entities to Models Folder
+				 6) Generate JS validators
 				 x) Exit
 				 
-				 {_message}
+				 {menuMessage}
 				 
 				 Select an option: 
 				""";
