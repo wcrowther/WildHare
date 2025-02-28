@@ -13,7 +13,7 @@ public class Invoice
 
     public DateTime Created { get; set; }
 
-    public virtual List<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
+    public virtual List<InvoiceItem> InvoiceItems { get; set; } = [];
 
      public override string ToString() => $"{InvoiceId} AccountId: {AccountId}";
 }

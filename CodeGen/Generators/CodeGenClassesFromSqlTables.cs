@@ -12,7 +12,7 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-    public static class CodeGenClassesFromSqlTables
+    public class CodeGenClassesFromSqlTables
     {
         /* ==========================================================================
          * DIRECTIONS:
@@ -36,7 +36,7 @@ namespace CodeGen.Generators
 
         private static ILookup<string, ColumnsSchema> sqlTables;
 
-        public static string Init(string projectRoot, string dbConnString)
+        public string Init(string projectRoot, string dbConnString)
         {
             if (projectRoot.IsNullOrEmpty())
                 throw new ArgumentNullException($"{nameof(CodeGenClassesFromSqlTables)}.{nameof(Init)} projectRoot is null or empty.");
