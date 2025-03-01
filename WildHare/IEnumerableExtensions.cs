@@ -219,34 +219,33 @@ namespace WildHare.Extensions
             return string.Join(separator, intList);
         }
 
-        /// <summary>Works similar to an inline string.Join implementation that concatenates 
-        /// the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
-        /// Adds the capability to delete null entries if {removeNulls} is true (defaults to false) .</summary>
-        public static string AsString(this IEnumerable<string> strList, string separator = ", ", bool removeNulls = true)
-        {
-            var sb = new StringBuilder();
-            foreach (var item in strList)
-            {
-                if (removeNulls)
-                {
-                    if (item != null)
-                        sb.Append(item + separator);
-                }
-                else
-                {
-                    sb.Append(item + separator);
-                }
-            }
-            return sb.ToString().RemoveEnd(separator);
-        }
+		/// <summary>Works similar to an inline string.Join implementation that concatenates 
+		/// the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
+		/// Adds the capability to delete null entries if {removeNulls} is true (defaults to false)
+		/// and {trim} to Trim() strings.</summary>
+		public static string AsString(this  IEnumerable<string> strList, 
+											string separator = ", ", 
+											bool removeNulls = true, 
+											bool trim = false)
+		{
+			var sb = new StringBuilder();
+			foreach (var str in strList)
+			{
+				if (removeNulls && str is null)
+					continue;
 
-        /// <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
-        /// returns the list item if the {func} returns true for the match to the pattern item.
-        /// The list enumerates to the next item regardless of a match or not, but pattern does not
-        /// enumerate to the next pattern unless it matched.</summary>
-        public static IEnumerable<T> PatternMatch<T,P>(this IEnumerable<T> list,
-                                                          IEnumerable<P> pattern,
-                                                          Func<T, P, bool> func
+				sb.Append((trim ? str.Trim() : str) + separator);
+			}
+			return sb.ToString().RemoveEnd(separator);
+		}
+
+		/// <summary>Given a {list} enumerable and a {pattern} enumerable, it enumerates the list and
+		/// returns the list item if the {func} returns true for the match to the pattern item.
+		/// The list enumerates to the next item regardless of a match or not, but pattern does not
+		/// enumerate to the next pattern unless it matched.</summary>
+		public static IEnumerable<T> PatternMatch<T,P>(this IEnumerable<T> list,
+															IEnumerable<P> pattern,
+															Func<T, P, bool> func
                                                      )
         {
             var listEnumerator = list.GetEnumerator();
@@ -271,7 +270,9 @@ namespace WildHare.Extensions
         /// <example>When a list contains 0 element: list.Pluralize("clown") returns "clowns";</example>
         /// <example>When a list contains 3 element: list.Pluralize("fox") returns "foxes";</example>
         /// <example>When a list contains 5 element: list.Pluralize("child", "children") returns "children";</example>
-        public static string Pluralize<T>(this IEnumerable<T> list, string singular, string plural = null)
+        public static string Pluralize<T>(this	IEnumerable<T> list, 
+												string singular, 
+												string plural = null)
         {
             int count = list?.Count() ?? default;
 
