@@ -1317,7 +1317,7 @@ namespace WildHare.Tests
             string text = "9811456789,    ";
             var strArray = text.Split(",", true);
 
-            Assert.AreEqual(1, strArray.Length);
+			Assert.AreEqual(1, strArray.Length);
             Assert.AreEqual("9811456789", strArray[0]);
         }
 
@@ -1341,7 +1341,7 @@ namespace WildHare.Tests
 			string text = "9811456789,    ";
 			var strArray = text.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-			Assert.AreEqual(1, strArray.Count());
+			Assert.AreEqual(1, strArray.Length);
 			Assert.AreEqual("9811456789", strArray[0]);
 		}
 	}

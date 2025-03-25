@@ -740,7 +740,7 @@ namespace WildHare.Extensions
 
         public static string ReplaceLineReturns(this string str, string replacement = " ")
         {
-            string[] lineReturns = { "\r\n", "\r", "\n" };
+            string[] lineReturns = ["\r\n", "\r", "\n"];
 
             return str.Replace(lineReturns, replacement);
         }
