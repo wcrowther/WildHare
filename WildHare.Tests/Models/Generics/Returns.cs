@@ -18,7 +18,9 @@ public class Returns<T>
 
 	 public static Returns<T> Success(T data) => new() { Data = data };
 
-	 public static Returns<T> Failure(Exception exception) => new() { Exception = exception };
+	public static Returns<T> Failure(string errorMessage) => new() { Exception = new Exception(errorMessage) };
+
+	public static Returns<T> Failure(Exception exception) => new() { Exception = exception };
 }
 
 public class Returns : Returns<string>
@@ -30,19 +32,15 @@ public class Returns : Returns<string>
 	 public override string ToString() => Ok ? Data : Exception.Message;
 }
 
-public class Error
+public class Error(string message, Error innerError = null)
 {
-	public string Message { get; set; }
+	public string Message { get => message; }
 
-	public Error InnerError { get; set; }
+	public Error InnerError { get => innerError; }
 
 	public static implicit operator Error(Exception ex)
 	{
-		return new()
-		{
-			Message     = ex.Message,
-			InnerError  = ex.InnerException
-		};
+		return new Error(ex.Message, ex.InnerException);
 	}
 }
 
