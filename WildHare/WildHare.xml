@@ -243,11 +243,6 @@
             <summary>Converts an IEnumerable of ints to a string. The method will return null if the {intList} parameter is null 
             when {strict} is false. When {strict} is true the methods will throw an exception.</summary>
         </member>
-        <member name="M:WildHare.Extensions.IEnumerableExtensions.AsStringxx(System.Collections.Generic.IEnumerable{System.String},System.String,System.Boolean)">
-            <summary>Works similar to an inline string.Join implementation that concatenates 
-            the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
-            Adds the capability to delete null entries if {removeNulls} is true (defaults to false) .</summary>
-        </member>
         <member name="M:WildHare.Extensions.IEnumerableExtensions.AsString(System.Collections.Generic.IEnumerable{System.String},System.String,System.Boolean,System.Boolean)">
             <summary>Works similar to an inline string.Join implementation that concatenates 
             the strings in the Enumerable {strList} with the {separator} (with a default of ', ').
