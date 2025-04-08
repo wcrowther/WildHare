@@ -23,7 +23,7 @@ public class MiscTests
 	 [Test]
 	 public void Test_Result_String_Ok_Null()
 	 {
-		  var result = Returns<string>.Success(null);
+		  var result = Returns<string>.IsSuccess(null);
 
 		  Assert.AreEqual(true,	   result.Ok);
 		  Assert.AreEqual(null,	   result.Data);
@@ -33,7 +33,7 @@ public class MiscTests
 	 [Test]
 	 public void Test_Result_String_Ok_With_Value()
 	 {
-		  var result = Returns<string>.Success("String value");
+		  var result = Returns<string>.IsSuccess("String value");
 
 		  Assert.AreEqual(true,				 result.Ok);
 		  Assert.AreEqual("String value",	 result.Data);
@@ -44,7 +44,7 @@ public class MiscTests
 	 public void Test_Result_String_Ok_With_Null_Guard()
 	 {
 		  string val	 = null;
-		  var result	 = Returns<string>.Success(val ?? "String if null");
+		  var result	 = Returns<string>.IsSuccess(val ?? "String if null");
 
 		  Assert.AreEqual(true,				 result.Ok);
 		  Assert.AreEqual("String if null",	 result.Data);
@@ -54,7 +54,7 @@ public class MiscTests
 	 public void Test_Result_Array_Ok_With_Null_Guard()
 	 {
 		  string[] values = null;
-		  var result = Returns<string[]>.Success(values ?? []);
+		  var result = Returns<string[]>.IsSuccess(values ?? []);
 
 		  Assert.AreEqual(true,	   result.Ok); // no exception
 		  Assert.AreEqual(true,	   result.HasData); 
@@ -78,47 +78,47 @@ public class MiscTests
 	 [Test]
 	 public void Test_Result_String_Error_With_String()
 	 {
-		  string message	  = "The result is an error.";
-		  var result		  = Returns<string>.Failure(new Exception(message));
+		  string message	  = "The returns is an error.";
+		  var result		  = Returns<string>.IsFailure(new Exception(message));
 
 		  Assert.AreEqual(false,	result.Ok);
 		  Assert.AreEqual(null,		result.Data);
-		  Assert.AreEqual(message,	result.Exception.Message);
+		  Assert.AreEqual(message,	result.Error.Message);
 	 }
 
 	 [Test]
 	 public void Test_Result_String_Error_With_Inner_Exception()
 	 {
 		  var ex	 = new Exception("InnerException");
-		  var result = Returns<string>.Failure(new Exception("Exception", ex));
+		  var result = Returns<string>.IsFailure(new Exception("Error", ex));
 
 		  Assert.AreEqual(false, result.Ok);
 		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual("Exception", result.Exception.Message);
-		  Assert.AreEqual("InnerException", result.Exception.InnerException.Message);
+		  Assert.AreEqual("Error", result.Error.Message);
+		  Assert.AreEqual("InnerException", result.Error.InnerError.Message);
 	 }
 
 	 [Test]
 	 public void Test_Result_String_Error_With_Exception_With_Fallback_Data()
 	 {
-		  string message = "The result is an error.";
+		  string message = "The returns is an error.";
 		  var exception = new Exception(message);
-		  var result = Returns<string>.Failure(exception);
+		  var result = Returns<string>.IsFailure(exception);
 
 		  Assert.AreEqual(false, result.Ok);
 		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual(message, result.Exception.Message);
+		  Assert.AreEqual(message, result.Error.Message);
 	 }
 
 	 [Test]
 	 public void Test_Result_List()
 	 {
 		  var list		 = new List<string> { "one", "two", "three" };
-		  var result	 = Returns<List<string>>.Success(list);
+		  var result	 = Returns<List<string>>.IsSuccess(list);
 
 		  Assert.AreEqual(true,	   result.Ok);
 		  Assert.AreEqual("two",   result.Data[1]);
-		  Assert.AreEqual(null,	   result.Exception);
+		  Assert.AreEqual(null,	   result.Error);
 	 }
 
 
@@ -126,31 +126,22 @@ public class MiscTests
 	 public void Test_Result_List_Empty()
 	 {
 		  List<string> nullList = null;
-		  var result = Returns<List<string>>.Success(nullList);
+		  var result = Returns<List<string>>.IsSuccess(nullList);
 
 		  Assert.AreEqual(true,	   result.Ok);
 		  Assert.AreEqual(false,   result.HasData);
-		  Assert.AreEqual(null,	   result.Exception);
+		  Assert.AreEqual(null,	   result.Error);
 	 }
 
 	 [Test]
 	 public void Test_Result_Array_Empty()
 	 {
 		  string[] array = null;
-		  var result = Returns<string[]>.Success(array);
+		  var result = Returns<string[]>.IsSuccess(array);
 
 		  Assert.AreEqual(true, result.Ok);
 		  Assert.AreEqual(false, result.HasData);
-		  Assert.AreEqual(null, result.Exception);
-	 }
-
-	 [Test]
-	 public void Test_Result_string_Test_Exception()
-	 {
-		  var exception = new NotImplementedException();
-		  var result = new Returns<string> { Exception = exception };
-
-		  Assert.IsInstanceOf<NotImplementedException>(result.Exception);
+		  Assert.AreEqual(null, result.Error);
 	 }
 
 	 // ===================================================================
@@ -172,16 +163,16 @@ public class MiscTests
 		  Assert.AreEqual(true, result.Ok);
 		  Assert.AreEqual("String value", $"{result}");
 
-		  Returns resultEx = new Exception("Failure");
+		  Returns resultEx = new Exception("IsFailure");
 
 		  Assert.AreEqual(false, resultEx.Ok);
-		  Assert.AreEqual("Failure", $"{resultEx}");
+		  Assert.AreEqual("IsFailure", $"{resultEx}");
 
-		  Returns resultEx2 = new Exception("Failure");
+		  Returns resultEx2 = new Exception("IsFailure");
 		  string message   = resultEx2.ToString();
 
 		  Assert.AreEqual(false, resultEx2.Ok);
-		  Assert.AreEqual("Failure", message);
+		  Assert.AreEqual("IsFailure", message);
 	 }
 
 	 [Test]
@@ -203,24 +194,35 @@ public class MiscTests
 		  Assert.AreEqual("String value", result.Data);
 	 }
 
-	 [Test]
-	 public void Test_Implicit_Result_Exception()
-	 {
-		  Returns result = new Exception("Failure");
+	[Test]
+	public void Test_Implicit_IEnumerable_With_Null_Guard()
+	{
+		List<Item> items = null;
+		Returns<List<Item>> returns = items ?? [];
 
-		  Assert.AreEqual(false,   result.Ok);
-		  Assert.AreEqual(null,	   result.Data);
-		  Assert.AreEqual("Failure", result.Exception.Message);
-	 }
+		Assert.AreEqual(true, returns.Ok);
+		Assert.AreEqual(0, returns.Data.Count);
+	}
 
-	 [Test]
+	[Test]
+	public void Test_Implicit_Result_Exception()
+	{
+		Exception ex = new("IsFailure");
+		Returns result = ex;
+
+		Assert.AreEqual(false, result.Ok);
+		Assert.AreEqual(null, result.Data);
+		Assert.AreEqual("IsFailure", result.Error.Message);
+	}
+
+	[Test]
 	 public void Test_Implicit_Result_NotImplementedException()
 	 {
 		  Returns result = new NotImplementedException();
 
 		  Assert.AreEqual(false, result.Ok);
 		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual("The method or operation is not implemented.", result.Exception.Message);
+		  Assert.AreEqual("The method or operation is not implemented.", result.Error.Message);
 	 }
 
 	 [Test]
@@ -230,19 +232,19 @@ public class MiscTests
 
 		  Assert.AreEqual(false, result.Ok);
 		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual("The method or operation is not implemented.", result.Exception.Message);
+		  Assert.AreEqual("The method or operation is not implemented.", result.Error.Message);
 	 }
 
 	 [Test]
 	 public void Test_Ternary_Boolean()
 	 {
-		  Returns<bool?> result = Returns<bool?>.Success(null);
+		  Returns<bool?> result = Returns<bool?>.IsSuccess(null);
 
 		  Assert.AreEqual(true,    result.Ok); // null values are Ok if no exception
 		  Assert.AreEqual(null,	   result.Data);
 		  Assert.AreEqual(false,   result.HasData);
 
-		  Returns<bool?> result2 = Returns<bool?>.Success(true);
+		  Returns<bool?> result2 = Returns<bool?>.IsSuccess(true);
 
 		  Assert.AreEqual(true, result2.Ok); 
 		  Assert.AreEqual(true, result2.HasData ? result2.Data : null);
@@ -289,8 +291,8 @@ public class MiscTests
 							     .Step3();
 		  Assert.AreEqual(false,		result.Ok);
 	 	  Assert.AreEqual(null,			result.Data);
-		  Assert.AreEqual("Step2 Failure",		result.Exception.InnerException.Message);
-		  Assert.AreEqual("Step3 Failure",		result.Exception.Message);
+		  Assert.AreEqual("Step2 IsFailure",		result.Error.InnerError.Message);
+		  Assert.AreEqual("Step3 IsFailure",		result.Error.Message);
 	 }
 }
 
@@ -312,11 +314,11 @@ public static class TestSteps
 
 	public static Returns Step2(this Returns result)
 	{
-		return new Exception("Step2 Failure");
+		return new Exception("Step2 IsFailure");
 	}
 
 	public static Returns Step3(this Returns result)
 	{
-		return result.Ok ? "Ok" : new Exception("Step3 Failure", result.Exception);
+		return result.Ok ? "Ok" : new Error("Step3 IsFailure", result.Error);
 	}
 }

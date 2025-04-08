@@ -4,52 +4,57 @@ namespace WildHare.Tests.Models.Generics;
 
 public class Returns<T>
 {
-	 public T Data { get; init; }
+	public T Data { get; init; } = default;
 
-	 public Exception Exception { get; init; }
+	public Error Error { get; init; }
 
-	 public bool Ok => Exception is null;
+	public bool Ok => Error is null;
 
-	 public bool HasData => Data is not null;
+	public bool HasData => Data is not null;
 
-	 public static implicit operator Returns<T>(T data) => new() { Data = data };
+	public static implicit operator Returns<T>(T data) => new() { Data = data };
 
-	 public static implicit operator Returns<T>(Exception ex) => new() { Exception = ex };
+	public static implicit operator Returns<T>(Error error) => IsFailure(error);
 
-	 public static Returns<T> Success(T data) => new() { Data = data };
+	public static implicit operator Returns<T>(Exception exception) => IsFailure(exception);
 
-	public static Returns<T> Failure(string errorMessage) => new() { Exception = new Exception(errorMessage) };
+	public static Returns<T> IsSuccess(T data) => new() { Data = data };
 
-	public static Returns<T> Failure(Exception exception) => new() { Exception = exception };
+	public static Returns<T> IfData(T data, string errorMessage) => data is not null ? new() { Data = data } : IsFailure(errorMessage);
+
+	public static Returns<T> IsFailure(string errorMessage) => new() { Error = new Error(errorMessage) };
+
+	public static Returns<T> IsFailure(Error error) => new() { Error = error };
 }
 
-public class Returns : Returns<string>
+public class Returns
 {
-	 public static implicit operator Returns(string data) => new() { Data = data };
+	public string Data { get; init; } 
 
-	 public static implicit operator Returns(Exception ex) => new() { Exception = ex };
+	public Error Error { get; init; }
 
-	 public override string ToString() => Ok ? Data : Exception.Message;
+	public bool Ok => Error is null;
+
+	public bool HasData => Data is not null;
+
+
+	public static implicit operator Returns(string data) => new() { Data = data };
+
+	public static implicit operator Returns(Error error) => IsFailure(error);
+
+	public static implicit operator Returns(Exception exception) => IsFailure(exception);
+
+
+	public static Returns IsSuccess(string data) => new() { Data = data };
+
+	public static Returns IfData(string data, string errorMessage) => data is not null ? new() { Data = data } : IsFailure(errorMessage);
+
+	public static Returns IsFailure(string errorMessage) => new() { Error = new Error(errorMessage) };
+
+	public static Returns IsFailure(Error error) => new() { Error = error };
+
+	public override string ToString() => Ok ? Data : Error?.Message;
 }
-
-public class Error(string message, Error innerError = null)
-{
-	public string Message { get => message; }
-
-	public Error InnerError { get => innerError; }
-
-	public static implicit operator Error(Exception ex)
-	{
-		return new Error(ex.Message, ex.InnerException);
-	}
-}
-
-
-
-
-
-
-
 
 
 
@@ -65,5 +70,3 @@ public class Error(string message, Error innerError = null)
 // 		  _ => default
 // 	 };
 // }
-
-
