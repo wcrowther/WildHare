@@ -615,8 +615,8 @@ namespace WildHare.Tests
         [Test]
         public void Test_StartsWith_Array_Overload_If_Start_Is_True()
         {
-            string str = "StartString";
-            string[] values = new string[] { "A", "Start" };
+            string str = "A";
+            string[] values = ["A", "IsNotNullString"];
             bool result = str.StartsWith(values);
 
             Assert.IsTrue(result);
@@ -625,22 +625,24 @@ namespace WildHare.Tests
         [Test]
         public void Test_StartsWith_Array_Overload_If_Inline_Start_Is_True()
         {
-            string str = "StartString";
-            bool result = str.StartsWith(new string[] { "Start" });
+            string str = "IsNotNullString";
+            bool result = str.StartsWith(["IsNotNullString"]);
 
             Assert.IsTrue(result);
         }
 
-        [Test]
+		private static readonly string[] valuesArray = ["Start1", "Start2"];
+
+		[Test]
         public void Test_StartsWith_Array_Overload_If_Shortcut_Inline_Start_Is_True()
         {
             string str1 = "Start1";
             string str2 = "Start2";
             string str3 = "Start3";
 
-            bool result1 = str1.StartsWith(new[] { "Start1", "Start2" });
-            bool result2 = str2.StartsWith(new[] { "Start1", "Start2" });
-            bool result3 = str3.StartsWith(new[] { "Start1", "Start2" });
+            bool result1 = str1.StartsWith(["Start1", "Start2"]);
+            bool result2 = str2.StartsWith(["Start1", "Start2"]);
+            bool result3 = str3.StartsWith(valuesArray);
 
             Assert.IsTrue(result1);
             Assert.IsTrue(result2);
@@ -651,8 +653,8 @@ namespace WildHare.Tests
         [Test]
         public void Test_StartsWith_Array_Overload_With_String_Array_Start_Is_True()
         {
-            string str = "StartString";
-            string[] values = { "a", "Start" };
+            string str = "a";
+            string[] values = ["a", "IsNotNullString"];
             bool result = str.StartsWith(values);
 
             Assert.IsTrue(result);

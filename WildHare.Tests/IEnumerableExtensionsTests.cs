@@ -498,17 +498,46 @@ namespace WildHare.Tests
             Assert.IsTrue(numbers.AnyEquals("two"));
         }
 
-        [Test]
-        public void Test_IntArray_AsString_Empty()
-        {
-            int[] intArray = [];
+		[Test]
+		public void Test_WithIndex()
+		{
+			string[] array = ["zero","one","two"];
 
-            string intArrayString = intArray.AsString();
+			var arrayWith = array.WithIndex();
 
-            Assert.AreEqual("", intArrayString);
-        }
+			Assert.AreEqual(("zero",0),	arrayWith.ElementAt(0));
+			Assert.AreEqual(("one", 1),	arrayWith.ElementAt(1));
+			Assert.AreEqual(("two", 2),	arrayWith.ElementAt(2));
+		}
 
-        [Test]
+		[Test]
+		public void Test_Index_Using_Select()
+		{
+			string[] array = ["zero", "one", "two"];
+
+			var arrayStr = array.Select((s,i) => (s,i));
+
+			Assert.AreEqual(("zero", 0),arrayStr.ElementAt(0));
+			Assert.AreEqual(("one", 1),	arrayStr.ElementAt(1));
+			Assert.AreEqual(("two", 2), arrayStr.ElementAt(2));
+
+			var arrayStr2 = array.Select((s, i) => $"{s} {i}");
+
+			Assert.AreEqual("zero 0", arrayStr2.ElementAt(0));
+			Assert.AreEqual("one 1",  arrayStr2.ElementAt(1));
+			Assert.AreEqual("two 2",  arrayStr2.ElementAt(2));
+		}
+
+		[Test]
+		public void Test_IntArray_AsString_Empty()
+		{
+			int[] intArray = [];
+
+			string intArrayString = intArray.AsString();
+
+			Assert.AreEqual("", intArrayString);
+		}
+		[Test]
         public void Test_IntArray_AsString_Null()
         {
             int[] intArray = null;
