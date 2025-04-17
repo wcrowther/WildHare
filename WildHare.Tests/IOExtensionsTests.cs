@@ -226,7 +226,7 @@ public class IOExtensionsTests
     {
         string testDirectory = TestContext.CurrentContext.TestDirectory;
 
-        Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net8.0", testDirectory);
+        Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net9.0", testDirectory);
         Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", testDirectory.GetStartBefore("bin"));
     }
 

@@ -101,16 +101,16 @@ namespace WildHare.Tests
             Assert.AreEqual("String", metaModel.DictionaryKeyType.Name); // Not string (lowercase) for some reason
             Assert.AreEqual("Item",   metaModel.DictionaryValueType.Name);
 
-            Assert.AreEqual(5,          props.Count);
+            Assert.AreEqual(6,          props.Count);
             Assert.AreEqual("Comparer", props[0].Name);
             Assert.AreEqual("Count",    props[1].Name);
-            Assert.AreEqual("Keys",     props[2].Name);
-            Assert.AreEqual("Values",   props[3].Name);
-            Assert.AreEqual("Item",     props[4].Name);
-        }
+			Assert.AreEqual("Capacity", props[2].Name);
+			Assert.AreEqual("Keys",     props[3].Name);
+            Assert.AreEqual("Values",   props[4].Name);
+			Assert.AreEqual("Item",		props[5].Name);
+		}
 
-
-        [Test]
+		[Test]
         public void GetMetaModel_From_Model_Without_Parameterless_Constructor()
         {
             var metaListModel = new List<ClassRequiringCtorParam>().GetMetaModel();
