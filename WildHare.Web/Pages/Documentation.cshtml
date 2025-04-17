@@ -6,11 +6,14 @@
 
 @model DocumentationModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Home page";
 
-    var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
-    var WildHareList = appSettings.WildHareXmlDocumentationPath.GetXmlDocumentation();
-    var groupList = from s in WildHareList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
+	var info = (Title: "Xml Documentation For WildHare", SubTitle: "Having fun with code.");
+	var WildHareList = appSettings.WildHareXmlDocumentationPath.GetXmlDocumentation();
+	var groupList = from s in WildHareList group s by $"{s.Namespace}{s.ClassName.AddStart(".")}";
+	var replacements = new Dictionary<string, string>{
+		{"System.Collections.Generic.", ""}, { "System.",""}
+	};
 }
 
 <h2>@info.Title</h2>
@@ -29,10 +32,12 @@
         i++;
         <div>
             <h4>
-                <b style="color: red;">@member.ToString()</b> : @member.CodeElement
+				<b style="color: red;">@member.ToString().Replace(replacements)</b> : @member.CodeElement
             </h4>
         </div>
+
         <div>@Html.Raw(member.Summary.IfNull().Replace("{", "<b>{").Replace("}", "}</b>"))</div>
+
         <br />
 
         @if (!member.Reference.IsNullOrEmpty())
