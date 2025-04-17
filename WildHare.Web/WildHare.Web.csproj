@@ -20,7 +20,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	<PackageReference Include="SeedPacket" Version="3.0.5.3" />
-    <PackageReference Include="Cloudmersive.APIClient.NETCore.NLP" Version="2.1.2" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />

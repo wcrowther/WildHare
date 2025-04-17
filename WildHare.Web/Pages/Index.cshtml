@@ -3,37 +3,14 @@
 @using WildHare.Extensions.Xtra
 @using Newtonsoft.Json.Linq
 @using System.Diagnostics;
-@using Cloudmersive.APIClient.NETCore.NLP.Api;
-@using Cloudmersive.APIClient.NETCore.NLP.Client;
-@using Cloudmersive.APIClient.NETCore.NLP.Model;
-
 
 @model IndexModel
 @{
-    var info = (Title: "Homepage", SubTitle: "Having fun with code.");
-
-
-
-
-    //// Configure API key authorization: Apikey
-    //Configuration.Default.AddApiKey("Apikey", "2648cebc-cd6e-4e6c-b536-46611ca79e32");
-
-    //var apiInstance = new LanguageDetectionApi();
-    //var textToDetect = "textToDetect_example";  // string | Text to detect language of
-
-    //try
-    //{
-    //    // Detect language of text
-    //    LanguageDetectionResponse result = apiInstance.LanguageDetectionGetLanguage(textToDetect);
-    //    Debug.WriteLine(result);
-    //}
-    //catch (Exception e)
-    //{
-    //    Debug.Print("Exception when calling LanguageDetectionApi.LanguageDetectionPost: " + e.Message);
-    //}
+    var info = (Title: "Homepage", SubTitle: "Experiments with code.");
 }
 
 <h2>@info.Title</h2>
 <div>@info.SubTitle</div>
-<div>&nbsp;</div>
+<div>Go to the WildHare tab to see generated documentation pulled using reflection 
+	and the WildHare.xml documentation.</div>
 
