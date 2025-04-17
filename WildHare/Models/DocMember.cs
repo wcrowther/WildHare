@@ -41,7 +41,7 @@ namespace WildHare
 
         public bool IsStaticMethod => MethodInfo?.IsStatic ?? false;
 
-        public List<string> Examples { get; set; } = new List<string>();
+        public List<string> Examples { get; set; } = [];
 
         public string Reference { get; set; }
 
@@ -99,7 +99,7 @@ namespace WildHare
 
                 string cSharpStr = string.Join(", ", parameterArray.Select(s => s.DotNetTypeToCSharpType()));
 
-                return cSharpStr.Replace(new[] { "{", "}", "``0", "``1", "``2" }, new[] { "<", ">", "T1", "T2", "T3" });
+                return cSharpStr.Replace(["{", "}", "``0", "``1", "``2"], ["<", ">", "T1", "T2", "T3"]);
             }
         }
 
@@ -174,7 +174,7 @@ namespace WildHare
                 return temp;
 
             string[] replacements = { "<T>", "<T,T2>", "<T,T2,T3>" };
-            Generics = generics.Replace(new[] { "``1", "``2", "``3" }, replacements);
+            Generics = generics.Replace(["``1", "``2", "``3"], replacements);
 
             return temp.RemoveEnd(generics);
         }
