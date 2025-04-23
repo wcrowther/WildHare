@@ -49,16 +49,17 @@ namespace WildHare.Tests
                 GetStyleInfoForFile(sb, file);
             }
 
-            if (allFiles.Count() > 0)
+            if (allFiles.Count > 0)
                 sb.AppendLine("=".Repeat(100));
 
             sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(11, allFiles.Count());  // 10 for WildHare //30 for SeedPacket
+            Assert.AreEqual(11, allFiles.Count);  // 10 for WildHare //30 for SeedPacket
         }
 
 
-        [Test]
+		// LINE 86 CURRENTLY COMMENTED OUT TO NOT WRITE TO FILE
+		[Test]
         public void Test_List_of_CSS_Stylesheets_In_The_Project()
         {
             string pathToWriteTo = $@"{approot}\WildHare\WildHare.Web\Analytics\WildHare.Web\List-Of-Stylesheets-With-Selectors.txt";
@@ -82,12 +83,14 @@ namespace WildHare.Tests
             if (allFiles.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            sb.ToString().WriteToFile(pathToWriteTo, true);
+			// Uncomment to write to file
+			// sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(1, allFiles.Count());  // 7 files currently
+			Assert.AreEqual(1, allFiles.Count());  // 7 files currently
         }
 
-        [Test]
+		// LINE 136 CURRENTLY COMMENTED OUT TO NOT WRITE TO FILE
+		[Test]
         public void Test_List_of_CSS_Classes_Used_In_The_Project()
         {
             string pathToWriteTo    = $@"{approot}\WildHare\WildHare.Web\Analytics\WildHare.Web\List-Of-CSS-Classes.txt";
@@ -129,9 +132,10 @@ namespace WildHare.Tests
             if (groupedClassTags.Count() > 0)
                 sb.AppendLine("=".Repeat(100));
 
-            sb.ToString().WriteToFile(pathToWriteTo, true);
+			// Uncomment to write to file
+			//sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(11, allFiles.Count());  // 10 for WildHare //30 for SeedPacket
+			Assert.AreEqual(11, allFiles.Count);  // 10 for WildHare //30 for SeedPacket
         }
 
 
@@ -218,7 +222,7 @@ namespace WildHare.Tests
                             .Where(w => w.Contains("@Styles.Render"))
                             .Select(s => $"{start}{s.Truncate(150).EnsureEnd("\n")}");
 
-            if (textLines.Count() > 0)
+            if (textLines.Any())
                 sb.AppendLine(start + "-".Repeat(90));
 
             sb.Append(string.Join("", textLines));
@@ -309,7 +313,6 @@ namespace WildHare.Tests
                 }
             }
         }
-
 
         // Get all selectors of a CSS rule
         // ".a, .b, .c" contains 3 selectors ".a", ".b" and ".c"
