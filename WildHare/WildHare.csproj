@@ -5,7 +5,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>8.0.0.0</Version>
+		<Version>8.0.0.1</Version>
 		<Authors>Will Crowther</Authors>
 		<Product>WildHare Extensions</Product>
 		<Description>WildHare Extensions are a collection of useful extension methods in c#. One of the goals of the project is to convert methods to have a more "functional" feel with easy discoverablity from intellisense  for a more natural code flow, chaining of code, and better discoverablity.</Description>
@@ -16,7 +16,7 @@
 		<AssemblyVersion>7.0.0.1</AssemblyVersion>
 		<FileVersion>7.0.0.1</FileVersion>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<PackageReleaseNotes>8.0.0.0 WildHare for .NET 8+
+		<PackageReleaseNotes>8.0.0.1 WildHare for .NET 8+
 7.0.0.0 WildHare versions now matche lowest version of .NET that it can run on.
 2.0.0.0 Many updates to Including CodeGen, DataReader Extensions, etc.
 1.6.1.0 Updated Contains to fix a bug. Added StarsWith, EndsWith, Contains params overloads.

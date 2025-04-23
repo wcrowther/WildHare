@@ -10,7 +10,85 @@ namespace WildHare.Tests;
 [TestFixture]
 public class MiscTests
 {
-	 [Test]
+	[Test]
+	public void Test_Result_Basic()
+	{
+		var result = new Returns();
+
+		Assert.AreEqual(null,	result.Data);
+		Assert.AreEqual(false,	result.HasData);
+		Assert.AreEqual(true,	result.Ok);
+	}
+
+	[Test]
+	public void Test_Result_Ok_Null()
+	{
+		var result = Returns.IsSuccess(null);
+
+		Assert.AreEqual(true,	result.Ok);
+		Assert.AreEqual(null,	result.Data);
+		Assert.AreEqual(false,	result.HasData);
+	}
+
+	[Test]
+	public void Test_Result_Ok_With_Value()
+	{
+		var result = Returns.IsSuccess("String value");
+
+		Assert.AreEqual(true,			result.Ok);
+		Assert.AreEqual("String value", result.Data);
+		Assert.AreEqual(true,			result.HasData);
+	}
+
+	[Test]
+	public void Test_Result_IfData_With_Value()
+	{
+		Returns result = Returns.IfData("String value", "Error");
+
+		Assert.AreEqual(true,			result.Ok);
+		Assert.AreEqual("String value", result.Data);
+		Assert.AreEqual("String value", result.ToString());
+		Assert.AreEqual(true,			result.HasData);
+
+		Returns result2 = Returns.IfData(null, "Error");
+
+		Assert.AreEqual(false,		result2.Ok);
+		Assert.AreEqual(null,			result2.Data);
+		Assert.AreEqual(false,		result2.HasData);
+		Assert.AreEqual("Error",	result2.Error.Message);
+		Assert.AreEqual("Error",	result2.ToString());
+
+	}
+
+	[Test]
+	public void Test_Result_Ok_With_Null_Guard()
+	{
+		string val = null;
+		var result = Returns.IsSuccess(val ?? "String if null");
+
+		Assert.AreEqual(true, result.Ok);
+		Assert.AreEqual("String if null", result.Data);
+	}
+
+	[Test]
+	public void Test_Result_IsFailure_String_ErrorM()
+	{
+		var result = Returns.IsFailure("Error message");
+
+		Assert.AreEqual(false, result.Ok);
+		Assert.AreEqual("Error message", result.Error.Message);
+	}
+
+	[Test]
+	public void Test_Result_IsFailure_Error()
+	{
+		var result = Returns.IsFailure(new Error("Error message"));
+
+		Assert.AreEqual(false, result.Ok);
+		Assert.AreEqual("Error message", result.Error.Message);
+	}
+
+	[Test]
 	 public void Test_Result_String_Basic()
 	 {
 		  var result = new Returns<string>();
@@ -35,9 +113,9 @@ public class MiscTests
 	 {
 		  var result = Returns<string>.IsSuccess("String value");
 
-		  Assert.AreEqual(true,				 result.Ok);
-		  Assert.AreEqual("String value",	 result.Data);
-		  Assert.AreEqual(true,			 result.HasData);
+		  Assert.AreEqual(true,				result.Ok);
+		  Assert.AreEqual("String value",	result.Data);
+		  Assert.AreEqual(true,				result.HasData);
 	 }
 
 	 [Test]
@@ -76,11 +154,11 @@ public class MiscTests
 	 public void Test_Result_String_Error_With_Inner_Exception()
 	 {
 		  var ex	 = new Exception("InnerException");
-		  var result = Returns<string>.IsFailure(new Exception("Error", ex));
+		  var result = Returns.IsFailure(new Exception("Error", ex));
 
-		  Assert.AreEqual(false, result.Ok);
-		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual("Error", result.Error.Message);
+		  Assert.AreEqual(false,			result.Ok);
+		  Assert.AreEqual(null,				result.Data);
+		  Assert.AreEqual("Error",			result.Error.Message);
 		  Assert.AreEqual("InnerException", result.Error.InnerError.Message);
 	 }
 
@@ -89,11 +167,11 @@ public class MiscTests
 	 {
 		  string message = "The returns is an error.";
 		  var exception = new Exception(message);
-		  var result = Returns<string>.IsFailure(exception);
+		  var result = Returns.IsFailure(exception);
 
-		  Assert.AreEqual(false, result.Ok);
-		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual(message, result.Error.Message);
+		  Assert.AreEqual(false,	result.Ok);
+		  Assert.AreEqual(null,		result.Data);
+		  Assert.AreEqual(message,	result.Error.Message);
 	 }
 
 	 [Test]
@@ -125,9 +203,9 @@ public class MiscTests
 		  string[] array = null;
 		  var result = Returns<string[]>.IsSuccess(array);
 
-		  Assert.AreEqual(true, result.Ok);
-		  Assert.AreEqual(false, result.HasData);
-		  Assert.AreEqual(null, result.Error);
+		  Assert.AreEqual(true,		result.Ok);
+		  Assert.AreEqual(false,	result.HasData);
+		  Assert.AreEqual(null,		result.Error);
 	 }
 
 	 // ===================================================================
@@ -135,7 +213,7 @@ public class MiscTests
 	 [Test]
 	 public void Test_Result_String_ToString()
 	 {
-		  var result = new Returns() {Data = "String value"};
+		  var result = new Returns("String value");
 
 		  Assert.AreEqual(true, result.Ok);
 		  Assert.AreEqual("String value", $"{result}");
@@ -178,9 +256,9 @@ public class MiscTests
 		string[] values = null;
 		var result = Returns<string[]>.IsSuccess(values ?? []);
 
-		Assert.AreEqual(true, result.Ok); // no exception
-		Assert.AreEqual(true, result.HasData);
-		Assert.AreEqual(0, result.Data.Length);
+		Assert.AreEqual(true,	result.Ok); // no exception
+		Assert.AreEqual(true,	result.HasData);
+		Assert.AreEqual(0,		result.Data.Length);
 	}
 
 	[Test]
@@ -218,13 +296,13 @@ public class MiscTests
 	[Test]
 	public void Test_Result_Complex_With_Steps()
 	{
-		Returns result =  "Test".IsNotNullString()
+		Returns<string> result =  "Test".IsNotNullString()
 								.CanBeConvertedToUpper()
 								.IsEqualToString("TEST is valid");
 
-		Assert.AreEqual(true, result.Ok);
+		Assert.AreEqual(true,			 result.Ok);
 		Assert.AreEqual("TEST is valid", result.Data);
-		Assert.AreEqual(null, result.Error?.ErrorList());
+		Assert.AreEqual(null,			 result.Error?.ErrorList());
 	}
 
 
