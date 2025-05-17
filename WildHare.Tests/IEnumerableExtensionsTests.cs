@@ -647,11 +647,42 @@ namespace WildHare.Tests
         }
 
 
-        // ================================================================================================
-        // PRIVATE FUNCTIONS
-        // ================================================================================================
 
-        private int Add(int arg1, int arg2) => arg1 + arg2;
+		[TestCase(new[] { 1, 12, -5, -6, 50, 3 }, 4, 12.75000)]
+		[TestCase(new[] { 5 }, 1, 5.00000)]
+		public void Test_Maximum_Average_Subarray(int[] nums, int k, double answer)
+		{
+			var maxAvg = FindMaxAverage(nums, k);
+
+			Assert.AreEqual(answer, maxAvg);  // FAILED LEETCODE TEST CASE COMPLEXITY
+		}
+
+
+
+		// ================================================================================================
+		// PRIVATE FUNCTIONS
+		// ================================================================================================
+
+		static double FindMaxAverage(int[] nums, int k)
+		{
+			var numSpan = nums.AsSpan();
+			var avgList = new List<double>();
+
+			for (int i = 0; i < numSpan.Length; i++)
+			{
+				int numsRemaining = numSpan.Length - i;
+
+				if (numsRemaining >= k)
+				{
+					ReadOnlySpan<int> slice = numSpan.Slice(i, k);
+					var avg = slice.ToArray().Sum() / (double)k;
+					avgList.Add(avg);
+				}
+			}
+			return avgList.Max();
+		}
+
+		private int Add(int arg1, int arg2) => arg1 + arg2;
 
         private int Subtract(int arg1, int arg2) => arg1 - arg2;
 
@@ -701,5 +732,6 @@ namespace WildHare.Tests
            
         //     return randomNameList;
         // }
-    }
+
+	}
 }

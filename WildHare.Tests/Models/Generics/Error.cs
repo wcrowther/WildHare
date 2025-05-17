@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WildHare.Tests.Models.Generics;
 
-public class Error(string message, Error innerError = default)
+public class Error(string message = null, Error innerError = default)
 {
 	public string Message { get => message ?? ""; } 
 

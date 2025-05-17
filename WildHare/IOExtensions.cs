@@ -134,7 +134,7 @@ namespace WildHare.Extensions
 
 		/// <summary>This overload gets a list of all files matching a string array of {fileExtensions}
 		/// in current directory and all subdirectories, and does NOT require a searchPattern. 
-		/// The {topDirectoryOnly} default to true to only get the top level of files. If false it will
+		/// The {topDirectoryOnly} defaults to true to only get the top level of files. If false it will
 		/// get all matching children and then filter so use with caution if there are many files.
 		/// Example: [".cshtml", ".razor"]</summary>
 		public static List<FileInfo> GetAllFiles(this string directoryPath, string[] fileExtensions, bool topDirectoryOnly = true)

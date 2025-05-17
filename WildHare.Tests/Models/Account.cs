@@ -26,5 +26,4 @@ public class Account
 
     [Required, MaxLength(10)]
     public string PostalCode { get; set; } = "";
-
 }

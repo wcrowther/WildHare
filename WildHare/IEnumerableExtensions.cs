@@ -113,6 +113,7 @@ namespace WildHare.Extensions
                 {
                     next = ie2.MoveNext();
                 }
+
                 if (next && func(ie1.Current, ie2.Current))
                 {
                     match = true;
