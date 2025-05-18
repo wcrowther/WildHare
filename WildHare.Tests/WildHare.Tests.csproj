@@ -50,8 +50,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TextFiles\2025\" />
-  </ItemGroup>
-
 </Project>

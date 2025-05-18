@@ -110,15 +110,16 @@ public class IOExtensionsTests
         {
             if ((info.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
             {
-			folders.AppendLine($"Directory: {info.Name}");
-		}
-		else
+				folders.AppendLine($"Directory: {info.Name}");
+			}
+			else
             {
                 files.AppendLine($"File: {info.Name}");
             }
         }
 
-        $"{NewLine}{folders}{NewLine}{files}".WriteToFile(outputPath, true);
+        $"{NewLine}{folders}{NewLine}{files}"
+			.WriteToFile(outputPath, true);
 
         Assert.AreEqual(9, allFilesAndFolders.Length);
     }
@@ -158,6 +159,10 @@ public class IOExtensionsTests
 	{
 		string pathRoot = XtraExtensions.GetApplicationRoot();
 		string directoryPath = $@"{pathRoot}\Directory0";
+
+		// string pathRoot = XtraExtensions.GetApplicationRoot();
+		// string directoryPath = $@"{pathRoot}\SourceFiles\Content";
+
 		string outputPath = $@"{pathRoot}\TextFiles\FileSystemInfos.txt";
 
 		var allFilesAndFolders = new DirectoryInfo(directoryPath);
@@ -257,6 +262,39 @@ public class IOExtensionsTests
 		var projFiles   = pathRoot.GetAllFiles([".csproj",".user"]);
 
 		Assert.AreEqual(2, projFiles.Count);
+	}
+
+	[Test]
+	public void Test_GetAllFiles_Content_Markdown_Files()
+	{
+		string pathRoot = XtraExtensions.GetApplicationRoot();
+		string folderPath = $@"{pathRoot}\SourceFiles\Content";
+		string outputPath = $@"{pathRoot}\SourceFiles\Output.txt";
+
+		var fileList = pathRoot
+						.GetAllFiles("*.md")
+						.OrderByDescending(o => o.Name.GetStartBefore("__"));
+
+		var sb = new StringBuilder();
+
+		foreach (var file in fileList)
+		{
+			string text = file.ReadFile();
+			string title = text.GetStartBefore("</title>", true);
+								//.Trim()
+							   //.RemoveStartEnd("<title>", "</title>")
+							   //.IfNull();
+
+			sb.AppendLine($"{"-".Repeat(50)}");
+			sb.AppendLine(file.Name); 
+			sb.AppendLine($"Title from file: {title}");
+			sb.AppendLine($"{"-".Repeat(50)}");
+			sb.AppendLine($"{file.ReadFile()}");
+		}
+
+		sb.ToString().WriteToFile(outputPath, true);
+
+		Assert.AreEqual(10, fileList.Count());
 	}
 
 	// [Test]

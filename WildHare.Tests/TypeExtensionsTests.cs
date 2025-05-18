@@ -602,7 +602,7 @@ namespace WildHare.Tests
             var typesInAssembly = type.GetAssemblyFromType()
                                       .GetTypesInNamespace();
 
-            Assert.AreEqual(87, typesInAssembly.Length);
+            Assert.AreEqual(89, typesInAssembly.Length);
         }
 
         // [Test]
@@ -630,9 +630,9 @@ namespace WildHare.Tests
 
         // =============================================================================================
 
-        static List<string> validatorsList = new();
+        static List<string> validatorsList = new(); // list of validator like: required, minLength, maxLength, etc. before distinct
 
-        private static bool GenerateValidators(Assembly assembly, string namespaceStr, string pathToWriteTo, string[] excludeClasses = null)
+		private static bool GenerateValidators(Assembly assembly, string namespaceStr, string pathToWriteTo, string[] excludeClasses = null)
         {
             var sb          = new StringBuilder();
             var typeList    = assembly.GetTypesInNamespace(namespaceStr, excludeClasses); // exclude: 

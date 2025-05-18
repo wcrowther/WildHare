@@ -19,7 +19,7 @@ public class Returns<T>
 
 
 	/// <summary>Is success path. Does not guarantee {data} is not null. If that is required,
-	/// use a null guard to ensure non-null like: IsSuccess(itemList ?? [])</summary>
+	/// use a null guard to ensure non-null like: Ok(itemList ?? [])</summary>
 	public static Returns<T> IsSuccess(T data) => new() { Data = data };
 
 	/// <summary>If data is not null returns data, else an Error with a message of {errorMessage}.</summary>
