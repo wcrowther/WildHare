@@ -1,0 +1,36 @@
+Directory path:     C:\Git\VueCorp\vueapp
+Output path:        C:\Git\WildHare\WildHare.Tests\TextFiles\VueFiles.txt
+Excludes:           ["node_modules", "dist", "obj"]
+
+.env                                     C:\Git\VueCorp\vueapp\.env
+.env.production                          C:\Git\VueCorp\vueapp\.env.production
+.env.qa                                  C:\Git\VueCorp\vueapp\.env.qa
+.eslintrc-auto-import.json               C:\Git\VueCorp\vueapp\.eslintrc-auto-import.json
+.eslintrc.cjs                            C:\Git\VueCorp\vueapp\.eslintrc.cjs
+.gitignore                               C:\Git\VueCorp\vueapp\.gitignore
+.vscode                                  C:\Git\VueCorp\vueapp\.vscode
+	extensions.json                          C:\Git\VueCorp\vueapp\.vscode\extensions.json
+	launch.json                              C:\Git\VueCorp\vueapp\.vscode\launch.json
+	settings.json                            C:\Git\VueCorp\vueapp\.vscode\settings.json
+aspnetcore-https.js                      C:\Git\VueCorp\vueapp\aspnetcore-https.js
+auto-imports.d.ts                        C:\Git\VueCorp\vueapp\auto-imports.d.ts
+components.d.ts                          C:\Git\VueCorp\vueapp\components.d.ts
+index.html                               C:\Git\VueCorp\vueapp\index.html
+nuget.config                             C:\Git\VueCorp\vueapp\nuget.config
+package-lock.json                        C:\Git\VueCorp\vueapp\package-lock.json
+package.json                             C:\Git\VueCorp\vueapp\package.json
+postcss.config.js                        C:\Git\VueCorp\vueapp\postcss.config.js
+public                                   C:\Git\VueCorp\vueapp\public
+	favicon.ico                              C:\Git\VueCorp\vueapp\public\favicon.ico
+	vue favicon.ico.old                      C:\Git\VueCorp\vueapp\public\vue favicon.ico.old
+README.md                                C:\Git\VueCorp\vueapp\README.md
+src                                      C:\Git\VueCorp\vueapp\src
+	App.vue                                  C:\Git\VueCorp\vueapp\src\App.vue
+	main.js                                  C:\Git\VueCorp\vueapp\src\main.js
+	tailwind.css                             C:\Git\VueCorp\vueapp\src\tailwind.css
+	toaster.css                              C:\Git\VueCorp\vueapp\src\toaster.css
+tailwind.config.js                       C:\Git\VueCorp\vueapp\tailwind.config.js
+typed-router.d.ts                        C:\Git\VueCorp\vueapp\typed-router.d.ts
+vite.config.mjs                          C:\Git\VueCorp\vueapp\vite.config.mjs
+vueapp.esproj                            C:\Git\VueCorp\vueapp\vueapp.esproj
+vueapp.esproj.user                       C:\Git\VueCorp\vueapp\vueapp.esproj.user

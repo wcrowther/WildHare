@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using WildHare.Extensions;
 using WildHare.Tests.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WildHare.Tests
 {
@@ -192,12 +194,12 @@ namespace WildHare.Tests
 
             var wordList = new List<string[]>
             {
-                new string[]{ "the", "president", "of", "the", "United", "States" },
-                new string[]{ "the", "president"},
-                new string[]{ "the", "united", "states" },
-                new string[]{ "the"},
-                new string[]{ "not", "found" },
-                new string[]{ "other", "strings" },
+                new[]{ "the", "president", "of", "the", "United", "States" },
+                new[]{ "the", "president"},
+                new[]{ "the", "united", "states" },
+                new[]{ "the"},
+                new[]{ "not", "found" },
+                new[]{ "other", "strings" },
 
             };
 
@@ -311,7 +313,7 @@ namespace WildHare.Tests
         }
 
         [Test]
-        public void Test_Dictionary_of_Funcs_Basic()
+        public void Test_Dictionary_of_Funcs_Basic_Using_Reflection()
         {
             var funcs = new Dictionary<string, Func<int, int, int>>
             {
@@ -327,9 +329,18 @@ namespace WildHare.Tests
             Assert.AreEqual(0,  funcs["subtract"].DynamicInvoke(5, 5));
             Assert.AreEqual(25, funcs["multiply"].DynamicInvoke(5, 5));
             Assert.AreEqual(1,  funcs["divide"].DynamicInvoke(5, 5));
-        }
+		}
 
-        [Test]
+		[Test]
+		public void Test_Dictionary_of_Funcs_Using_Calculate_Function()
+		{
+			Assert.AreEqual(10, Calulate("add")(5, 5));
+			Assert.AreEqual(0,	Calulate("subtract")(5, 5));
+			Assert.AreEqual(25, Calulate("multiply")(5, 5));
+			Assert.AreEqual(1,	Calulate("divide")(5, 5));
+		}
+
+		[Test]
         public void Test_MatchList_Int_SpeedTest()
         {
             List<int[]> randomPatterns = GetRandomIntList(10000, 21, 1234);
@@ -647,40 +658,10 @@ namespace WildHare.Tests
         }
 
 
-
-		[TestCase(new[] { 1, 12, -5, -6, 50, 3 }, 4, 12.75000)]
-		[TestCase(new[] { 5 }, 1, 5.00000)]
-		public void Test_Maximum_Average_Subarray(int[] nums, int k, double answer)
-		{
-			var maxAvg = FindMaxAverage(nums, k);
-
-			Assert.AreEqual(answer, maxAvg);  // FAILED LEETCODE TEST CASE COMPLEXITY
-		}
-
-
-
 		// ================================================================================================
 		// PRIVATE FUNCTIONS
 		// ================================================================================================
 
-		static double FindMaxAverage(int[] nums, int k)
-		{
-			var numSpan = nums.AsSpan();
-			var avgList = new List<double>();
-
-			for (int i = 0; i < numSpan.Length; i++)
-			{
-				int numsRemaining = numSpan.Length - i;
-
-				if (numsRemaining >= k)
-				{
-					ReadOnlySpan<int> slice = numSpan.Slice(i, k);
-					var avg = slice.ToArray().Sum() / (double)k;
-					avgList.Add(avg);
-				}
-			}
-			return avgList.Max();
-		}
 
 		private int Add(int arg1, int arg2) => arg1 + arg2;
 
@@ -690,7 +671,22 @@ namespace WildHare.Tests
 
         private int Divide(int arg1, int arg2) => arg1 / arg2;
 
-        private static List<int[]> GetRandomIntList(int count, int maxInt, int seed)
+		private Func<int, int, int> Calulate(string funcName)
+		{
+			Func<int, int, int> func = funcName switch
+			{
+				"add"		=> Add,
+				"subtract"	=> Subtract,
+				"multiply"	=> Multiply,
+				"divide"	=> Divide,
+				_ => throw new ArgumentException($"Calculate '{funcName}' not found.")
+			};
+
+			return func;
+		}
+
+
+		private static List<int[]> GetRandomIntList(int count, int maxInt, int seed)
         {
             var list = new List<int[]>();
             var random = new Random(seed);

@@ -1040,14 +1040,14 @@ namespace WildHare.Tests
         {
             var items = new List<Item>
             {
-                 new Item() { ItemId = 1, ItemName = "cart"},
-                 new Item() { ItemId = 2, ItemName = "box",
-                     Stuff = new[] { "pork","steak","fish" }.ToList(),
+                 new() { ItemId = 1, ItemName = "cart"},
+                 new() { ItemId = 2, ItemName = "box",
+                     Stuff = ["pork","steak","fish"],
                  }
             };
 
-            var first = items.First();
-            var last = items.Last();
+            var first = items[0];
+            var last = items[^1];
 
             Assert.AreEqual("cart", $"{first.ItemName}{first.HasStuff.IfTrue("*")}");
             Assert.AreEqual("cart has no stuff", $"{first.ItemName}{first.HasStuff.IfTrue(" has stuff", " has no stuff")}");
@@ -1108,7 +1108,7 @@ namespace WildHare.Tests
             if (string.IsNullOrEmpty(str))
                 return str;
 
-            var s = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var s = str.Split([' '], StringSplitOptions.RemoveEmptyEntries);
             Array.Reverse(s);
 
             return string.Join(' ', s);

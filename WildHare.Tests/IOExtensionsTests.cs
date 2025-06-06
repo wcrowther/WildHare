@@ -298,6 +298,45 @@ public class IOExtensionsTests
 	}
 
 	// [Test]
+	// public void Test_Get_Files_Hierarchy()
+	// {
+	// 	string pathRoot = XtraExtensions.GetApplicationRoot();
+	// 	string directoryPath = @"C:\Git\VueCorp\vueapp";
+	// 	string outputPath = $@"{pathRoot}\TextFiles\VueFiles.txt";
+	// 	string[] excludes = ["node_modules", "dist", "obj"];
+	// 
+	// 	var allFilesAndFolders = new DirectoryInfo(directoryPath);
+	// 	var hierarchy = allFilesAndFolders.GetFileSystemHierarchy(1, exclude: excludes);
+	// 
+	// 	var sb = new StringBuilder();
+	// 	sb.AppendLine($"{"Directory path:", -20}{directoryPath}");
+	// 	sb.AppendLine($"{"Output path:", -20}{outputPath}");
+	// 	sb.AppendLine($"{"Excludes:", -20}[{excludes.AsString("\", \"").AddStartEnd("\"")}]{NewLine}");
+	// 
+	// 	foreach (var (Info, Depth) in hierarchy)
+	// 	{
+	// 		// string infoType = Info.IsDirectory() ? $"Directory" : "File"; //{Depth} {infoType,-15} 
+	// 
+	// 		if(Info.IsDirectory())
+	// 			sb.AppendLine($"{"\t".Repeat(Depth-1)}{Info.Name,-40} {Info.FullName}");
+	// 		else
+	// 			sb.AppendLine($"{"\t".Repeat(Depth -1)}{Info.Name,-40} {Info.FullName}");
+	// 	}
+	// 
+	// 
+	// 	sb.ToString()
+	// 	  .WriteToFile(outputPath, true);
+	// 
+	// 	Assert.AreEqual(20, hierarchy.Count());
+	// 
+	// 	var outputToRead = new FileInfo(outputPath);
+	// 	var outputLines = outputToRead.ReadFile()
+	// 								  .ToLineArray();
+	// 
+	// 	Assert.AreEqual(25, outputLines.Length);
+	// }
+
+	// [Test]
 	// public void Test_GetAllImageFiles()
 	// {
 	// 	string testDirectory = TestContext.CurrentContext.TestDirectory;

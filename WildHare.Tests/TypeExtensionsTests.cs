@@ -602,7 +602,7 @@ namespace WildHare.Tests
             var typesInAssembly = type.GetAssemblyFromType()
                                       .GetTypesInNamespace();
 
-            Assert.AreEqual(89, typesInAssembly.Length);
+            Assert.AreEqual(90, typesInAssembly.Length);
         }
 
         // [Test]

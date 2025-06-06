@@ -248,7 +248,7 @@ public class MiscTests
 // TestSteps class for tests above ^^^
 // ==================================================================================
 
-public static class TestSteps
+public static class ReturnsTestSteps
 {
 	public static Returns IsNotNullString(this string s)
 	{

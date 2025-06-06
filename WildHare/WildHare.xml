@@ -377,6 +377,10 @@
             <summary>Gets the sibling directory (at the same level as the DirectoryInfo) that 
             equals {directoryName}.  Returns null if no matches.</summary>
         </member>
+        <member name="M:WildHare.Extensions.IOExtensions.GetFileSystemHierarchy(System.IO.DirectoryInfo,System.Int32,System.Boolean,System.String[])">
+            <summary>Gets a recursive list of FileSystemInfos (both directories and files) with an integer 
+            for recursion depth to a depth of {maxDepth}. Defaults to a maxDepth of 2.</summary>
+        </member>
         <member name="M:WildHare.Extensions.StringBuilderExtensions.AppendIf(System.Text.StringBuilder,System.Boolean,System.String)">
             <summary>Append to StringBuilder when {ifCondition} is true.</summary>
         </member>

@@ -1,5 +1,7 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using WildHare.Tests.Models;
 using WildHare.Tests.Models.Generics;
 
 namespace WildHare.Tests;
@@ -26,6 +28,30 @@ public class ResultTests
 		Assert.AreEqual("",				result.Result.Message);
 		Assert.AreEqual(true,			result.Result.Ok);
 	}
+
+	[Test]
+	public void Test_Result_String_Null()
+	{
+		string nullStr = null;
+		var result  = nullStr.Success("");
+
+		Assert.AreEqual("", result.Data);
+		Assert.AreEqual("", result.Result.Message);
+		Assert.AreEqual(true, result.Result.Ok);
+	}
+
+	[Test]
+	public void Test_Result_List_Is_Null()
+	{
+		var list = new List<Item>();
+		list = null;
+		var result = list.Success([]); // must assign a default
+
+		Assert.AreEqual(0, result.Data.Count );
+		Assert.AreEqual("", result.Result.Message);
+		Assert.AreEqual(true, result.Result.Ok);
+	}
+
 
 	[Test]
 	public void Test_Result_String_Failure()
@@ -60,19 +86,34 @@ public class ResultTests
 	}
 
 	// [Test]
-	// public void Test_Result__With_Steps_Success()
+	// public void Test_Result_With_Recurive_Messages()
 	// {
-	// 	string[] expectedErrors = [""];
-	// 	string str = null;
-	// 	Result result =  str.ConvertStringToInt()
-	// 						.ConvertIntToString()
-	// 						.UpperCaseString()
-	// 						.IsEqualToString("");
+	// 	var result  = false.Failure("Should not be false.");
+	// 	var result2 = result.Failure("Should not be false again.");
+	// 	var result3 = result2.Failure("Should not be false again.");
 	// 
-	// 	Assert.AreEqual("",		result.Message);
-	// 	Assert.AreEqual(false,	result.Ok);
-	// 	Assert.AreEqual("IsEqualToString IsFailure", result.Error.Message);
+	// 
+	// 
+	// 
+	// 
+	// 	Assert.AreEqual(0, result3.GetAllMessages();
+	// 	// Assert.AreEqual("", result.Result.Message);
+	// 	// Assert.AreEqual(true, result.Result.Ok);
 	// }
+
+	[Test]
+	public void Test_Result__With_Steps_Success()
+	{
+		string[] expectedErrors = [""];
+		string str = null;
+		var result = str.IsNotNullString2()
+						.CanBeConvertedToUpper2()
+						.IsEqualToString2("");
+
+		Assert.AreEqual(false, result.Result.Ok);
+		Assert.AreEqual(null, result.Data);
+		Assert.AreEqual("Bad data.", result.Result.Message);
+	}
 }
 
 
@@ -80,33 +121,28 @@ public class ResultTests
 // TestSteps class for tests above ^^^
 // ==================================================================================
 
-// public static class TestSteps
-// {
-// 	public static (int, Result) ConvertStringToInt(this string s)
-// 	{
-// 		var x = int.TryParse(s, out int resp) ? resp : 0;	
-// 
-// 		return x.ToResult(); 
-// 	}
-// 	
-// 	public static (string, Result) ConvertIntToString(this (int data, Result result) result)
-// 	{
-// 		var data = result.data.ToString();
-// 
-// 		return data.ToResult();
-// 	}
-// 
-// 	public static (string, Result) UpperCaseString(this (string, Result) result)
-// 	{
-// 		return Returns.IfData(result?.Data?.ToUpper(), "ToUpper failed.");
-// 	}
-// 
-// 	public static Result IsEqualToString(this (string, Result) result, string str)
-// 	{
-// 		return result.Ok
-// 			? Returns.Ok($"{result.Data} is valid")  
-// 			: new Exception("IsEqualToString IsFailure");
-// 	}
-// }
+public static class TestSteps
+{
+	public static (string Data, Result Result) IsNotNullString2(this string s)
+	{
+		// Add failure message if s is null
+		return s.ToResult();
+	}
+
+	public static (string Data, Result Result) CanBeConvertedToUpper2(this (string Data, Result Result) result)
+	{
+		// Add failure message if result.Data is not a string
+		return (result.Data, result.Result);
+	}
+
+	public static (string Data, Result Result) IsEqualToString2(this (string Data, Result Result) result, string str)
+	{
+		// Check equivalence
+		return result.Result.Ok
+			? result.Data.Success()
+			: result.Data.Failure("Bad data.");
+	}
+}
+
 
 

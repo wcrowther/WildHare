@@ -21,12 +21,12 @@ namespace WildHare.Extensions
 
         public static bool TryGet<T>(this IDictionary<string, object> dictionary, string key, out T value)
         {
-            if (dictionary.TryGetValue(key, out object result) && result is T)
+            if (dictionary.TryGetValue(key, out object result) && result is T t)
             {
-                value = (T)result;
+                value = t;
                 return true;
             }
-            value = default(T);
+            value = default;
 
             return false;
         }

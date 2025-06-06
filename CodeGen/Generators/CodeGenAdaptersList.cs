@@ -20,7 +20,7 @@ public partial class CodeGenAdaptersList(AppSettings appSettings)
 		var adapterListTemplate = GenAdapterList(adapterList, "Model");
 		adapterListTemplate.WriteToFile(appSettings.Adapter.AdapterListOutputFile, true);
 
-		return "Success";
+		return $"Success. List written to file: {appSettings.Adapter.AdapterListOutputFile}";
 	}
 
 	public string GenAdapterList(Type[] typeList, string suffix)

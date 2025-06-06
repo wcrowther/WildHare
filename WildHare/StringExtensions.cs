@@ -273,24 +273,21 @@ namespace WildHare.Extensions
             if (s == null)
                 return null;
 
-            var sepArray = new string[1] { separator }; // .Split requires string array
-            var array = s.Split(sepArray, StringSplitOptions.None);
+			var array = s.Split(separator, StringSplitOptions.None);
 
-            return includeSeparator && s.Contains(separator) ? array[0] + separator : array[0];
+            return includeSeparator && s.Contains(separator) ? array.First() + separator : array.First();
         }
 
         /// <summary>Splits string into an array based on {separator} and returns the end element.
         /// Includes the separator if {includeSeparator} is true and it is contained in the string.</summary>
         public static string GetEndAfter(this string s, string separator, bool includeSeparator = false)
         {
-            if (s == null || s.IndexOf(separator) == -1)
+            if (s == null || !s.Contains(separator, StringComparison.CurrentCulture))
                 return null;
 
-            var sepArray = new string[1] { separator }; // .Split requires string array
-            var array = s.Split(sepArray, StringSplitOptions.None);
-            int last = array.Length - 1;
+            var array = s.Split(separator, StringSplitOptions.None);
 
-            return includeSeparator && s.Contains(separator) ? separator + array[last] : array[last];
+            return includeSeparator && s.Contains(separator) ? separator + array.Last() : array.Last();
         }
 
         [Obsolete("GetStart has been renamed to GetStartBefore and will be removed in a future version.")]

@@ -99,11 +99,15 @@ namespace WildHare.Extensions
                 if (dirs.Count == 0)
                     return;
 
-                if (depth <= maxDepth)
+                if (depth < maxDepth)
                 {
-                    foreach (var dir in dirs)
+					Debug.WriteLine($"depth: {depth}");
+
+					int nestedDepth = depth + 1;
+
+					foreach (var dir in dirs)
                     {
-                        EnumerateFileSystemInfos((DirectoryInfo)dir, fileInfoList, depth + 1, maxDepth);
+                        EnumerateFileSystemInfos((DirectoryInfo)dir, fileInfoList, nestedDepth, maxDepth);
                     }
                 }
 
@@ -198,55 +202,73 @@ namespace WildHare.Extensions
         /// equals {directoryName}.  Returns null if no matches.</summary>
         public static DirectoryInfo Sibling(this DirectoryInfo directoryInfo, string directoryName)
         {
-            string exMessage = "The DirectoryInfo.Sibling extension method requires a directoryName that is not null and not just whitespace.";
+            string exMessage = "The DirectoryInfo.Sibling extension method requires a directoryName that is not null and not whitespace.";
 
             if (directoryName.IsNullOrSpace())
                 throw new Exception(exMessage);
 
             return directoryInfo.Parent.Child(directoryName);
         }
-    }
+
+		// =================================================================
+
+		/// <summary>Gets a recursive list of FileSystemInfos (both directories and files) with an integer 
+		/// for recursion depth to a depth of {maxDepth}. Defaults to a maxDepth of 2.</summary>
+		public static IEnumerable<(FileSystemInfo Info, int Depth)> GetFileSystemHierarchy(this DirectoryInfo directory, 
+																					            int maxRecursion = 2,
+																								bool hideRoot = true,
+																								string[] exclude = null )
+		{
+			if (directory is null || !directory.Exists)
+				throw new DirectoryNotFoundException($"The directory does not exist.");
+
+			exclude ??= [];
+
+			var hiearchy = EnumerateDirectory(directory, 0, maxRecursion, exclude);
+
+			return hideRoot ? hiearchy.Skip(1) : hiearchy;
+		}
+
+		// =================================================================
+
+		private static IEnumerable<(FileSystemInfo Info, int Depth)> EnumerateDirectory( DirectoryInfo dir, int depth, 
+																						 int maxDepth, string[] exclude )
+		{
+			if (depth > maxDepth) 
+				yield break;
+
+			yield return (dir, depth);
+
+			FileSystemInfo[] entries;
+			try
+			{
+				entries = dir.GetFileSystemInfos();
+			}
+			catch (UnauthorizedAccessException)
+			{
+				yield break; // Skip directories you can't access
+			}
+
+			foreach (var entry in entries)
+			{
+				if (entry is DirectoryInfo subDir && !entry.Name.EqualsAny(true, exclude))
+				{
+					// if (!subDir.Name.EqualsAny(true, exclude))
+					//    yield return (entry, depth);
+
+					foreach (var item in EnumerateDirectory(subDir, depth + 1, maxDepth, exclude))
+					{
+						if(!item.Info.Name.EqualsAny(true, exclude))
+							yield return item;
+					}
+				}
+				else
+				{
+					if (!entry.Name.EqualsAny(true, exclude))
+						yield return (entry, depth + 1);
+				}
+			}
+		}
+
+	}
 }
-
-// =================================================================
-// PREVIOUS IMPLEMENTATION OF GETALL FILES - New version is better
-// =================================================================
-//public static List<FileInfo> GetAllFiles(this string path)
-//{
-//    var fileList = new List<FileInfo>();
-//    EnumerateFiles(path, fileList);
-//    return fileList;
-//}
-
-//internal static void EnumerateFiles(string sFullPath, List<FileInfo> fileInfoList)
-//{
-//    try
-//    {
-//        var di = new DirectoryInfo(sFullPath);
-//        FileInfo[] files = di.GetFiles();
-
-//        foreach (FileInfo file in files)
-//        {
-//            fileInfoList.Add(file);
-//        }
-
-//        //Scan recursively
-//        DirectoryInfo[] dirs = di.GetDirectories();
-
-//        if (dirs == null || dirs.Length < 1)
-//        {
-//            return;
-//        }
-
-//        foreach (DirectoryInfo dir in dirs)
-//        {
-//            EnumerateFiles(dir.FullName, fileInfoList);
-//        }
-//    }
-//    catch (Exception ex)
-//    {
-//        // Logger.Write("Exception in Helper.EnumerateFiles", ex);
-
-//        Debug.WriteLine($"EnumerateFiles Exception: {ex.Message}" );
-//    }
-//}
