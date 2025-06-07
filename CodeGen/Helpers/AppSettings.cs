@@ -3,6 +3,8 @@ namespace CodeGen.Models
 {
     public class AppSettings 
     {
+		public string ProjectRoot { get; set; }
+
 		public bool ClearConsole { get; set; }
 
 		public string SourceRoot { get; set; }
@@ -31,20 +33,20 @@ namespace CodeGen.Models
 
         public string ModelsTargetFolder { get; set; }
 
-		public Adapter Adapter { get; set; }
+		public Adapters Adapter { get; set; }
 
 		public TransformFiles TransformFiles { get; set; }
     }
 
-	public class Adapter
+	public class Adapters
 	{
 		public string OutputFolder { get; set; }
 
-		public string Namespace { get; set; }
+		public string AdapterNamespace { get; set; }
 
-		public string Namespace1 { get; set; }
+		public string MapNamespace1 { get; set; }
 
-		public string Namespace2 { get; set; }
+		public string MapNamespace2 { get; set; }
 
 		public string MapName1 { get; set; }
 

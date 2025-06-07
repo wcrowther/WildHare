@@ -2,6 +2,7 @@ using CodeGen.Models;
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,60 +16,63 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 {
 	private readonly string indent		= "\t".Repeat(3);
 	private readonly string end			= $",{NewLine}";
-	private const int pad = -20;
-	private string projectRoot;
-	private string outputFolder;
-	private int adaptersRun = 0;
+	private const int pad				= -20;
+	private int adaptersRun				= 0;
 
 	public string Init ()
 	{
-		outputFolder = $"{projectRoot}{appSettings.Adapter.OutputFolder}";
+		// ===============================================================================================
+		// Generate the Adapters List Template code to be pasted in to CodeGenAdapters_RunAdaptersList.cs
+		// Run CodeGentAdaptersList.cs to generate from a specific namespace or type.
+		// ===============================================================================================
 
-		RunAdapterList();
+		RunAdaptersList();
 
 		if (adaptersRun == 0)
 		{ 
 			return	$"No adapters were generated. Run 'Generate Adapters List' to populate{NewLine} " +
-					$"the RunAdapterList() method in 'CodeGenAdapters_Run.cs'";		
+					$"the RunAdaptersList() method in 'CodeGenAdapters_Run.cs'";		
 		}
 
-		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdapterList)} code written to " +
-						$"'{appSettings.Adapter.OutputFolder}'. Overwrite: {appSettings.Overwrite}";
+		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdaptersList)} code written to " +
+						$"'{OutputFolder}'. Overwrite: {appSettings.Overwrite}";
 
 		Debug.WriteLine($"{divider}{result}");
 
 		return result;
-
-		// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 	}
 
 	// ==================================================================================
+	// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
-	private bool GenerateAdapter(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
+	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.Adapter.AdapterListOutputFile).EnsureEnd("\\");
+
+
+	private bool AdaptersTemplate(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
 	{
-		string class1 = type1.Name;
-		string class2 = type2.Name;
-		string map1 = appSettings.Adapter.MapName1;
-		string map2 = appSettings.Adapter.MapName2;
+		string class1	= type1.Name;
+		string class2	= type2.Name;
+		string map1		= appSettings.Adapter.MapName1;
+		string map2		= appSettings.Adapter.MapName2;
 
-		string adapterFileName = $"{class1}Adapter.cs";
+		string adapterFileName = $"{class1}Adapters.cs";
 
 		string output =
 		$$"""
-		using {{appSettings.Adapter.Namespace1}};
-		using {{appSettings.Adapter.Namespace2}};
+		using {{appSettings.Adapter.MapNamespace1}};
+		using {{appSettings.Adapter.MapNamespace2}};
 		using System.Linq;
 		using System.Collections.Generic;
 		
-		namespace {{appSettings.Adapter.Namespace}};
+		namespace {{appSettings.Adapter.AdapterNamespace}};
 		
-		public static partial class Adapter
+		public static partial class Adapters
 		{
 			public static {{class2}} To{{class2}} (this {{class1}} {{map1}})
 			{
 				return {{map1}} == null ? null : new {{class2}}
 				{
-				{{GenAdapterPropertiesList(type1, type2, map1)}}
+				{{TemplateAdapterProperties(type1, type2, map1)}}
 				};
 			}
 		
@@ -76,14 +80,14 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 			{
 				return {{map2}} == null ? null : new {{class1}}
 				{
-				{{GenAdapterPropertiesList(type2, type1, map2)}}
+				{{TemplateAdapterProperties(type2, type1, map2)}}
 				};
 			}
-			{{GenAdapterListCode(class1, class2, map1, map2, generateListCode)}}
+			{{TemplateListAdapters(class1, class2, map1, map2, generateListCode)}}
 		}
 		""";
 
-		string outputPath = $"{appSettings.Adapter.OutputFolder}{adapterFileName}";
+		string outputPath = $"{OutputFolder}{adapterFileName}";
 
 		bool isSuccess = output.WriteToFile(outputPath, overwrite);
 
@@ -96,7 +100,7 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 		return isSuccess;
 	}
 
-	private string GenAdapterPropertiesList(Type type, Type toType, string mapName)
+	private string TemplateAdapterProperties(Type type, Type toType, string mapName)
 	{
 		var sb = new StringBuilder();
 
@@ -106,17 +110,17 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 
 			if (prop.Name.EqualsAnyIgnoreCase(toTypeProps))
 			{
-				sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{GenToListAdapter(prop)}{end}");
+				sb.Append($"{indent}{prop.Name,pad} = {mapName}.{prop.Name}{TemplateAdapterToList(prop)}{end}");
 			}
 			else
 			{
-				sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{GenToListAdapter(prop)}{end}");
+				sb.Append($"{indent}// No Match // {prop.Name,pad} = {mapName}.{prop.Name}{TemplateAdapterToList(prop)}{end}");
 			}
 		 }
 		 return sb.ToString().RemoveStartEnd("\t\t", end);
 	}
 
-	private string GenAdapterListCode(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
+	private static string TemplateListAdapters(string class1, string class2, string mapName1, string mapName2, bool genListCode = true)
 	{
 		if (!genListCode)
 			return "";
@@ -139,7 +143,7 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 					    .RemoveStart("\t");   // Add initial line formatting if needed
 	}
 
-	private static string GenToListAdapter(PropertyInfo prop)
+	private static string TemplateAdapterToList(PropertyInfo prop)
 	{
 		if (!typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) || prop.PropertyType == typeof(string))
 			return null;

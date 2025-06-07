@@ -13,68 +13,68 @@ namespace CodeGen.Generators
 {
     public static class CodeGenCssClassesUsedInProject
     {
-        public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
-        {
-            if (sourceFolderRootPath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} sourceFolderPath is null or empty.");
+		public static string Init(string sourceFolderRootPath, string writeToFilePath, bool overwrite = true)
+		{
+			if (sourceFolderRootPath.IsNullOrEmpty())
+				throw new ArgumentNullException(nameof(sourceFolderRootPath));
 
-            if (writeToFilePath.IsNullOrEmpty())
-                throw new ArgumentNullException($"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} writeToFilePath is null or empty.");
+			if (writeToFilePath.IsNullOrEmpty())
+				throw new ArgumentNullException(nameof(writeToFilePath));
 
-            string start = "\t";
+			string start = "\t";
 
-            var classTags = new List<ClassTag>();
+			var classTags = new List<ClassTag>();
 
-            var allFiles = $@"{sourceFolderRootPath}"
-                .GetAllFiles("*.cshtml");
+			var allFiles = $@"{sourceFolderRootPath}"
+				.GetAllFiles("*.cshtml");
 
-            var sb = new StringBuilder();
-            sb.AppendLine("=".Repeat(100));
-            sb.AppendLine("List of CSS Classes Used in the Project");
-            sb.AppendLine($"For All Files Under {sourceFolderRootPath}");
-            sb.AppendLine($"Generated Using CodeTemplate {nameof(CodeGenCssClassesUsedInProject)} On {DateTime.Now}");
-            sb.AppendLine("=".Repeat(100) + NewLine);
+			var sb = new StringBuilder();
+			sb.AppendLine("=".Repeat(100));
+			sb.AppendLine("List of CSS Classes Used in the Project");
+			sb.AppendLine($"For All Files Under {sourceFolderRootPath}");
+			sb.AppendLine($"Generated Using CodeTemplate {nameof(CodeGenCssClassesUsedInProject)} On {DateTime.Now}");
+			sb.AppendLine("=".Repeat(100) + NewLine);
 
-            foreach (var file in allFiles)
-            {
-                GetClassTagList(sb, file, classTags);
-            }
+			foreach (var file in allFiles)
+			{
+				GetClassTagList(sb, file, classTags);
+			}
 
-            // =============================================================================
-            // Render ClassTag list
-            // =============================================================================
+			// =============================================================================
+			// Render ClassTag list
+			// =============================================================================
 
-            var groupedClassTags = classTags.OrderBy(o => o.Name)
-                                            .GroupBy(g => g.Name, g => g.Reference,
-                                                    (name, refs) => new ClassTag { Name = name, References = refs.ToList() }
-                                             );
+			var groupedClassTags = classTags.OrderBy(o => o.Name)
+											.GroupBy(g => g.Name, g => g.Reference,
+													(name, refs) => new ClassTag { Name = name, References = refs.ToList() }
+											 );
 
-            if (groupedClassTags.Count() > 0)
-            {
-                sb.AppendLine(start + "-".Repeat(90));
-                sb.AppendLine($"{start}{groupedClassTags.Count()} class references");
-                sb.AppendLine(start + "-".Repeat(90));
-            }
+			if (groupedClassTags.Count() > 0)
+			{
+				sb.AppendLine(start + "-".Repeat(90));
+				sb.AppendLine($"{start}{groupedClassTags.Count()} class references");
+				sb.AppendLine(start + "-".Repeat(90));
+			}
 
-            foreach (var classTag in groupedClassTags)
-            {
-                sb.AppendLine($"{start}{classTag.Name,-40} count: {classTag.References.Count} ");
-            }
+			foreach (var classTag in groupedClassTags)
+			{
+				sb.AppendLine($"{start}{classTag.Name,-40} count: {classTag.References.Count} ");
+			}
 
-            if (groupedClassTags.Count() > 0)
-                sb.AppendLine("=".Repeat(100));
+			if (groupedClassTags.Count() > 0)
+				sb.AppendLine("=".Repeat(100));
 
-            bool success = sb.ToString().WriteToFile(writeToFilePath, overwrite);
+			bool success = sb.ToString().WriteToFile(writeToFilePath, overwrite);
 
-            string result = $"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} code written to {NewLine}" +
-                            $" '{writeToFilePath}'.{NewLine}" +
-                            $"Success: {success}{NewLine}" +
-                            $"Overwrite: {overwrite}{NewLine}";
+			string result = $"{nameof(CodeGenCssClassesUsedInProject)}.{nameof(Init)} code written to {NewLine}" +
+							$" '{writeToFilePath}'.{NewLine}" +
+							$"Success: {success}{NewLine}" +
+							$"Overwrite: {overwrite}{NewLine}";
 
-            Debug.WriteLine(result);
+			Debug.WriteLine(result);
 
-            return result;
-        }
+			return result;
+		}
 
         // =======================================================================
         // PRIVATE FUNCTIONS

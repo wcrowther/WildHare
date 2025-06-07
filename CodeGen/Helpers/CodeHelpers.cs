@@ -1,10 +1,11 @@
 ﻿
+using System;
 using WildHare.Extensions;
 
 namespace CodeGen.Helpers;
 
 public static class CodeHelpers
 {
-	public readonly static string divider = "=".Repeat(80);
+	public readonly static string divider = "=".Repeat(80) + Environment.NewLine;
 
 }
