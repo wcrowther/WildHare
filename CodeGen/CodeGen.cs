@@ -37,7 +37,7 @@ namespace CodeGen
 
 			menuMessage = inputs[0].ToInt() switch
 			{
-				1 => new CodeGenAdaptersList(appSettings)		.Init(typeof(Account)),
+				1 => new CodeGenAdaptersList(appSettings)		.Init(),
 				2 => new CodeGenAdapters(appSettings)			.Init(),
 				3 => new CodeGenPartialsSummary(appSettings)	.Init(),
 				4 => new CodeGenCssStylesheets(appSettings)		.Init(),
@@ -75,6 +75,7 @@ namespace CodeGen
 
 			Write(menu);
 		}
+
 	}
 }
 

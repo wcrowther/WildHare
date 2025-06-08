@@ -45,7 +45,7 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 	// ==================================================================================
 	// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
-	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.Adapter.AdapterListOutputFile).EnsureEnd("\\");
+	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.Adapter.OutputFolder).EnsureEnd("\\");
 
 
 	private bool AdaptersTemplate(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)

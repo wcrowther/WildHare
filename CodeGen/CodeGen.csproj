@@ -42,4 +42,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Examples\Adapters\" />
+  </ItemGroup>
+
 </Project>

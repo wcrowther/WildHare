@@ -365,7 +365,7 @@ namespace WildHare.Extensions
             if (input is null)
                 return false;
             
-            return input.Count() == input.NumbersOnly(otherCharacters).Count();
+            return input.Length == input.NumbersOnly(otherCharacters).Length;
         }
 
         /// <summary>Returns true if the string includes only letters, and any additional characters in {otherCharacters}.</summary>
@@ -374,7 +374,7 @@ namespace WildHare.Extensions
             if (input is null)
                 return false;
 
-            return input.Count() == input.LettersOnly(otherCharacters).Count();
+            return input.Length == input.LettersOnly(otherCharacters).Length;
         }
 
         /// <summary>Returns true if the string includes only numbers, letters, and any additional characters in {otherCharacters}.</summary>
@@ -383,7 +383,7 @@ namespace WildHare.Extensions
             if (input is null)
                 return false;
             
-            return input.Count() == input.NumbersAndLettersOnly(otherCharacters).Count();
+            return input.Length == input.NumbersAndLettersOnly(otherCharacters).Length;
         }
 
         /// <summary>Returns true if the string includes only characters in {includeCharacters}.</summary>
@@ -392,7 +392,7 @@ namespace WildHare.Extensions
             if (input is null)
                 return false; 
 
-            return input.Count() == input.NumbersAndLettersOnly(includeCharacters).Count();
+            return input.Length == input.NumbersAndLettersOnly(includeCharacters).Length;
         }
 
         /// <summary>Truncates a string down if it is over {maxcharacters}. If truncated it adds {more} parameter
@@ -815,7 +815,7 @@ namespace WildHare.Extensions
 
         public static string Format(this string format, params object[] args)
         {
-            if (format.Count(c => c == '{') != args.Count() || format.Count(c => c == '}') != args.Count())
+            if (format.Count(c => c == '{') != args.Length || format.Count(c => c == '}') != args.Length)
             {
                 throw new ArgumentException("The format string must contain arguments matching the number of placeholders.");
             }
@@ -862,7 +862,7 @@ namespace WildHare.Extensions
 
         public static string Format(this string format, IFormatProvider provider, params object[] args)
         {
-            if (format.Count(c => c == '{') != args.Count() || format.Count(c => c == '}') != args.Count())
+            if (format.Count(c => c == '{') != args.Length || format.Count(c => c == '}') != args.Length)
             {
                 throw new ArgumentException("The format string must contain arguments matching the number of placeholders.");
             }

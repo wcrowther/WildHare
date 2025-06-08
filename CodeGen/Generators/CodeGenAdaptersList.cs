@@ -6,7 +6,7 @@ using System.Text;
 using WildHare.Extensions;
 using static CodeGen.Helpers.CodeHelpers;
 using static System.Environment;
-
+using Types = WildHare.Extensions.TypeExtensions;
 
 namespace CodeGen.Generators;
 
@@ -14,9 +14,10 @@ public partial class CodeGenAdaptersList(AppSettings appSettings)
 {
 	private const string indent = "\t\t";
 
-	public string Init (Type typeInNamespace)
+	public string Init ()
 	{
-		var adapterList = typeInNamespace.GetTypesInNamespace(appSettings.Adapter.MapNamespace1);
+		string mapNamespace1 = appSettings.Adapter.MapNamespace1;
+		var adapterList = Types.GetTypesInNamespace(mapNamespace1);
 
 		var adapterListTemplate = AdaptersListTemplate(adapterList, "Model");
 		adapterListTemplate.WriteToFile(AdapterListOutputFile, true);

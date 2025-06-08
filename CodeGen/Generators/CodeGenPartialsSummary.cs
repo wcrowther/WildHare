@@ -51,7 +51,7 @@ namespace CodeGen.Generators
                 GetPartialsForFile(sb, file);
             }
 
-            if (allFiles.Count() > 0)
+            if (allFiles.Count > 0)
                 sb.AppendLine("=".Repeat(100));
             else
                 sb.AppendLine("No Files To Process");
@@ -86,7 +86,7 @@ namespace CodeGen.Generators
 
             var partials = doc.QuerySelectorAll("partial");
 
-            if (partials.Count() > 0)
+            if (partials.Length > 0)
             {
                 sb.AppendLine($"\t{file.Name, columnWidth}");
 

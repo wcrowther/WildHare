@@ -90,7 +90,7 @@ public class IOExtensionsTests
 
         sb.ToString().WriteToFile(pathToWriteTo, true);
 
-        Assert.AreEqual(4, allFiles.Count());
+        Assert.AreEqual(4, allFiles.Count);
     }
 
     [Test]
@@ -151,7 +151,7 @@ public class IOExtensionsTests
         string filesAndFolders = folders.ToString() + files.ToString();
         filesAndFolders.WriteToFile(outputPath, true);
 
-        Assert.AreEqual(16, allFilesAndFolders.Count());
+        Assert.AreEqual(16, allFilesAndFolders.Length);
     }
 
 	[Test]

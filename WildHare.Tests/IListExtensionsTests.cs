@@ -199,7 +199,7 @@ namespace WildHare.Tests
 
             var taken = numbers.TakeNext(4, offset);
 
-            Assert.AreEqual(4, taken.Count());
+            Assert.AreEqual(4, taken.Count);
 
             Assert.AreEqual(2, taken[0]);
             Assert.AreEqual(3, taken[1]);
@@ -297,14 +297,14 @@ namespace WildHare.Tests
 
             var famDictionary = familiesList.ToDictionary(g => g.Key, g => g.ToList());
 
-            Assert.AreEqual(5, people.Count());
+            Assert.AreEqual(5, people.Count);
             Assert.AreEqual(2, familiesList.Count());
 
-            Assert.AreEqual(2, famDictionary.Count());
-            Assert.AreEqual(2, famDictionary.Values.Count());
-            Assert.AreEqual(2, famDictionary.Keys.Count());
-            Assert.AreEqual(2, famDictionary["Smith"].Count());
-            Assert.AreEqual(3, famDictionary["Jones"].Count());
+            Assert.AreEqual(2, famDictionary.Count);
+            Assert.AreEqual(2, famDictionary.Values.Count);
+            Assert.AreEqual(2, famDictionary.Keys.Count);
+            Assert.AreEqual(2, famDictionary["Smith"].Count);
+            Assert.AreEqual(3, famDictionary["Jones"].Count);
 
             // =======================================================
             // ToLookup(): simplest, best performance(?)
@@ -325,7 +325,7 @@ namespace WildHare.Tests
             }
             Debug.WriteLine("-".Repeat(20));
 
-            Assert.AreEqual(2, famLookUp.Count());
+            Assert.AreEqual(2, famLookUp.Count);
             Assert.AreEqual(2, famLookUp["Smith"].Count());
             Assert.AreEqual(3, famLookUp["Jones"].Count());
             Assert.AreEqual(0, famLookUp["Crowther"].Count()); // Empty does not throw
@@ -455,7 +455,7 @@ namespace WildHare.Tests
 
             words.ReplaceItem(3, "new");
 
-            Assert.AreEqual(5, words.Count());
+            Assert.AreEqual(5, words.Count);
             Assert.AreEqual("This is the new item.", string.Join(' ', words));
         }
 
@@ -473,7 +473,7 @@ namespace WildHare.Tests
 
             people.ReplaceItem(2, person);
 
-            Assert.AreEqual(3, people.Count());
+            Assert.AreEqual(3, people.Count);
             Assert.AreEqual($"Joe Blogs",  $"{people[2].FirstName} {people[2].LastName}");
         }
 
@@ -498,7 +498,7 @@ namespace WildHare.Tests
 
             tokens.ReplaceItems(2, newTokens);  // replace token "the united states" with "a foreign country"
 
-            Assert.AreEqual(5, tokens.Count());
+            Assert.AreEqual(5, tokens.Count);
             Assert.AreEqual("the president of a foreign country", string.Join(" ", tokens.Select(s => s.Text)));
         }
 

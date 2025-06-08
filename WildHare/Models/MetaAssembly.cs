@@ -271,10 +271,10 @@ namespace WildHare
         {
             var genericArguments = method.GetGenericArguments();
 
-            if(genericArguments.Count() == 0)
+            if(genericArguments.Length == 0)
                 return "";
 
-            return $"``{genericArguments.Count()}";
+            return $"``{genericArguments.Length}";
         }
 
         private List<MetaModel> GetAllMetaModels()

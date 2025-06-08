@@ -43,7 +43,7 @@ namespace CodeGen.Generators
                 GetStyleInfoForFile(sb, file);
             }
 
-            if (allFiles.Count() > 0)
+            if (allFiles.Count > 0)
                 sb.AppendLine("=".Repeat(100));
 
             bool success = sb.ToString()
@@ -76,10 +76,10 @@ namespace CodeGen.Generators
 
             var styles = doc.QuerySelectorAll("*[style]");
 
-            if (styles.Count() > 0)
+            if (styles.Length > 0)
             {
                 sb.AppendLine(start + "-".Repeat(90));
-                sb.AppendLine($"{start}{styles.Count()} inline style references");
+                sb.AppendLine($"{start}{styles.Length} inline style references");
                 sb.AppendLine(start + "-".Repeat(90));
             }
 
@@ -94,10 +94,10 @@ namespace CodeGen.Generators
 
             var styleImports = doc.QuerySelectorAll("link[rel=stylesheet]");
 
-            if (styleImports.Count() > 0)
+            if (styleImports.Length > 0)
             {
                 sb.AppendLine(start + "-".Repeat(90));
-                sb.AppendLine($"{start}{styleImports.Count()} stylesheet references");
+                sb.AppendLine($"{start}{styleImports.Length} stylesheet references");
                 sb.AppendLine(start + "-".Repeat(90));
             }
 
@@ -113,10 +113,10 @@ namespace CodeGen.Generators
 
             var classTagList = doc.QuerySelectorAll("*[class]");
 
-            if (classTagList.Count() > 0)
+            if (classTagList.Length > 0)
             {
                 sb.AppendLine(start + "-".Repeat(90));
-                sb.AppendLine($"{start}{classTagList.Count()} class references");
+                sb.AppendLine($"{start}{classTagList.Length} class references");
                 sb.AppendLine(start + "-".Repeat(90));
             }
 

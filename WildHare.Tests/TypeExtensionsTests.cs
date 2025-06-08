@@ -12,6 +12,7 @@ using WildHare.Tests.Interfaces;
 using WildHare.Tests.Models;
 using static System.Environment;
 using static WildHare.Xtra.XtraExtensions;
+using Types = WildHare.Extensions.TypeExtensions;
 
 namespace WildHare.Tests
 {
@@ -118,7 +119,7 @@ namespace WildHare.Tests
             Assert.AreEqual(1, metaListModel.GetMetaProperties().Count);
             Assert.AreEqual("ClassName", metaListModel.GetMetaProperties().First().Name);
 
-            var list = new List<ClassRequiringCtorParam> { new ClassRequiringCtorParam("Fred") };
+            var list = new List<ClassRequiringCtorParam> { new("Fred") };
 
             Assert.AreEqual("ClassRequiringCtorParam", list.GetMetaModel().TypeName);
             Assert.AreEqual("Fred", list.First().ClassName);
@@ -181,7 +182,7 @@ namespace WildHare.Tests
                 ItemId = 1,
                 ItemName = "One",
                 Created = now,
-                Stuff = new List<string>() { "stuff1", "stuff2" }
+                Stuff = ["stuff1", "stuff2"]
             };
             var metaProperties = item.GetMetaProperties();
 
@@ -194,7 +195,7 @@ namespace WildHare.Tests
 
             // For some reason ElementAt extension method does not work on dynamic List<Item> ?
             // Assert.AreEqual("stuff1", metaProperties[3].GetInstanceValue().ToList().ElementAt(0));
-            var list = item.Stuff.ElementAt(0); // this works for non-dynamic
+            // var list = item.Stuff.ElementAt(0); // this works for non-dynamic
         }
 
         [Test]
@@ -260,7 +261,7 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(6,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual(6, typesDerivedFromTeam.Count);
             Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
             Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
             Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
@@ -275,15 +276,15 @@ namespace WildHare.Tests
             // Has no derived classes
             var typesDerivedFromTeam = typeof(BaseballTeam).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(0, typesDerivedFromTeam.Count());
+            Assert.AreEqual(0, typesDerivedFromTeam.Count);
         }
 
         [Test]
         public void GetDerivedClasses_Ignore_Types()
         {
-            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(new[] { "BaseballTeam", "NflTeam" }).ToList();
+            var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(["BaseballTeam", "NflTeam"]).ToList();
 
-            Assert.AreEqual(4,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual(4, typesDerivedFromTeam.Count);
             Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
             Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[1].Name);
             Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[2].Name);
@@ -297,7 +298,7 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(includeBaseType: true).ToList();
 
-            Assert.AreEqual(7,                  typesDerivedFromTeam.Count());
+            Assert.AreEqual(7, typesDerivedFromTeam.Count);
             Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
             Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
             Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
@@ -314,7 +315,7 @@ namespace WildHare.Tests
             var thisAssembly = Assembly.GetExecutingAssembly();
             var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(otherAssembly: thisAssembly).ToList();
 
-            Assert.AreEqual(2, typesDerivedFromTest.Count());
+            Assert.AreEqual(2, typesDerivedFromTest.Count);
             Assert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
             Assert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
         }
@@ -327,7 +328,7 @@ namespace WildHare.Tests
             var thisAssembly = Assembly.GetExecutingAssembly();
             var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(includeBaseType: true, otherAssembly: thisAssembly).ToList();
 
-            Assert.AreEqual(3, typesDerivedFromTest.Count());
+            Assert.AreEqual(3, typesDerivedFromTest.Count);
             Assert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
             Assert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
             Assert.AreEqual("TestModel", typesDerivedFromTest[2].Name);
@@ -411,7 +412,7 @@ namespace WildHare.Tests
 
             var interfaces = objects.GetCommonInterfaces();
 
-            Assert.AreEqual(3, interfaces?.Count() ?? 0);
+            Assert.AreEqual(3, interfaces?.Length ?? 0);
             Assert.AreEqual("I_Fruit", interfaces[0].Name);
         }
 
@@ -428,7 +429,7 @@ namespace WildHare.Tests
 
             var interfaces = objects.GetCommonInterfaces();
 
-            Assert.AreEqual(1, interfaces?.Count() ?? 1);
+            Assert.AreEqual(1, interfaces?.Length ?? 1);
             Assert.AreEqual("I_Object", interfaces[0].Name);
         }
 
@@ -445,7 +446,7 @@ namespace WildHare.Tests
 
             var interfaces = objects.GetCommonInterfaces();
 
-            Assert.AreEqual(1, interfaces?.Count() ?? 1);
+            Assert.AreEqual(1, interfaces?.Length ?? 1);
             Assert.AreEqual("I_Object", interfaces[0].Name);
             Assert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
@@ -463,7 +464,7 @@ namespace WildHare.Tests
 
             var interfaces = fruits.GetCommonInterfaces();
 
-            Assert.AreEqual(3, interfaces?.Count() ?? 3);
+            Assert.AreEqual(3, interfaces?.Length ?? 3);
             Assert.AreEqual("I_Fruit", interfaces[0].Name);
             Assert.AreEqual(3m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
@@ -483,7 +484,7 @@ namespace WildHare.Tests
                                     .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
                                     .ToArray();
 
-            Assert.AreEqual(3, interfaces?.Count() ?? 0);
+            Assert.AreEqual(3, interfaces?.Length ?? 0);
             Assert.AreEqual("I_Object", interfaces[0].Name);
             Assert.AreEqual("I_Food", interfaces[1].Name);
             Assert.AreEqual("I_Fruit", interfaces[2].Name);
@@ -506,7 +507,7 @@ namespace WildHare.Tests
                                     .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
                                     .ToArray();
 
-            Assert.AreEqual(3, interfaces?.Count() ?? 0);
+            Assert.AreEqual(3, interfaces?.Length ?? 0);
             Assert.AreEqual("I_Object", interfaces[0].Name);
             Assert.AreEqual("I_Food", interfaces[1].Name);
             Assert.AreEqual("I_Fruit", interfaces[2].Name);
@@ -535,7 +536,7 @@ namespace WildHare.Tests
                 }
             }
 
-            Assert.AreEqual(2, typeParameters.Count());
+            Assert.AreEqual(2, typeParameters.Length);
         }
 
         [Test]
@@ -555,7 +556,7 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models");
 
             Assert.IsNotNull(types);
-            Assert.AreEqual(35, types.Count());
+            Assert.AreEqual(35, types.Length);
             Assert.AreEqual("Apple", types[1].Name);
         }
 
@@ -566,11 +567,21 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models", "Account,Apple".Split(','));
         
             Assert.IsNotNull(types);
-            Assert.AreEqual(33, types.Count());
+            Assert.AreEqual(33, types.Length);
             Assert.AreEqual("Automobile", types[1].Name);
         }
 
-        [Test]
+		[Test]
+		public void Test_GetTypesInNamespace()
+		{
+			var types = Types.GetTypesInNamespace("WildHare.Tests.Models");
+
+			Assert.IsNotNull(types);
+			Assert.AreEqual(35, types.Length);
+			Assert.AreEqual("ArsenalTeam", types[1].Name);
+		}
+
+		[Test]
         public void Test_GetObject_Attributes()
         {
             var obj = new Item();
@@ -583,7 +594,7 @@ namespace WildHare.Tests
             Assert.AreEqual(1, attributes.Length);
             Assert.IsNotNull(serializable);
             Assert.AreEqual(5, props.Count);
-            Assert.AreEqual(3, props[1].Attributes().Count());
+            Assert.AreEqual(3, props[1].Attributes().Length);
             Assert.AreEqual("ItemName", props[1].Name);
             Assert.IsNotNull(props[1].AttributeOfType<MinLengthAttribute>());
             Assert.AreEqual(2, props[1].AttributeOfType<MinLengthAttribute>().Length);
@@ -630,7 +641,7 @@ namespace WildHare.Tests
 
         // =============================================================================================
 
-        static List<string> validatorsList = new(); // list of validator like: required, minLength, maxLength, etc. before distinct
+        static readonly List<string> validatorsList = []; // list of validator like: required, minLength, maxLength, etc. before distinct
 
 		private static bool GenerateValidators(Assembly assembly, string namespaceStr, string pathToWriteTo, string[] excludeClasses = null)
         {

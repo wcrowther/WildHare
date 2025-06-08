@@ -674,6 +674,11 @@
             in the {namspace}. If {excludeList} is populated, any types with names that match a value
             in the list will be excluded.</summary>
         </member>
+        <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.String,System.Boolean)">
+            <summary>Finds all the types in an assembly given a string name {@namespace}. Excludes temp
+            types beginning with &lt;. Is not implemented as an extension method on string but must
+            be called like WildHare.Extensions.TypeExtensions.GetTypesInNamespace("WildHare.Tests.Models");</summary>
+        </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)">
             <summary></summary>
         </member>

@@ -30,7 +30,7 @@ public static class TypeExtensions
             Type type = instance.GetType();
 
             Type[] genericTypes = type.GetGenericArguments();
-            type = genericTypes.Count() > 0 ? genericTypes[0] : type;
+            type = genericTypes.Length > 0 ? genericTypes[0] : type;
 
             return new MetaModel(type);
         }
@@ -103,7 +103,36 @@ public static class TypeExtensions
 	
 	  return assembly.GetTypesInNamespace(nameSpace, excludeList);
 	}
-	
+
+	/// <summary>Finds all the types in an assembly given a string name {@namespace}. Excludes temp
+	/// types beginning with &lt;. Is not implemented as an extension method on string but must
+	/// be called like WildHare.Extensions.TypeExtensions.GetTypesInNamespace("WildHare.Tests.Models");</summary>
+	public static Type[] GetTypesInNamespace(string @namespace, bool includeSubNamespaces = false)
+	{
+		return AppDomain.CurrentDomain
+						.GetAssemblies()
+						.SelectMany(assembly =>
+						{
+							Type[] types;
+							try
+							{
+								types = assembly.GetTypes();
+							}
+							catch (ReflectionTypeLoadException ex)
+							{
+								types = ex.Types.Where(t => t != null).ToArray();
+							}
+							return types;
+						})
+						.Where(t =>
+							t.Namespace != null &&
+							!t.Name.StartsWith('<') && // don't show temp classes
+							(includeSubNamespaces
+								? t.Namespace.StartsWith(@namespace)
+								: t.Namespace == @namespace))
+						.ToArray();
+	}
+
 	/// <summary></summary>
 	public static MetaAssembly GetMetaAssembly(this Assembly assembly, string xmlDocumentationPath =  null)
     {

@@ -177,7 +177,7 @@ namespace WildHare.Tests
 
             Assert.AreEqual(3, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceId).Count());
             Assert.AreEqual(1234, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceItemId).First());
-            Assert.AreEqual(3, itemsList.Count());
+            Assert.AreEqual(3, itemsList.Count);
         }
 
         [Test]
