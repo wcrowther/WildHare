@@ -2,7 +2,6 @@ using CodeGen.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,39 +13,47 @@ using static System.Environment;
 namespace CodeGen.Generators;
 
 /*  ==========================================================================
-	new CodeGenValidators().Init();
+	string result = new CodeGenValidators(appSettings).Generate();  OR
+	string result = CodeGenValidators.Init(appSettings);
 	========================================================================== */
 
-public partial class CodeGenValidators(AppSettings app)
+public class CodeGenValidators(AppSettings app)
 {
-	// validators like: required, minLength, maxLength, etc.
-	static readonly List<string> validatorsList = []; 
+	// validators like: required, maxLength, etc.
+	private readonly static List<string> validatorsList = [];  
+	private readonly bool overwrite						= app.Overwrite;
+	private readonly string outputFilePath				= $"{app.ProjectRoot}{app.Validators.OutputFile}";
+	private readonly string sourceNamespace				= app.Validators.SourceNamespace;
+	private readonly string assemblyName				= app.Validators.SourceAssemblyName;
+	private readonly string[] excludeClasses			= app.Validators.ExcludeClasses.Split(",", true, true);
 
-	private static readonly string indent = "\t";
-	private const int pad = -20;
+	private static readonly string indent	= "\t";
+	private static readonly int pad			= -20;
 
-
-	public string Init()
+	public string Generate()
     {
-		string outputFilePath		= $"{app.ProjectRoot}{app.Validators.OutputFile}";
-		bool overwrite				= app.Overwrite;
-		string sourceNamespace		= app.Validators.SourceNamespace;
-		string assemblyName			= app.Validators.SourceAssemblyName;
-		string[] excludeClasses		= app.Validators.ExcludeClasses.Split(",", true, true);
-
 		var assembly = Assembly.Load(assemblyName);
-		var result   = GenerateValidators(assembly, sourceNamespace, outputFilePath, overwrite, excludeClasses);
+
+		if(assembly == null)
+			return $"Assembly {assemblyName} could not be loaded. Please check the assembly name and try again.";
+
+		var result = WriteValidators(assembly, sourceNamespace, outputFilePath, overwrite, excludeClasses);
 
         return result.Message;
     }
 
+	public static string Init(AppSettings app)
+	{
+		return new CodeGenValidators(app).Generate();
+	}
+
 	// ===========================================================================================
 
-	private static Result GenerateValidators(Assembly assembly, string sourceNamespace, string outputFilePath, bool overwrite, string[] excludeClasses = null)
+	private static Result WriteValidators(Assembly assembly, string sourceNamespace, string outputFilePath, bool overwrite, string[] excludeClasses = null)
 	{
-		var sb = new StringBuilder();
-		var typeList = assembly.GetTypesInNamespace(sourceNamespace, excludeClasses); // exclude: 
-		int validatorCount = 0;
+		var sb				= new StringBuilder();
+		var typeList		= assembly.GetTypesInNamespace(sourceNamespace, excludeClasses); // exclude: 
+		int validatorCount	= 0;
 
 		foreach (var type in typeList)
 		{
@@ -109,7 +116,7 @@ public partial class CodeGenValidators(AppSettings app)
 
 			foreach (var attr in attributes)
 			{
-				string attrStr = AttributeString(attr);
+				string attrStr = WriteAttributeString(attr);
 
 				validatorsList.Add(attrStr.GetStartBefore(":"));
 
@@ -124,12 +131,14 @@ public partial class CodeGenValidators(AppSettings app)
 		return ""; 
 	}
 
-	private static string AttributeString(Attribute attribute) => attribute switch
+	private static string WriteAttributeString(Attribute attribute) => attribute switch
 	{
 		RequiredAttribute  _ => $"required",
 		MinLengthAttribute _ => $"minLength: minLength({(attribute as MinLengthAttribute).Length})",
 		MaxLengthAttribute _ => $"maxLength: maxLength({(attribute as MaxLengthAttribute).Length})",
 		null or _			 => null
 	};
+
+	// ===========================================================================================
 
 }

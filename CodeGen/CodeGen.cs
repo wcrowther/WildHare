@@ -36,13 +36,13 @@ namespace CodeGen
 
 			menuMessage = inputs[0].ToInt() switch
 			{
-				1 => new CodeGenAdaptersList(appSettings)		.Init(),
-				2 => new CodeGenAdapters(appSettings)			.Init(),
-				3 => new CodeGenPartialsSummary(appSettings)	.Init(),
-				4 => new CodeGenCssStylesheets(appSettings)		.Init(),
-				5 => new TransformFilesToFolder(appSettings)	.Init(),
-				6 => new CodeGenValidators(appSettings)			.Init(), 
-				7 => new CodeGenClassesFromSqlTables()			.Init("",""),       // Needs work
+				1 => new CodeGenAdaptersList(appSettings).Init(),
+				2 => new CodeGenAdapters(appSettings).Init(),
+				3 => new CodeGenPartialsSummary(appSettings).Init(),
+				4 => new CodeGenCssStylesheets(appSettings).Init(),
+				5 => new TransformFilesToFolder(appSettings).Init(),
+				6 => CodeGenValidators.Init(appSettings), 
+				7 => new CodeGenClassesFromSqlTables().Init("",""),       // Needs work
 				9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
 				_ => $"Your input {inputStr} is not valid.",
 			};
@@ -74,7 +74,6 @@ namespace CodeGen
 
 			Write(menu);
 		}
-
 	}
 }
 
