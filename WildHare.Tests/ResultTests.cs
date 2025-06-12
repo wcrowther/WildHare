@@ -22,7 +22,7 @@ public class ResultTests
 	[Test]
 	public void Test_Result_String_Basic2()
 	{
-		var result = "Basic String".Success();
+		var result = "Basic String".ToSuccess();
 
 		Assert.AreEqual("Basic String", result.Data);
 		Assert.AreEqual("",				result.Result.Message);
@@ -33,7 +33,7 @@ public class ResultTests
 	public void Test_Result_String_Null()
 	{
 		string nullStr = null;
-		var result  = nullStr.Success("");
+		var result  = nullStr.ToSuccess("");
 
 		Assert.AreEqual("", result.Data);
 		Assert.AreEqual("", result.Result.Message);
@@ -45,7 +45,7 @@ public class ResultTests
 	{
 		var list = new List<Item>();
 		list = null;
-		var result = list.Success([]); // must assign a default
+		var result = list.ToSuccess([]); // must assign a default
 
 		Assert.AreEqual(0, result.Data.Count );
 		Assert.AreEqual("", result.Result.Message);
@@ -56,7 +56,7 @@ public class ResultTests
 	[Test]
 	public void Test_Result_String_Failure()
 	{
-		var result = "InvalidString".Failure("String is not valid.");
+		var result = "InvalidString".ToFailure("String is not valid.");
 
 		Assert.AreEqual("InvalidString",		result.Data);
 		Assert.AreEqual("String is not valid.",	result.Result.Message);
@@ -78,7 +78,7 @@ public class ResultTests
 	public void Test_Result_String_Ok_With_Null_Guard()
 	{
 		List<string> val	= null;
-		var result			= val.ToResult([]);
+		var result			= val.ToSuccess([]);
 
 		Assert.AreEqual(0,		result.Data.Count);
 		Assert.AreEqual("",		result.Result.Message);
@@ -88,9 +88,9 @@ public class ResultTests
 	// [Test]
 	// public void Test_Result_With_Recurive_Messages()
 	// {
-	// 	var result  = false.Failure("Should not be false.");
-	// 	var result2 = result.Failure("Should not be false again.");
-	// 	var result3 = result2.Failure("Should not be false again.");
+	// 	var result  = false.ToFailure("Should not be false.");
+	// 	var result2 = result.ToFailure("Should not be false again.");
+	// 	var result3 = result2.ToFailure("Should not be false again.");
 	// 
 	// 
 	// 
@@ -139,8 +139,8 @@ public static class TestSteps
 	{
 		// Check equivalence
 		return result.Result.Ok
-			? result.Data.Success()
-			: result.Data.Failure("Bad data.");
+			? result.Data.ToSuccess()
+			: result.Data.ToFailure("Bad data.");
 	}
 }
 

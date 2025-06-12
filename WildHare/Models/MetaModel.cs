@@ -114,13 +114,12 @@ namespace WildHare
         {
             get
             {
-                properties = properties ?? new List<MetaProperty>();
+                properties = properties ?? [];
 
                 if (properties.Count == 0)
                 {
                     foreach (var propertyInfo in _type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
                     {
-
                         properties.Add(new MetaProperty(propertyInfo, _instance));
                     }
                 }

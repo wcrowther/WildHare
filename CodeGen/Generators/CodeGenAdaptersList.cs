@@ -6,31 +6,29 @@ using System.Text;
 using WildHare.Extensions;
 using static CodeGen.Helpers.CodeHelpers;
 using static System.Environment;
-using Types = WildHare.Extensions.TypeExtensions;
+using TypeExts = WildHare.Extensions.TypeExtensions;
 
 namespace CodeGen.Generators;
 
 public partial class CodeGenAdaptersList(AppSettings appSettings)
 {
-	private const string indent = "\t\t";
-
 	public string Init ()
 	{
-		string mapNamespace1 = appSettings.Adapter.MapNamespace1;
-		var adapterList = Types.GetTypesInNamespace(mapNamespace1);
+		string mapNamespace1 = appSettings.Adapters.MapNamespace1;
+		var adapterList		 = TypeExts.GetTypesInNamespace(mapNamespace1);
 
 		var adapterListTemplate = AdaptersListTemplate(adapterList, "Model");
 		adapterListTemplate.WriteToFile(AdapterListOutputFile, true);
 
-		return $"Success. List written to file: {AdapterListOutputFile}";
+		return $"ToSuccess. List written to file: {AdapterListOutputFile}";
 	}
 
 	public string AdaptersListTemplate(Type[] typeList, string suffix)
 	{
 		string output =
 		$$"""
-		using {{appSettings.Adapter.MapNamespace1}};
-		using {{appSettings.Adapter.MapNamespace2}};
+		using {{appSettings.Adapters.MapNamespace1}};
+		using {{appSettings.Adapters.MapNamespace2}};
 
 		namespace CodeGen.Generators;
 		
@@ -48,24 +46,22 @@ public partial class CodeGenAdaptersList(AppSettings appSettings)
 
 	public static string GenAdaptersList(Type[] typeList, string suffix)
 	{
-		Debug.WriteLine($"{divider}Creating List of GeneratorAdapters to paste in to CodeGenAdapters_Run.cs");
+		Debug.WriteLine($"{divider}Creating List of adapters for CodeGenAdapters_RunAdaptersList.cs");
 
 		var sb = new StringBuilder();
 
 		foreach (var type in typeList)
 		{
-			sb.Append($"{indent}AdaptersTemplate(typeof({type.Name}), typeof({type.Name}{suffix}), true, true);{NewLine}");
+			sb.AppendLine($"\t\tAdaptersTemplate(typeof({type.Name}), typeof({type.Name}{suffix}), true, true);");
 		}
 		
-		string adapterListString = sb.ToString().RemoveStartEnd("\t", NewLine);
+		Debug.WriteLine(sb.ToString().AddEnd(divider));
 
-		Debug.WriteLine(adapterListString.AddEnd(divider));
-
-		return adapterListString;
+		return sb.ToString().RemoveStartEnd("\t",NewLine);
 	}
 
 	// ==================================================================================
 
-	private string AdapterListOutputFile => Path.Combine(appSettings.ProjectRoot, appSettings.Adapter.AdapterListOutputFile);
+	private string AdapterListOutputFile => Path.Combine(appSettings.ProjectRoot, appSettings.Adapters.AdapterListOutputFile);
 
 }

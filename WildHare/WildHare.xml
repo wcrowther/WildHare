@@ -666,17 +666,17 @@
             include either an include or exclude list (but not both) to filter in/out these properties.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Reflection.Assembly,System.String,System.String[])">
-            <summary>Given an Assembly, returns a Type array of the types in the {namspace}. If {excludeList}
-            is populated, any types with names that match a value in the list will be excluded.</summary>
+            <summary>Given an Assembly, returns a Type array of the typeList in the {namspace}. If {excludeList}
+            is populated, any typeList with names that match a value in the list will be excluded.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.Type,System.String,System.String[])">
-            <summary>Given a Type, gets the Assembly from that type then returns a Type array of the types
-            in the {namspace}. If {excludeList} is populated, any types with names that match a value
+            <summary>Given a Type, gets the Assembly from that type then returns a Type array of the typeList
+            in the {namspace}. If {excludeList} is populated, any typeList with names that match a value
             in the list will be excluded.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetTypesInNamespace(System.String,System.Boolean)">
-            <summary>Finds all the types in an assembly given a string name {@namespace}. Excludes temp
-            types beginning with &lt;. Is not implemented as an extension method on string but must
+            <summary>Finds all the typeList in an assembly given a string name {@namespace}. Excludes temp
+            typeList beginning with &lt;. Is not implemented as an extension method on string but must
             be called like WildHare.Extensions.TypeExtensions.GetTypesInNamespace("WildHare.Tests.Models");</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetMetaAssembly(System.Reflection.Assembly,System.String)">
@@ -687,7 +687,7 @@
             and will be removed in a future version.</summary>
         </member>
         <member name="M:WildHare.Extensions.TypeExtensions.GetDerivedTypes(System.Type,System.String[],System.Boolean,System.Reflection.Assembly)">
-            <summary>Gets an array of derived Types that are a subclass of {type}, excluding any types named in
+            <summary>Gets an array of derived Types that are a subclass of {type}, excluding any typeList named in
             the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.
             Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
             <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>

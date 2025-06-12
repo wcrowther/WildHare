@@ -45,26 +45,26 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 	// ==================================================================================
 	// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
-	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.Adapter.OutputFolder).EnsureEnd("\\");
+	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.Adapters.OutputFolder).EnsureEnd("\\");
 
 
 	private bool AdaptersTemplate(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
 	{
 		string class1	= type1.Name;
 		string class2	= type2.Name;
-		string map1		= appSettings.Adapter.MapName1;
-		string map2		= appSettings.Adapter.MapName2;
+		string map1		= appSettings.Adapters.MapName1;
+		string map2		= appSettings.Adapters.MapName2;
 
 		string adapterFileName = $"{class1}Adapters.cs";
 
 		string output =
 		$$"""
-		using {{appSettings.Adapter.MapNamespace1}};
-		using {{appSettings.Adapter.MapNamespace2}};
+		using {{appSettings.Adapters.MapNamespace1}};
+		using {{appSettings.Adapters.MapNamespace2}};
 		using System.Linq;
 		using System.Collections.Generic;
 		
-		namespace {{appSettings.Adapter.AdapterNamespace}};
+		namespace {{appSettings.Adapters.AdapterNamespace}};
 		
 		public static partial class Adapters
 		{

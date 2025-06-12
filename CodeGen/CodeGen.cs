@@ -1,5 +1,4 @@
-﻿using CodeGen.Entities;
-using CodeGen.Generators;
+﻿using CodeGen.Generators;
 using CodeGen.Models;
 using System;
 using System.Linq;
@@ -42,7 +41,7 @@ namespace CodeGen
 				3 => new CodeGenPartialsSummary(appSettings)	.Init(),
 				4 => new CodeGenCssStylesheets(appSettings)		.Init(),
 				5 => new TransformFilesToFolder(appSettings)	.Init(),
-				6 => new CodeGenValidators()					.Init("", "", true), // Needs work
+				6 => new CodeGenValidators(appSettings)			.Init(), 
 				7 => new CodeGenClassesFromSqlTables()			.Init("",""),       // Needs work
 				9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
 				_ => $"Your input {inputStr} is not valid.",

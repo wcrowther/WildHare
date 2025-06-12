@@ -25,7 +25,7 @@ namespace CodeGen.Generators
 
         // FOR SCHEMA DOCS SEE: https: //docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-schema-collections
 
-        private static bool overWrite = false;
+        private static readonly bool overWrite = false;
         private static string outputPath;
         private static string sqlConnString;
         private static readonly string namespaceRoot = "Me.Logic";

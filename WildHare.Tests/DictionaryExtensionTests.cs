@@ -14,28 +14,22 @@ namespace WildHare.Tests
         [Test]
         public void Test_Dictionary_Safe_If_Key_Does_Not_Exist()
         {
-            var dictionary = new Dictionary<int, string>
-            {
-                {1, "platypus"},
-                {2, "cheetah"},
-                {3, "cat"}
-            };
+			Dictionary<int, string> dictionary = new(){{1, "platypus"}, {2, "cheetah"}, {3, "cat"}};
 
-            // GetValueOrDefault is a method on Dictionary - no extension method needed for this
+			// Future version (c# 13+) will support this??
+			// Dictionary<int, string> dictionary = [1: "platypus", 2: "cheetah", 3: "cat"];
 
-            Assert.AreEqual("cheetah", dictionary[2]);
+
+			// GetValueOrDefault is a method on Dictionary - no extension method needed for this
+
+			Assert.AreEqual("cheetah", dictionary[2]);
             Assert.AreEqual("Not Found", dictionary.GetValueOrDefault(5, "Not Found"));
         }
 
         [Test]
         public void Test_Dictionary_Safe_If_Key_Does_Not_Exist_With_string_string()
         {
-            var dictionary = new Dictionary<string, string>
-            {
-                {"Participle", "past"},
-                {"IsPlural", "true"},
-                {"Numeric", "123"}
-            };
+            var dictionary = new Dictionary<string, string> { {"Participle", "past"},{"IsPlural", "true"},{"Numeric", "123"} };
 
             // GetValueOrDefault is a method on Dictionary - no extension method needed for this
 

@@ -51,7 +51,7 @@ namespace CodeGen.Generators
 
             string result = $"{nameof(CodeGenCssSummaryReport)}.{nameof(Init)} code written to {NewLine}" +
                             $"'{writeToFilePath}'.{NewLine}" +
-                            $"Success: {success}{NewLine}" +
+                            $"ToSuccess: {success}{NewLine}" +
                             $"Overwrite: {overwrite}{NewLine}";
 
             Debug.WriteLine(result);

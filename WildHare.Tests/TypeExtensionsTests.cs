@@ -572,16 +572,6 @@ namespace WildHare.Tests
         }
 
 		[Test]
-		public void Test_GetTypesInNamespace()
-		{
-			var types = Types.GetTypesInNamespace("WildHare.Tests.Models");
-
-			Assert.IsNotNull(types);
-			Assert.AreEqual(35, types.Length);
-			Assert.AreEqual("ArsenalTeam", types[1].Name);
-		}
-
-		[Test]
         public void Test_GetObject_Attributes()
         {
             var obj = new Item();
@@ -650,15 +640,14 @@ namespace WildHare.Tests
 
             foreach (var type in typeList)
             {
-                var meta = type.GetMetaModel();
-                var props = meta.GetMetaProperties();
-                var attributeCount = props.SelectMany(p => p.Attributes()).Count();
+                var props			= type.GetMetaProperties();
+                var attributeCount	= props.SelectMany(p => p.Attributes()).Count();
 
                 if (attributeCount == 0)
                     continue;
 
                 string classStr = $$"""
-                    export const {{meta.TypeName}}Validator =
+                    export const {{type.Name}}Validator =
                     {
                     {{WriteProps(props, validatorsList)}}}
 

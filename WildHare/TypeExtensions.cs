@@ -77,8 +77,8 @@ public static class TypeExtensions
         return new MetaModel(instance.GetType(), instance).GetMetaProperties(exclude, include);
     }
 
-    /// <summary>Given an Assembly, returns a Type array of the types in the {namspace}. If {excludeList}
-    /// is populated, any types with names that match a value in the list will be excluded.</summary>
+    /// <summary>Given an Assembly, returns a Type array of the typeList in the {namspace}. If {excludeList}
+    /// is populated, any typeList with names that match a value in the list will be excluded.</summary>
     public static Type[] GetTypesInNamespace(this Assembly assembly, string nameSpace = null, string[] excludeList = null)
     {
         excludeList = excludeList ?? [];
@@ -94,43 +94,47 @@ public static class TypeExtensions
         return [.. types.OrderBy(t => t.Name)];
     }
 
-	/// <summary>Given a Type, gets the Assembly from that type then returns a Type array of the types
-	/// in the {namspace}. If {excludeList} is populated, any types with names that match a value
+	/// <summary>Given a Type, gets the Assembly from that type then returns a Type array of the typeList
+	/// in the {namspace}. If {excludeList} is populated, any typeList with names that match a value
 	/// in the list will be excluded.</summary>
 	public static Type[] GetTypesInNamespace(this Type type, string nameSpace = null, string[] excludeList = null)
 	{
-	  var assembly = type.GetAssemblyFromType();
-	
-	  return assembly.GetTypesInNamespace(nameSpace, excludeList);
+		if (type is null)
+			return [];		
+
+		var assembly = type.GetAssemblyFromType();
+
+		return assembly.GetTypesInNamespace(nameSpace, excludeList);
 	}
 
-	/// <summary>Finds all the types in an assembly given a string name {@namespace}. Excludes temp
-	/// types beginning with &lt;. Is not implemented as an extension method on string but must
+	/// <summary>Finds all the typeList in an assembly given a string name {@namespace}. Excludes temp
+	/// typeList beginning with &lt;. Is not implemented as an extension method on string but must
 	/// be called like WildHare.Extensions.TypeExtensions.GetTypesInNamespace("WildHare.Tests.Models");</summary>
 	public static Type[] GetTypesInNamespace(string @namespace, bool includeSubNamespaces = false)
 	{
-		return AppDomain.CurrentDomain
-						.GetAssemblies()
-						.SelectMany(assembly =>
-						{
-							Type[] types;
-							try
+		var assemblies =	AppDomain.CurrentDomain.GetAssemblies();
+		var typeList   =	assemblies.SelectMany(assembly =>
 							{
-								types = assembly.GetTypes();
-							}
-							catch (ReflectionTypeLoadException ex)
-							{
-								types = ex.Types.Where(t => t != null).ToArray();
-							}
-							return types;
-						})
-						.Where(t =>
-							t.Namespace != null &&
-							!t.Name.StartsWith('<') && // don't show temp classes
-							(includeSubNamespaces
-								? t.Namespace.StartsWith(@namespace)
-								: t.Namespace == @namespace))
-						.ToArray();
+								Type[] types;
+								try
+								{
+									types = assembly.GetTypes();
+								}
+								catch (ReflectionTypeLoadException ex)
+								{
+									types = ex.Types.Where(t => t != null).ToArray();
+								}
+								return types;
+							})
+							.Where(t =>
+								t.Namespace != null &&
+								!t.Name.StartsWith('<') && // don't show temp classes
+								(includeSubNamespaces
+									? t.Namespace.StartsWith(@namespace)
+									: t.Namespace == @namespace))
+							.OrderBy(t => t.Namespace)
+							.ToArray();
+		return typeList;
 	}
 
 	/// <summary></summary>
@@ -147,7 +151,7 @@ public static class TypeExtensions
         return type.GetDerivedClasses(ignoreTypeNames);
     }
 
-    /// <summary>Gets an array of derived Types that are a subclass of {type}, excluding any types named in
+    /// <summary>Gets an array of derived Types that are a subclass of {type}, excluding any typeList named in
     /// the {ingnoreTypeNames} list. Set {includeBaseType} to true to include the baseType in Type array.
     /// Use {otherAssembly} when the derived classes to find are in another Assembly.</summary>
     /// <example>Called like:  var subClassesOfTeam = typeof(Team).GetDerivedTypes();</example>
@@ -171,7 +175,7 @@ public static class TypeExtensions
 
     public static Type GetCommonBaseType(this Type[] types)
     {
-        // From: https: //stackoverflow.com/questions/353430/easiest-way-to-get-a-common-base-class-from-a-collection-of-types
+        // From: https: //stackoverflow.com/questions/353430/easiest-way-to-get-a-common-base-class-from-a-collection-of-typeList
 
         if (types.Length == 0)
         {

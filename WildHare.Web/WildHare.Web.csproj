@@ -31,6 +31,5 @@
     <Folder Include="GeneratedModels\" />
     <Folder Include="SqlInserts\" />
     <Folder Include="TestDb\" />
-    <Folder Include="Validators\" />
   </ItemGroup>
 </Project>

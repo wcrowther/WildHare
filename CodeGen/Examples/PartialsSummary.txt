@@ -1,16 +1,16 @@
 
 // Summary of Partials for .cshtml files
 // For Files Under C:\Git\WildHare\WildHare.Web\Pages\
-// Generated Using CodeTemplate 'CodeGenPartialsSummary' On 2/27/2025 12:16:19 AM
+// Generated Using CodeTemplate 'CodeGenPartialsSummary' On 6/8/2025 1:45:40 AM
 
 ====================================================================================================
 Pages Folder
 ====================================================================================================
 
-	Documentation.cshtml
-				Partial: @member.Reference
+Documentation.cshtml
+	Partial: @member.Reference
 
-	SeedPacket.cshtml
-				Partial: @member.Reference
+SeedPacket.cshtml
+	Partial: @member.Reference
 
 ====================================================================================================

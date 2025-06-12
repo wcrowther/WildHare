@@ -1,97 +1,135 @@
+using CodeGen.Models;
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using WildHare;
 using WildHare.Extensions;
-using WildHare.Web.Entities;
-using WildHare.Web.Models;
+using WildHare.Tests.Models.Generics;
 using static System.Environment;
-using static System.Console;
-using Microsoft.Extensions.Primitives;
-using AngleSharp.Dom;
-using System.Threading;
 
 namespace CodeGen.Generators;
 
-public partial class CodeGenValidators
-{
-	/*  ==========================================================================
-		* DIRECTIONS:
-		new CodeGenValidators().Init();
-   ========================================================================== */
+/*  ==========================================================================
+	new CodeGenValidators().Init();
+	========================================================================== */
 
-	private static readonly string assemblyName = "WildHare.Web";
-	private static readonly string namespaceName = "WildHare.Web.Models";
-	private static readonly string excludeList = "AppSettings";
+public partial class CodeGenValidators(AppSettings app)
+{
+	// validators like: required, minLength, maxLength, etc.
+	static readonly List<string> validatorsList = []; 
+
 	private static readonly string indent = "\t";
-	private static readonly string end = $",{NewLine}";
-	private static readonly object namespaceRoot;
 	private const int pad = -20;
 
 
-    public string Init(string projectRoot, string outputDir, bool overWrite = false)
+	public string Init()
     {
-        if (projectRoot.IsNullOrEmpty())
-            throw new ArgumentNullException($"{nameof(CodeGenValidators)}.{nameof(Init)} projectRoot is null or empty.");
+		string outputFilePath		= $"{app.ProjectRoot}{app.Validators.OutputFile}";
+		bool overwrite				= app.Overwrite;
+		string sourceNamespace		= app.Validators.SourceNamespace;
+		string assemblyName			= app.Validators.SourceAssemblyName;
+		string[] excludeClasses		= app.Validators.ExcludeClasses.Split(",", true, true);
 
-        if (outputDir.IsNullOrEmpty())
-            throw new ArgumentNullException($"{nameof(CodeGenValidators)}.{nameof(Init)} outputDir is null or empty.");
+		var assembly = Assembly.Load(assemblyName);
+		var result   = GenerateValidators(assembly, sourceNamespace, outputFilePath, overwrite, excludeClasses);
 
-        string outputPath = $"{projectRoot}{outputDir}";
-
-        bool isSuccess = GenerateValidators(projectRoot, outputDir, overWrite);
-
-        string result = $"{nameof(CodeGenValidators)}.{nameof(Init)} code written to '{outputPath}'. Overwrite: {overWrite}";
-        Debug.WriteLine(result);
-
-        return result;
+        return result.Message;
     }
 
-    public static bool GenerateValidators(string projectRoot, string outputDir, bool overwrite = false)
-    {
-        string validatorsFileName = $"Validators.js";
-        Type[] typeList = GetTypeList(assemblyName, namespaceName);
+	// ===========================================================================================
 
+	private static Result GenerateValidators(Assembly assembly, string sourceNamespace, string outputFilePath, bool overwrite, string[] excludeClasses = null)
+	{
+		var sb = new StringBuilder();
+		var typeList = assembly.GetTypesInNamespace(sourceNamespace, excludeClasses); // exclude: 
+		int validatorCount = 0;
 
-        string output =
-        $$"""
-        The typelist
-        {{BuildTypeList(typeList)}}
-        """;
+		foreach (var type in typeList)
+		{
+			var props			= type.GetMetaProperties();
+			var attributeCount	= props.SelectMany(p => p.Attributes()).Count();
 
-        bool isSuccess = output.WriteToFile($"{projectRoot}{outputDir}{validatorsFileName}", overwrite);
+			if (attributeCount == 0)
+				continue;
 
-        if (isSuccess)
-            Debug.WriteLine($"Generated file {validatorsFileName} in {outputDir}.");
+			string classStr = 
+			$$"""
 
-        return isSuccess;
-    }
+			export const {{type.Name}}Validator =
+			{
+			{{WriteProps(props, validatorsList)}}
+			}
 
-    private static Type[] GetTypeList(string assemblyName, string namespaceName) //, string exludeList = null)
-    {
-        var assembly = Assembly.Load(assemblyName); // "WildHare.Web"
-        var typeList = assembly.GetTypesInNamespace(namespaceName);  // OLD "WildHare.Web.Entities"
+			""";
 
-        return typeList;
-    }
+			sb.Append(classStr);
+			validatorCount++;
+		}
 
+		string listStr = validatorsList.Distinct().AsString();
 
-    private static string BuildTypeList(Type[] types)
-    {
-        var sb = new StringBuilder();
-        foreach (var type in types)
-        {
-            sb.AppendLine($"{indent}{type.Name}");
+		string output = sb.ToString()
+						.AddStart($"import {{ {listStr} }} from '@vuelidate/validators'{NewLine}");
 
-            foreach (var prop in type.GetProperties())
-            {
-                sb.AppendLine($"{indent}{indent}{prop.Name + ":",pad} {{}}");
-            }
-            sb.AppendLine();
-        }
-        return sb.ToString();
-    }
+		bool isSuccess = output.WriteToFile(outputFilePath, overwrite);
+
+		string exclusions	= excludeClasses.Length > 0 ? $"{NewLine} Excluded classes: {excludeClasses.AsString(",",true,true)}" : "";
+		string message		= isSuccess ? $"Generated {validatorCount} valididators to {outputFilePath} for {typeList.Length} types.{exclusions}"
+										: $"Failed to generate file to {outputFilePath}. File could not be written.";
+		
+		return new Result(isSuccess, message);
+	}
+
+	private static string WriteProps(List<MetaProperty> props, List<string> validatorsList)
+	{
+		var wp = new StringBuilder();
+
+		foreach (var prop in props)
+		{
+			wp.Append(WriteAttributesLine(prop, validatorsList));
+		}
+
+		return wp.ToString().RemoveEnd(NewLine);
+	}
+
+	private static string WriteAttributesLine(MetaProperty prop, List<string> validatorsList)
+	{
+		const int pad  = -20;
+		var attributes = prop.Attributes().OfType<Attribute>();
+
+		if (attributes.Any())
+		{
+			var wa = new StringBuilder();
+
+			wa.Append($"\t{prop.Name + ":",pad}{{ ");
+
+			foreach (var attr in attributes)
+			{
+				string attrStr = AttributeString(attr);
+
+				validatorsList.Add(attrStr.GetStartBefore(":"));
+
+				wa.Append(attrStr.AddEnd(", "));
+			}
+
+			return wa.ToString()
+					 .RemoveEnd(", ")
+					 .AddEnd($" }},{NewLine}");
+		}
+
+		return ""; 
+	}
+
+	private static string AttributeString(Attribute attribute) => attribute switch
+	{
+		RequiredAttribute  _ => $"required",
+		MinLengthAttribute _ => $"minLength: minLength({(attribute as MinLengthAttribute).Length})",
+		MaxLengthAttribute _ => $"maxLength: maxLength({(attribute as MaxLengthAttribute).Length})",
+		null or _			 => null
+	};
 
 }

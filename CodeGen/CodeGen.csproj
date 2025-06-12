@@ -15,12 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Examples\Adapters\AccountAdapterX.cs" />
-    <Compile Remove="Examples\Adapters\InvoiceAdapterX.cs" />
-    <Compile Remove="Examples\Adapters\InvoiceItemAdapterX.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
@@ -32,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WildHare.Tests\WildHare.Tests.csproj" />
     <ProjectReference Include="..\WildHare.Web\WildHare.Web.csproj" />
     <ProjectReference Include="..\WildHare\WildHare.csproj" />
   </ItemGroup>
