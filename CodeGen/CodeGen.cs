@@ -7,73 +7,76 @@ using static CodeGen.Helpers.CodeHelpers;
 using static System.Console;
 using static System.Environment;
 
-namespace CodeGen
+namespace CodeGen;
+
+public class CodeGen(AppSettings appSettings)
 {
-	public class CodeGen(AppSettings appSettings)
+	static string menuMessage;
+
+	public bool GenerateMenu()
 	{
-		static string menuMessage;
+		DisplayMenu();
 
-		public bool GenerateMenu()
+		string inputStr = ReadLine();
+
+		if (inputStr.IsNullOrSpace())
 		{
-			DisplayMenu();
-
-			string inputStr = ReadLine();
-
-			if (inputStr.IsNullOrSpace())
-				return true; // keep open
-
-			if (inputStr.EqualsAnyIgnoreCase("exit", "x"))
-			{
-				WriteLine($"{NewLine}--> Exiting console...");
-				return false; // close window
-			}
-
-			var inputs = inputStr.Split(" ", true, true);
-			var @params = inputs.Skip(1).ToArray();
-
-			if(appSettings.ClearConsole) 
-				Clear();
-
-			menuMessage = inputs[0].ToInt() switch
-			{
-				1 => new CodeGenAdaptersList(appSettings).Init(),
-				2 => new CodeGenAdapters(appSettings).Init(),
-				3 => new CodeGenPartialsSummary(appSettings).Init(),
-				4 => new CodeGenCssStylesheets(appSettings).Init(),
-				5 => new TransformFilesToFolder(appSettings).Init(),
-				6 => CodeGenValidators.Init(appSettings), 
-				7 => new CodeGenClassesFromSqlTables().Init("",""),       // Needs work
-				9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
-				_ => $"Your input {inputStr} is not valid.",
-			};
-
-			return appSettings.ConsoleRemainOpen;
+			Clear();
+			menuMessage = "Your input was invalid.";
+			return true; 
 		}
 
-		public static void DisplayMenu()
+		if (inputStr.EqualsAnyIgnoreCase("exit", "x"))
 		{
-			string menu =
-			$"""
-
-				 {divider}        
-				 Generate Code - Enter a number (or x to Exit)
-				 {divider}
-				 
-				 1) Generate Adapters List
-				 2) Generate Adapters
-				 3) Partials Summary Report
-				 4) List Of Stylesheets
-				 5) TransformFiles Entities to Models Folder
-				 6) Generate JS validators
-				 x) Exit
-				 
-				 {menuMessage}
-				 
-				 Select an option: 
-				""";
-
-			Write(menu);
+			WriteLine($"{NewLine}--> Exiting console...");
+			return false; // close window
 		}
+
+		var inputs = inputStr.Split(" ", true, true);
+		var @params = inputs.Skip(1).ToArray();
+
+		if(appSettings.ClearConsole) 
+			Clear();
+
+		menuMessage = inputs[0].ToInt() switch
+		{
+			1 => new CodeGenAdaptersList(appSettings).Init(),
+			2 => new CodeGenAdapters(appSettings).Init(),
+			3 => new CodeGenPartialsSummary(appSettings).Init(),
+			4 => new CodeGenCssStylesheets(appSettings).Init(),
+			5 => new TransformFilesToFolder(appSettings).Init(),
+			6 => CodeGenValidators.Init(appSettings), 
+			7 => new CodeGenClassesFromSqlTables().Init("",""),       // Needs work
+			9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
+			_ => $"Your input {inputStr} is not valid.",
+		};
+
+		return appSettings.ConsoleRemainOpen;
+	}
+
+	public static void DisplayMenu()
+	{
+		string menu =
+		$"""
+
+			 {divider}        
+			 Generate Code - Enter a number (or x to Exit)
+			 {divider}
+			 
+			 1) Generate Adapters List
+			 2) Generate Adapters
+			 3) Partials Summary Report
+			 4) List Of Stylesheets
+			 5) TransformFiles Entities to Models Folder
+			 6) Generate JS validators
+			 x) Exit
+			 
+			 {menuMessage}
+			 
+			 Select an option: 
+			""";
+
+		Write(menu);
 	}
 }
 
