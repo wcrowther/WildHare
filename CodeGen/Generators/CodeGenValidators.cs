@@ -30,7 +30,7 @@ public class CodeGenValidators(AppSettings app)
 	private static readonly string indent	= "\t";
 	private static readonly int pad			= -20;
 
-	public string Generate()
+	public string Init()
     {
 		var assembly = Assembly.Load(assemblyName);
 
@@ -42,9 +42,9 @@ public class CodeGenValidators(AppSettings app)
         return result.Message;
     }
 
-	public static string Init(AppSettings app)
+	public static string Generate(AppSettings app)
 	{
-		return new CodeGenValidators(app).Generate();
+		return new CodeGenValidators(app).Init();
 	}
 
 	// ===========================================================================================

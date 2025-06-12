@@ -10,7 +10,12 @@ using TypeExts = WildHare.Extensions.TypeExtensions;
 
 namespace CodeGen.Generators;
 
-public partial class CodeGenAdaptersList(AppSettings appSettings)
+/*  ==========================================================================
+	string result = CodeGenAdaptersList.Init(appSettings); OR
+	string result = new CodeGenAdaptersList(appSettings).Generate();
+	========================================================================== */
+
+public class CodeGenAdaptersList(AppSettings appSettings)
 {
 	public string Init ()
 	{
@@ -21,27 +26,6 @@ public partial class CodeGenAdaptersList(AppSettings appSettings)
 		adapterListTemplate.WriteToFile(AdapterListOutputFile, true);
 
 		return $"ToSuccess. List written to file: {AdapterListOutputFile}";
-	}
-
-	public string AdaptersListTemplate(Type[] typeList, string suffix)
-	{
-		string output =
-		$$"""
-		using {{appSettings.Adapters.MapNamespace1}};
-		using {{appSettings.Adapters.MapNamespace2}};
-
-		namespace CodeGen.Generators;
-		
-		public partial class CodeGenAdapters
-		{
-			public void RunAdaptersList()
-			{
-			{{GenAdaptersList(typeList, suffix) }}
-			}
-		}
-		""";
-
-		return output;
 	}
 
 	public static string GenAdaptersList(Type[] typeList, string suffix)
@@ -60,7 +44,33 @@ public partial class CodeGenAdaptersList(AppSettings appSettings)
 		return sb.ToString().RemoveStartEnd("\t",NewLine);
 	}
 
+	public static string Generate(AppSettings app)
+	{
+		return new CodeGenAdaptersList(app).Init();
+	}
+
 	// ==================================================================================
+
+	private string AdaptersListTemplate(Type[] typeList, string suffix)
+	{
+		string output =
+		$$"""
+		using {{appSettings.Adapters.MapNamespace1}};
+		using {{appSettings.Adapters.MapNamespace2}};
+
+		namespace CodeGen.Generators;
+		
+		public partial class CodeGenAdapters
+		{
+			public void RunAdaptersList()
+			{
+			{{GenAdaptersList(typeList, suffix)}}
+			}
+		}
+		""";
+
+		return output;
+	}
 
 	private string AdapterListOutputFile => Path.Combine(appSettings.ProjectRoot, appSettings.Adapters.AdapterListOutputFile);
 
