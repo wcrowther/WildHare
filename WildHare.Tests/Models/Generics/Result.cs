@@ -12,12 +12,15 @@ public class Result(bool ok, string message = "")
 
 public static class ResultExtensions
 {
-	public static (T Data, Result Result) ToResult<T>(this T data, Result errorResult = null) 
-		=> data is null ? (default, errorResult ?? new Result(false, "ToResult.data is null.")) 
+	public static (T Data, Result Result) ToResult<T>(this T data, Result errorResult = null)
+	{
+		errorResult ??= new Result(false, "ToResult.data is null.");
+		return data is null ? (default, errorResult)
 							: (data, new Result(true, ""));
+	}
 
 	public static (T Data, Result Result) ToSuccess<T>(this T data) where T : notnull 
-		=> (data, new Result(true));
+		=> (data ?? default, new Result(true));
 
 	public static (T Data, Result Result) ToSuccess<T>(this T data, T defaultValue) 
 		=> (data ?? defaultValue, new Result(true));

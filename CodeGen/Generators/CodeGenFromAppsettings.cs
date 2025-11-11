@@ -62,7 +62,7 @@ namespace CodeGen.Generators
         private static string Result(string methodName, string writeToFilePath, bool success, bool overwrite)
         {
             return $"{methodName} code written to '{writeToFilePath}'.{NewLine}" +
-                   $"ToSuccess: {success}{NewLine}" +
+                   $"Success: {success}{NewLine}" +
                    $"Overwrite: {overwrite}{NewLine}";
         }
     }

@@ -663,15 +663,15 @@ namespace WildHare.Tests
 		// ================================================================================================
 
 
-		private int Add(int arg1, int arg2) => arg1 + arg2;
+		private static int Add(int arg1, int arg2) => arg1 + arg2;
+		
+        private static int Subtract(int arg1, int arg2) => arg1 - arg2;
+		
+        private static int Multiply(int arg1, int arg2) => arg1 * arg2;
+		
+        private static int Divide(int arg1, int arg2) => arg1 / arg2;
 
-        private int Subtract(int arg1, int arg2) => arg1 - arg2;
-
-        private int Multiply(int arg1, int arg2) => arg1 * arg2;
-
-        private int Divide(int arg1, int arg2) => arg1 / arg2;
-
-		private Func<int, int, int> Calulate(string funcName)
+		private static Func<int, int, int> Calulate(string funcName)
 		{
 			Func<int, int, int> func = funcName switch
 			{

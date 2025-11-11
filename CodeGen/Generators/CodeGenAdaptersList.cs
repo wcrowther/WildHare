@@ -15,17 +15,19 @@ namespace CodeGen.Generators;
 	string result = new CodeGenAdaptersList(appSettings).Generate();
 	========================================================================== */
 
-public class CodeGenAdaptersList(AppSettings appSettings)
+public class CodeGenAdaptersList(AppSettings app)
 {
+	readonly Adapters settings = app.Adapters;
+
 	public string Init ()
 	{
-		string mapNamespace1 = appSettings.Adapters.MapNamespace1;
+		string mapNamespace1 = settings.MapNamespace1;
 		var adapterList		 = TypeExts.GetTypesInNamespace(mapNamespace1);
 
-		var adapterListTemplate = AdaptersListTemplate(adapterList, "Model");
+		var adapterListTemplate = AdaptersListTemplate(adapterList, settings.AdapterSuffix);
 		adapterListTemplate.WriteToFile(AdapterListOutputFile, true);
 
-		return $"ToSuccess. List written to file: {AdapterListOutputFile}";
+		return $"Success. List written to file: {AdapterListOutputFile}";
 	}
 
 	public static string GenAdaptersList(Type[] typeList, string suffix)
@@ -55,8 +57,8 @@ public class CodeGenAdaptersList(AppSettings appSettings)
 	{
 		string output =
 		$$"""
-		using {{appSettings.Adapters.MapNamespace1}};
-		using {{appSettings.Adapters.MapNamespace2}};
+		using {{settings.MapNamespace1}};
+		using {{settings.MapNamespace2}};
 
 		namespace CodeGen.Generators;
 		
@@ -72,6 +74,6 @@ public class CodeGenAdaptersList(AppSettings appSettings)
 		return output;
 	}
 
-	private string AdapterListOutputFile => Path.Combine(appSettings.ProjectRoot, appSettings.Adapters.AdapterListOutputFile);
+	private string AdapterListOutputFile => Path.Combine(app.ProjectRoot, settings.AdapterListOutputFile);
 
 }

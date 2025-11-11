@@ -8,57 +8,71 @@ namespace CodeGen.Generators
 {
 	public class TransformFilesToFolder(AppSettings app)
 	{
+		TransformFiles settings = app.TransformFiles;
+		
 		int filesCopied = 0;
+		int filesNotCopied = 0;
 
 		public string Init()
         {
-            var allFiles = app.EntitiesSourceFolder
-							  .GetAllFiles("*.cs");
+            var allFiles = settings
+							.FolderFrom
+							.GetAllFiles("*.cs");
 
-            var target = new DirectoryInfo(app.ModelsTargetFolder);
+            var target = new DirectoryInfo(settings.FolderTo);
             target.Create();
 
             foreach (var file in allFiles)
             {
-                CopyToModelFolder(file, target);
+                CopyToFolder(file, target);
             }
 
-            return $"{filesCopied} files copied to: {app.ModelsTargetFolder}";
+			string message = $"Target folder: {settings.FolderTo}. ";
+			message += filesCopied    > 0 ? $"{filesCopied} files copied. " : "";
+			message	+= filesNotCopied > 0 ? $"{filesNotCopied} files not copied. Check if they already exist." : "";
+
+			return message.TrimEnd(); 
         }
 
-        private bool CopyToModelFolder(FileInfo file, DirectoryInfo target)
+        private bool CopyToFolder(FileInfo file, DirectoryInfo target)
         {
-            var lines = file.ReadFile().ToLineArray();
-            var lines2 = new List<string>();
+            var linesFrom = file.ReadFile().ToLineArray();
+            var linesTo = new List<string>();
 
 			string entityName = file.Name.RemoveEnd(".cs");
-			string modelName = entityName.AddEnd(app.TransformFiles.ModelSuffix);
+			string modelName  = entityName.AddEnd(settings.ModelSuffix);
 
-			foreach (string line in lines)
+			foreach (string line in linesFrom)
             {
 				// Example logic for line by line transformations
 				
 				if (line.TrimStart().StartsWith("namespace"))
 				{
-					lines2.Add(line.Replace(app.TransformFiles.NamespaceFrom, app.TransformFiles.NamespaceTo));
+					linesTo.Add(line.Replace(settings.NamespaceFrom, settings.NamespaceTo));
 				}
 				else if (line.TrimStart().StartsWith("public class"))
 				{
-					lines2.Add(line.Replace(entityName, entityName.AddEnd(app.TransformFiles.ModelSuffix)));
+					linesTo.Add(line.Replace(entityName, entityName.AddEnd(settings.ModelSuffix)));
 				}
 				else
 				{
-					lines2.Add(line.Replace($"<{entityName}>", $"<{modelName}>"));
+					linesTo.Add(line.Replace($"<{entityName}>", $"<{modelName}>"));
 				}
             }
 
-			string fileName = file.Name.RemoveEnd(".cs").AddEnd(app.TransformFiles.ModelSuffix + ".cs");
+			string fileName = file.Name
+								.RemoveEnd(".cs")
+								.AddEnd(settings.ModelSuffix + ".cs");
+
 			string filePath = $"{target.FullName}\\{fileName}";
 
-            var result = lines2.AsString(NewLine)
-                               .WriteToFile(filePath, false);
+            var result = linesTo.AsString(NewLine)
+                               .WriteToFile(filePath, settings.Overwrite);
 
-			if (result) filesCopied++;
+			if (result)
+				filesCopied++;
+			else
+				filesNotCopied++;
 
 			return result; 
         }

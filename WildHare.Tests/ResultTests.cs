@@ -41,6 +41,17 @@ public class ResultTests
 	}
 
 	[Test]
+	public void Test_Result_String_Null2()
+	{
+		string nullStr = null;
+		var result = nullStr.ToSuccess();
+
+		Assert.AreEqual(null, result.Data);
+		Assert.AreEqual("", result.Result.Message);
+		Assert.AreEqual(true, result.Result.Ok);
+	}
+
+	[Test]
 	public void Test_Result_List_Is_Null()
 	{
 		var list = new List<Item>();
@@ -75,7 +86,7 @@ public class ResultTests
 	}
 
 	[Test]
-	public void Test_Result_String_Ok_With_Null_Guard()
+	public void Test_Result_String_ToSuccess_With_Null_Guard()
 	{
 		List<string> val	= null;
 		var result			= val.ToSuccess([]);
@@ -83,6 +94,18 @@ public class ResultTests
 		Assert.AreEqual(0,		result.Data.Count);
 		Assert.AreEqual("",		result.Result.Message);
 		Assert.AreEqual(true,	result.Result.Ok);
+	}
+
+
+	[Test]
+	public void Test_Result_String_ToResult()
+	{
+		List<string> val = null;
+		var result = val.ToResult();
+
+		Assert.AreEqual(0, result.Data.Count);
+		Assert.AreEqual("", result.Result.Message);
+		Assert.AreEqual(true, result.Result.Ok);
 	}
 
 	// [Test]

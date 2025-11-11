@@ -9,9 +9,11 @@ using static System.Environment;
 
 namespace CodeGen;
 
-public class CodeGen(AppSettings appSettings)
+public class CodeGen(AppSettings app)
 {
 	static string menuMessage;
+
+	// =====================================================================================
 
 	public bool GenerateMenu()
 	{
@@ -32,27 +34,17 @@ public class CodeGen(AppSettings appSettings)
 			return false; // close window
 		}
 
-		var inputs = inputStr.Split(" ", true, true);
-		var @params = inputs.Skip(1).ToArray();
-
-		if(appSettings.ClearConsole) 
+		if(app.ClearConsole) 
 			Clear();
 
-		menuMessage = inputs[0].ToInt() switch
-		{
-			1 => CodeGenAdaptersList.Generate(appSettings),
-			2 => new CodeGenAdapters(appSettings).Init(),
-			3 => new CodeGenPartialsSummary(appSettings).Init(),
-			4 => new CodeGenCssStylesheets(appSettings).Init(),
-			5 => new TransformFilesToFolder(appSettings).Init(),
-			6 => CodeGenValidators.Generate(appSettings), 
-			7 => new CodeGenClassesFromSqlTables().Init("",""),       // Needs work
-			9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
-			_ => $"Your input {inputStr} is not valid.",
-		};
+		var inputs = inputStr.Split(" ", true, true);
 
-		return appSettings.ConsoleRemainOpen;
+		menuMessage = RunCodeGen(inputs);
+
+		return app.ConsoleRemainOpen;
 	}
+
+	// =====================================================================================
 
 	public static void DisplayMenu()
 	{
@@ -78,6 +70,29 @@ public class CodeGen(AppSettings appSettings)
 
 		Write(menu);
 	}
+
+	// =====================================================================================
+
+	public string RunCodeGen(string[] inputs)
+	{
+		var @params = inputs.Skip(1).ToArray();
+
+		int inputNumber = inputs[0].ToInt();
+
+		return inputNumber switch
+		{
+			1 => CodeGenAdaptersList.Generate(app),
+			2 => new CodeGenAdapters(app).Init(),
+			3 => new CodeGenPartialsSummary(app).Init(),
+			4 => new CodeGenCssStylesheets(app).Init(),
+			5 => new TransformFilesToFolder(app).Init(),
+			6 => CodeGenValidators.Generate(app),
+			7 => new CodeGenClassesFromSqlTables().Init("", ""),       // Needs work
+			9 => $"Choice 9 - params: {@params.AsString("\", \"").AddStartEnd("\"")}",
+			_ => $"Your input '{inputs.AsString(" ")}' is not valid.",
+		};
+	}
+
 }
 
 

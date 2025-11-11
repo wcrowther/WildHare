@@ -17,3 +17,8 @@ export const ItemValidator =
   	ItemName:           { minLength: minLength(2),  maxLength: maxLength(50) },
 }
 
+export const Team_MemberValidator =
+{
+ 	UserName:           { minLength: minLength(8),  maxLength: maxLength(50) },
+}
+

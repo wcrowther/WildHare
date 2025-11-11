@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
-using System;
 using System.IO;
 using WildHare.Extensions;
 
@@ -13,31 +12,47 @@ public class Program
 {
 	static bool _showMenu = true;
 
+	// ====================================================================================
+
 	static void Main(string[] args)
     {
-        while (_showMenu)
+		if (args.Length > 0)
+		{
+			RunWithoutMenu(args);
+			return;
+		}
+		
+		while (_showMenu)
         {
-            _showMenu = MainMenu();
+            _showMenu = Menu();
         }
     }
 
 	// ====================================================================================
 
-	private static bool MainMenu()
+	private static bool Menu()
     {
-		var serviceProvider = ConfigureServices().BuildServiceProvider();
-
-		bool result	= serviceProvider
-						.GetService<CodeGen>()
-						.GenerateMenu();
-        return result;
+		return GetCodeGen().GenerateMenu();
     }
 
-    private static ServiceCollection ConfigureServices()
+	private static void RunWithoutMenu(string[] inputs)
+	{
+		GetCodeGen().RunCodeGen(inputs);
+	}
+
+	private static CodeGen GetCodeGen()
+	{
+		var serviceProvider = ConfigureServices()
+								.BuildServiceProvider();
+
+		return serviceProvider.GetService<CodeGen>();
+	}
+
+	private static ServiceCollection ConfigureServices()
     {
         // =================================================================================
         // NOTE: Console app will use appsettings.json if included and Properties
-        // marked as 'TransformFiles if Newer', otherwise will use the one in the Web proj.
+        // marked as 'TransformFiles if Newer', (?) otherwise will use the one in the Web proj .
         // =================================================================================
 
         IConfiguration configuration = new ConfigurationBuilder()

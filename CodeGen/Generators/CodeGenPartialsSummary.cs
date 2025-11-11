@@ -45,7 +45,7 @@ namespace CodeGen.Generators
 
 			string result = $"{nameof(CodeGenPartialsSummary)}.{nameof(Init)} code written to " +
 							$"'{writeToFilePath}'.{NewLine}" +
-							$" ToSuccess: {success} Overwrite: {appSettings.Overwrite}{NewLine}";
+							$" Success: {success} Overwrite: {appSettings.Overwrite}{NewLine}";
 
 			Debug.WriteLine(result);
 

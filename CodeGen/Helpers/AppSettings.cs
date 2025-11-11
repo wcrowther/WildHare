@@ -54,6 +54,8 @@ public class Adapters
 
 	public string MapName2 { get; set; }
 
+	public string AdapterSuffix { get; set; }
+
 	public string AdapterListOutputFile { get; set; }
 }
 
@@ -68,14 +70,17 @@ public class Validators
 	public string ExcludeClasses { get; set; }
 
 	public string OutputFile { get; set; }
-}
-	
+}	
 
 public class TransformFiles
-    {
-        public string ModelSuffix { get; set; }
+{
+	public string FolderFrom { get; set; }
 
-        public bool Overwrite { get; set; }
+	public string FolderTo { get; set; }
+
+	public string ModelSuffix { get; set; }
+
+	public bool Overwrite { get; set; }
 
 	public string NamespaceFrom { get; set; }
 

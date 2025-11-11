@@ -33,19 +33,21 @@ namespace WildHare
 
         public string TypeNamespace => _type.Namespace; 
 
-        public string PrimaryKeyName => PrimaryKeyMeta != null ? PrimaryKeyMeta.Name : ""; 
+        public string PrimaryKeyName => PrimaryKeyMeta != null ? PrimaryKeyMeta.Name : "";
 
-        public bool IsDictionary => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>); 
+		public bool IsDictionary => _type.IsGenericType && _type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
 
-        public Type DictionaryKeyType => IsDictionary ? _type.GetGenericArguments()[0] : null; 
+		public Type DictionaryKeyType => IsDictionary ? _type.GetGenericArguments()[0] : null; 
 
         public Type DictionaryValueType => IsDictionary ? _type.GetGenericArguments()[1] : null; 
 
         public bool IsAnonymousType => TypeName.StartsWith(new[] { "<", "_" }); 
 
-        public bool IsStaticType => _type.IsAbstract && _type.IsSealed; 
+        public bool IsStaticType => _type.IsAbstract && _type.IsSealed;
 
-        public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true);
+		public bool HasEmptyConstructor => _type.GetConstructor(Type.EmptyTypes) != null;
+
+		public MetaProperty PrimaryKeyMeta => properties.FirstOrDefault(a => a.IsKey == true);
 
         public object[] Attributes() => _type.GetCustomAttributes(true);
 

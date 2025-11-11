@@ -556,8 +556,8 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models");
 
             Assert.IsNotNull(types);
-            Assert.AreEqual(35, types.Length);
-            Assert.AreEqual("Apple", types[1].Name);
+            Assert.AreEqual(41, types.Length);
+            Assert.AreEqual("Animal", types[1].Name);
         }
 
         [Test]
@@ -567,8 +567,8 @@ namespace WildHare.Tests
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models", "Account,Apple".Split(','));
         
             Assert.IsNotNull(types);
-            Assert.AreEqual(33, types.Length);
-            Assert.AreEqual("Automobile", types[1].Name);
+            Assert.AreEqual(39, types.Length);
+            Assert.AreEqual("ArsenalTeam", types[1].Name);
         }
 
 		[Test]
@@ -598,12 +598,12 @@ namespace WildHare.Tests
             var typesInNamespace = type.GetAssemblyFromType()
                                        .GetTypesInNamespace(type.Namespace);
 
-            Assert.AreEqual(35, typesInNamespace.Length);
+            Assert.AreEqual(41, typesInNamespace.Length);
 
             var typesInAssembly = type.GetAssemblyFromType()
                                       .GetTypesInNamespace();
 
-            Assert.AreEqual(90, typesInAssembly.Length);
+            Assert.AreEqual(96, typesInAssembly.Length);
         }
 
         // [Test]

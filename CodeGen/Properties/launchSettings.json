@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CodeGen": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "sss": ""
+      }
+    }
+  }
+}
