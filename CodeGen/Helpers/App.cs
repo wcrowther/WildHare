@@ -43,6 +43,8 @@ public class App
 
 public class AdaptersSetting
 {
+	public string ProjectRoot { get; set; }
+
 	public string OutputFolder { get; set; }
 
 	public string AdapterNamespace { get; set; }

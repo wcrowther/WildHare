@@ -72,6 +72,6 @@ public class CodeGenAdaptersList(AdaptersSetting adaptersSettings)
 		return output;
 	}
 
-	private string AdapterListOutputFile => Path.Combine(app.ProjectRoot, adaptersSettings.AdapterListOutputFile);
+	private string AdapterListOutputFile => Path.Combine(adaptersSettings.ProjectRoot, adaptersSettings.AdapterListOutputFile);
 
 }
