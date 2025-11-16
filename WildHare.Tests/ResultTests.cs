@@ -1,6 +1,8 @@
+using AngleSharp.Io;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WildHare.Tests.Models;
 using WildHare.Tests.Models.Generics;
 
@@ -12,130 +14,143 @@ public class ResultTests
 	[Test]
 	public void Test_Result_String_Basic()
 	{
-		var result = "Basic String".ToResult();
+		var response = "Basic String".ToResult();
 
-		Assert.AreEqual("Basic String",	result.Data);
-		Assert.AreEqual("",				result.Result.Message);
-		Assert.AreEqual(true,			result.Result.Ok);
+		Assert.AreEqual("Basic String",	response.Data);
+		Assert.AreEqual("",				response.Result.Message);
+		Assert.AreEqual(true,			response.Result.Ok);
 	}
 
 	[Test]
 	public void Test_Result_String_Basic2()
 	{
-		var result = "Basic String".ToSuccess();
+		var response = "Basic String".ToSuccess();
 
-		Assert.AreEqual("Basic String", result.Data);
-		Assert.AreEqual("",				result.Result.Message);
-		Assert.AreEqual(true,			result.Result.Ok);
+		Assert.AreEqual("Basic String", response.Data);
+		Assert.AreEqual("",				response.Result.Message);
+		Assert.AreEqual(true,			response.Result.Ok);
 	}
 
 	[Test]
 	public void Test_Result_String_Null()
 	{
-		string nullStr = null;
-		var result  = nullStr.ToSuccess("");
+		string nullStr	= null;
+		var response		= nullStr.ToSuccess("");
 
-		Assert.AreEqual("", result.Data);
-		Assert.AreEqual("", result.Result.Message);
-		Assert.AreEqual(true, result.Result.Ok);
+		Assert.AreEqual("",		response.Data);
+		Assert.AreEqual("",		response.Result.Message);
+		Assert.AreEqual(true,	response.Result.Ok);
 	}
 
 	[Test]
 	public void Test_Result_String_Null2()
 	{
 		string nullStr = null;
-		var result = nullStr.ToSuccess();
+		var response = nullStr.ToSuccess();
 
-		Assert.AreEqual(null, result.Data);
-		Assert.AreEqual("", result.Result.Message);
-		Assert.AreEqual(true, result.Result.Ok);
+		Assert.AreEqual(null,	response.Data);
+		Assert.AreEqual("",		response.Result.Message);
+		Assert.AreEqual(true,	response.Result.Ok);
 	}
 
 	[Test]
-	public void Test_Result_List_Is_Null()
+	public void Test_List_ToSuccess_Is_Null()
 	{
-		var list = new List<Item>();
-		list = null;
-		var result = list.ToSuccess([]); // must assign a default
+		List<Item> list = null;
+		var response = list.ToSuccess([]); // must assign a default
 
-		Assert.AreEqual(0, result.Data.Count );
-		Assert.AreEqual("", result.Result.Message);
-		Assert.AreEqual(true, result.Result.Ok);
+		Assert.AreEqual(0,		response.Data.Count );
+		Assert.AreEqual("",		response.Result.Message);
+		Assert.AreEqual(true,	response.Result.Ok);
 	}
 
 
 	[Test]
 	public void Test_Result_String_Failure()
 	{
-		var result = "InvalidString".ToFailure("String is not valid.");
+		var response = "InvalidString".ToFailure("String is not valid.");
 
-		Assert.AreEqual("InvalidString",		result.Data);
-		Assert.AreEqual("String is not valid.",	result.Result.Message);
-		Assert.AreEqual(false,					result.Result.Ok);
+		Assert.AreEqual("InvalidString",		response.Data);
+		Assert.AreEqual("String is not valid.",	response.Result.Message);
+		Assert.AreEqual(false,					response.Result.Ok);
 	}
 
 	[Test]
 	public void Test_Result_List_Basic()
 	{
-		var result = new List<string>{ "one", "two", "three" }
+		var response = new List<string>{ "one", "two", "three" }
 						.ToResult();	
 
-		Assert.AreEqual(3,		result.Data.Count);
-		Assert.AreEqual("",		result.Result.Message);
-		Assert.AreEqual(true,	result.Result.Ok);
+		Assert.AreEqual(3,		response.Data.Count);
+		Assert.AreEqual("",		response.Result.Message);
+		Assert.AreEqual(true,	response.Result.Ok);
 	}
 
 	[Test]
 	public void Test_Result_String_ToSuccess_With_Null_Guard()
 	{
 		List<string> val	= null;
-		var result			= val.ToSuccess([]);
+		var response			= val.ToSuccess([]);
 
-		Assert.AreEqual(0,		result.Data.Count);
-		Assert.AreEqual("",		result.Result.Message);
-		Assert.AreEqual(true,	result.Result.Ok);
+		Assert.AreEqual(0,		response.Data.Count);
+		Assert.AreEqual("",		response.Result.Message);
+		Assert.AreEqual(true,	response.Result.Ok);
 	}
-
 
 	[Test]
 	public void Test_Result_String_ToResult()
 	{
 		List<string> val = null;
-		var result = val.ToResult();
+		var response = val.ToResult();
 
-		Assert.AreEqual(0, result.Data.Count);
-		Assert.AreEqual("", result.Result.Message);
-		Assert.AreEqual(true, result.Result.Ok);
+		Assert.AreEqual(null, response.Data);
+		Assert.AreEqual("ToResult.data is null.", response.Result.Message);
+		Assert.AreEqual(false, response.Result.Ok);
 	}
 
-	// [Test]
-	// public void Test_Result_With_Recurive_Messages()
-	// {
-	// 	var result  = false.ToFailure("Should not be false.");
-	// 	var result2 = result.ToFailure("Should not be false again.");
-	// 	var result3 = result2.ToFailure("Should not be false again.");
-	// 
-	// 
-	// 
-	// 
-	// 
-	// 	Assert.AreEqual(0, result3.GetAllMessages();
-	// 	// Assert.AreEqual("", result.Result.Message);
-	// 	// Assert.AreEqual(true, result.Result.Ok);
-	// }
+	[Test]
+	public void Test_Result_With_func_ToResult()
+	{
+		List<string> val = ["One", "Two"];
+		var response = val.ToResult(v => v.Count > 1);
+
+		Assert.AreEqual(2,		response.Data.Count);
+		Assert.AreEqual("",		response.Result.Message);
+		Assert.AreEqual(true,	response.Result.Ok);
+
+		var secondResponse = response.Result.Ok ? response.Data[1] : response.Data[0];
+
+		Assert.AreEqual("Two", secondResponse);
+	}
 
 	[Test]
-	public void Test_Result__With_Steps_Success()
+	public void Test_Result_With_Steps_Success()
 	{
-		string[] expectedErrors = [""];
-		string str = null;
-		var result = str.IsNotNullString2()
-						.CanBeConvertedToUpper2()
-						.IsEqualToString2("");
+		var response =  new Processor()
+							.ToSuccess()
+							.SuccessStep(2)
+							.SuccessStep(3)
+							.SuccessStep(4);
 
-		Assert.AreEqual(false, result.Result.Ok);
-		Assert.AreEqual(null, result.Data);
-		Assert.AreEqual("Bad data.", result.Result.Message);
+		Assert.AreEqual(3,		response.Data.Step);
+		Assert.AreEqual(9,		response.Data.Amount);
+		Assert.AreEqual(true,	response.Result.Ok);
+		Assert.AreEqual("",		response.Result.Message);
+	}
+
+	[Test]
+	public void Test_Result_With_Steps_Failures()
+	{
+		var response = new Processor()
+							.ToSuccess()
+							.FailureStep()
+							.SuccessStep(3)
+							.SuccessStep(2);
+
+		Assert.AreEqual(3, response.Data.Step);
+		Assert.AreEqual(5, response.Data.Amount);
+		Assert.AreEqual(false, response.Result.Ok);
+		Assert.AreEqual("Step 1 failed.", response.Result.Message);
 	}
 }
 
@@ -146,24 +161,22 @@ public class ResultTests
 
 public static class TestSteps
 {
-	public static (string Data, Result Result) IsNotNullString2(this string s)
+	public static (Processor Data, Result Result) SuccessStep(this (Processor data, Result result) step, decimal addToAmount = 0)
 	{
-		// Add failure message if s is null
-		return s.ToResult();
+		step.data.Step++;
+		step.data.Amount += addToAmount;
+
+		return (step.data, step.result);
 	}
 
-	public static (string Data, Result Result) CanBeConvertedToUpper2(this (string Data, Result Result) result)
+	public static (Processor Data, Result Result) FailureStep(this (Processor data, Result result) step)
 	{
-		// Add failure message if result.Data is not a string
-		return (result.Data, result.Result);
-	}
+		step.data.Step++;
+		string failureMessage = $"Step {step.data.Step} failed.";
+		step.data.Errors.Add(failureMessage);
+		step.ToFailure(failureMessage);
 
-	public static (string Data, Result Result) IsEqualToString2(this (string Data, Result Result) result, string str)
-	{
-		// Check equivalence
-		return result.Result.Ok
-			? result.Data.ToSuccess()
-			: result.Data.ToFailure("Bad data.");
+		return (step.data, step.result);
 	}
 }
 

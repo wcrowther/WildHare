@@ -1,3 +1,5 @@
+using System;
+
 namespace WildHare.Tests.Models.Generics;
 
 public class Result(bool ok, string message = "") 
@@ -15,8 +17,15 @@ public static class ResultExtensions
 	public static (T Data, Result Result) ToResult<T>(this T data, Result errorResult = null)
 	{
 		errorResult ??= new Result(false, "ToResult.data is null.");
-		return data is null ? (default, errorResult)
-							: (data, new Result(true, ""));
+		return data is not null ? (data, new Result(true, ""))
+								: (default, errorResult);
+	}
+
+	public static (T Data, Result Result) ToResult<T>(this T data, Func<T,bool> func, Result errorResult = null)
+	{
+		errorResult ??= new Result(false, "ToResult.data is does not meet func conditions.");
+		return func(data)	? (data, new Result(true, ""))
+							: (default, errorResult);
 	}
 
 	public static (T Data, Result Result) ToSuccess<T>(this T data) where T : notnull 
@@ -24,7 +33,6 @@ public static class ResultExtensions
 
 	public static (T Data, Result Result) ToSuccess<T>(this T data, T defaultValue) 
 		=> (data ?? defaultValue, new Result(true));
-
 
 	public static (T Data, Result Result) ToFailure<T>(this T data, string message) 
 		=> (data, new Result(false, message));
