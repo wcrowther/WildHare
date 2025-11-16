@@ -1,7 +1,8 @@
 ﻿
 namespace CodeGen.Models;
 
-public class AppSettings 
+public class App
+	
 {
 	public string ProjectRoot { get; set; }
 
@@ -33,14 +34,14 @@ public class AppSettings
 
     public string ModelsTargetFolder { get; set; }
 
-	public Adapters Adapters { get; set; }
+	public AdaptersSetting AdaptersSettings { get; set; }
 
-	public Validators Validators { get; set; }
+	public ValidatorsSettings ValidatorsSettings { get; set; }
 
-	public TransformFiles TransformFiles { get; set; }
+	public TransformFilesSettings TransformFilesSettings { get; set; }
 }
 
-public class Adapters
+public class AdaptersSetting
 {
 	public string OutputFolder { get; set; }
 
@@ -59,7 +60,7 @@ public class Adapters
 	public string AdapterListOutputFile { get; set; }
 }
 
-public class Validators
+public class ValidatorsSettings
 {
 	public string SourceNamespace { get; set; }
 
@@ -72,7 +73,7 @@ public class Validators
 	public string OutputFile { get; set; }
 }	
 
-public class TransformFiles
+public class TransformFilesSettings
 {
 	public string FolderFrom { get; set; }
 

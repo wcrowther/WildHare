@@ -11,20 +11,18 @@ using TypeExts = WildHare.Extensions.TypeExtensions;
 namespace CodeGen.Generators;
 
 /*  ==========================================================================
-	string result = CodeGenAdaptersList.Init(appSettings); OR
-	string result = new CodeGenAdaptersList(appSettings).Generate();
+	string result = CodeGenAdaptersList.Init(app.adaptersSettings); OR
+	string result = new CodeGenAdaptersList(app.adaptersSettings).Generate();
 	========================================================================== */
 
-public class CodeGenAdaptersList(AppSettings app)
+public class CodeGenAdaptersList(AdaptersSetting adaptersSettings)
 {
-	readonly Adapters settings = app.Adapters;
-
 	public string Init ()
 	{
-		string mapNamespace1 = settings.MapNamespace1;
+		string mapNamespace1 = adaptersSettings.MapNamespace1;
 		var adapterList		 = TypeExts.GetTypesInNamespace(mapNamespace1);
 
-		var adapterListTemplate = AdaptersListTemplate(adapterList, settings.AdapterSuffix);
+		var adapterListTemplate = AdaptersListTemplate(adapterList, adaptersSettings.AdapterSuffix);
 		adapterListTemplate.WriteToFile(AdapterListOutputFile, true);
 
 		return $"Success. List written to file: {AdapterListOutputFile}";
@@ -46,9 +44,9 @@ public class CodeGenAdaptersList(AppSettings app)
 		return sb.ToString().RemoveStartEnd("\t",NewLine);
 	}
 
-	public static string Generate(AppSettings app)
+	public static string Generate(AdaptersSetting adaptersSettings)
 	{
-		return new CodeGenAdaptersList(app).Init();
+		return new CodeGenAdaptersList(adaptersSettings).Init();
 	}
 
 	// ==================================================================================
@@ -57,8 +55,8 @@ public class CodeGenAdaptersList(AppSettings app)
 	{
 		string output =
 		$$"""
-		using {{settings.MapNamespace1}};
-		using {{settings.MapNamespace2}};
+		using {{adaptersSettings.MapNamespace1}};
+		using {{adaptersSettings.MapNamespace2}};
 
 		namespace CodeGen.Generators;
 		
@@ -74,6 +72,6 @@ public class CodeGenAdaptersList(AppSettings app)
 		return output;
 	}
 
-	private string AdapterListOutputFile => Path.Combine(app.ProjectRoot, settings.AdapterListOutputFile);
+	private string AdapterListOutputFile => Path.Combine(app.ProjectRoot, adaptersSettings.AdapterListOutputFile);
 
 }

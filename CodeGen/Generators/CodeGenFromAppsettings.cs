@@ -28,7 +28,7 @@ namespace CodeGen.Generators
             $$"""
             namespace {{namespaceStr}}
             {
-                public class AppSettings
+                public class App
                 {
                     {{GenerateSettings(appSettings)}}
                 }

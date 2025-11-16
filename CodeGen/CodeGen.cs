@@ -9,7 +9,7 @@ using static System.Environment;
 
 namespace CodeGen;
 
-public class CodeGen(AppSettings app)
+public class CodeGen(App app)
 {
 	static string menuMessage;
 
@@ -55,11 +55,11 @@ public class CodeGen(AppSettings app)
 			 Generate Code - Enter a number (or x to Exit)
 			 {divider}
 			 
-			 1) Generate Adapters List
-			 2) Generate Adapters
+			 1) Generate AdaptersSetting List
+			 2) Generate AdaptersSetting
 			 3) Partials Summary Report
 			 4) List Of Stylesheets
-			 5) TransformFiles Entities to Models Folder
+			 5) TransformFilesSettings Entities to Models Folder
 			 6) Generate JS validators
 			 x) Exit
 			 
@@ -81,7 +81,7 @@ public class CodeGen(AppSettings app)
 
 		return inputNumber switch
 		{
-			1 => CodeGenAdaptersList.Generate(app),
+			1 => CodeGenAdaptersList.Generate(app.AdaptersSettings),
 			2 => new CodeGenAdapters(app).Init(),
 			3 => new CodeGenPartialsSummary(app).Init(),
 			4 => new CodeGenCssStylesheets(app).Init(),

@@ -64,7 +64,7 @@ public class Program
         var serviceCollection = new ServiceCollection();
 
         serviceCollection.AddSingleton(configuration)
-                         .AddSingleton(configuration.GetSection("AppSettings").Get<AppSettings>())
+                         .AddSingleton(configuration.GetSection("App").Get<App>())
                          .AddSingleton<IHostEnvironment, HostingEnvironment>()
                           //LIKE .AddScoped<IDataRepo, DataRepo>()
                          .AddScoped<CodeGen>();

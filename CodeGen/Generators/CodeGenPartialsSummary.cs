@@ -10,7 +10,7 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-    public class CodeGenPartialsSummary(AppSettings appSettings)
+    public class CodeGenPartialsSummary(App appSettings)
 	{
 		private const int columnWidth           = -10;
         private string currentDirectoryName     = "";

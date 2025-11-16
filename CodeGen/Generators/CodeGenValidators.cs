@@ -17,15 +17,15 @@ namespace CodeGen.Generators;
 	string result = CodeGenValidators.Init(appSettings);
 	========================================================================== */
 
-public class CodeGenValidators(AppSettings app)
+public class CodeGenValidators(App app)
 {
 	// validators like: required, maxLength, etc.
 	private readonly static List<string> validatorsList = [];  
 	private readonly bool overwrite						= app.Overwrite;
-	private readonly string outputFilePath				= $"{app.ProjectRoot}{app.Validators.OutputFile}";
-	private readonly string sourceNamespace				= app.Validators.SourceNamespace;
-	private readonly string assemblyName				= app.Validators.SourceAssemblyName;
-	private readonly string[] excludeClasses			= app.Validators.ExcludeClasses.Split(",", true, true);
+	private readonly string outputFilePath				= $"{app.ProjectRoot}{app.ValidatorsSettings.OutputFile}";
+	private readonly string sourceNamespace				= app.ValidatorsSettings.SourceNamespace;
+	private readonly string assemblyName				= app.ValidatorsSettings.SourceAssemblyName;
+	private readonly string[] excludeClasses			= app.ValidatorsSettings.ExcludeClasses.Split(",", true, true);
 
 	private static readonly string indent	= "\t";
 	private static readonly int pad			= -20;
@@ -42,7 +42,7 @@ public class CodeGenValidators(AppSettings app)
         return result.Message;
     }
 
-	public static string Generate(AppSettings app)
+	public static string Generate(App app)
 	{
 		return new CodeGenValidators(app).Init();
 	}

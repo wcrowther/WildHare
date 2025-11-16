@@ -6,9 +6,9 @@ using static System.Environment;
 
 namespace CodeGen.Generators
 {
-	public class TransformFilesToFolder(AppSettings app)
+	public class TransformFilesToFolder(App app)
 	{
-		TransformFiles settings = app.TransformFiles;
+		TransformFilesSettings settings = app.TransformFilesSettings;
 		
 		int filesCopied = 0;
 		int filesNotCopied = 0;

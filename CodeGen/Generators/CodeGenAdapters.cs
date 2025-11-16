@@ -12,7 +12,7 @@ using static System.Environment;
 
 namespace CodeGen.Generators;
 
-public partial class CodeGenAdapters(AppSettings appSettings)
+public partial class CodeGenAdapters(App appSettings)
 {
 	private readonly string indent		= "\t".Repeat(3);
 	private readonly string end			= $",{NewLine}";
@@ -30,7 +30,7 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 
 		if (adaptersRun == 0)
 		{ 
-			return	$"No adapters were generated. Run 'Generate Adapters List' to populate{NewLine} " +
+			return	$"No adapters were generated. Run 'Generate AdaptersSetting List' to populate{NewLine} " +
 					$"the RunAdaptersList() method in 'CodeGenAdapters_Run.cs'";		
 		}
 
@@ -45,28 +45,28 @@ public partial class CodeGenAdapters(AppSettings appSettings)
 	// ==================================================================================
 	// To Delete:  Array.ForEach(Directory.GetFiles(outputDir), file => File.Delete(file));
 
-	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.Adapters.OutputFolder).EnsureEnd("\\");
+	private string OutputFolder => Path.Combine(appSettings.ProjectRoot, appSettings.AdaptersSettings.OutputFolder).EnsureEnd("\\");
 
 
 	private bool AdaptersTemplate(Type type1, Type type2, bool overwrite = false, bool generateListCode = true)
 	{
 		string class1	= type1.Name;
 		string class2	= type2.Name;
-		string map1		= appSettings.Adapters.MapName1;
-		string map2		= appSettings.Adapters.MapName2;
+		string map1		= appSettings.AdaptersSettings.MapName1;
+		string map2		= appSettings.AdaptersSettings.MapName2;
 
-		string adapterFileName = $"{class1}Adapters.cs";
+		string adapterFileName = $"{class1}AdaptersSetting.cs";
 
 		string output =
 		$$"""
-		using {{appSettings.Adapters.MapNamespace1}};
-		using {{appSettings.Adapters.MapNamespace2}};
+		using {{appSettings.AdaptersSettings.MapNamespace1}};
+		using {{appSettings.AdaptersSettings.MapNamespace2}};
 		using System.Linq;
 		using System.Collections.Generic;
 		
-		namespace {{appSettings.Adapters.AdapterNamespace}};
+		namespace {{appSettings.AdaptersSettings.AdapterNamespace}};
 		
-		public static partial class Adapters
+		public static partial class AdaptersSetting
 		{
 			public static {{class2}} To{{class2}} (this {{class1}} {{map1}})
 			{
