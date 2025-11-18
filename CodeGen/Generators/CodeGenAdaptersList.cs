@@ -15,7 +15,7 @@ namespace CodeGen.Generators;
 	string result = new CodeGenAdaptersList(app.adaptersSettings).Generate();
 	========================================================================== */
 
-public class CodeGenAdaptersList(AdaptersSetting adaptersSettings)
+public class CodeGenAdaptersList(AdaptersSettings adaptersSettings)
 {
 	public string Init ()
 	{
@@ -44,7 +44,7 @@ public class CodeGenAdaptersList(AdaptersSetting adaptersSettings)
 		return sb.ToString().RemoveStartEnd("\t",NewLine);
 	}
 
-	public static string Generate(AdaptersSetting adaptersSettings)
+	public static string Generate(AdaptersSettings adaptersSettings)
 	{
 		return new CodeGenAdaptersList(adaptersSettings).Init();
 	}

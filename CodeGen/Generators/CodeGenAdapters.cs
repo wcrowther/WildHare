@@ -30,12 +30,13 @@ public partial class CodeGenAdapters(App appSettings)
 
 		if (adaptersRun == 0)
 		{ 
-			return	$"No adapters were generated. Run 'Generate AdaptersSetting List' to populate{NewLine} " +
+			return	$"No adapters were generated. Run 'Generate AdaptersSettings List' to populate{NewLine} " +
 					$"the RunAdaptersList() method in 'CodeGenAdapters_Run.cs'";		
 		}
 
-		string result = $"{nameof(CodeGenAdapters)}.{nameof(RunAdaptersList)} code written to " +
-						$"'{OutputFolder}'. Overwrite: {appSettings.Overwrite}";
+		string result = $"Code for {adaptersRun} adapters written to:{NewLine}" +
+						$" {OutputFolder} folder.{NewLine}" +
+						$" Overwrite: {appSettings.Overwrite}";
 
 		Debug.WriteLine($"{divider}{result}");
 
@@ -55,7 +56,7 @@ public partial class CodeGenAdapters(App appSettings)
 		string map1		= appSettings.AdaptersSettings.MapName1;
 		string map2		= appSettings.AdaptersSettings.MapName2;
 
-		string adapterFileName = $"{class1}AdaptersSetting.cs";
+		string adapterFileName = $"{class1}AdaptersSettings.cs";
 
 		string output =
 		$$"""
@@ -66,7 +67,7 @@ public partial class CodeGenAdapters(App appSettings)
 		
 		namespace {{appSettings.AdaptersSettings.AdapterNamespace}};
 		
-		public static partial class AdaptersSetting
+		public static partial class AdaptersSettings
 		{
 			public static {{class2}} To{{class2}} (this {{class1}} {{map1}})
 			{
@@ -100,11 +101,11 @@ public partial class CodeGenAdapters(App appSettings)
 		return isSuccess;
 	}
 
-	private string TemplateAdapterProperties(Type type, Type toType, string mapName)
+	private string TemplateAdapterProperties(Type fromType, Type toType, string mapName)
 	{
 		var sb = new StringBuilder();
 
-		foreach (var prop in type.GetProperties())
+		foreach (var prop in fromType.GetProperties())
 		{
 			var toTypeProps = toType.GetProperties().Select(n => n.Name.ToLower()).ToArray();
 

@@ -34,14 +34,14 @@ public class App
 
     public string ModelsTargetFolder { get; set; }
 
-	public AdaptersSetting AdaptersSettings { get; set; }
+	public AdaptersSettings AdaptersSettings { get; set; }
 
 	public ValidatorsSettings ValidatorsSettings { get; set; }
 
 	public TransformFilesSettings TransformFilesSettings { get; set; }
 }
 
-public class AdaptersSetting
+public class AdaptersSettings
 {
 	public string ProjectRoot { get; set; }
 

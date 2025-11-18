@@ -55,8 +55,8 @@ public class CodeGen(App app)
 			 Generate Code - Enter a number (or x to Exit)
 			 {divider}
 			 
-			 1) Generate AdaptersSetting List
-			 2) Generate AdaptersSetting
+			 1) Generate AdaptersSettings List
+			 2) Generate AdaptersSettings
 			 3) Partials Summary Report
 			 4) List Of Stylesheets
 			 5) TransformFilesSettings Entities to Models Folder
