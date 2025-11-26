@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,6 +8,7 @@ using WildHare.Extensions;
 using WildHare.Extensions.ForTemplating;
 using WildHare.Web.SchemaModels;
 using static System.Environment;
+using Microsoft.Data.SqlClient;
 
 namespace CodeGen.Generators
 {

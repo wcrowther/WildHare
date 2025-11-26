@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -48,31 +49,31 @@ namespace WildHare.Tests
                 }
             };
 
-            Assert.AreEqual(1, dummy.Cache.Invoice.InvoiceId);
-            Assert.AreEqual(7890, dummy.Cache.Invoice.AccountId);
-            Assert.AreEqual(99.99M, dummy.Cache.Invoice.InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, dummy.Cache.Invoice.InvoiceItems[1].InvoiceItemId);
-            Assert.AreEqual(3, dummy.Cache.Invoice.InvoiceItems.Count);
+            ClassicAssert.AreEqual(1, dummy.Cache.Invoice.InvoiceId);
+            ClassicAssert.AreEqual(7890, dummy.Cache.Invoice.AccountId);
+            ClassicAssert.AreEqual(99.99M, dummy.Cache.Invoice.InvoiceItems[0].Fee);
+            ClassicAssert.AreEqual(5678, dummy.Cache.Invoice.InvoiceItems[1].InvoiceItemId);
+            ClassicAssert.AreEqual(3, dummy.Cache.Invoice.InvoiceItems.Count);
 
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
 
-            Assert.AreEqual(1, cache.Get<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890, cache.Get<Invoice>("Invoice").AccountId);
-            Assert.AreEqual(99.99M, cache.Get<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            ClassicAssert.AreEqual(1, cache.Get<Invoice>("Invoice").InvoiceId);
+            ClassicAssert.AreEqual(7890, cache.Get<Invoice>("Invoice").AccountId);
+            ClassicAssert.AreEqual(99.99M, cache.Get<Invoice>("Invoice").InvoiceItems[0].Fee);
+            ClassicAssert.AreEqual(5678, cache.Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Inline cast to ExpandoObject alternative
-            Assert.AreEqual(1, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
-            Assert.AreEqual(7890, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").AccountId);
-            Assert.AreEqual(99.99M, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
+            ClassicAssert.AreEqual(1, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceId);
+            ClassicAssert.AreEqual(7890, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").AccountId);
+            ClassicAssert.AreEqual(99.99M, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[0].Fee);
+            ClassicAssert.AreEqual(5678, ((ExpandoObject)dummy.Cache).Get<Invoice>("Invoice").InvoiceItems[1].InvoiceItemId);
 
             // Invoke with non-extension method syntax alternative (with ex using statement above)
-            Assert.AreEqual(1, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
-            Assert.AreEqual(7890, Ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
-            Assert.AreEqual(99.99M, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
-            Assert.AreEqual(5678, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
+            ClassicAssert.AreEqual(1, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceId);
+            ClassicAssert.AreEqual(7890, Ex.Get<Invoice>(dummy.Cache, "Invoice").AccountId);
+            ClassicAssert.AreEqual(99.99M, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[0].Fee);
+            ClassicAssert.AreEqual(5678, Ex.Get<Invoice>(dummy.Cache, "Invoice").InvoiceItems[1].InvoiceItemId);
         }
 
         [Test]
@@ -84,9 +85,9 @@ namespace WildHare.Tests
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
 
-            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceId);
-            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceItems[0]?.Fee);
-            Assert.IsNull(cache.Get("Invoice"));
+            ClassicAssert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceId);
+            ClassicAssert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceItems[0]?.Fee);
+			ClassicAssert.IsNull(cache.Get("Invoice"));
         }
 
         [Test]
@@ -97,9 +98,9 @@ namespace WildHare.Tests
             // Cast to ExpandoObject
             ExpandoObject cache = dummy.Cache;
 
-            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceId);
-            Assert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceItems[0]?.Fee);
-            Assert.IsNull(cache.Get("Invoice"));
+            ClassicAssert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceId);
+            ClassicAssert.IsNull(cache.Get<Invoice>("Invoice")?.InvoiceItems[0]?.Fee);
+			ClassicAssert.IsNull(cache.Get("Invoice"));
         }
 
         [Test]
@@ -114,7 +115,7 @@ namespace WildHare.Tests
             ExpandoObject cache = dummy.Cache;
             cache.Remove(name);
 
-            Assert.AreEqual(null, cache.Get<Invoice>(name)); // Does not throw
+            ClassicAssert.AreEqual(null, cache.Get<Invoice>(name)); // Does not throw
         }
 
         [Test]
@@ -130,7 +131,7 @@ namespace WildHare.Tests
             ExpandoObject cache = dummy.Cache;
             cache.Add(name, invoice);
 
-            Assert.AreEqual(1, cache.Get<Invoice>(name).InvoiceId);
+            ClassicAssert.AreEqual(1, cache.Get<Invoice>(name).InvoiceId);
         }
 
         [Test]
@@ -143,7 +144,7 @@ namespace WildHare.Tests
             ExpandoObject cache = dummy.Cache;
             cache.Add(name, value);
 
-            Assert.AreEqual(value, cache.Get(name));
+            ClassicAssert.AreEqual(value, cache.Get(name));
         }
 
         [Test]
@@ -156,7 +157,7 @@ namespace WildHare.Tests
                 new Invoice{ InvoiceId = 2, AccountId = 1}
             };
 
-            Assert.AreEqual(2, dummy.Cache.Invoices.Count);
+            ClassicAssert.AreEqual(2, dummy.Cache.Invoices.Count);
         }
 
         [Test]
@@ -175,9 +176,9 @@ namespace WildHare.Tests
 
             List<InvoiceItem> itemsList = cache.Get<List<InvoiceItem>>("InvoiceItems");
 
-            Assert.AreEqual(3, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceId).Count());
-            Assert.AreEqual(1234, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceItemId).First());
-            Assert.AreEqual(3, itemsList.Count);
+            ClassicAssert.AreEqual(3, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceId).Count());
+            ClassicAssert.AreEqual(1234, cache.Get<List<InvoiceItem>>("InvoiceItems").Select(a => a.InvoiceItemId).First());
+            ClassicAssert.AreEqual(3, itemsList.Count);
         }
 
         [Test]
@@ -195,7 +196,7 @@ namespace WildHare.Tests
 
             dummy.Cache.InvoiceItems.Add(invoiceItem);
 
-            Assert.AreEqual(4, dummy.Cache.InvoiceItems.Count);
+            ClassicAssert.AreEqual(4, dummy.Cache.InvoiceItems.Count);
         }
 
 
@@ -214,7 +215,7 @@ namespace WildHare.Tests
 
             dummy.Cache.InvoiceItems.Add(invoiceItem);
 
-            Assert.AreEqual(4, dummy.Cache.InvoiceItems.Count);
+            ClassicAssert.AreEqual(4, dummy.Cache.InvoiceItems.Count);
         }
     }
 }

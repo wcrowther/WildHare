@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,14 +18,14 @@ namespace WildHare.Tests
 			var prescriptionTable = GetPrescriptionTable();
 			var prescriptionList  = prescriptionTable.ToList<Prescription>();
 
-            Assert.AreEqual(prescriptionTable.Rows.Count, prescriptionList.Count);
-            Assert.AreEqual(prescriptionTable.Columns.Count, prescriptionList.GetMetaProperties().Count);
+            ClassicAssert.AreEqual(prescriptionTable.Rows.Count, prescriptionList.Count);
+            ClassicAssert.AreEqual(prescriptionTable.Columns.Count, prescriptionList.GetMetaProperties().Count);
 
             var merchandiseTable = GetMerchandiseTable();
             var merchandiseList  = GetMerchandiseTable().ToList<Merchandise>();
 
-            Assert.AreEqual(merchandiseTable.Rows.Count,    merchandiseList.Count);
-            Assert.AreEqual(merchandiseTable.Columns.Count, merchandiseList.GetMetaProperties().Count);
+            ClassicAssert.AreEqual(merchandiseTable.Rows.Count,    merchandiseList.Count);
+            ClassicAssert.AreEqual(merchandiseTable.Columns.Count, merchandiseList.GetMetaProperties().Count);
         }
 
         [Test]
@@ -42,23 +43,23 @@ namespace WildHare.Tests
             // =======================================================================
             var table0 = dataSet.Tables[0];
 
-            Assert.AreEqual(5,          table0.Rows.Count);
-            Assert.AreEqual(25,         (int)table0.Rows[0]["Dosage"]);
-            Assert.AreEqual("Indocin",  table0.Rows[0]["Drug"]);
-            Assert.AreEqual("David",    table0.Rows[0]["Patient"]);
+            ClassicAssert.AreEqual(5,          table0.Rows.Count);
+            ClassicAssert.AreEqual(25,         (int)table0.Rows[0]["Dosage"]);
+            ClassicAssert.AreEqual("Indocin",  table0.Rows[0]["Drug"]);
+            ClassicAssert.AreEqual("David",    table0.Rows[0]["Patient"]);
 
             // =======================================================================
             // Using System.Data.DataSetExtensions DataRow.Field extension method
 
-            Assert.AreEqual(50,         table0.Rows[1].Field<int>("Dosage") );
-            Assert.AreEqual("Enebrel",  table0.Rows[1].Field<string>("Drug"));
-            Assert.AreEqual("Sam",      table0.Rows[1].Field<string>("Patient"));
+            ClassicAssert.AreEqual(50,         table0.Rows[1].Field<int>("Dosage") );
+            ClassicAssert.AreEqual("Enebrel",  table0.Rows[1].Field<string>("Drug"));
+            ClassicAssert.AreEqual("Sam",      table0.Rows[1].Field<string>("Patient"));
 
             // =======================================================================
 
-            Assert.AreEqual(5,         dataSet.Tables[1].Rows.Count);
-            Assert.AreEqual(1,         (int)dataSet.Tables[1].Rows[0]["ProductId"]);
-            Assert.AreEqual("Toy",     dataSet.Tables[1].Rows[0]["ProductName"]);
+            ClassicAssert.AreEqual(5,         dataSet.Tables[1].Rows.Count);
+            ClassicAssert.AreEqual(1,         (int)dataSet.Tables[1].Rows[0]["ProductId"]);
+            ClassicAssert.AreEqual("Toy",     dataSet.Tables[1].Rows[0]["ProductName"]);
 
             // =======================================================================
         }
@@ -77,9 +78,9 @@ namespace WildHare.Tests
 
 			   var prescriptions = dataSet.Tables[0].ToList<Prescription>();
 
-			   Assert.AreEqual(25,			 prescriptions.First().Dosage);
-			   Assert.AreEqual("Indocin",	 prescriptions.First().Drug);
-			   Assert.AreEqual("David",		 prescriptions.First().Patient);
+			   ClassicAssert.AreEqual(25,			 prescriptions.First().Dosage);
+			   ClassicAssert.AreEqual("Indocin",	 prescriptions.First().Drug);
+			   ClassicAssert.AreEqual("David",		 prescriptions.First().Patient);
 		  }
 
 
@@ -97,9 +98,9 @@ namespace WildHare.Tests
 
 			   var merchandise = dataSet.Tables[1].ToList<Merchandise>();
 
-			   Assert.AreEqual(1, merchandise.First().ProductId);
-			   Assert.AreEqual("Toy", merchandise.First().ProductName);
-			   Assert.AreEqual(typeof(DateTime), merchandise.First().Created.GetType());
+			   ClassicAssert.AreEqual(1, merchandise.First().ProductId);
+			   ClassicAssert.AreEqual("Toy", merchandise.First().ProductName);
+			   ClassicAssert.AreEqual(typeof(DateTime), merchandise.First().Created.GetType());
 		  }
 
 		  // ===================================================================

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,8 +46,8 @@ public class IOExtensionsTests
 
         var fileAllText = File.ReadAllText(pathToWriteTo);
 
-        Assert.IsFalse(notAbleToDeleteExistingFile);
-        Assert.AreEqual(sentenceToWrite, fileAllText);
+		ClassicAssert.IsFalse(notAbleToDeleteExistingFile);
+        ClassicAssert.AreEqual(sentenceToWrite, fileAllText);
     }
 
     [Test]
@@ -63,7 +64,7 @@ public class IOExtensionsTests
 
         string fileContents = File.ReadAllText(pathToWriteTo);
 
-        Assert.AreEqual(fileContents, testText);
+        ClassicAssert.AreEqual(fileContents, testText);
 
         // Cleanup by deleting directory and existing files
         var directory = new DirectoryInfo(directoryPath);
@@ -71,7 +72,7 @@ public class IOExtensionsTests
 
         var fileInfo = new FileInfo(pathToWriteTo);
 
-        Assert.IsFalse(fileInfo.Exists);
+		ClassicAssert.IsFalse(fileInfo.Exists);
     }
 
     [Test]
@@ -90,7 +91,7 @@ public class IOExtensionsTests
 
         sb.ToString().WriteToFile(pathToWriteTo, true);
 
-        Assert.AreEqual(4, allFiles.Count);
+        ClassicAssert.AreEqual(4, allFiles.Count);
     }
 
     [Test]
@@ -121,7 +122,7 @@ public class IOExtensionsTests
         $"{NewLine}{folders}{NewLine}{files}"
 			.WriteToFile(outputPath, true);
 
-        Assert.AreEqual(9, allFilesAndFolders.Length);
+        ClassicAssert.AreEqual(9, allFilesAndFolders.Length);
     }
 
     [Test]
@@ -151,7 +152,7 @@ public class IOExtensionsTests
         string filesAndFolders = folders.ToString() + files.ToString();
         filesAndFolders.WriteToFile(outputPath, true);
 
-        Assert.AreEqual(16, allFilesAndFolders.Length);
+        ClassicAssert.AreEqual(16, allFilesAndFolders.Length);
     }
 
 	[Test]
@@ -180,12 +181,12 @@ public class IOExtensionsTests
 		sb.ToString()
 		  .WriteToFile(outputPath, true);
 
-		Assert.AreEqual(14, list.Count);
+		ClassicAssert.AreEqual(14, list.Count);
 
 		var outputToRead = new FileInfo(outputPath);
 		var outputLines = outputToRead.ReadFile().ToLineArray();
 
-		Assert.AreEqual(19, outputLines.Length);
+		ClassicAssert.AreEqual(19, outputLines.Length);
 	}
 
     [Test]
@@ -196,7 +197,7 @@ public class IOExtensionsTests
 
         var fileToRead = new FileInfo(directoryPath);
 
-        Assert.AreEqual("This is TextFile0.txt.\r\n", fileToRead.ReadFile());
+        ClassicAssert.AreEqual("This is TextFile0.txt.\r\n", fileToRead.ReadFile());
     }
 
     [Test]
@@ -212,7 +213,7 @@ public class IOExtensionsTests
             () => fileToRead.ReadFile()
         );
 
-        Assert.IsTrue(ex.Message.StartsWith("Could not find file"));
+		ClassicAssert.IsTrue(ex.Message.StartsWith("Could not find file"));
     }
 
     [Test]
@@ -223,7 +224,7 @@ public class IOExtensionsTests
 
         var fileToRead = new FileInfo(directoryPath);
 
-        Assert.IsNull(fileToRead.ReadFile(false));
+		ClassicAssert.IsNull(fileToRead.ReadFile(false));
     }
 
     [Test]
@@ -231,8 +232,8 @@ public class IOExtensionsTests
     {
         string testDirectory = TestContext.CurrentContext.TestDirectory;
 
-        Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net9.0", testDirectory);
-        Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", testDirectory.GetStartBefore("bin"));
+        ClassicAssert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\bin\Debug\net10.0", testDirectory);
+        ClassicAssert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", testDirectory.GetStartBefore("bin"));
     }
 
     [Test]
@@ -241,8 +242,8 @@ public class IOExtensionsTests
         string testDirectory    = TestContext.CurrentContext.TestDirectory;
         var helpersDirectory    = new DirectoryInfo(testDirectory.GetStartBefore("bin")).Child("Helpers");
 
-        Assert.IsNotNull(helpersDirectory);
-        Assert.AreEqual("Helpers", helpersDirectory.Name);
+		ClassicAssert.IsNotNull(helpersDirectory);
+        ClassicAssert.AreEqual("Helpers", helpersDirectory.Name);
     }
 
     [Test]
@@ -251,8 +252,8 @@ public class IOExtensionsTests
         string testDirectory    = TestContext.CurrentContext.TestDirectory;
         var wildHareDirectory   = new DirectoryInfo(testDirectory.GetStartBefore("bin")).Sibling("WildHare");
 
-        Assert.IsNotNull(wildHareDirectory);
-        Assert.AreEqual("WildHare", wildHareDirectory.Name);
+		ClassicAssert.IsNotNull(wildHareDirectory);
+        ClassicAssert.AreEqual("WildHare", wildHareDirectory.Name);
     }
 
 	[Test]
@@ -261,7 +262,7 @@ public class IOExtensionsTests
 		string pathRoot = $@"{approot}\WildHare\WildHare.Web";
 		var projFiles   = pathRoot.GetAllFiles([".csproj",".user"]);
 
-		Assert.AreEqual(2, projFiles.Count);
+		ClassicAssert.AreEqual(2, projFiles.Count);
 	}
 
 	[Test]
@@ -294,7 +295,7 @@ public class IOExtensionsTests
 
 		sb.ToString().WriteToFile(outputPath, true);
 
-		Assert.AreEqual(10, fileList.Count());
+		ClassicAssert.AreEqual(10, fileList.Count());
 	}
 
 	// [Test]
@@ -327,13 +328,13 @@ public class IOExtensionsTests
 	// 	sb.ToString()
 	// 	  .WriteToFile(outputPath, true);
 	// 
-	// 	Assert.AreEqual(20, hierarchy.Count());
+	// 	ClassicAssert.AreEqual(20, hierarchy.Count());
 	// 
 	// 	var outputToRead = new FileInfo(outputPath);
 	// 	var outputLines = outputToRead.ReadFile()
 	// 								  .ToLineArray();
 	// 
-	// 	Assert.AreEqual(25, outputLines.Length);
+	// 	ClassicAssert.AreEqual(25, outputLines.Length);
 	// }
 
 	// [Test]
@@ -347,7 +348,7 @@ public class IOExtensionsTests
 	// 
 	// 	var projFiles = pathRoot.GetAllFiles([".png", ".jpg", ".gif", ".webp"]);
 	// 
-	// 	Assert.AreEqual(10, projFiles.Count());
+	// 	ClassicAssert.AreEqual(10, projFiles.Count());
 	// }
 
 

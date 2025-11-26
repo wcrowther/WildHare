@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,16 +23,16 @@ namespace WildHare.Tests
 			string intStr		= "int";
 			string unknownStr	= "fred";
 
-			Assert.AreEqual("byte[]",       binaryStr.TSqlTypeToCSharpType());
-			Assert.AreEqual("DateTime",     datetimeStr.TSqlTypeToCSharpType());
-			Assert.AreEqual("DateTime",     datetimeStr.TSqlTypeToCSharpType(false));
-			Assert.AreEqual("DateTime?",    datetimeStr.TSqlTypeToCSharpType(true));
-			Assert.AreEqual("decimal",      numericStr.TSqlTypeToCSharpType());
-			Assert.AreEqual("decimal",      numericStr.TSqlTypeToCSharpType(false));
-			Assert.AreEqual("decimal?",     numericStr.TSqlTypeToCSharpType(true));
-			Assert.AreEqual("int",          intStr.TSqlTypeToCSharpType());
-			Assert.AreEqual("int?",         intStr.TSqlTypeToCSharpType(true));
-			Assert.AreEqual("UNKNOWN",      unknownStr.TSqlTypeToCSharpType());
+			ClassicAssert.AreEqual("byte[]",       binaryStr.TSqlTypeToCSharpType());
+			ClassicAssert.AreEqual("DateTime",     datetimeStr.TSqlTypeToCSharpType());
+			ClassicAssert.AreEqual("DateTime",     datetimeStr.TSqlTypeToCSharpType(false));
+			ClassicAssert.AreEqual("DateTime?",    datetimeStr.TSqlTypeToCSharpType(true));
+			ClassicAssert.AreEqual("decimal",      numericStr.TSqlTypeToCSharpType());
+			ClassicAssert.AreEqual("decimal",      numericStr.TSqlTypeToCSharpType(false));
+			ClassicAssert.AreEqual("decimal?",     numericStr.TSqlTypeToCSharpType(true));
+			ClassicAssert.AreEqual("int",          intStr.TSqlTypeToCSharpType());
+			ClassicAssert.AreEqual("int?",         intStr.TSqlTypeToCSharpType(true));
+			ClassicAssert.AreEqual("UNKNOWN",      unknownStr.TSqlTypeToCSharpType());
 		}
 
         [Test]
@@ -41,10 +42,10 @@ namespace WildHare.Tests
             string boolString2 = "Boolean?";
             string boolString3 = "System.Nullable{Boolean}";
 
-            Assert.AreEqual("bool", boolString1.DotNetTypeToCSharpType());
-            Assert.AreEqual("bool?", boolString1.DotNetTypeToCSharpType(true));
-            Assert.AreEqual("bool?", boolString2.DotNetTypeToCSharpType());
-            Assert.AreEqual("bool?", boolString3.DotNetTypeToCSharpType());
+            ClassicAssert.AreEqual("bool", boolString1.DotNetTypeToCSharpType());
+            ClassicAssert.AreEqual("bool?", boolString1.DotNetTypeToCSharpType(true));
+            ClassicAssert.AreEqual("bool?", boolString2.DotNetTypeToCSharpType());
+            ClassicAssert.AreEqual("bool?", boolString3.DotNetTypeToCSharpType());
 
         }
 
@@ -55,9 +56,9 @@ namespace WildHare.Tests
             string string2 = "";
             string string3 = null;
 
-            Assert.AreEqual("string", string1.BasicTypeNameFromValue());
-            Assert.AreEqual("string", string2.BasicTypeNameFromValue());
-            Assert.AreEqual("string", string3.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("string", string1.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("string", string2.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("string", string3.BasicTypeNameFromValue());
         }
 
         [Test]
@@ -68,10 +69,10 @@ namespace WildHare.Tests
             string string3 = "True";
             string string4 = "False";
 
-            Assert.AreEqual("bool", string1.BasicTypeNameFromValue());
-            Assert.AreEqual("bool", string2.BasicTypeNameFromValue());
-            Assert.AreEqual("bool", string3.BasicTypeNameFromValue());
-            Assert.AreEqual("bool", string4.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("bool", string1.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("bool", string2.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("bool", string3.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("bool", string4.BasicTypeNameFromValue());
         }
 
         [Test]
@@ -91,19 +92,19 @@ namespace WildHare.Tests
             string string12 = "";
             string string13 = null;
 
-            Assert.AreEqual("int",      string1.BasicTypeNameFromValue());
-            Assert.AreEqual("int",      string2.BasicTypeNameFromValue());
-            Assert.AreEqual("int",      string3.BasicTypeNameFromValue());
-            Assert.AreEqual("int",      string4.BasicTypeNameFromValue());
-            Assert.AreEqual("int",      string5.BasicTypeNameFromValue());
-            Assert.AreEqual("int",      string6.BasicTypeNameFromValue());
-            Assert.AreEqual("long",     string7.BasicTypeNameFromValue());
-            Assert.AreEqual("decimal",  string8.BasicTypeNameFromValue());
-            Assert.AreEqual("decimal",  string9.BasicTypeNameFromValue());
-            Assert.AreEqual("decimal",  string10.BasicTypeNameFromValue());
-            Assert.AreEqual("string",   string11.BasicTypeNameFromValue());
-            Assert.AreEqual("string",   string12.BasicTypeNameFromValue());
-            Assert.AreEqual("string",   string13.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("int",      string1.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("int",      string2.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("int",      string3.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("int",      string4.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("int",      string5.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("int",      string6.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("long",     string7.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("decimal",  string8.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("decimal",  string9.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("decimal",  string10.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("string",   string11.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("string",   string12.BasicTypeNameFromValue());
+            ClassicAssert.AreEqual("string",   string13.BasicTypeNameFromValue());
         }
 
         [Test]
@@ -117,7 +118,7 @@ namespace WildHare.Tests
             );
 
             string expectedMessage = "The BasicTypeNameFromValue value cannot be empty or null when in strict mode.";
-            Assert.AreEqual(expectedMessage, ex.Message);
+            ClassicAssert.AreEqual(expectedMessage, ex.Message);
         }
 
         [Test]
@@ -131,7 +132,7 @@ namespace WildHare.Tests
                 () => string1.BasicTypeNameFromValue(true, customErrorMessage)
             );
 
-            Assert.AreEqual("Something went wrong...", ex.Message);
+            ClassicAssert.AreEqual("Something went wrong...", ex.Message);
         }
 
         [Test]
@@ -147,7 +148,7 @@ namespace WildHare.Tests
 
             string result = invoice.Template(template);
 
-            Assert.AreEqual("InvoiceId 222 for AccountId 1000." + NewLine, result);
+            ClassicAssert.AreEqual("InvoiceId 222 for AccountId 1000." + NewLine, result);
         }
 
         [Test]
@@ -166,7 +167,7 @@ namespace WildHare.Tests
 
             string result = invoice.Template(fileToRead);
 
-            Assert.AreEqual("InvoiceId 222 for AccountId 1000." + NewLine, result);
+            ClassicAssert.AreEqual("InvoiceId 222 for AccountId 1000." + NewLine, result);
         }
 
         [Test]
@@ -207,13 +208,13 @@ namespace WildHare.Tests
 
             string getInvoiceHtml = invoice.Template(docTemplate);
 
-            Assert.AreEqual(expected, getInvoiceHtml);
+            ClassicAssert.AreEqual(expected, getInvoiceHtml);
 
             getInvoiceHtml.WriteToFile(outputPath);
 
             string outputString = new FileInfo(outputPath).ReadFile();
 
-            Assert.AreEqual(getInvoiceHtml, getInvoiceHtml);
+            ClassicAssert.AreEqual(getInvoiceHtml, getInvoiceHtml);
 
         }
 
@@ -241,7 +242,7 @@ namespace WildHare.Tests
             </div>
             """;
 
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -276,7 +277,7 @@ namespace WildHare.Tests
             </div>"
             .RemoveIndents();
 
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
     }
 }

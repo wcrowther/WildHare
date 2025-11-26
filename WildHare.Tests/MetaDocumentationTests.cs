@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,19 +39,19 @@ namespace WildHare.Tests
 
             var metaMethods = metaModel.GetMetaMethods(); // includeInherited: false
 
-            Assert.AreEqual(4,          metaMethods.Count);
-            Assert.AreEqual("Add",      metaMethods.ElementAt(0).Name);
-            Assert.AreEqual("Subtract", metaMethods.ElementAt(1).Name);
-            Assert.AreEqual("Multiply", metaMethods.ElementAt(2).Name);
-            Assert.AreEqual("first",    metaMethods.ElementAt(2).Parameters[0].Name);
-            Assert.AreEqual("Int32",    metaMethods.ElementAt(2).Parameters[0].ParameterType.Name);
-            Assert.AreEqual("second",   metaMethods.ElementAt(2).Parameters[1].Name);
-            Assert.AreEqual("Int32",    metaMethods.ElementAt(2).Parameters[1].ParameterType.Name);
-            Assert.AreEqual("Divide",   metaMethods.ElementAt(3).Name);
+            ClassicAssert.AreEqual(4,          metaMethods.Count);
+            ClassicAssert.AreEqual("Add",      metaMethods.ElementAt(0).Name);
+            ClassicAssert.AreEqual("Subtract", metaMethods.ElementAt(1).Name);
+            ClassicAssert.AreEqual("Multiply", metaMethods.ElementAt(2).Name);
+            ClassicAssert.AreEqual("first",    metaMethods.ElementAt(2).Parameters[0].Name);
+            ClassicAssert.AreEqual("Int32",    metaMethods.ElementAt(2).Parameters[0].ParameterType.Name);
+            ClassicAssert.AreEqual("second",   metaMethods.ElementAt(2).Parameters[1].Name);
+            ClassicAssert.AreEqual("Int32",    metaMethods.ElementAt(2).Parameters[1].ParameterType.Name);
+            ClassicAssert.AreEqual("Divide",   metaMethods.ElementAt(3).Name);
 
             var allMetaMethods = metaModel.GetMetaMethods(includeInherited: true);
 
-            Assert.AreEqual(8, allMetaMethods.Count);
+            ClassicAssert.AreEqual(8, allMetaMethods.Count);
         }
 
         // [Test]
@@ -59,7 +60,7 @@ namespace WildHare.Tests
         //     var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
         //     var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces();
            
-        //     Assert.AreEqual(6, metaNamespaces.Count);
+        //     ClassicAssert.AreEqual(6, metaNamespaces.Count);
         // }
            
         // [Test]
@@ -69,7 +70,7 @@ namespace WildHare.Tests
         //     var metaAssembly = Assembly.Load("WildHare").GetMetaAssembly();
         //     var metaNamespaces = metaAssembly.GetMetaModelsGroupedByNamespaces(exclude: excludedNamespaces);
            
-        //     Assert.AreEqual(4, metaNamespaces.Count);
+        //     ClassicAssert.AreEqual(4, metaNamespaces.Count);
         // }
            
         // [Test]
@@ -87,11 +88,11 @@ namespace WildHare.Tests
         //     bool noteJsonFile    = metaAssembly.WriteMetaAssemblyNotesToJsonFile(outputDirectory, includeNamespaces, true);
         //     bool xmlDocNamesFile = metaAssembly.WriteXMLDocumentMemberNamesToFile(outputDirectory, true);
            
-        //     Assert.AreEqual(29, metaAssembly.GetMetaModels().Count);
+        //     ClassicAssert.AreEqual(29, metaAssembly.GetMetaModels().Count);
            
-        //     Assert.AreEqual(true, descriptionFile);
-        //     Assert.AreEqual(true, noteJsonFile);
-        //     Assert.AreEqual(true, xmlDocNamesFile);
+        //     ClassicAssert.AreEqual(true, descriptionFile);
+        //     ClassicAssert.AreEqual(true, noteJsonFile);
+        //     ClassicAssert.AreEqual(true, xmlDocNamesFile);
         // }
     }
 }

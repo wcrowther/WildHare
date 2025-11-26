@@ -17,7 +17,7 @@ namespace WildHare.Tests
         // {
         //     enum Animals { lion, tiger, bear};
         // 
-        //     Assert.AreEqual(3, Animals.GetNames().Count);
+        //     ClassicAssert.AreEqual(3, Animals.GetNames().Count);
         // }
     }
 }

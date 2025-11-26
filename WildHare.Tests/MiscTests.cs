@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ public class MiscTests
 	 {
 		  var result = new Returns<string>();
 
-		  Assert.AreEqual(null,	   result.Data);
-		  Assert.AreEqual(false,   result.HasData);
-		  Assert.AreEqual(true,	   result.Ok);
+		  ClassicAssert.AreEqual(null,	   result.Data);
+		  ClassicAssert.AreEqual(false,   result.HasData);
+		  ClassicAssert.AreEqual(true,	   result.Ok);
 	 }
 
 	 [Test]
@@ -25,9 +26,9 @@ public class MiscTests
 	 {
 		  var result = Returns<string>.IsSuccess(null);
 
-		  Assert.AreEqual(true,	   result.Ok);
-		  Assert.AreEqual(null,	   result.Data);
-		  Assert.AreEqual(false,   result.HasData);
+		  ClassicAssert.AreEqual(true,	   result.Ok);
+		  ClassicAssert.AreEqual(null,	   result.Data);
+		  ClassicAssert.AreEqual(false,   result.HasData);
 	 }
 
 	 [Test]
@@ -35,9 +36,9 @@ public class MiscTests
 	 {
 		  var result = Returns<string>.IsSuccess("String value");
 
-		  Assert.AreEqual(true,				 result.Ok);
-		  Assert.AreEqual("String value",	 result.Data);
-		  Assert.AreEqual(true,			 result.HasData);
+		  ClassicAssert.AreEqual(true,				 result.Ok);
+		  ClassicAssert.AreEqual("String value",	 result.Data);
+		  ClassicAssert.AreEqual(true,			 result.HasData);
 	 }
 
 	 [Test]
@@ -46,8 +47,8 @@ public class MiscTests
 		  string val	 = null;
 		  var result	 = Returns<string>.IsSuccess(val ?? "String if null");
 
-		  Assert.AreEqual(true,				 result.Ok);
-		  Assert.AreEqual("String if null",	 result.Data);
+		  ClassicAssert.AreEqual(true,				 result.Ok);
+		  ClassicAssert.AreEqual("String if null",	 result.Data);
 	 }
 
 	 [Test]
@@ -56,9 +57,9 @@ public class MiscTests
 		  string[] values = null;
 		  var result = Returns<string[]>.IsSuccess(values ?? []);
 
-		  Assert.AreEqual(true,	   result.Ok); // no exception
-		  Assert.AreEqual(true,	   result.HasData); 
-		  Assert.AreEqual(0,	   result.Data.Length);
+		  ClassicAssert.AreEqual(true,	   result.Ok); // no exception
+		  ClassicAssert.AreEqual(true,	   result.HasData); 
+		  ClassicAssert.AreEqual(0,	   result.Data.Length);
 	 }
 
 	 [Test]
@@ -67,9 +68,9 @@ public class MiscTests
 		  string message	  = "The returns is an error.";
 		  var result		  = Returns<string>.IsFailure(new Exception(message));
 
-		  Assert.AreEqual(false,	result.Ok);
-		  Assert.AreEqual(null,		result.Data);
-		  Assert.AreEqual(message,	result.Error.Message);
+		  ClassicAssert.AreEqual(false,	result.Ok);
+		  ClassicAssert.AreEqual(null,		result.Data);
+		  ClassicAssert.AreEqual(message,	result.Error.Message);
 	 }
 
 	 [Test]
@@ -78,10 +79,10 @@ public class MiscTests
 		  var ex	 = new Exception("InnerException");
 		  var result = Returns<string>.IsFailure(new Exception("Error", ex));
 
-		  Assert.AreEqual(false, result.Ok);
-		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual("Error", result.Error.Message);
-		  Assert.AreEqual("InnerException", result.Error.InnerError.Message);
+		  ClassicAssert.AreEqual(false, result.Ok);
+		  ClassicAssert.AreEqual(null, result.Data);
+		  ClassicAssert.AreEqual("Error", result.Error.Message);
+		  ClassicAssert.AreEqual("InnerException", result.Error.InnerError.Message);
 	 }
 
 	 [Test]
@@ -91,9 +92,9 @@ public class MiscTests
 		  var exception = new Exception(message);
 		  var result = Returns<string>.IsFailure(exception);
 
-		  Assert.AreEqual(false, result.Ok);
-		  Assert.AreEqual(null, result.Data);
-		  Assert.AreEqual(message, result.Error.Message);
+		  ClassicAssert.AreEqual(false, result.Ok);
+		  ClassicAssert.AreEqual(null, result.Data);
+		  ClassicAssert.AreEqual(message, result.Error.Message);
 	 }
 
 	 [Test]
@@ -102,9 +103,9 @@ public class MiscTests
 		  var list		 = new List<string> { "one", "two", "three" };
 		  var result	 = Returns<List<string>>.IsSuccess(list);
 
-		  Assert.AreEqual(true,	   result.Ok);
-		  Assert.AreEqual("two",   result.Data[1]);
-		  Assert.AreEqual(null,	   result.Error);
+		  ClassicAssert.AreEqual(true,	   result.Ok);
+		  ClassicAssert.AreEqual("two",   result.Data[1]);
+		  ClassicAssert.AreEqual(null,	   result.Error);
 	 }
 
 
@@ -114,9 +115,9 @@ public class MiscTests
 		  List<string> nullList = null;
 		  var result = Returns<List<string>>.IsSuccess(nullList);
 
-		  Assert.AreEqual(true,	   result.Ok);
-		  Assert.AreEqual(false,   result.HasData);
-		  Assert.AreEqual(null,	   result.Error);
+		  ClassicAssert.AreEqual(true,	   result.Ok);
+		  ClassicAssert.AreEqual(false,   result.HasData);
+		  ClassicAssert.AreEqual(null,	   result.Error);
 	 }
 
 	 [Test]
@@ -125,9 +126,9 @@ public class MiscTests
 		  string[] array = null;
 		  var result = Returns<string[]>.IsSuccess(array);
 
-		  Assert.AreEqual(true, result.Ok);
-		  Assert.AreEqual(false, result.HasData);
-		  Assert.AreEqual(null, result.Error);
+		  ClassicAssert.AreEqual(true, result.Ok);
+		  ClassicAssert.AreEqual(false, result.HasData);
+		  ClassicAssert.AreEqual(null, result.Error);
 	 }
 
 	 // ===================================================================
@@ -137,19 +138,19 @@ public class MiscTests
 	 {
 		  var result = new Returns() {Data = "String value"};
 
-		  Assert.AreEqual(true, result.Ok);
-		  Assert.AreEqual("String value", $"{result}");
+		  ClassicAssert.AreEqual(true, result.Ok);
+		  ClassicAssert.AreEqual("String value", $"{result}");
 
 		  Returns resultEx = new Exception("IsFailure");
 
-		  Assert.AreEqual(false, resultEx.Ok);
-		  Assert.AreEqual("IsFailure", $"{resultEx}");
+		  ClassicAssert.AreEqual(false, resultEx.Ok);
+		  ClassicAssert.AreEqual("IsFailure", $"{resultEx}");
 
 		  Returns resultEx2 = new Exception("IsFailure");
 		  string message   = resultEx2.ToString();
 
-		  Assert.AreEqual(false, resultEx2.Ok);
-		  Assert.AreEqual("IsFailure", message);
+		  ClassicAssert.AreEqual(false, resultEx2.Ok);
+		  ClassicAssert.AreEqual("IsFailure", message);
 	 }
 
 
@@ -158,14 +159,14 @@ public class MiscTests
 	 {
 		  Returns<bool?> result = Returns<bool?>.IsSuccess(null);
 
-		  Assert.AreEqual(true,    result.Ok); // null values are Ok if no exception
-		  Assert.AreEqual(null,	   result.Data);
-		  Assert.AreEqual(false,   result.HasData);
+		  ClassicAssert.AreEqual(true,    result.Ok); // null values are Ok if no exception
+		  ClassicAssert.AreEqual(null,	   result.Data);
+		  ClassicAssert.AreEqual(false,   result.HasData);
 
 		  Returns<bool?> result2 = Returns<bool?>.IsSuccess(true);
 
-		  Assert.AreEqual(true, result2.Ok); 
-		  Assert.AreEqual(true, result2.HasData ? result2.Data : null);
+		  ClassicAssert.AreEqual(true, result2.Ok); 
+		  ClassicAssert.AreEqual(true, result2.HasData ? result2.Data : null);
 	 }
 
 
@@ -178,9 +179,9 @@ public class MiscTests
 		string[] values = null;
 		var result = Returns<string[]>.IsSuccess(values ?? []);
 
-		Assert.AreEqual(true, result.Ok); // no exception
-		Assert.AreEqual(true, result.HasData);
-		Assert.AreEqual(0, result.Data.Length);
+		ClassicAssert.AreEqual(true, result.Ok); // no exception
+		ClassicAssert.AreEqual(true, result.HasData);
+		ClassicAssert.AreEqual(0, result.Data.Length);
 	}
 
 	[Test]
@@ -188,8 +189,8 @@ public class MiscTests
 	 {
 		  var result = Returns<Person>.IsSuccess(new Person { FirstName = "Will" });
 
-		  Assert.AreEqual(true,   result.Ok); 
-		  Assert.AreEqual("Will", result.Data.FirstName);
+		  ClassicAssert.AreEqual(true,   result.Ok); 
+		  ClassicAssert.AreEqual("Will", result.Data.FirstName);
 	 }
 
 	 [Test]
@@ -198,9 +199,9 @@ public class MiscTests
 	 	 List<string> list = null;
 	 	 var result = Returns<List<string>>.IsSuccess(list ?? []);
 
-		 Assert.AreEqual(true,	   result.Ok);  // no exception
-		 Assert.AreEqual(true,	   result.HasData);
-	 	 Assert.AreEqual(0,		   result.Data.Count);
+		 ClassicAssert.AreEqual(true,	   result.Ok);  // no exception
+		 ClassicAssert.AreEqual(true,	   result.HasData);
+	 	 ClassicAssert.AreEqual(0,		   result.Data.Count);
 	 }
 
 	 [Test]
@@ -209,10 +210,10 @@ public class MiscTests
 	 	 var list = new List<string> { "one", "two", "three" };
 	 	 var result = Returns<List<string>>.IsSuccess(list ?? []);
 	 
-	 	 Assert.AreEqual(true,	   result.Ok);
-	 	 Assert.AreEqual(true,	   result.HasData);
-	 	 Assert.AreEqual(3,		   result.Data.Count);
-	 	 Assert.AreEqual("two",	   result.Data.ElementAt(1));
+	 	 ClassicAssert.AreEqual(true,	   result.Ok);
+	 	 ClassicAssert.AreEqual(true,	   result.HasData);
+	 	 ClassicAssert.AreEqual(3,		   result.Data.Count);
+	 	 ClassicAssert.AreEqual("two",	   result.Data.ElementAt(1));
 	 }
 
 	[Test]
@@ -222,9 +223,9 @@ public class MiscTests
 								.CanBeConvertedToUpper()
 								.IsEqualToString("TEST is valid");
 
-		Assert.AreEqual(true, result.Ok);
-		Assert.AreEqual("TEST is valid", result.Data);
-		Assert.AreEqual(null, result.Error?.ErrorList());
+		ClassicAssert.AreEqual(true, result.Ok);
+		ClassicAssert.AreEqual("TEST is valid", result.Data);
+		ClassicAssert.AreEqual(null, result.Error?.ErrorList());
 	}
 
 
@@ -237,9 +238,9 @@ public class MiscTests
 							.CanBeConvertedToUpper()
 							.IsEqualToString("");
 	
-		Assert.AreEqual(false, result.Ok);
-		Assert.AreEqual(null, result.Data);
-		Assert.AreEqual("IsEqualToString IsFailure", result.Error.Message);
+		ClassicAssert.AreEqual(false, result.Ok);
+		ClassicAssert.AreEqual(null, result.Data);
+		ClassicAssert.AreEqual("IsEqualToString IsFailure", result.Error.Message);
 	}
 }
 
@@ -278,8 +279,8 @@ public static class ReturnsTestSteps
 // {
 // 	Returns result = "String value";
 // 
-// 	Assert.AreEqual(true, result.Ok);
-// 	Assert.AreEqual("String value", result.Data);
+// 	ClassicAssert.AreEqual(true, result.Ok);
+// 	ClassicAssert.AreEqual("String value", result.Data);
 // }
 // 
 // [Test]
@@ -288,8 +289,8 @@ public static class ReturnsTestSteps
 // 	string val = null;
 // 	Returns result = val ?? "String value";
 // 
-// 	Assert.AreEqual(true, result.Ok);
-// 	Assert.AreEqual("String value", result.Data);
+// 	ClassicAssert.AreEqual(true, result.Ok);
+// 	ClassicAssert.AreEqual("String value", result.Data);
 // }
 // 
 // [Test]
@@ -298,8 +299,8 @@ public static class ReturnsTestSteps
 // 	List<Item> items = null;
 // 	Returns<List<Item>> returns = items ?? [];
 // 
-// 	Assert.AreEqual(true, returns.Ok);
-// 	Assert.AreEqual(0, returns.Data.Count);
+// 	ClassicAssert.AreEqual(true, returns.Ok);
+// 	ClassicAssert.AreEqual(0, returns.Data.Count);
 // }
 // 
 // [Test]
@@ -308,9 +309,9 @@ public static class ReturnsTestSteps
 // 	Exception ex = new("IsFailure");
 // 	Returns result = ex;
 // 
-// 	Assert.AreEqual(false, result.Ok);
-// 	Assert.AreEqual(null, result.Data);
-// 	Assert.AreEqual("IsFailure", result.Error.Message);
+// 	ClassicAssert.AreEqual(false, result.Ok);
+// 	ClassicAssert.AreEqual(null, result.Data);
+// 	ClassicAssert.AreEqual("IsFailure", result.Error.Message);
 // }
 // 
 // [Test]
@@ -318,9 +319,9 @@ public static class ReturnsTestSteps
 // {
 // 	Returns result = new NotImplementedException();
 // 
-// 	Assert.AreEqual(false, result.Ok);
-// 	Assert.AreEqual(null, result.Data);
-// 	Assert.AreEqual("The method or operation is not implemented.", result.Error.Message);
+// 	ClassicAssert.AreEqual(false, result.Ok);
+// 	ClassicAssert.AreEqual(null, result.Data);
+// 	ClassicAssert.AreEqual("The method or operation is not implemented.", result.Error.Message);
 // }
 // 
 // [Test]
@@ -328,8 +329,8 @@ public static class ReturnsTestSteps
 // {
 // 	Returns<int[]> result = new NotImplementedException();
 // 
-// 	Assert.AreEqual(false, result.Ok);
-// 	Assert.AreEqual(null, result.Data);
-// 	Assert.AreEqual("The method or operation is not implemented.", result.Error.Message);
+// 	ClassicAssert.AreEqual(false, result.Ok);
+// 	ClassicAssert.AreEqual(null, result.Data);
+// 	ClassicAssert.AreEqual("The method or operation is not implemented.", result.Error.Message);
 // }
 

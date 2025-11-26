@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace WildHare.Tests
             string numbersAndWords = "123SomeWord456";
             string numbersOnlyString = numbersAndWords.NumbersOnly();
 
-            Assert.AreEqual("123456", numbersOnlyString);
+            ClassicAssert.AreEqual("123456", numbersOnlyString);
         }
 
         [Test]
@@ -30,7 +31,7 @@ namespace WildHare.Tests
             string numbersAndWords = "$12345.SomeWord00";
             string numbersOnlyString = numbersAndWords.NumbersOnly("$.");
 
-            Assert.AreEqual("$12345.00", numbersOnlyString);
+            ClassicAssert.AreEqual("$12345.00", numbersOnlyString);
         }
 
         [Test]
@@ -39,7 +40,7 @@ namespace WildHare.Tests
             string str = "<*will22@wildhare.com*/>";
             string filteredStr = str.NumbersAndLettersOnly("@.");
 
-            Assert.AreEqual("will22@wildhare.com", filteredStr);
+            ClassicAssert.AreEqual("will22@wildhare.com", filteredStr);
         }
 
         [Test]
@@ -48,7 +49,7 @@ namespace WildHare.Tests
             string str = "<*123will@wildhare.com*/>";
             string filteredStr = str.LettersOnly("@.");
 
-            Assert.AreEqual("will@wildhare.com", filteredStr);
+            ClassicAssert.AreEqual("will@wildhare.com", filteredStr);
         }
 
         [Test]
@@ -57,7 +58,7 @@ namespace WildHare.Tests
             string str = "<*will22@wildhare.com* />";
             string filteredStr = str.CharactersOnly("</>");
 
-            Assert.AreEqual("</>", filteredStr);
+            ClassicAssert.AreEqual("</>", filteredStr);
         }
 
         [Test]
@@ -66,8 +67,8 @@ namespace WildHare.Tests
             string numbers = "123456";
             string numbersAndWords = "123SomeWord456";
 
-            Assert.IsTrue(numbers.IsNumbersOnly());
-            Assert.IsFalse(numbersAndWords.IsNumbersOnly());
+            ClassicAssert.IsTrue(numbers.IsNumbersOnly());
+            ClassicAssert.False(numbersAndWords.IsNumbersOnly());
         }
 
         [Test]
@@ -76,8 +77,8 @@ namespace WildHare.Tests
             string numbers = "$123456.00";
             string numbersAndWords = "$123SomeWord456.00";
 
-            Assert.IsTrue(numbers.IsNumbersOnly("$."));
-            Assert.IsFalse(numbersAndWords.IsNumbersOnly("$."));
+            ClassicAssert.IsTrue(numbers.IsNumbersOnly("$."));
+            ClassicAssert.False(numbersAndWords.IsNumbersOnly("$."));
         }
 
         [Test]
@@ -86,8 +87,8 @@ namespace WildHare.Tests
             string trueStr = "wildhare.com";
             string falseStr = "22@wildhare.com";
 
-            Assert.IsTrue(trueStr.IsLettersOnly("."));
-            Assert.IsFalse(falseStr.IsLettersOnly("@."));
+            ClassicAssert.IsTrue(trueStr.IsLettersOnly("."));
+            ClassicAssert.False(falseStr.IsLettersOnly("@."));
         }
 
         [Test]
@@ -96,8 +97,8 @@ namespace WildHare.Tests
             string falseStr = null;
             string trueStr = "";
 
-            Assert.IsFalse(falseStr.IsLettersOnly("."));
-            Assert.IsTrue (trueStr.IsLettersOnly("."));
+            ClassicAssert.False(falseStr.IsLettersOnly("."));
+            ClassicAssert.IsTrue (trueStr.IsLettersOnly("."));
         }
 
         [Test]
@@ -106,8 +107,8 @@ namespace WildHare.Tests
             string trueStr = "will22@wildhare.com";
             string falseStr = "<*will22@wildhare.com*/>";
 
-            Assert.IsTrue(trueStr.IsNumbersAndLettersOnly("@."));
-            Assert.IsFalse(falseStr.IsNumbersAndLettersOnly("@."));
+            ClassicAssert.IsTrue(trueStr.IsNumbersAndLettersOnly("@."));
+            ClassicAssert.False(falseStr.IsNumbersAndLettersOnly("@."));
         }
 
         [Test]
@@ -116,8 +117,8 @@ namespace WildHare.Tests
             string falseStr = null;
             string trueStr  = "";
 
-            Assert.IsFalse(falseStr.IsNumbersAndLettersOnly("@."));
-            Assert.IsTrue (trueStr.IsNumbersAndLettersOnly("@."));
+            ClassicAssert.False(falseStr.IsNumbersAndLettersOnly("@."));
+            ClassicAssert.IsTrue (trueStr.IsNumbersAndLettersOnly("@."));
         }
 
         [Test]
@@ -126,8 +127,8 @@ namespace WildHare.Tests
             string trueStr = "<!-- -->";
             string falseStr = "<*will22@wildhare.com*/>";
 
-            Assert.IsTrue(trueStr.IsCharactersOnly("<!- >"));
-            Assert.IsFalse(falseStr.IsCharactersOnly("<!- >"));
+            ClassicAssert.IsTrue(trueStr.IsCharactersOnly("<!- >"));
+            ClassicAssert.False(falseStr.IsCharactersOnly("<!- >"));
         }
 
         [Test]
@@ -136,8 +137,8 @@ namespace WildHare.Tests
             string falseStr = null;
             string trueStr = "";
 
-            Assert.IsFalse(falseStr.IsCharactersOnly("@."));
-            Assert.IsTrue (trueStr.IsCharactersOnly("@."));
+            ClassicAssert.False(falseStr.IsCharactersOnly("@."));
+            ClassicAssert.IsTrue (trueStr.IsCharactersOnly("@."));
         }
 
         [Test]
@@ -146,7 +147,7 @@ namespace WildHare.Tests
             string str = "12345678901234567890123456789012345678901234567890";
             string result = str.Truncate(10);
 
-            Assert.AreEqual("1234567890...", result);
+            ClassicAssert.AreEqual("1234567890...", result);
         }
 
         [Test]
@@ -155,7 +156,7 @@ namespace WildHare.Tests
             string str = "12345678901234567890123456789012345678901234567890";
             string result = str.Truncate(10, "...(truncated)");
 
-            Assert.AreEqual("1234567890...(truncated)", result);
+            ClassicAssert.AreEqual("1234567890...(truncated)", result);
         }
 
         [Test]
@@ -164,7 +165,7 @@ namespace WildHare.Tests
             string str = "12345678901234567890123456789012345678901234567890";
             string result = str.Truncate(10, "", 0);
 
-            Assert.AreEqual("1234567890", result);
+            ClassicAssert.AreEqual("1234567890", result);
         }
 
         [Test]
@@ -173,7 +174,7 @@ namespace WildHare.Tests
             string str = "12345 67890 1234567890";
             string result = str.Truncate(10);
 
-            Assert.AreEqual("12345...", result);
+            ClassicAssert.AreEqual("12345...", result);
         }
 
         [Test]
@@ -182,7 +183,7 @@ namespace WildHare.Tests
             string str = "12345 67890 123456789012345";
             string result = str.Truncate(12);
 
-            Assert.AreEqual("12345 67890...", result);
+            ClassicAssert.AreEqual("12345 67890...", result);
         }
 
         [Test]
@@ -191,7 +192,7 @@ namespace WildHare.Tests
             string str = "12345 78901234567890123456789";
             string result = str.Truncate(20, "...", 12);
 
-            Assert.AreEqual("12345 78901234567890...", result);
+            ClassicAssert.AreEqual("12345 78901234567890...", result);
         }
 
         [Test]
@@ -203,7 +204,7 @@ namespace WildHare.Tests
 
             string indentingRemovedText = multiLineText.RemoveStartFromAllLines("\t\t\t");
 
-            Assert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+            ClassicAssert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
         }
 
         [Test]
@@ -215,7 +216,7 @@ namespace WildHare.Tests
 
             string indentingRemovedText = multiLineText.RemoveIndents();
 
-            Assert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+            ClassicAssert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
         }
 
         [Test]
@@ -228,7 +229,7 @@ namespace WildHare.Tests
 
             string indentingRemovedText = multiLineText.RemoveIndents();
 
-            Assert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+            ClassicAssert.AreEqual($"This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
         }
 
         [Test]
@@ -241,7 +242,7 @@ namespace WildHare.Tests
 
             string indentingRemovedText = multiLineText.RemoveIndents(false);
 
-            Assert.AreEqual($"{NewLine}This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
+            ClassicAssert.AreEqual($"{NewLine}This is a {NewLine}sentence {NewLine}spread across multiple lines.", indentingRemovedText);
         }
 
         [Test]
@@ -255,7 +256,7 @@ namespace WildHare.Tests
 
             string indentingRemovedText = sb.ToString().RemoveIndents();
 
-            Assert.AreEqual($"This is a{NewLine}sentence {NewLine}spread across{NewLine}multiple lines.{NewLine}", indentingRemovedText);
+            ClassicAssert.AreEqual($"This is a{NewLine}sentence {NewLine}spread across{NewLine}multiple lines.{NewLine}", indentingRemovedText);
         }
 
         [Test]
@@ -265,9 +266,9 @@ namespace WildHare.Tests
             char tabChar = '\t';
             char returnChar = '\r';
 
-            Assert.IsTrue(char.IsWhiteSpace(newlineChar));
-            Assert.IsTrue(char.IsWhiteSpace(tabChar));
-            Assert.IsTrue(char.IsWhiteSpace(returnChar));
+            ClassicAssert.IsTrue(char.IsWhiteSpace(newlineChar));
+            ClassicAssert.IsTrue(char.IsWhiteSpace(tabChar));
+            ClassicAssert.IsTrue(char.IsWhiteSpace(returnChar));
         }
 
         [Test]
@@ -293,9 +294,9 @@ namespace WildHare.Tests
             string string1 = sb1.ToString();
             string string2 = sb2.ToString();
 
-            Assert.AreEqual(multiLineText, string1);
-            Assert.AreNotEqual(multiLineText, string2);
-            Assert.AreNotEqual(string1, string2);
+            ClassicAssert.AreEqual(multiLineText, string1);
+			ClassicAssert.AreNotEqual(multiLineText, string2);
+			ClassicAssert.AreNotEqual(string1, string2);
         }
 
 
@@ -310,7 +311,7 @@ namespace WildHare.Tests
             string indentingRemovedText = multiLineText.RemoveStartFromAllLines(new[] { "\t\t\t", "            " });
             string expected = $"This is a {NewLine}sentence {NewLine}spread across {NewLine}multiple lines.";
 
-            Assert.AreEqual(expected, indentingRemovedText);
+            ClassicAssert.AreEqual(expected, indentingRemovedText);
         }
 
         [Test]
@@ -325,7 +326,7 @@ namespace WildHare.Tests
             string sbText = sb.ToString().RemoveStartFromAllLines(new[] { "\t\t", "            " });
             string expected = $"This is a {NewLine}sentence {NewLine}spread across {NewLine}multiple lines.";
 
-            Assert.AreEqual(expected, sbText);
+            ClassicAssert.AreEqual(expected, sbText);
         }
 
         [Test]
@@ -333,11 +334,11 @@ namespace WildHare.Tests
         {
             string stringRepeated = "x".Repeat(10);
 
-            Assert.AreEqual("xxxxxxxxxx", stringRepeated);
+            ClassicAssert.AreEqual("xxxxxxxxxx", stringRepeated);
 
             string stringRepeatedTwice = stringRepeated.Repeat(3);
 
-            Assert.AreEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", stringRepeatedTwice);
+            ClassicAssert.AreEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", stringRepeatedTwice);
         }
 
         [Test]
@@ -346,7 +347,7 @@ namespace WildHare.Tests
             string nullString = null;
             string stringRepeated = nullString.Repeat(10);
 
-            Assert.AreEqual(null, stringRepeated);
+            ClassicAssert.AreEqual(null, stringRepeated);
         }
 
         [Test]
@@ -355,7 +356,7 @@ namespace WildHare.Tests
             string emptyString = "empty";
             string stringRepeated = emptyString.Repeat(-10);
 
-            Assert.IsNull(stringRepeated);
+            ClassicAssert.IsNull(stringRepeated);
         }
 
         [Test]
@@ -365,7 +366,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.AddStart(strToAdd);
 
-            Assert.AreEqual("", result);
+            ClassicAssert.AreEqual("", result);
         }
 
         [Test]
@@ -375,7 +376,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.AddStart(strToAdd);
 
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -385,7 +386,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.AddStart(strToAdd);
 
-            Assert.AreEqual("xxxTest", result);
+            ClassicAssert.AreEqual("xxxTest", result);
         }
 
         [Test]
@@ -401,7 +402,7 @@ namespace WildHare.Tests
 
             string urlWithQuerystring = $"{url}{querystring.AddStart("?")}";
 
-            Assert.AreEqual(expected, urlWithQuerystring);
+            ClassicAssert.AreEqual(expected, urlWithQuerystring);
         }
 
         [Test]
@@ -416,7 +417,7 @@ namespace WildHare.Tests
 
             string querystring = qs1.AddStart("&one=") + qs2.AddStart("&two=") + qs3.AddStart("&three=");
 
-            Assert.AreEqual(expected, url + querystring.RemoveStart("&").AddStart("?"));
+            ClassicAssert.AreEqual(expected, url + querystring.RemoveStart("&").AddStart("?"));
         }
 
 
@@ -427,7 +428,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureStart(strToAdd);
 
-            Assert.AreEqual("xxx", result);
+            ClassicAssert.AreEqual("xxx", result);
         }
 
         [Test]
@@ -437,7 +438,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureStart(strToAdd);
 
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -447,7 +448,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureStart(strToAdd);
 
-            Assert.AreEqual("xxxTest", result);
+            ClassicAssert.AreEqual("xxxTest", result);
         }
 
         [Test]
@@ -457,7 +458,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureStart(strToAdd);
 
-            Assert.AreEqual("xxxTest", result);
+            ClassicAssert.AreEqual("xxxTest", result);
         }
 
         //========================
@@ -469,7 +470,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureEnd(strToAdd);
 
-            Assert.AreEqual("xxx", result);
+            ClassicAssert.AreEqual("xxx", result);
         }
 
         [Test]
@@ -479,7 +480,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureEnd(strToAdd);
 
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -489,7 +490,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureEnd(strToAdd);
 
-            Assert.AreEqual("Testxxx", result);
+            ClassicAssert.AreEqual("Testxxx", result);
         }
 
         [Test]
@@ -499,7 +500,7 @@ namespace WildHare.Tests
             string strToAdd = "xxx";
             string result = str.EnsureEnd(strToAdd);
 
-            Assert.AreEqual("Testxxx", result);
+            ClassicAssert.AreEqual("Testxxx", result);
         }
 
         //========================
@@ -512,7 +513,7 @@ namespace WildHare.Tests
             string addToEnd = "xxx";
             string result = str.EnsureStartEnd(addToStart, addToEnd);
 
-            Assert.AreEqual("xxxxxx", result);
+            ClassicAssert.AreEqual("xxxxxx", result);
         }
 
         [Test]
@@ -523,7 +524,7 @@ namespace WildHare.Tests
             string addToEnd = "xxx";
             string result = str.EnsureStartEnd(addToStart, addToEnd);
 
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -534,7 +535,7 @@ namespace WildHare.Tests
             string addToEnd = "xxx";
             string result = str.EnsureStartEnd(addToStart, addToEnd);
 
-            Assert.AreEqual("xxxTestxxx", result);
+            ClassicAssert.AreEqual("xxxTestxxx", result);
         }
 
         [Test]
@@ -545,7 +546,7 @@ namespace WildHare.Tests
             string addToEnd = "xxx";
             string result = str.EnsureStartEnd(addToStart, addToEnd);
 
-            Assert.AreEqual("xxxTestxxx", result);
+            ClassicAssert.AreEqual("xxxTestxxx", result);
         }
 
         [Test]
@@ -555,7 +556,7 @@ namespace WildHare.Tests
             string addToStart = "xxx";
             string result = str.EnsureStartEnd(addToStart);
 
-            Assert.AreEqual("xxxTestxxx", result);
+            ClassicAssert.AreEqual("xxxTestxxx", result);
         }
 
         [Test]
@@ -564,7 +565,7 @@ namespace WildHare.Tests
             string str = "Begin_Finish";
             string start = str.GetStartBefore("_");
 
-            Assert.AreEqual("Begin", start);
+            ClassicAssert.AreEqual("Begin", start);
         }
 
         [Test]
@@ -573,7 +574,7 @@ namespace WildHare.Tests
             string str = "Begin_Finish";
             string start = str.GetStartBefore("_", true);
 
-            Assert.AreEqual("Begin_", start);
+            ClassicAssert.AreEqual("Begin_", start);
         }
 
         [Test]
@@ -582,7 +583,7 @@ namespace WildHare.Tests
             string str = "Begin_Finish";
             string start = str.GetStartBefore("x");
 
-            Assert.AreEqual(str, start);
+            ClassicAssert.AreEqual(str, start);
         }
 
         [Test]
@@ -591,7 +592,7 @@ namespace WildHare.Tests
             string str = null;
             string start = str.GetStartBefore("_");
 
-            Assert.IsNull(start);
+            ClassicAssert.IsNull(start);
         }
 
         [Test]
@@ -600,7 +601,7 @@ namespace WildHare.Tests
             string str = "Begin_Finish";
             string end = str.GetEndAfter("_");
 
-            Assert.AreEqual("Finish", end);
+            ClassicAssert.AreEqual("Finish", end);
         }
 
         [Test]
@@ -609,7 +610,7 @@ namespace WildHare.Tests
             string str = "Begin_Finish";
             string end = str.GetEndAfter("_", true);
 
-            Assert.AreEqual("_Finish", end);
+            ClassicAssert.AreEqual("_Finish", end);
         }
 
         [Test]
@@ -619,7 +620,7 @@ namespace WildHare.Tests
             string[] values = ["A", "IsNotNullString"];
             bool result = str.StartsWith(values);
 
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
         }
 
         [Test]
@@ -628,7 +629,7 @@ namespace WildHare.Tests
             string str = "IsNotNullString";
             bool result = str.StartsWith(["IsNotNullString"]);
 
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
         }
 
 		private static readonly string[] valuesArray = ["Start1", "Start2"];
@@ -644,9 +645,9 @@ namespace WildHare.Tests
             bool result2 = str2.StartsWith(["Start1", "Start2"]);
             bool result3 = str3.StartsWith(valuesArray);
 
-            Assert.IsTrue(result1);
-            Assert.IsTrue(result2);
-            Assert.IsFalse(result3);
+            ClassicAssert.IsTrue(result1);
+            ClassicAssert.IsTrue(result2);
+            ClassicAssert.False(result3);
         }
 
 
@@ -657,7 +658,7 @@ namespace WildHare.Tests
             string[] values = ["a", "IsNotNullString"];
             bool result = str.StartsWith(values);
 
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
         }
 
         [Test]
@@ -667,7 +668,7 @@ namespace WildHare.Tests
             string[] values = { "a", "b" };
             bool result = str.StartsWith(values);
 
-            Assert.IsFalse(result);
+            ClassicAssert.False(result);
         }
 
         [Test]
@@ -677,7 +678,7 @@ namespace WildHare.Tests
             string[] values = { "a", "End" };
             bool result = str.EndsWith(values);
 
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
         }
 
         [Test]
@@ -687,7 +688,7 @@ namespace WildHare.Tests
             string[] values = { "a", "b" };
             bool result = str.EndsWith(values);
 
-            Assert.IsFalse(result);
+            ClassicAssert.False(result);
         }
 
         [Test]
@@ -700,7 +701,7 @@ namespace WildHare.Tests
             int length = endIndex - startIndex;
             string result = str.Substring(startIndex + 1, length - 1);
 
-            Assert.AreEqual("Inner", result);
+            ClassicAssert.AreEqual("Inner", result);
         }
 
         [Test]
@@ -713,10 +714,10 @@ namespace WildHare.Tests
             bool result3 = str.Contains("in", false);
             bool result4 = str.Contains("in");
 
-            Assert.IsTrue(result1);
-            Assert.IsTrue(result2);
-            Assert.IsFalse(result3);
-            Assert.IsFalse(result4);
+            ClassicAssert.IsTrue(result1);
+            ClassicAssert.IsTrue(result2);
+            ClassicAssert.False(result3);
+            ClassicAssert.False(result4);
         }
 
         [Test]
@@ -738,13 +739,13 @@ namespace WildHare.Tests
             bool result5 = str.Contains(array5);
             bool result6 = str.Contains(array6);
 
-            Assert.IsTrue(result1);
-            Assert.IsTrue(result2);
-            Assert.IsTrue(result3);
-            Assert.IsTrue(result4);
+            ClassicAssert.IsTrue(result1);
+            ClassicAssert.IsTrue(result2);
+            ClassicAssert.IsTrue(result3);
+            ClassicAssert.IsTrue(result4);
 
-            Assert.IsFalse(result5);
-            Assert.IsFalse(result6);
+            ClassicAssert.False(result5);
+            ClassicAssert.False(result6);
         }
 
 
@@ -760,13 +761,13 @@ namespace WildHare.Tests
             bool result5 = str.Contains(false, "fred", "BOB", "Jean");
             bool result6 = str.Contains(false, "will", "Joe", "in");
 
-            Assert.IsTrue(result1);
-            Assert.IsTrue(result2);
-            Assert.IsTrue(result3);
-            Assert.IsTrue(result4); 
+            ClassicAssert.IsTrue(result1);
+            ClassicAssert.IsTrue(result2);
+            ClassicAssert.IsTrue(result3);
+            ClassicAssert.IsTrue(result4); 
 
-            Assert.IsFalse(result5);
-            Assert.IsFalse(result6);
+            ClassicAssert.False(result5);
+            ClassicAssert.False(result6);
         }
 
         [Test]
@@ -776,7 +777,7 @@ namespace WildHare.Tests
             string[] old = { "cat", "dog", "rabbit" };
             var result = str.Replace(old, new[] { "platypus", "cheetah", "emu" });
 
-            Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
+            ClassicAssert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
 
         [Test]
@@ -786,7 +787,7 @@ namespace WildHare.Tests
             string[] oldArray = { "cat", "dog", "rabbit" };
             var result = str.Replace(oldArray, "dog");
 
-            Assert.AreEqual("Favorite animals: dog dog dog.", result);
+            ClassicAssert.AreEqual("Favorite animals: dog dog dog.", result);
         }
 
         private static Dictionary<string, string> GetAnimalList()
@@ -806,7 +807,7 @@ namespace WildHare.Tests
             var dictionary = GetAnimalList();
             var result = dictionary.Aggregate(str, (current, value) => current.Replace(value.Key, value.Value));
 
-            Assert.AreEqual("Favorite animals: platypus cheetah emu.", result);
+            ClassicAssert.AreEqual("Favorite animals: platypus cheetah emu.", result);
         }
 
         [Test]
@@ -815,7 +816,7 @@ namespace WildHare.Tests
             string str = "Favorite animals: cat dog rabbit.";
             var dictionary = GetAnimalList();
 
-            Assert.AreEqual("Favorite animals: platypus cheetah emu.", str.Replace(dictionary));
+            ClassicAssert.AreEqual("Favorite animals: platypus cheetah emu.", str.Replace(dictionary));
         }
 
         [Test]
@@ -824,7 +825,7 @@ namespace WildHare.Tests
             string str = "Favorite animals: platypus cheetah emu.";
             var dictionary = GetAnimalList();
 
-            Assert.AreEqual("Favorite animals: cat dog rabbit.", str.Replace(dictionary, true));
+            ClassicAssert.AreEqual("Favorite animals: cat dog rabbit.", str.Replace(dictionary, true));
         }
 
         [TestCase(-1, "Item", "-1 Items in the list.")]
@@ -842,7 +843,7 @@ namespace WildHare.Tests
         {
             string message = $"{count} {count.Pluralize(singular)} in the list.";
 
-            Assert.AreEqual(result, message);
+            ClassicAssert.AreEqual(result, message);
         }
 
         [TestCase(10, "dog", null, "10 dogs in the list.")]
@@ -855,7 +856,7 @@ namespace WildHare.Tests
         {
             string message = $"{count} {count.Pluralize(singular, plural)} in the list.";
 
-            Assert.AreEqual(result, message);
+            ClassicAssert.AreEqual(result, message);
         }
 
         [TestCase("Item", -1, "-1 Items in the list.")]
@@ -873,7 +874,7 @@ namespace WildHare.Tests
         {
             string message = $"{count} {count.Pluralize(singular)} in the list.";
 
-            Assert.AreEqual(result, message);
+            ClassicAssert.AreEqual(result, message);
         }
 
         [Test]
@@ -881,10 +882,10 @@ namespace WildHare.Tests
         {
             string str = "LeftMiddleRight";
 
-            Assert.AreEqual("Left", str.Left(4));
-            Assert.AreEqual("Middle", str.Mid(4, 6));
-            Assert.AreEqual("MiddleRight", str.Mid(4));
-            Assert.AreEqual("Right", str.Right(5));
+            ClassicAssert.AreEqual("Left", str.Left(4));
+            ClassicAssert.AreEqual("Middle", str.Mid(4, 6));
+            ClassicAssert.AreEqual("MiddleRight", str.Mid(4));
+            ClassicAssert.AreEqual("Right", str.Right(5));
         }
 
         [Test]
@@ -892,10 +893,10 @@ namespace WildHare.Tests
         {
             string str = null;
 
-            Assert.AreEqual(null, str.Left(4));
-            Assert.AreEqual(null, str.Mid(4, 6));
-            Assert.AreEqual(null, str.Mid(4));
-            Assert.AreEqual(null, str.Right(5));
+            ClassicAssert.AreEqual(null, str.Left(4));
+            ClassicAssert.AreEqual(null, str.Mid(4, 6));
+            ClassicAssert.AreEqual(null, str.Mid(4));
+            ClassicAssert.AreEqual(null, str.Right(5));
         }
 
         [Test]
@@ -903,10 +904,10 @@ namespace WildHare.Tests
         {
             string str = "";
 
-            Assert.AreEqual("", str.Left(4));
-            Assert.AreEqual("", str.Mid(4, 6));
-            Assert.AreEqual("", str.Mid(4));
-            Assert.AreEqual("", str.Right(5));
+            ClassicAssert.AreEqual("", str.Left(4));
+            ClassicAssert.AreEqual("", str.Mid(4, 6));
+            ClassicAssert.AreEqual("", str.Mid(4));
+            ClassicAssert.AreEqual("", str.Right(5));
         }
 
         [Test]
@@ -914,10 +915,10 @@ namespace WildHare.Tests
         {
             string str = "string";
 
-            Assert.AreEqual("stri", str.Left(4));
-            Assert.AreEqual("ring", str.Mid(2, 6));
-            Assert.AreEqual("ring", str.Mid(2));
-            Assert.AreEqual("ing", str.Right(3));
+            ClassicAssert.AreEqual("stri", str.Left(4));
+            ClassicAssert.AreEqual("ring", str.Mid(2, 6));
+            ClassicAssert.AreEqual("ring", str.Mid(2));
+            ClassicAssert.AreEqual("ing", str.Right(3));
         }
 
         [Test]
@@ -927,11 +928,11 @@ namespace WildHare.Tests
 
             string str = "LMR";
 
-            Assert.AreEqual("L", str.Left(1));   // get 1
-            Assert.AreEqual("M", str.Mid(1, 1));  // start at 1 (position 2) get 1
-            Assert.AreEqual("R", str.Mid(2));    // start at 2 (position 3) get 1
-            Assert.AreEqual("R", str.Right(1));  // get 1 from right end   
-            Assert.AreEqual("MR", str.Right(2)); // get 2 from right end   
+            ClassicAssert.AreEqual("L", str.Left(1));   // get 1
+            ClassicAssert.AreEqual("M", str.Mid(1, 1));  // start at 1 (position 2) get 1
+            ClassicAssert.AreEqual("R", str.Mid(2));    // start at 2 (position 3) get 1
+            ClassicAssert.AreEqual("R", str.Right(1));  // get 1 from right end   
+            ClassicAssert.AreEqual("MR", str.Right(2)); // get 2 from right end   
 
         }
 
@@ -943,10 +944,10 @@ namespace WildHare.Tests
                             line3";
             string[] lineArray = str.ToLineArray();
 
-            Assert.AreEqual(3, lineArray.Length);
-            Assert.AreEqual("line1", lineArray[0].Trim());
-            Assert.AreEqual("line2", lineArray[1].Trim());
-            Assert.AreEqual("line3", lineArray[2].Trim());
+            ClassicAssert.AreEqual(3, lineArray.Length);
+            ClassicAssert.AreEqual("line1", lineArray[0].Trim());
+            ClassicAssert.AreEqual("line2", lineArray[1].Trim());
+            ClassicAssert.AreEqual("line3", lineArray[2].Trim());
         }
 
 
@@ -956,7 +957,7 @@ namespace WildHare.Tests
             string str = $"line1\r\nline2\r\nline3";
             string expected = $"\t\txxxline1\r\n\t\txxxline2\r\n\t\txxxline3";
 
-            Assert.AreEqual(expected, str.ForEachLine(a => "\t\t" + "xxx" + a));
+            ClassicAssert.AreEqual(expected, str.ForEachLine(a => "\t\t" + "xxx" + a));
         }
 
         [Test]
@@ -965,7 +966,7 @@ namespace WildHare.Tests
             string str = $"line1\r\nline2\r\nline3";
             string expected = $"x_line1_x\r\nx_line2_x\r\nx_line3_x";
 
-            Assert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x"));
+            ClassicAssert.AreEqual(expected, str.ForEachLine(a => "x_" + a + "_x"));
         }
 
         [Test]
@@ -984,8 +985,8 @@ namespace WildHare.Tests
 
             trimmedString.RemoveExtraLines().WriteToFile(writePath, true);
 
-            Assert.AreEqual(44, lineArray.Length);
-            Assert.AreEqual(38, trimmedString.ToLineArray().Length);
+            ClassicAssert.AreEqual(44, lineArray.Length);
+            ClassicAssert.AreEqual(38, trimmedString.ToLineArray().Length);
         }
 
         [Test]
@@ -999,15 +1000,15 @@ namespace WildHare.Tests
             string domain = "test";
             string extension = "com";
 
-            Assert.AreEqual("https://www.test.com/", example.Format(subDomain1));
-            Assert.AreEqual("https://admin.test.com/", example.Format(subDomain2));
-            Assert.AreEqual("https://shop.test.com/", example.Format(subDomain3));
+            ClassicAssert.AreEqual("https://www.test.com/", example.Format(subDomain1));
+            ClassicAssert.AreEqual("https://admin.test.com/", example.Format(subDomain2));
+            ClassicAssert.AreEqual("https://shop.test.com/", example.Format(subDomain3));
 
-            Assert.AreEqual("https://www.test.com/", "https://{0}.test.com/".Format(subDomain1));
-            Assert.AreEqual("https://admin.test.com/", "https://{0}.test.com/".Format(subDomain2));
-            Assert.AreEqual("https://shop.test.com/", "https://{0}.test.com/".Format(subDomain3));
+            ClassicAssert.AreEqual("https://www.test.com/", "https://{0}.test.com/".Format(subDomain1));
+            ClassicAssert.AreEqual("https://admin.test.com/", "https://{0}.test.com/".Format(subDomain2));
+            ClassicAssert.AreEqual("https://shop.test.com/", "https://{0}.test.com/".Format(subDomain3));
 
-            Assert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
+            ClassicAssert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
         }
 
         [Test]
@@ -1018,8 +1019,8 @@ namespace WildHare.Tests
             string domain = "test";
             string extension = "com";
 
-            Assert.AreEqual("https://www.test.com/", example.Format(subDomain1, domain, extension));
-            Assert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
+            ClassicAssert.AreEqual("https://www.test.com/", example.Format(subDomain1, domain, extension));
+            ClassicAssert.AreEqual("https://www.test.com/", "https://{0}.{1}.{2}/".Format(subDomain1, domain, extension));
         }
 
         [Test]
@@ -1031,7 +1032,7 @@ namespace WildHare.Tests
             line 4
             line 5";
 
-            Assert.AreEqual("line 1x            line 2x            line 3x            line 4x            line 5",
+            ClassicAssert.AreEqual("line 1x            line 2x            line 3x            line 4x            line 5",
                             example.ReplaceLineReturns("x"));
         }
 
@@ -1049,13 +1050,13 @@ namespace WildHare.Tests
             var first = items[0];
             var last = items[^1];
 
-            Assert.AreEqual("cart", $"{first.ItemName}{first.HasStuff.IfTrue("*")}");
-            Assert.AreEqual("cart has no stuff", $"{first.ItemName}{first.HasStuff.IfTrue(" has stuff", " has no stuff")}");
+            ClassicAssert.AreEqual("cart", $"{first.ItemName}{first.HasStuff.IfTrue("*")}");
+            ClassicAssert.AreEqual("cart has no stuff", $"{first.ItemName}{first.HasStuff.IfTrue(" has stuff", " has no stuff")}");
 
-            Assert.AreEqual("box*", $"{last.ItemName}{last.HasStuff.IfTrue("*")}");
-            Assert.AreEqual("box has stuff.", $"{last.ItemName}{last.HasStuff.IfTrue(" has stuff").AddEnd(".")}");
+            ClassicAssert.AreEqual("box*", $"{last.ItemName}{last.HasStuff.IfTrue("*")}");
+            ClassicAssert.AreEqual("box has stuff.", $"{last.ItemName}{last.HasStuff.IfTrue(" has stuff").AddEnd(".")}");
 
-            Assert.AreEqual("box has stuff.", $"{last.ItemName}{(last.HasStuff ? " has stuff" : "").AddEnd(".")}");  // Comparable inline
+            ClassicAssert.AreEqual("box has stuff.", $"{last.ItemName}{(last.HasStuff ? " has stuff" : "").AddEnd(".")}");  // Comparable inline
         }
 
         [Test]
@@ -1063,8 +1064,8 @@ namespace WildHare.Tests
         {
             string str = "This            is           a test.";
 
-            Assert.AreEqual("This is a test.", str.CombineSpaces());
-            Assert.AreEqual(15, str.CombineSpaces().Length);
+            ClassicAssert.AreEqual("This is a test.", str.CombineSpaces());
+            ClassicAssert.AreEqual(15, str.CombineSpaces().Length);
         }
 
         [Test]
@@ -1072,8 +1073,8 @@ namespace WildHare.Tests
         {
             string str = "This is      " + NewLine + NewLine + "     a test.";
 
-            Assert.AreEqual("This is a test.", str.CombineSpaces());
-            Assert.AreEqual(15, str.CombineSpaces().Length);
+            ClassicAssert.AreEqual("This is a test.", str.CombineSpaces());
+            ClassicAssert.AreEqual(15, str.CombineSpaces().Length);
         }
 
         [Test]
@@ -1082,8 +1083,8 @@ namespace WildHare.Tests
             string str = "This is      " + NewLine + "   " + NewLine + "     a test.";
             string combinedStr = str.CombineSpaces(ignoreReturns: true);
 
-            Assert.AreEqual("This is " + NewLine + NewLine + "a test.", combinedStr);
-            Assert.AreEqual(19, combinedStr.Length);
+            ClassicAssert.AreEqual("This is " + NewLine + NewLine + "a test.", combinedStr);
+            ClassicAssert.AreEqual(19, combinedStr.Length);
         }
 
         [Test]
@@ -1092,15 +1093,15 @@ namespace WildHare.Tests
             string str = "The quick brown fox jumped over the lazy dog";
             string rev = "dog lazy the over jumped fox brown quick The";
 
-            Assert.AreEqual(rev,    Example_Reverse_1(str));
-            Assert.AreEqual("",     Example_Reverse_1(""));
-            Assert.AreEqual(null,   Example_Reverse_1(null));
-            Assert.AreEqual(rev,    Example_Reverse_2(str));
-            Assert.AreEqual("",     Example_Reverse_2(""));
-            Assert.AreEqual(null,   Example_Reverse_2(null));
-            Assert.AreEqual(rev,    Example_Reverse_3(str));
-            Assert.AreEqual("",     Example_Reverse_3(""));
-            Assert.AreEqual(null,   Example_Reverse_3(null));
+            ClassicAssert.AreEqual(rev,    Example_Reverse_1(str));
+            ClassicAssert.AreEqual("",     Example_Reverse_1(""));
+            ClassicAssert.AreEqual(null,   Example_Reverse_1(null));
+            ClassicAssert.AreEqual(rev,    Example_Reverse_2(str));
+            ClassicAssert.AreEqual("",     Example_Reverse_2(""));
+            ClassicAssert.AreEqual(null,   Example_Reverse_2(null));
+            ClassicAssert.AreEqual(rev,    Example_Reverse_3(str));
+            ClassicAssert.AreEqual("",     Example_Reverse_3(""));
+            ClassicAssert.AreEqual(null,   Example_Reverse_3(null));
         }
 
         private string Example_Reverse_1(string str)
@@ -1135,9 +1136,9 @@ namespace WildHare.Tests
             string str = "quick brown fox jumped";
             string rev = "kciuq nworb xof depmuj";
 
-            Assert.AreEqual(rev,    Example_ReverseLetters(str));
-            Assert.AreEqual("",     Example_ReverseLetters(""));
-            Assert.AreEqual(null,   Example_ReverseLetters(null));
+            ClassicAssert.AreEqual(rev,    Example_ReverseLetters(str));
+            ClassicAssert.AreEqual("",     Example_ReverseLetters(""));
+            ClassicAssert.AreEqual(null,   Example_ReverseLetters(null));
         }
 
         private string Example_ReverseLetters(string str)
@@ -1161,10 +1162,10 @@ namespace WildHare.Tests
         {
             string str = "giraffe";
 
-            Assert.AreEqual(false, str.EqualsAny());
-            Assert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
-            Assert.AreEqual(false, str.EqualsAny("GIRAFFE", "lions", "tigers", "bears"));
-            Assert.AreEqual(true,  str.EqualsAny("giraffe", "lions", "tigers", "bears"));
+            ClassicAssert.AreEqual(false, str.EqualsAny());
+            ClassicAssert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
+            ClassicAssert.AreEqual(false, str.EqualsAny("GIRAFFE", "lions", "tigers", "bears"));
+            ClassicAssert.AreEqual(true,  str.EqualsAny("giraffe", "lions", "tigers", "bears"));
         }
 
         [Test]
@@ -1172,9 +1173,9 @@ namespace WildHare.Tests
         {
             string str = "giraffe";
 
-            Assert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
-            Assert.AreEqual(false, str.EqualsAny(false, "GIRAFFE", "Lions", "TIGERS", "bears"));
-            Assert.AreEqual(true,  str.EqualsAny(true, "GIRAFFE", "Lions", "TIGERS", "bears"));
+            ClassicAssert.AreEqual(false, str.EqualsAny("lions", "tigers", "bears"));
+            ClassicAssert.AreEqual(false, str.EqualsAny(false, "GIRAFFE", "Lions", "TIGERS", "bears"));
+            ClassicAssert.AreEqual(true,  str.EqualsAny(true, "GIRAFFE", "Lions", "TIGERS", "bears"));
         }
 
         [Test]
@@ -1186,11 +1187,11 @@ namespace WildHare.Tests
             string[] animalArray2 = { "giraffe", "lions", "tigers", "bears" };
             string[] animalArray3 = { "GIRAFFE", "lions", "tigers", "bears" };
 
-            Assert.AreEqual(false, str.EqualsAny(animalArray0));
-            Assert.AreEqual(false, str.EqualsAny(animalArray1));
-            Assert.AreEqual(true,  str.EqualsAny(animalArray2));
-            Assert.AreEqual(false, str.EqualsAny(animalArray3));
-            Assert.AreEqual(true,  str.EqualsAny(true, animalArray3));
+            ClassicAssert.AreEqual(false, str.EqualsAny(animalArray0));
+            ClassicAssert.AreEqual(false, str.EqualsAny(animalArray1));
+            ClassicAssert.AreEqual(true,  str.EqualsAny(animalArray2));
+            ClassicAssert.AreEqual(false, str.EqualsAny(animalArray3));
+            ClassicAssert.AreEqual(true,  str.EqualsAny(true, animalArray3));
         }
 
         [Test]
@@ -1198,7 +1199,7 @@ namespace WildHare.Tests
         {
             string[] animals = { "lions", "tigers", "bears" };
 
-            Assert.AreEqual("lions, tigers, bears", animals.AsString());
+            ClassicAssert.AreEqual("lions, tigers, bears", animals.AsString());
         }
 
         [Test]
@@ -1206,7 +1207,7 @@ namespace WildHare.Tests
         {
             string[] animals = { "lions", null, "tigers", null, "bears" };
 
-            Assert.AreEqual("lions, , tigers, , bears", string.Join(", ", animals));
+            ClassicAssert.AreEqual("lions, , tigers, , bears", string.Join(", ", animals));
         }
 
         [Test]
@@ -1216,7 +1217,7 @@ namespace WildHare.Tests
 
             string[] animals = { "lions", null, "tigers", null, "bears" };
 
-            Assert.AreEqual("lions, tigers, bears", animals.AsString());
+            ClassicAssert.AreEqual("lions, tigers, bears", animals.AsString());
         }
 
         [Test]
@@ -1226,7 +1227,7 @@ namespace WildHare.Tests
             var aggregate = strings.Aggregate(new StringBuilder(), (sb, t) => sb.Append($"{t}*, ") )
                                    .ToString().RemoveEnd(", ");
 
-            Assert.AreEqual("lions*, tigers*, bears*", aggregate); 
+            ClassicAssert.AreEqual("lions*, tigers*, bears*", aggregate); 
         }
 
 
@@ -1251,8 +1252,8 @@ namespace WildHare.Tests
                                     text.
                                  """;
 
-            Assert.AreEqual(trimmedText, text.RemoveExtraLines());
-            Assert.AreEqual(trimmedText, text.RemoveExtraLines(1));
+            ClassicAssert.AreEqual(trimmedText, text.RemoveExtraLines());
+            ClassicAssert.AreEqual(trimmedText, text.RemoveExtraLines(1));
         }
 
         [Test]
@@ -1274,7 +1275,7 @@ namespace WildHare.Tests
                                     text.
                                  """;
 
-            Assert.AreEqual(trimmedText, text.RemoveExtraLines(0));
+            ClassicAssert.AreEqual(trimmedText, text.RemoveExtraLines(0));
         }
 
         [Test]
@@ -1295,7 +1296,7 @@ namespace WildHare.Tests
                                     text.
                                  """;
 
-            Assert.AreEqual(trimmedText, text.RemoveExtraLines(-1));
+            ClassicAssert.AreEqual(trimmedText, text.RemoveExtraLines(-1));
         }
 
 
@@ -1307,10 +1308,10 @@ namespace WildHare.Tests
             
             // intial empty string is removed
 
-            Assert.AreEqual(3, strArray.Length);
-            Assert.AreEqual("https://www.google.com", strArray[0]);
-            Assert.AreEqual("https://www.yahoo.com", strArray[1]);
-            Assert.AreEqual("https://www.willcrowther.com", strArray[2]);
+            ClassicAssert.AreEqual(3, strArray.Length);
+            ClassicAssert.AreEqual("https://www.google.com", strArray[0]);
+            ClassicAssert.AreEqual("https://www.yahoo.com", strArray[1]);
+            ClassicAssert.AreEqual("https://www.willcrowther.com", strArray[2]);
         }
 
         [Test]
@@ -1319,8 +1320,8 @@ namespace WildHare.Tests
             string text = "9811456789,    ";
             var strArray = text.Split(",", true);
 
-			Assert.AreEqual(1, strArray.Length);
-            Assert.AreEqual("9811456789", strArray[0]);
+			ClassicAssert.AreEqual(1, strArray.Length);
+            ClassicAssert.AreEqual("9811456789", strArray[0]);
         }
 
 		[Test]
@@ -1331,10 +1332,10 @@ namespace WildHare.Tests
 
 			// intial empty string is removed
 
-			Assert.AreEqual(3, strArray.Length);
-			Assert.AreEqual("https://www.google.com", strArray[0]);
-			Assert.AreEqual("https://www.yahoo.com", strArray[1]);
-			Assert.AreEqual("https://www.willcrowther.com", strArray[2]);
+			ClassicAssert.AreEqual(3, strArray.Length);
+			ClassicAssert.AreEqual("https://www.google.com", strArray[0]);
+			ClassicAssert.AreEqual("https://www.yahoo.com", strArray[1]);
+			ClassicAssert.AreEqual("https://www.willcrowther.com", strArray[2]);
 		}
 
 		[Test]
@@ -1343,8 +1344,8 @@ namespace WildHare.Tests
 			string text = "9811456789,    ";
 			var strArray = text.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-			Assert.AreEqual(1, strArray.Length);
-			Assert.AreEqual("9811456789", strArray[0]);
+			ClassicAssert.AreEqual(1, strArray.Length);
+			ClassicAssert.AreEqual("9811456789", strArray[0]);
 		}
 
 		[Test]
@@ -1353,7 +1354,7 @@ namespace WildHare.Tests
 			string text = "Acme East Systems";
 			bool contains = text.Contains("East");
 
-			Assert.IsTrue(contains);
+			ClassicAssert.IsTrue(contains);
 		}
 
 		// [Test]
@@ -1361,10 +1362,10 @@ namespace WildHare.Tests
 		// {
 		// 	string text = "123456789012345678901234567890A234567890B23456789C";
 
-		// 	Assert.AreEqual("A234567890B23456789C", text[^20..]);
+		// 	ClassicAssert.AreEqual("A234567890B23456789C", text[^20..]);
 		// 	// Will error if text is less than 20 characters	
 
-		// 	Assert.AreEqual("A234567890B23456789C", text.Substring(text.Length - 100));
+		// 	ClassicAssert.AreEqual("A234567890B23456789C", text.Substring(text.Length - 100));
 		// }
 
 	}

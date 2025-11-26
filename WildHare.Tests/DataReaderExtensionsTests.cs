@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -47,21 +48,21 @@ namespace WildHare.Tests
 
             var first = tests.First();
 
-            Assert.AreEqual(1,      first.TestId);
-            Assert.AreEqual("One",  first.TestName);
-            Assert.AreEqual(123,    first.TestNumber);
+            ClassicAssert.AreEqual(1,      first.TestId);
+            ClassicAssert.AreEqual("One",  first.TestName);
+            ClassicAssert.AreEqual(123,    first.TestNumber);
 
             var second = tests.ElementAt(1);
 
-            Assert.AreEqual(2,      second.TestId);
-            Assert.AreEqual("Two",  second.TestName);
-            Assert.AreEqual(23456,  second.TestNumber);
+            ClassicAssert.AreEqual(2,      second.TestId);
+            ClassicAssert.AreEqual("Two",  second.TestName);
+            ClassicAssert.AreEqual(23456,  second.TestNumber);
 
             var third = tests.ElementAt(2);
 
-            Assert.AreEqual(3,      third.TestId);
-            Assert.AreEqual("Three",third.TestName);
-            Assert.AreEqual(345690, third.TestNumber);
+            ClassicAssert.AreEqual(3,      third.TestId);
+            ClassicAssert.AreEqual("Three",third.TestName);
+            ClassicAssert.AreEqual(345690, third.TestNumber);
         }
 
         [Test]
@@ -97,27 +98,27 @@ namespace WildHare.Tests
 
             var first = tests.First();
 
-            Assert.AreEqual(1,          first.TestId);
-            Assert.AreEqual("One",      first.TestName);
-            Assert.AreEqual(123,        first.TestNumber);
-            Assert.AreEqual(null,       first.TestNull);
-            Assert.AreEqual("Default",  first.TestNullDefault);
+            ClassicAssert.AreEqual(1,          first.TestId);
+            ClassicAssert.AreEqual("One",      first.TestName);
+            ClassicAssert.AreEqual(123,        first.TestNumber);
+            ClassicAssert.AreEqual(null,       first.TestNull);
+            ClassicAssert.AreEqual("Default",  first.TestNullDefault);
 
             var second = tests.ElementAt(1); // zero-based second element
 
-            Assert.AreEqual(2,          second.TestId);
-            Assert.AreEqual("Two",      second.TestName);
-            Assert.AreEqual(23456,      second.TestNumber);
-            Assert.AreEqual(null,       second.TestNull);
-            Assert.AreEqual("Default",  second.TestNullDefault);
+            ClassicAssert.AreEqual(2,          second.TestId);
+            ClassicAssert.AreEqual("Two",      second.TestName);
+            ClassicAssert.AreEqual(23456,      second.TestNumber);
+            ClassicAssert.AreEqual(null,       second.TestNull);
+            ClassicAssert.AreEqual("Default",  second.TestNullDefault);
 
             var third = tests.ElementAt(2);
 
-            Assert.AreEqual(3,          third.TestId);
-            Assert.AreEqual("Three",    third.TestName);
-            Assert.AreEqual(345690,     third.TestNumber);
-            Assert.AreEqual(null,       third.TestNull);
-            Assert.AreEqual("Default",  third.TestNullDefault);
+            ClassicAssert.AreEqual(3,          third.TestId);
+            ClassicAssert.AreEqual("Three",    third.TestName);
+            ClassicAssert.AreEqual(345690,     third.TestNumber);
+            ClassicAssert.AreEqual(null,       third.TestNull);
+            ClassicAssert.AreEqual("Default",  third.TestNullDefault);
         }
 
         private IDbConnection GetConnection()

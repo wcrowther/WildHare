@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,21 +25,21 @@ namespace WildHare.Tests
         {
             var metaModel = typeof(Item).GetMetaModel();
 
-            Assert.AreEqual("Item",     metaModel.TypeName);
-            Assert.AreEqual(5,          metaModel.GetMetaProperties().Count);
-            Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
+            ClassicAssert.AreEqual("Item",     metaModel.TypeName);
+            ClassicAssert.AreEqual(5,          metaModel.GetMetaProperties().Count);
+            ClassicAssert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
             var props = metaModel.GetMetaProperties();
 
-            Assert.AreEqual("ItemId",   props[0].Name);
-            Assert.AreEqual("ItemName", props[1].Name);
-            Assert.AreEqual("Created",  props[2].Name);
-            Assert.AreEqual("Stuff",    props[3].Name);
+            ClassicAssert.AreEqual("ItemId",   props[0].Name);
+            ClassicAssert.AreEqual("ItemName", props[1].Name);
+            ClassicAssert.AreEqual("Created",  props[2].Name);
+            ClassicAssert.AreEqual("Stuff",    props[3].Name);
 
-            Assert.AreEqual(typeof(int),            props[0].PropertyType);
-            Assert.AreEqual(typeof(string),         props[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime),       props[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
+            ClassicAssert.AreEqual(typeof(int),            props[0].PropertyType);
+            ClassicAssert.AreEqual(typeof(string),         props[1].PropertyType);
+            ClassicAssert.AreEqual(typeof(DateTime),       props[2].PropertyType);
+            ClassicAssert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
 		[Test]
@@ -47,7 +48,7 @@ namespace WildHare.Tests
 			string name = "Fred";
 			var metaModel = name.GetMetaModel();
 
-			Assert.AreEqual("String", metaModel.TypeName);
+			ClassicAssert.AreEqual("String", metaModel.TypeName);
 		}
 
 		[Test]
@@ -57,18 +58,18 @@ namespace WildHare.Tests
             var metaModel	= itemList.GetMetaModel();
             var props		= metaModel.GetMetaProperties();
 
-            Assert.AreEqual(5,          props.Count);
-            Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
+            ClassicAssert.AreEqual(5,          props.Count);
+            ClassicAssert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId",   props[0].Name);
-            Assert.AreEqual("ItemName", props[1].Name);
-            Assert.AreEqual("Created",  props[2].Name);
-            Assert.AreEqual("Stuff",    props[3].Name);
+            ClassicAssert.AreEqual("ItemId",   props[0].Name);
+            ClassicAssert.AreEqual("ItemName", props[1].Name);
+            ClassicAssert.AreEqual("Created",  props[2].Name);
+            ClassicAssert.AreEqual("Stuff",    props[3].Name);
 
-            Assert.AreEqual(typeof(int),            props[0].PropertyType);
-            Assert.AreEqual(typeof(string),         props[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime),       props[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
+            ClassicAssert.AreEqual(typeof(int),            props[0].PropertyType);
+            ClassicAssert.AreEqual(typeof(string),         props[1].PropertyType);
+            ClassicAssert.AreEqual(typeof(DateTime),       props[2].PropertyType);
+            ClassicAssert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
         [Test]
@@ -78,18 +79,18 @@ namespace WildHare.Tests
             var metaModel	= item.GetMetaModel();
             var props		= metaModel.GetMetaProperties();
 
-            Assert.AreEqual(5,          props.Count);
-            Assert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
+            ClassicAssert.AreEqual(5,          props.Count);
+            ClassicAssert.AreEqual("ItemId",   metaModel.PrimaryKeyName);
 
-            Assert.AreEqual("ItemId",   props[0].Name);
-            Assert.AreEqual("ItemName", props[1].Name);
-            Assert.AreEqual("Created",  props[2].Name);
-            Assert.AreEqual("Stuff",    props[3].Name);
+            ClassicAssert.AreEqual("ItemId",   props[0].Name);
+            ClassicAssert.AreEqual("ItemName", props[1].Name);
+            ClassicAssert.AreEqual("Created",  props[2].Name);
+            ClassicAssert.AreEqual("Stuff",    props[3].Name);
 
-            Assert.AreEqual(typeof(int),            props[0].PropertyType);
-            Assert.AreEqual(typeof(string),         props[1].PropertyType);
-            Assert.AreEqual(typeof(DateTime),       props[2].PropertyType);
-            Assert.AreEqual(typeof(List<string>),   props[3].PropertyType);
+            ClassicAssert.AreEqual(typeof(int),            props[0].PropertyType);
+            ClassicAssert.AreEqual(typeof(string),         props[1].PropertyType);
+            ClassicAssert.AreEqual(typeof(DateTime),       props[2].PropertyType);
+            ClassicAssert.AreEqual(typeof(List<string>),   props[3].PropertyType);
         }
 
         [Test]
@@ -99,16 +100,16 @@ namespace WildHare.Tests
             var metaModel = dictionay.GetMetaModel();
             var props	  = metaModel.GetMetaProperties();
 
-            Assert.AreEqual("String", metaModel.DictionaryKeyType.Name); // Not string (lowercase) for some reason
-            Assert.AreEqual("Item",   metaModel.DictionaryValueType.Name);
+            ClassicAssert.AreEqual("String", metaModel.DictionaryKeyType.Name); // Not string (lowercase) for some reason
+            ClassicAssert.AreEqual("Item",   metaModel.DictionaryValueType.Name);
 
-            Assert.AreEqual(6,          props.Count);
-            Assert.AreEqual("Comparer", props[0].Name);
-            Assert.AreEqual("Count",    props[1].Name);
-			Assert.AreEqual("Capacity", props[2].Name);
-			Assert.AreEqual("Keys",     props[3].Name);
-            Assert.AreEqual("Values",   props[4].Name);
-			Assert.AreEqual("Item",		props[5].Name);
+            ClassicAssert.AreEqual(6,          props.Count);
+            ClassicAssert.AreEqual("Comparer", props[0].Name);
+            ClassicAssert.AreEqual("Count",    props[1].Name);
+			ClassicAssert.AreEqual("Capacity", props[2].Name);
+			ClassicAssert.AreEqual("Keys",     props[3].Name);
+            ClassicAssert.AreEqual("Values",   props[4].Name);
+			ClassicAssert.AreEqual("Item",		props[5].Name);
 		}
 
 		[Test]
@@ -116,13 +117,13 @@ namespace WildHare.Tests
         {
             var metaListModel = new List<ClassRequiringCtorParam>().GetMetaModel();
 
-            Assert.AreEqual(1, metaListModel.GetMetaProperties().Count);
-            Assert.AreEqual("ClassName", metaListModel.GetMetaProperties().First().Name);
+            ClassicAssert.AreEqual(1, metaListModel.GetMetaProperties().Count);
+            ClassicAssert.AreEqual("ClassName", metaListModel.GetMetaProperties().First().Name);
 
             var list = new List<ClassRequiringCtorParam> { new("Fred") };
 
-            Assert.AreEqual("ClassRequiringCtorParam", list.GetMetaModel().TypeName);
-            Assert.AreEqual("Fred", list.First().ClassName);
+            ClassicAssert.AreEqual("ClassRequiringCtorParam", list.GetMetaModel().TypeName);
+            ClassicAssert.AreEqual("Fred", list.First().ClassName);
         }
 
         [Test]
@@ -131,11 +132,11 @@ namespace WildHare.Tests
             var item = new Item { ItemId = 1, ItemName = "One", Created = DateTime.Now }; ;
             var metaProperties = item.GetMetaProperties();
 
-            Assert.AreEqual(5,          metaProperties.Count);
-            Assert.AreEqual("ItemId",   metaProperties[0].Name);
-            Assert.AreEqual("ItemName", metaProperties[1].Name);
-            Assert.AreEqual("Created",  metaProperties[2].Name);
-            Assert.AreEqual("Stuff",    metaProperties[3].Name);
+            ClassicAssert.AreEqual(5,          metaProperties.Count);
+            ClassicAssert.AreEqual("ItemId",   metaProperties[0].Name);
+            ClassicAssert.AreEqual("ItemName", metaProperties[1].Name);
+            ClassicAssert.AreEqual("Created",  metaProperties[2].Name);
+            ClassicAssert.AreEqual("Stuff",    metaProperties[3].Name);
         }
 
         [Test]
@@ -144,9 +145,9 @@ namespace WildHare.Tests
             var itemList = new List<Item>();
             var metaProperties = itemList.GetMetaProperties("ItemId, ItemName");
 
-            Assert.AreEqual(3,          metaProperties.Count);
-            Assert.AreEqual("Created",  metaProperties[0].Name);
-            Assert.AreEqual("Stuff",    metaProperties[1].Name);
+            ClassicAssert.AreEqual(3,          metaProperties.Count);
+            ClassicAssert.AreEqual("Created",  metaProperties[0].Name);
+            ClassicAssert.AreEqual("Stuff",    metaProperties[1].Name);
         }
 
         [Test]
@@ -155,9 +156,9 @@ namespace WildHare.Tests
             var itemList = new List<Item>();
             var metaProperties = itemList.GetMetaProperties(include: "ItemName,Created");
 
-            Assert.AreEqual(2, metaProperties.Count);
-            Assert.AreEqual("ItemName", metaProperties[0].Name);
-            Assert.AreEqual("Created", metaProperties[1].Name);
+            ClassicAssert.AreEqual(2, metaProperties.Count);
+            ClassicAssert.AreEqual("ItemName", metaProperties[0].Name);
+            ClassicAssert.AreEqual("Created", metaProperties[1].Name);
         }
 
         [Test]
@@ -170,7 +171,7 @@ namespace WildHare.Tests
             (
                 () => itemList.GetMetaProperties("ItemId", include: "ItemName,Created")
             );
-            Assert.AreEqual(errorMessage, ex.Message);
+            ClassicAssert.AreEqual(errorMessage, ex.Message);
         }
 
         [Test]
@@ -186,15 +187,15 @@ namespace WildHare.Tests
             };
             var metaProperties = item.GetMetaProperties();
 
-            Assert.AreEqual(1, metaProperties[0].GetInstanceValue());           // ItemId
-            Assert.AreEqual("One", metaProperties[1].GetInstanceValue());      // ItemName
-            Assert.AreEqual(now, metaProperties[2].GetInstanceValue());        // Created
-            Assert.AreEqual(2, metaProperties[3].GetInstanceValue().Count);     // Stuff
-            Assert.AreEqual("stuff1", metaProperties[3].GetInstanceValue()[0]); // Stuff1
-            Assert.AreEqual("stuff2", metaProperties[3].GetInstanceValue()[1]); // Stuff2
+            ClassicAssert.AreEqual(1, metaProperties[0].GetInstanceValue());           // ItemId
+            ClassicAssert.AreEqual("One", metaProperties[1].GetInstanceValue());      // ItemName
+            ClassicAssert.AreEqual(now, metaProperties[2].GetInstanceValue());        // Created
+            ClassicAssert.AreEqual(2, metaProperties[3].GetInstanceValue().Count);     // Stuff
+            ClassicAssert.AreEqual("stuff1", metaProperties[3].GetInstanceValue()[0]); // Stuff1
+            ClassicAssert.AreEqual("stuff2", metaProperties[3].GetInstanceValue()[1]); // Stuff2
 
             // For some reason ElementAt extension method does not work on dynamic List<Item> ?
-            // Assert.AreEqual("stuff1", metaProperties[3].GetInstanceValue().ToList().ElementAt(0));
+            // ClassicAssert.AreEqual("stuff1", metaProperties[3].GetInstanceValue().ToList().ElementAt(0));
             // var list = item.Stuff.ElementAt(0); // this works for non-dynamic
         }
 
@@ -209,7 +210,7 @@ namespace WildHare.Tests
             PropertyInfo propertyInfo = typeof(Item).GetProperties()[1];
             var ItemNameMetaProperty = new MetaProperty(propertyInfo);
 
-            Assert.AreEqual("One", ItemNameMetaProperty.GetInstanceValue(item)); // ItemName
+            ClassicAssert.AreEqual("One", ItemNameMetaProperty.GetInstanceValue(item)); // ItemName
         }
 
         [Test]
@@ -228,8 +229,8 @@ namespace WildHare.Tests
             metaProperties[0].SetInstanceValue(2);
             metaProperties[1].SetInstanceValue("Two");
 
-            Assert.AreEqual(2, item.ItemId);
-            Assert.AreEqual("Two", item.ItemName);
+            ClassicAssert.AreEqual(2, item.ItemId);
+            ClassicAssert.AreEqual("Two", item.ItemName);
         }
 
         [Test]
@@ -245,7 +246,7 @@ namespace WildHare.Tests
 
             ItemName_MetaProperty.SetInstanceValue("Two", item);
 
-            Assert.AreEqual("Two", item.ItemName);
+            ClassicAssert.AreEqual("Two", item.ItemName);
 
             // Alternate way
             PropertyInfo propertyInfoAlt = typeof(Item).GetProperties()[1];
@@ -253,7 +254,7 @@ namespace WildHare.Tests
 
             ItemName_MetaPropertyAlt.SetInstanceValue("Three");
 
-            Assert.AreEqual("Three", item.ItemName);
+            ClassicAssert.AreEqual("Three", item.ItemName);
         }
 
         [Test]
@@ -261,13 +262,13 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(6, typesDerivedFromTeam.Count);
-            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
-            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
+            ClassicAssert.AreEqual(6, typesDerivedFromTeam.Count);
+            ClassicAssert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            ClassicAssert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
+            ClassicAssert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
+            ClassicAssert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
+            ClassicAssert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
+            ClassicAssert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
         }
 
         [Test]
@@ -276,7 +277,7 @@ namespace WildHare.Tests
             // Has no derived classes
             var typesDerivedFromTeam = typeof(BaseballTeam).GetDerivedTypes().ToList();
 
-            Assert.AreEqual(0, typesDerivedFromTeam.Count);
+            ClassicAssert.AreEqual(0, typesDerivedFromTeam.Count);
         }
 
         [Test]
@@ -284,11 +285,11 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(["BaseballTeam", "NflTeam"]).ToList();
 
-            Assert.AreEqual(4, typesDerivedFromTeam.Count);
-            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[3].Name);
+            ClassicAssert.AreEqual(4, typesDerivedFromTeam.Count);
+            ClassicAssert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            ClassicAssert.AreEqual("FootballTeam",     typesDerivedFromTeam[1].Name);
+            ClassicAssert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[2].Name);
+            ClassicAssert.AreEqual("SoccerTeam",       typesDerivedFromTeam[3].Name);
             // BaseballTeam     excluded
             // NflTeam          excluded
         }
@@ -298,14 +299,14 @@ namespace WildHare.Tests
         {
             var typesDerivedFromTeam = typeof(Team).GetDerivedTypes(includeBaseType: true).ToList();
 
-            Assert.AreEqual(7, typesDerivedFromTeam.Count);
-            Assert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
-            Assert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
-            Assert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
-            Assert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
-            Assert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
-            Assert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
-            Assert.AreEqual("Team",             typesDerivedFromTeam[6].Name); // Included
+            ClassicAssert.AreEqual(7, typesDerivedFromTeam.Count);
+            ClassicAssert.AreEqual("ArsenalTeam",      typesDerivedFromTeam[0].Name);
+            ClassicAssert.AreEqual("BaseballTeam",     typesDerivedFromTeam[1].Name);
+            ClassicAssert.AreEqual("FootballTeam",     typesDerivedFromTeam[2].Name);
+            ClassicAssert.AreEqual("ManUnitedTeam",    typesDerivedFromTeam[3].Name);
+            ClassicAssert.AreEqual("NflTeam",          typesDerivedFromTeam[4].Name);
+            ClassicAssert.AreEqual("SoccerTeam",       typesDerivedFromTeam[5].Name);
+            ClassicAssert.AreEqual("Team",             typesDerivedFromTeam[6].Name); // Included
         }
 
         [Test]
@@ -315,9 +316,9 @@ namespace WildHare.Tests
             var thisAssembly = Assembly.GetExecutingAssembly();
             var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(otherAssembly: thisAssembly).ToList();
 
-            Assert.AreEqual(2, typesDerivedFromTest.Count);
-            Assert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
-            Assert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
+            ClassicAssert.AreEqual(2, typesDerivedFromTest.Count);
+            ClassicAssert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
+            ClassicAssert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
         }
 
 
@@ -328,10 +329,10 @@ namespace WildHare.Tests
             var thisAssembly = Assembly.GetExecutingAssembly();
             var typesDerivedFromTest = typeof(TestModel).GetDerivedTypes(includeBaseType: true, otherAssembly: thisAssembly).ToList();
 
-            Assert.AreEqual(3, typesDerivedFromTest.Count);
-            Assert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
-            Assert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
-            Assert.AreEqual("TestModel", typesDerivedFromTest[2].Name);
+            ClassicAssert.AreEqual(3, typesDerivedFromTest.Count);
+            ClassicAssert.AreEqual("DerivedFromTestModel", typesDerivedFromTest[0].Name);
+            ClassicAssert.AreEqual("DerivedFromTestModel2", typesDerivedFromTest[1].Name);
+            ClassicAssert.AreEqual("TestModel", typesDerivedFromTest[2].Name);
         }
 
         [Test]
@@ -350,7 +351,7 @@ namespace WildHare.Tests
             var teamTypes = teams.Select(s => s.GetType()).ToArray();
             var commonType = teamTypes.GetCommonBaseType();
 
-            Assert.AreEqual("SoccerTeam", commonType.Name);
+            ClassicAssert.AreEqual("SoccerTeam", commonType.Name);
         }
 
         [Test]
@@ -371,7 +372,7 @@ namespace WildHare.Tests
             var teamTypes = teams.Select(s => s.GetType()).ToArray();
             var commonType = teamTypes.GetCommonBaseType();
 
-            Assert.AreEqual("Team", commonType.Name);
+            ClassicAssert.AreEqual("Team", commonType.Name);
         }
 
         [Test]
@@ -394,7 +395,7 @@ namespace WildHare.Tests
             var teamTypes = teams.Select(s => s.GetType()).ToArray();
             var commonType = teamTypes.GetCommonBaseType();
 
-            Assert.AreEqual("Object", commonType.Name);
+            ClassicAssert.AreEqual("Object", commonType.Name);
         }
 
         [Test]
@@ -412,8 +413,8 @@ namespace WildHare.Tests
 
             var interfaces = objects.GetCommonInterfaces();
 
-            Assert.AreEqual(3, interfaces?.Length ?? 0);
-            Assert.AreEqual("I_Fruit", interfaces[0].Name);
+            ClassicAssert.AreEqual(3, interfaces?.Length ?? 0);
+            ClassicAssert.AreEqual("I_Fruit", interfaces[0].Name);
         }
 
         [Test]
@@ -429,8 +430,8 @@ namespace WildHare.Tests
 
             var interfaces = objects.GetCommonInterfaces();
 
-            Assert.AreEqual(1, interfaces?.Length ?? 1);
-            Assert.AreEqual("I_Object", interfaces[0].Name);
+            ClassicAssert.AreEqual(1, interfaces?.Length ?? 1);
+            ClassicAssert.AreEqual("I_Object", interfaces[0].Name);
         }
 
         [Test]
@@ -446,9 +447,9 @@ namespace WildHare.Tests
 
             var interfaces = objects.GetCommonInterfaces();
 
-            Assert.AreEqual(1, interfaces?.Length ?? 1);
-            Assert.AreEqual("I_Object", interfaces[0].Name);
-            Assert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
+            ClassicAssert.AreEqual(1, interfaces?.Length ?? 1);
+            ClassicAssert.AreEqual("I_Object", interfaces[0].Name);
+            ClassicAssert.AreEqual(0m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
 
         [Test]
@@ -464,9 +465,9 @@ namespace WildHare.Tests
 
             var interfaces = fruits.GetCommonInterfaces();
 
-            Assert.AreEqual(3, interfaces?.Length ?? 3);
-            Assert.AreEqual("I_Fruit", interfaces[0].Name);
-            Assert.AreEqual(3m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
+            ClassicAssert.AreEqual(3, interfaces?.Length ?? 3);
+            ClassicAssert.AreEqual("I_Fruit", interfaces[0].Name);
+            ClassicAssert.AreEqual(3m, interfaces[0].GetMethod("Specificity").Invoke(null, null));
         }
 
         [Test]
@@ -484,10 +485,10 @@ namespace WildHare.Tests
                                     .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
                                     .ToArray();
 
-            Assert.AreEqual(3, interfaces?.Length ?? 0);
-            Assert.AreEqual("I_Object", interfaces[0].Name);
-            Assert.AreEqual("I_Food", interfaces[1].Name);
-            Assert.AreEqual("I_Fruit", interfaces[2].Name);
+            ClassicAssert.AreEqual(3, interfaces?.Length ?? 0);
+            ClassicAssert.AreEqual("I_Object", interfaces[0].Name);
+            ClassicAssert.AreEqual("I_Food", interfaces[1].Name);
+            ClassicAssert.AreEqual("I_Fruit", interfaces[2].Name);
         }
 
 
@@ -507,10 +508,10 @@ namespace WildHare.Tests
                                     .OrderBy(o => o.GetMethod("Specificity").Invoke(null, null))
                                     .ToArray();
 
-            Assert.AreEqual(3, interfaces?.Length ?? 0);
-            Assert.AreEqual("I_Object", interfaces[0].Name);
-            Assert.AreEqual("I_Food", interfaces[1].Name);
-            Assert.AreEqual("I_Fruit", interfaces[2].Name);
+            ClassicAssert.AreEqual(3, interfaces?.Length ?? 0);
+            ClassicAssert.AreEqual("I_Object", interfaces[0].Name);
+            ClassicAssert.AreEqual("I_Food", interfaces[1].Name);
+            ClassicAssert.AreEqual("I_Fruit", interfaces[2].Name);
         }
 
         [Test]
@@ -518,8 +519,8 @@ namespace WildHare.Tests
         {
             Type testType = typeof(Dictionary<,>);
 
-            Assert.AreEqual(true, testType.IsGenericType);
-            Assert.AreEqual(true, testType.IsGenericTypeDefinition);
+            ClassicAssert.AreEqual(true, testType.IsGenericType);
+            ClassicAssert.AreEqual(true, testType.IsGenericTypeDefinition);
 
             Type[] typeParameters = testType.GetGenericArguments();
 
@@ -536,7 +537,7 @@ namespace WildHare.Tests
                 }
             }
 
-            Assert.AreEqual(2, typeParameters.Length);
+            ClassicAssert.AreEqual(2, typeParameters.Length);
         }
 
         [Test]
@@ -545,8 +546,8 @@ namespace WildHare.Tests
             var assembly = Assembly.GetExecutingAssembly();
             var metaAssembly = assembly.GetMetaAssembly();
 
-            Assert.IsNotNull(metaAssembly);
-            // Assert.AreEqual("I_Fruit", );
+			ClassicAssert.IsNotNull(metaAssembly);
+            // ClassicAssert.AreEqual("I_Fruit", );
         }
 
         [Test]
@@ -555,9 +556,9 @@ namespace WildHare.Tests
             var assembly = Assembly.GetExecutingAssembly();
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models");
 
-            Assert.IsNotNull(types);
-            Assert.AreEqual(41, types.Length);
-            Assert.AreEqual("Animal", types[1].Name);
+			ClassicAssert.IsNotNull(types);
+            ClassicAssert.AreEqual(42, types.Length);
+            ClassicAssert.AreEqual("Animal", types[1].Name);
         }
 
         [Test]
@@ -565,10 +566,10 @@ namespace WildHare.Tests
         {
             var assembly = Assembly.GetExecutingAssembly();
             var types = assembly.GetTypesInNamespace("WildHare.Tests.Models", "Account,Apple".Split(','));
-        
-            Assert.IsNotNull(types);
-            Assert.AreEqual(39, types.Length);
-            Assert.AreEqual("ArsenalTeam", types[1].Name);
+
+			ClassicAssert.IsNotNull(types);
+            ClassicAssert.AreEqual(40, types.Length);
+            ClassicAssert.AreEqual("ArsenalTeam", types[1].Name);
         }
 
 		[Test]
@@ -581,14 +582,14 @@ namespace WildHare.Tests
             var serializable    = meta.AttributeOfType<SerializableAttribute>();
             var props           = meta.GetMetaProperties();
 
-            Assert.AreEqual(1, attributes.Length);
-            Assert.IsNotNull(serializable);
-            Assert.AreEqual(5, props.Count);
-            Assert.AreEqual(3, props[1].Attributes().Length);
-            Assert.AreEqual("ItemName", props[1].Name);
-            Assert.IsNotNull(props[1].AttributeOfType<MinLengthAttribute>());
-            Assert.AreEqual(2, props[1].AttributeOfType<MinLengthAttribute>().Length);
-            Assert.AreEqual(50, props[1].AttributeOfType<MaxLengthAttribute>().Length);
+            ClassicAssert.AreEqual(1, attributes.Length);
+			ClassicAssert.IsNotNull(serializable);
+            ClassicAssert.AreEqual(5, props.Count);
+            ClassicAssert.AreEqual(3, props[1].Attributes().Length);
+            ClassicAssert.AreEqual("ItemName", props[1].Name);
+			ClassicAssert.IsNotNull(props[1].AttributeOfType<MinLengthAttribute>());
+            ClassicAssert.AreEqual(2, props[1].AttributeOfType<MinLengthAttribute>().Length);
+            ClassicAssert.AreEqual(50, props[1].AttributeOfType<MaxLengthAttribute>().Length);
         }
 
         [Test]
@@ -598,12 +599,12 @@ namespace WildHare.Tests
             var typesInNamespace = type.GetAssemblyFromType()
                                        .GetTypesInNamespace(type.Namespace);
 
-            Assert.AreEqual(41, typesInNamespace.Length);
+            ClassicAssert.AreEqual(42, typesInNamespace.Length);
 
             var typesInAssembly = type.GetAssemblyFromType()
                                       .GetTypesInNamespace();
 
-            Assert.AreEqual(96, typesInAssembly.Length);
+            ClassicAssert.AreEqual(97, typesInAssembly.Length);
         }
 
         // [Test]
@@ -612,7 +613,7 @@ namespace WildHare.Tests
         //     Type type = "WildHare.Tests.Models.Item".GetTypeFromName();
 		// 
         //     Assert.IsNotNull(type); 
-        //     Assert.AreEqual("Item", type.Name);
+        //     ClassicAssert.AreEqual("Item", type.Name);
         // }
 
         [Test]
@@ -626,7 +627,7 @@ namespace WildHare.Tests
             var assembly = Assembly.Load("WildHare.Tests");
             bool success = GenerateValidators(assembly, namespaceStr, pathToWriteTo, ["ArsenalTeam", "ManUnitedTeam"]);
 
-            Assert.IsTrue(success);
+			ClassicAssert.IsTrue(success);
         }
 
         // =============================================================================================
@@ -733,8 +734,8 @@ namespace WildHare.Tests
    
 //     var i_object = (I_Object)fruit;
    
-//     Assert.AreEqual("Fruit", interfaceName);
-//     Assert.AreEqual( inter, typeof(I_Object));
+//     ClassicAssert.AreEqual("Fruit", interfaceName);
+//     ClassicAssert.AreEqual( inter, typeof(I_Object));
 //     Assert.IsNotNull(i_object);
    
 //     // NOT WORKING YET - is I_Object but not I_Fruit

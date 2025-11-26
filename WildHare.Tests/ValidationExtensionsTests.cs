@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Linq;
 using WildHare.Extensions.DataAnnotations;
 using WildHare.Tests.Models;
@@ -17,9 +18,9 @@ namespace WildHare.Tests
 
             var response1 = account.DataAnnotationsValidate();
 
-            Assert.IsFalse(response1.IsValid);
-            Assert.AreEqual(7, response1.Results.Count);
-            Assert.AreEqual("The AccountName field is required.", response1.Results.First().ErrorMessage);
+			ClassicAssert.IsFalse(response1.IsValid);
+            ClassicAssert.AreEqual(7, response1.Results.Count);
+            ClassicAssert.AreEqual("The AccountName field is required.", response1.Results.First().ErrorMessage);
 
             // ----------------------------------------------------
 
@@ -28,9 +29,9 @@ namespace WildHare.Tests
 
             var response2 = account.DataAnnotationsValidate();
 
-            Assert.IsFalse(response2.IsValid);
-            Assert.AreEqual(6, response2.Results.Count);
-            Assert.AreEqual("The Email field is not a valid e-mail address.", response2.Results.First().ErrorMessage);
+			ClassicAssert.IsFalse(response2.IsValid);
+            ClassicAssert.AreEqual(6, response2.Results.Count);
+            ClassicAssert.AreEqual("The Email field is not a valid e-mail address.", response2.Results.First().ErrorMessage);
             
             // ----------------------------------------------------
 
@@ -43,9 +44,9 @@ namespace WildHare.Tests
 
             var response3 = account.DataAnnotationsValidate();
 
-            Assert.IsFalse(response3.IsValid);
-            Assert.AreEqual(2, response3.Results.Count);
-            Assert.AreEqual("The field State must be a string or array type with a maximum length of '2'.", response3.Results.First().ErrorMessage);
+            ClassicAssert.IsFalse(response3.IsValid);
+            ClassicAssert.AreEqual(2, response3.Results.Count);
+            ClassicAssert.AreEqual("The field State must be a string or array type with a maximum length of '2'.", response3.Results.First().ErrorMessage);
 
             // ----------------------------------------------------
 
@@ -53,8 +54,8 @@ namespace WildHare.Tests
             account.PostalCode = "30024-1234";
             var response4 = account.DataAnnotationsValidate();
 
-            Assert.IsTrue(response4.IsValid);
-            Assert.AreEqual(0, response4.Results.Count);
+            ClassicAssert.IsTrue(response4.IsValid);
+            ClassicAssert.AreEqual(0, response4.Results.Count);
         }
 
         [Test]
@@ -63,8 +64,8 @@ namespace WildHare.Tests
             var account = getValidAccount();
             var response = account.DataAnnotationsValidate();
 
-            Assert.IsTrue(response.IsValid);
-            Assert.AreEqual(0, response.Results.Count);
+            ClassicAssert.IsTrue(response.IsValid);
+            ClassicAssert.AreEqual(0, response.Results.Count);
         }
 
         [Test]
@@ -73,8 +74,8 @@ namespace WildHare.Tests
             var person = new Person();
             var response = person.DataAnnotationsValidate();
 
-            Assert.IsTrue(response.IsValid);
-            Assert.AreEqual(0, response.Results.Count);
+            ClassicAssert.IsTrue(response.IsValid);
+            ClassicAssert.AreEqual(0, response.Results.Count);
         }
 
         // ============================================================

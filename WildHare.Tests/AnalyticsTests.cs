@@ -3,6 +3,7 @@ using AngleSharp.Css.Parser;
 using AngleSharp.Html.Parser;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,7 +55,7 @@ namespace WildHare.Tests
 
             sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(11, allFiles.Count);  // 10 for WildHare //30 for SeedPacket
+            ClassicAssert.AreEqual(11, allFiles.Count);  // 10 for WildHare //30 for SeedPacket
         }
 
 
@@ -84,7 +85,7 @@ namespace WildHare.Tests
 
             sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(1, allFiles.Count());  // 7 files currently
+            ClassicAssert.AreEqual(1, allFiles.Count());  // 7 files currently
         }
 
         [Test]
@@ -131,7 +132,7 @@ namespace WildHare.Tests
 
             sb.ToString().WriteToFile(pathToWriteTo, true);
 
-            Assert.AreEqual(11, allFiles.Count);  // 10 for WildHare //30 for SeedPacket
+            ClassicAssert.AreEqual(11, allFiles.Count);  // 10 for WildHare //30 for SeedPacket
         }
 
 

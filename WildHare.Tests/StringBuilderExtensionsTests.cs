@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Text;
 using WildHare.Extensions;
 
@@ -15,7 +16,7 @@ public class StringBuilderExtensionsTests
 
 		  sb.AppendIf(false, textToAdd);
 
-		  Assert.AreEqual("Test", sb.ToString());
+		  ClassicAssert.AreEqual("Test", sb.ToString());
 	 }
 
 	 [Test]
@@ -26,6 +27,6 @@ public class StringBuilderExtensionsTests
 
 		  sb.AppendIf(true, textToAdd);
 
-		  Assert.AreEqual("TestAdd", sb.ToString());
+		  ClassicAssert.AreEqual("TestAdd", sb.ToString());
 	 }
 }

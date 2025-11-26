@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using WildHare.Extensions;
 using static System.Environment;
+using NUnit.Framework.Legacy;
 
 namespace WildHare.Tests
 {
@@ -17,11 +18,11 @@ namespace WildHare.Tests
             char numberChar = 1234.ToString().ToCharArray()[0];  // char '1'
             char letterChar = "Fred".ToCharArray()[0];  // char 'F'
 
-            Assert.IsTrue(numberChar.IsNumber());
-            Assert.IsFalse(numberChar.IsLetter());
+			ClassicAssert.IsTrue(numberChar.IsNumber());
+			ClassicAssert.IsFalse(numberChar.IsLetter());
 
-            Assert.IsTrue(letterChar.IsLetter());
-            Assert.IsFalse(letterChar.IsNumber());
+			ClassicAssert.IsTrue(letterChar.IsLetter());
+            ClassicAssert.IsFalse(letterChar.IsNumber());
         }
 
         [Test]
@@ -29,12 +30,12 @@ namespace WildHare.Tests
         {
             string str = " \n \r";
 
-            Assert.AreEqual(4, str.ToCharArray().Length);
+            ClassicAssert.AreEqual(4, str.ToCharArray().Length);
 
-            Assert.IsTrue(str[0].IsWhiteSpace());
-            Assert.IsTrue(str[1].IsWhiteSpace());
-            Assert.IsTrue(str[2].IsWhiteSpace());
-            Assert.IsTrue(str[3].IsWhiteSpace());
+            ClassicAssert.IsTrue(str[0].IsWhiteSpace());
+            ClassicAssert.IsTrue(str[1].IsWhiteSpace());
+            ClassicAssert.IsTrue(str[2].IsWhiteSpace());
+			ClassicAssert.IsTrue(str[3].IsWhiteSpace());
         }
 
         [Test]
@@ -42,12 +43,12 @@ namespace WildHare.Tests
         {
             string str = " \n \r";
 
-            Assert.AreEqual(4, str.ToCharArray().Length);
+            ClassicAssert.AreEqual(4, str.ToCharArray().Length);
 
-            Assert.IsFalse(str[0].IsReturn());
-            Assert.IsTrue (str[1].IsReturn());
-            Assert.IsFalse(str[2].IsReturn());
-            Assert.IsTrue (str[3].IsReturn());
+            ClassicAssert.IsFalse(str[0].IsReturn());
+            ClassicAssert.IsTrue (str[1].IsReturn());
+            ClassicAssert.IsFalse(str[2].IsReturn());
+            ClassicAssert.IsTrue (str[3].IsReturn());
         }
 
         [Test]
@@ -55,14 +56,14 @@ namespace WildHare.Tests
         {
             string str = " " + NewLine;
 
-            Assert.AreEqual(3, str.ToCharArray().Length);
+            ClassicAssert.AreEqual(3, str.ToCharArray().Length);
 
-            Assert.IsTrue (str[0].IsWhiteSpace());
-            Assert.IsFalse(str[0].IsReturn());
-            Assert.IsTrue (str[1].IsWhiteSpace());
-            Assert.IsTrue (str[1].IsReturn());
-            Assert.IsTrue (str[2].IsWhiteSpace());
-            Assert.IsTrue (str[2].IsReturn());
+            ClassicAssert.IsTrue (str[0].IsWhiteSpace());
+            ClassicAssert.IsFalse(str[0].IsReturn());
+            ClassicAssert.IsTrue (str[1].IsWhiteSpace());
+            ClassicAssert.IsTrue (str[1].IsReturn());
+            ClassicAssert.IsTrue (str[2].IsWhiteSpace());
+            ClassicAssert.IsTrue (str[2].IsReturn());
         }
     }
 }

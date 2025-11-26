@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +23,18 @@ namespace WildHare.Tests
             int[] numberSet4 = {  };
             int[] numberSet5 = null;
 
-            Assert.IsTrue  ( four.EqualsAny(numberSet1) );
-            Assert.IsFalse ( four.EqualsAny(numberSet2) );
-            Assert.IsTrue  ( four.EqualsAny(numberSet3) );
-            Assert.IsFalse ( four.EqualsAny(numberSet4) );
-            Assert.IsTrue  ( four.EqualsAny([4, 100])   );
+            ClassicAssert.IsTrue  ( four.EqualsAny(numberSet1) );
+            ClassicAssert.IsFalse ( four.EqualsAny(numberSet2) );
+            ClassicAssert.IsTrue  ( four.EqualsAny(numberSet3) );
+            ClassicAssert.IsFalse ( four.EqualsAny(numberSet4) );
+			ClassicAssert.IsTrue  ( four.EqualsAny([4, 100])   );
 
             var ex = Assert.Throws<ArgumentNullException>
             (
                 () => four.EqualsAny(numberSet5)
             );
 
-			Assert.AreEqual("Value cannot be null. (Parameter 'source')", ex.Message);
+			ClassicAssert.AreEqual("Value cannot be null. (Parameter 'source')", ex.Message);
 		}
 
 		[Test]
@@ -43,13 +44,13 @@ namespace WildHare.Tests
             decimal onePointFive    = 1.5m;
             bool trueVal            = true;
             
-            Assert.IsTrue  ( four.EqualsAny(1,2,3,4) );
-            Assert.IsFalse ( four.EqualsAny(0,-1,12) );
-            Assert.IsTrue  ( onePointFive.EqualsAny(1.4m, 1.5m, 1.6m) );
-            Assert.IsFalse ( onePointFive.EqualsAny(0m) );
-            Assert.IsTrue  ( trueVal.EqualsAny(false, false, true) );
-            Assert.IsFalse ( trueVal.EqualsAny(false, false, false) );
-            Assert.IsFalse ( four.EqualsAny() );
+            ClassicAssert.IsTrue  ( four.EqualsAny(1,2,3,4) );
+            ClassicAssert.IsFalse ( four.EqualsAny(0,-1,12) );
+            ClassicAssert.IsTrue  ( onePointFive.EqualsAny(1.4m, 1.5m, 1.6m) );
+            ClassicAssert.IsFalse ( onePointFive.EqualsAny(0m) );
+            ClassicAssert.IsTrue  ( trueVal.EqualsAny(false, false, true) );
+            ClassicAssert.IsFalse ( trueVal.EqualsAny(false, false, false) );
+			ClassicAssert.IsFalse ( four.EqualsAny() );
         }
     }
 }

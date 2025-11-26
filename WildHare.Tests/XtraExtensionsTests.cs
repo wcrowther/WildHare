@@ -10,6 +10,7 @@ using WildHare.Tests.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using NUnit.Framework.Legacy;
 
 namespace WildHare.Tests
 {
@@ -35,13 +36,13 @@ namespace WildHare.Tests
             string localPath		= Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().Location).LocalPath);
             string location			= Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string applicationRoot	= XtraExtensions.GetApplicationRoot();
-			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			string entryAssembly	= Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
-			Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net9.0", codeBase);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net9.0", localPath);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net9.0", location);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests", applicationRoot);
-            Assert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net9.0", entryAssembly);
+			ClassicAssert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net10.0", codeBase);
+            ClassicAssert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net10.0", localPath);
+            ClassicAssert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net10.0", location);
+            ClassicAssert.AreEqual($@"{approot}\WildHare\WildHare.Tests", applicationRoot);
+            ClassicAssert.AreEqual($@"{approot}\WildHare\WildHare.Tests\bin\Debug\net10.0", entryAssembly);
         }
 
         [Test]
@@ -60,10 +61,10 @@ namespace WildHare.Tests
             string fileName3 = $@"{approot}\WildHare\WildHare.Tests\Helpers\TestFile.txt";
             string fileName4 = $@"{approot}\WildHare\WildHare.Tests\SourceFiles\xmlSeedSourcePlus.xml";
 
-            Assert.AreEqual(fileName1, source1);
-            Assert.AreEqual(fileName2, source2);
-            Assert.AreEqual(fileName3, source3);
-            Assert.AreEqual(fileName4, source4);
+            ClassicAssert.AreEqual(fileName1, source1);
+            ClassicAssert.AreEqual(fileName2, source2);
+            ClassicAssert.AreEqual(fileName3, source3);
+            ClassicAssert.AreEqual(fileName4, source4);
         }
 
 
@@ -73,8 +74,8 @@ namespace WildHare.Tests
             dynamic list = XtraExtensions.DynamicListOfType(typeof(Person));// Is IList of object
             list.Add(new Person() { FirstName = "Will", LastName="Crowther"});
 
-            Assert.AreEqual(1, list.Count);
-            Assert.AreEqual("Person", ((IEnumerable) list).GetMetaModel().TypeName);
+            ClassicAssert.AreEqual(1, list.Count);
+            ClassicAssert.AreEqual("Person", ((IEnumerable) list).GetMetaModel().TypeName);
 
             var listOfPerson = new List<Person>()
             {
@@ -83,7 +84,7 @@ namespace WildHare.Tests
 
             list.AddRange(listOfPerson);
 
-            Assert.AreEqual(2, list.Count);
+            ClassicAssert.AreEqual(2, list.Count);
         }
 
 
@@ -105,7 +106,7 @@ namespace WildHare.Tests
             dynamicArray.Add(new Person() { FirstName = "Fred" });
             dynamicArray.Add(new Person() { FirstName = "Patricia" });
 
-            Assert.AreEqual(2, dynamicArray.Count);
+            ClassicAssert.AreEqual(2, dynamicArray.Count);
 
             // listOfAbstract.AddRange(listOfDynamicObjects);  DOES NOT WORK SO USE:
 
@@ -113,7 +114,7 @@ namespace WildHare.Tests
 
             listOfAbstract.AddRange(listOfDynamicAbstracts);
 
-            Assert.AreEqual(3, listOfAbstract.Count);
+            ClassicAssert.AreEqual(3, listOfAbstract.Count);
         }
     }
 }

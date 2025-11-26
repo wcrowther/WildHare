@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using SQLitePCL;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ namespace WildHare.Tests
         {
             var numbers = new string[] { "zero" };
 
-            Assert.AreEqual("zero", numbers.ElementIn(11));
-            Assert.AreEqual("zero", numbers.ElementIn(4456));
-            Assert.AreEqual("zero", numbers.ElementIn(155577555));
+            ClassicAssert.AreEqual("zero", numbers.ElementIn(11));
+            ClassicAssert.AreEqual("zero", numbers.ElementIn(4456));
+            ClassicAssert.AreEqual("zero", numbers.ElementIn(155577555));
         }
 
         [Test]
@@ -33,14 +34,14 @@ namespace WildHare.Tests
         {
             var numbers = new string[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            Assert.AreEqual("zero", numbers.ElementInOrDefault(0));
-            Assert.AreEqual("two", numbers.ElementInOrDefault(2));
-            Assert.AreEqual("zero", numbers.ElementInOrDefault(10));
-            Assert.AreEqual("five", numbers.ElementInOrDefault(15));
-            Assert.AreEqual("six", numbers.ElementInOrDefault(106));
-            Assert.AreEqual("six", numbers.ElementInOrDefault(1606));
-            Assert.AreEqual("two", numbers.ElementInOrDefault(-2));
-            Assert.AreEqual("five", numbers.ElementInOrDefault(-15));
+            ClassicAssert.AreEqual("zero", numbers.ElementInOrDefault(0));
+            ClassicAssert.AreEqual("two", numbers.ElementInOrDefault(2));
+            ClassicAssert.AreEqual("zero", numbers.ElementInOrDefault(10));
+            ClassicAssert.AreEqual("five", numbers.ElementInOrDefault(15));
+            ClassicAssert.AreEqual("six", numbers.ElementInOrDefault(106));
+            ClassicAssert.AreEqual("six", numbers.ElementInOrDefault(1606));
+            ClassicAssert.AreEqual("two", numbers.ElementInOrDefault(-2));
+            ClassicAssert.AreEqual("five", numbers.ElementInOrDefault(-15));
         }
 
         [Test]
@@ -53,8 +54,8 @@ namespace WildHare.Tests
                 result = numbers.ElementInOrDefault(10);
             }
 
-            Assert.DoesNotThrow(() => ExceptionIfEmptyList());
-            Assert.IsNull(result);
+			ClassicAssert.DoesNotThrow(() => ExceptionIfEmptyList());
+			ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -62,13 +63,13 @@ namespace WildHare.Tests
         {
             int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-            Assert.AreEqual(0, numbers.ElementInOrDefault(0));
-            Assert.AreEqual(2, numbers.ElementInOrDefault(2));
-            Assert.AreEqual(0, numbers.ElementInOrDefault(10));
-            Assert.AreEqual(5, numbers.ElementInOrDefault(15));
-            Assert.AreEqual(6, numbers.ElementInOrDefault(106));
-            Assert.AreEqual(6, numbers.ElementInOrDefault(1606));
-            Assert.AreEqual(0, numbers.ElementInOrDefault(DateTime.Parse("1/1/2020").Year));
+            ClassicAssert.AreEqual(0, numbers.ElementInOrDefault(0));
+            ClassicAssert.AreEqual(2, numbers.ElementInOrDefault(2));
+            ClassicAssert.AreEqual(0, numbers.ElementInOrDefault(10));
+            ClassicAssert.AreEqual(5, numbers.ElementInOrDefault(15));
+            ClassicAssert.AreEqual(6, numbers.ElementInOrDefault(106));
+            ClassicAssert.AreEqual(6, numbers.ElementInOrDefault(1606));
+            ClassicAssert.AreEqual(0, numbers.ElementInOrDefault(DateTime.Parse("1/1/2020").Year));
         }
 
         [Test]
@@ -80,10 +81,10 @@ namespace WildHare.Tests
             var dateYear2020 = DateTime.Parse("1/1/2020").Year;
             var dateYear2021 = DateTime.Parse("1/1/2021").Year;
 
-            Assert.AreEqual(3, numbers.ElementInOrDefault(dateYear2018));
-            Assert.AreEqual(4, numbers.ElementInOrDefault(dateYear2019));
-            Assert.AreEqual(1, numbers.ElementInOrDefault(dateYear2020));
-            Assert.AreEqual(2, numbers.ElementInOrDefault(dateYear2021));
+            ClassicAssert.AreEqual(3, numbers.ElementInOrDefault(dateYear2018));
+            ClassicAssert.AreEqual(4, numbers.ElementInOrDefault(dateYear2019));
+            ClassicAssert.AreEqual(1, numbers.ElementInOrDefault(dateYear2020));
+            ClassicAssert.AreEqual(2, numbers.ElementInOrDefault(dateYear2021));
         }
 
         [Test]
@@ -91,7 +92,7 @@ namespace WildHare.Tests
         {
             int[] numbers = { };
 
-            Assert.AreEqual(25, numbers.ElementInOrDefault(0, 25));
+            ClassicAssert.AreEqual(25, numbers.ElementInOrDefault(0, 25));
         }
 
         [Test]
@@ -102,8 +103,8 @@ namespace WildHare.Tests
 
             var matches = phraseArray.MatchList(splitSentence, (a, b) => a == b).ToList();
 
-            Assert.AreEqual(6, matches.Count);
-            Assert.AreEqual("the president of the united states", string.Join(' ', matches));
+            ClassicAssert.AreEqual(6, matches.Count);
+            ClassicAssert.AreEqual("the president of the united states", string.Join(' ', matches));
         }
 
         [Test]
@@ -141,16 +142,16 @@ namespace WildHare.Tests
 
             var matches = wordList_A.MatchList(wordList_B, (a, b) => a.Text == b.Text).ToArray();
 
-            Assert.AreEqual(6, matches.Length);
-            Assert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.Text)));
+            ClassicAssert.AreEqual(6, matches.Length);
+            ClassicAssert.AreEqual("the president of the united states", string.Join(' ', matches.Select(s => s.Text)));
 
             var matches2 = wordList_A.MatchList(wordList_C, (a, c) => a.Text == c.Text).ToArray();
 
-            Assert.AreEqual(0, matches2.Length);
+            ClassicAssert.AreEqual(0, matches2.Length);
 
             var matches3 = wordList_B.MatchList(wordList_C, (b, c) => b.Text == c.Text).ToArray();
 
-            Assert.AreEqual(0, matches3.Length);
+            ClassicAssert.AreEqual(0, matches3.Length);
         }
 
         [Test]
@@ -161,7 +162,7 @@ namespace WildHare.Tests
 
             int[] indexes = phraseArray.InList(splitSentence, (a, b) => a == b);
 
-            Assert.AreEqual(3, indexes.First());
+            ClassicAssert.AreEqual(3, indexes.First());
         }
 
         [Test]
@@ -172,7 +173,7 @@ namespace WildHare.Tests
 
             int[] indexes = phraseArray.InList(splitSentence, (a, b) => a == b);
 
-            Assert.AreEqual(-1, indexes.First());
+            ClassicAssert.AreEqual(-1, indexes.First());
         }
 
         [Test]
@@ -183,8 +184,8 @@ namespace WildHare.Tests
 
             int[] indexes = phraseArray.InList(splitSentence, (a, b) => a.ToLower() == b.ToLower());
 
-            Assert.AreEqual(3, indexes.ElementAt(0));
-            Assert.AreEqual(8, indexes.ElementAt(1));
+            ClassicAssert.AreEqual(3, indexes.ElementAt(0));
+            ClassicAssert.AreEqual(8, indexes.ElementAt(1));
         }
 
         [Test]
@@ -214,22 +215,22 @@ namespace WildHare.Tests
                 }
             }
 
-            Assert.AreEqual(7, lookupList.Count);
+            ClassicAssert.AreEqual(7, lookupList.Count);
 
-            Assert.AreEqual(0, lookupList[0].Index);
+            ClassicAssert.AreEqual(0, lookupList[0].Index);
 
-            Assert.AreEqual(0, lookupList[1].Index);
-            Assert.AreEqual("the president", string.Join(" ", lookupList[1].List));
+            ClassicAssert.AreEqual(0, lookupList[1].Index);
+            ClassicAssert.AreEqual("the president", string.Join(" ", lookupList[1].List));
 
-            Assert.AreEqual(3, lookupList[2].Index);
-            Assert.AreEqual("the united states", string.Join(" ", lookupList[2].List));
+            ClassicAssert.AreEqual(3, lookupList[2].Index);
+            ClassicAssert.AreEqual("the united states", string.Join(" ", lookupList[2].List));
 
-            Assert.AreEqual(8, lookupList[3].Index);
-            Assert.AreEqual("the united states", string.Join(" ", lookupList[3].List));
+            ClassicAssert.AreEqual(8, lookupList[3].Index);
+            ClassicAssert.AreEqual("the united states", string.Join(" ", lookupList[3].List));
 
-            Assert.AreEqual(0, lookupList[4].Index);
-            Assert.AreEqual(3, lookupList[5].Index);
-            Assert.AreEqual(8, lookupList[6].Index);
+            ClassicAssert.AreEqual(0, lookupList[4].Index);
+            ClassicAssert.AreEqual(3, lookupList[5].Index);
+            ClassicAssert.AreEqual(8, lookupList[6].Index);
 
         }
 
@@ -294,22 +295,22 @@ namespace WildHare.Tests
                 }
             }
 
-            Assert.AreEqual(7, lookupList.Count);
+            ClassicAssert.AreEqual(7, lookupList.Count);
 
-            Assert.AreEqual(0, lookupList[0].Index);
+            ClassicAssert.AreEqual(0, lookupList[0].Index);
 
-            Assert.AreEqual(0, lookupList[1].Index);
-            Assert.AreEqual("the president", string.Join(" ", lookupList[1].List.Select(s => s.Text)));
+            ClassicAssert.AreEqual(0, lookupList[1].Index);
+            ClassicAssert.AreEqual("the president", string.Join(" ", lookupList[1].List.Select(s => s.Text)));
 
-            Assert.AreEqual(3, lookupList[2].Index);
-            Assert.AreEqual("the united states", string.Join(" ", lookupList[2].List.Select(s => s.Text)));
+            ClassicAssert.AreEqual(3, lookupList[2].Index);
+            ClassicAssert.AreEqual("the united states", string.Join(" ", lookupList[2].List.Select(s => s.Text)));
 
-            Assert.AreEqual(8, lookupList[3].Index);
-            Assert.AreEqual("the united states", string.Join(" ", lookupList[3].List.Select(s => s.Text)));
+            ClassicAssert.AreEqual(8, lookupList[3].Index);
+            ClassicAssert.AreEqual("the united states", string.Join(" ", lookupList[3].List.Select(s => s.Text)));
 
-            Assert.AreEqual(0, lookupList[4].Index);
-            Assert.AreEqual(3, lookupList[5].Index);
-            Assert.AreEqual(8, lookupList[6].Index);
+            ClassicAssert.AreEqual(0, lookupList[4].Index);
+            ClassicAssert.AreEqual(3, lookupList[5].Index);
+            ClassicAssert.AreEqual(8, lookupList[6].Index);
         }
 
         [Test]
@@ -325,19 +326,19 @@ namespace WildHare.Tests
 
             funcs["divide"] = Divide;
 
-            Assert.AreEqual(10, funcs["add"].DynamicInvoke(5, 5));
-            Assert.AreEqual(0,  funcs["subtract"].DynamicInvoke(5, 5));
-            Assert.AreEqual(25, funcs["multiply"].DynamicInvoke(5, 5));
-            Assert.AreEqual(1,  funcs["divide"].DynamicInvoke(5, 5));
+            ClassicAssert.AreEqual(10, funcs["add"].DynamicInvoke(5, 5));
+            ClassicAssert.AreEqual(0,  funcs["subtract"].DynamicInvoke(5, 5));
+            ClassicAssert.AreEqual(25, funcs["multiply"].DynamicInvoke(5, 5));
+            ClassicAssert.AreEqual(1,  funcs["divide"].DynamicInvoke(5, 5));
 		}
 
 		[Test]
 		public void Test_Dictionary_of_Funcs_Using_Calculate_Function()
 		{
-			Assert.AreEqual(10, Calulate("add")(5, 5));
-			Assert.AreEqual(0,	Calulate("subtract")(5, 5));
-			Assert.AreEqual(25, Calulate("multiply")(5, 5));
-			Assert.AreEqual(1,	Calulate("divide")(5, 5));
+			ClassicAssert.AreEqual(10, Calulate("add")(5, 5));
+			ClassicAssert.AreEqual(0,	Calulate("subtract")(5, 5));
+			ClassicAssert.AreEqual(25, Calulate("multiply")(5, 5));
+			ClassicAssert.AreEqual(1,	Calulate("divide")(5, 5));
 		}
 
 		[Test]
@@ -373,14 +374,14 @@ namespace WildHare.Tests
 
             Debug.WriteLine("Elapsed time: " + stopwatch.ElapsedMilliseconds + " ms");
 
-            Assert.AreEqual(13, matches.Count);
+            ClassicAssert.AreEqual(13, matches.Count);
 
-            Assert.IsTrue(matches[0].SequenceEqual(new[] { 3, 4, 0, 3, 5 }));
-            Assert.IsTrue(matches[1].SequenceEqual(new[] { 3, 4, 5, 18, 4 }));
-            Assert.IsTrue(matches[2].SequenceEqual(new[] { 3, 4, 20, 6, 5 }));
-            Assert.IsTrue(matches[3].SequenceEqual(new[] { 3, 10, 10, 4, 5 }));
-            Assert.IsTrue(matches[4].SequenceEqual(new[] { 14, 3, 3, 4, 5 }));
-            Assert.IsTrue(matches[5].SequenceEqual(new[] { 18, 3, 4, 5, 15 }));
+            ClassicAssert.IsTrue(matches[0].SequenceEqual(new[] { 3, 4, 0, 3, 5 }));
+            ClassicAssert.IsTrue(matches[1].SequenceEqual(new[] { 3, 4, 5, 18, 4 }));
+            ClassicAssert.IsTrue(matches[2].SequenceEqual(new[] { 3, 4, 20, 6, 5 }));
+            ClassicAssert.IsTrue(matches[3].SequenceEqual(new[] { 3, 10, 10, 4, 5 }));
+            ClassicAssert.IsTrue(matches[4].SequenceEqual(new[] { 14, 3, 3, 4, 5 }));
+			ClassicAssert.IsTrue(matches[5].SequenceEqual(new[] { 18, 3, 4, 5, 15 }));
 
         }
 
@@ -414,7 +415,7 @@ namespace WildHare.Tests
         //    stopwatch.Stop();
         //    Debug.WriteLine("MatchList Elapsed time: " + stopwatch.ElapsedMilliseconds + " ms");
 
-        //    Assert.AreEqual(5, matches.Count);
+        //    ClassicAssert.AreEqual(5, matches.Count);
 
         //    Assert.IsTrue(matches[0].SequenceEqual( new[] { "Janice", "Jesse", "John", "Denise", "Robert" }));
         //    Assert.IsTrue(matches[2].SequenceEqual( new[] { "Janice", "Christian", "Jesse", "Peter", "John"    }));
@@ -430,8 +431,8 @@ namespace WildHare.Tests
 
             List<string> matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
 
-            Assert.AreEqual(5, matches.Count);
-            Assert.AreEqual("president of the united states", string.Join(' ', matches));
+            ClassicAssert.AreEqual(5, matches.Count);
+            ClassicAssert.AreEqual("president of the united states", string.Join(' ', matches));
         }
 
         [Test]
@@ -442,8 +443,8 @@ namespace WildHare.Tests
 
             var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
 
-            Assert.AreEqual(2, matches.Count);
-            Assert.AreEqual("a politician", string.Join(' ', matches));
+            ClassicAssert.AreEqual(2, matches.Count);
+            ClassicAssert.AreEqual("a politician", string.Join(' ', matches));
         }
 
         [Test]
@@ -454,8 +455,8 @@ namespace WildHare.Tests
 
             var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
 
-            Assert.AreEqual(0, matches.Count);
-            Assert.AreEqual("", string.Join(' ', matches));
+            ClassicAssert.AreEqual(0, matches.Count);
+            ClassicAssert.AreEqual("", string.Join(' ', matches));
         }
 
         [Test]
@@ -466,8 +467,8 @@ namespace WildHare.Tests
 
             var matches = phraseList.PatternMatch(pattern, (a, b) => a == b).ToList();
 
-            Assert.AreEqual(0, matches.Count);
-            Assert.AreEqual("", string.Join(' ', matches));
+            ClassicAssert.AreEqual(0, matches.Count);
+            ClassicAssert.AreEqual("", string.Join(' ', matches));
         }
 
         [TestCase("1 clown in the list.",  new[] { "Bozo" }, "clown")]
@@ -477,7 +478,7 @@ namespace WildHare.Tests
         {
             string message = $"{list.Count()} {list.Pluralize(singular)} in the list.";
 
-            Assert.AreEqual(result, message);
+            ClassicAssert.AreEqual(result, message);
         }
 
         [TestCase("3 foxes in the list.",	 new[] { "Wily", "Willy", "Wooly" }, "fox", "")]
@@ -487,7 +488,7 @@ namespace WildHare.Tests
         {
             string message = $"{list.Count()} {list.Pluralize(singular, plural)} in the list.";
 
-            Assert.AreEqual(result, message);
+            ClassicAssert.AreEqual(result, message);
         }
 
         [Test]
@@ -495,10 +496,10 @@ namespace WildHare.Tests
         {
             var numbers = new List<int> { 1, 2, 3 };
 
-            Assert.IsTrue(numbers.AnyEquals(2));
+			ClassicAssert.IsTrue(numbers.AnyEquals(2));
 
-            // Can also use built-in:
-			Assert.IsTrue(numbers.Any(a => a == 2));
+			// Can also use built-in:
+			ClassicAssert.IsTrue(numbers.Any(a => a == 2));
 		}
 
 		[Test]
@@ -506,7 +507,7 @@ namespace WildHare.Tests
         {
 			List<string> numbers = ["one", "two", "three" ];
 
-            Assert.IsTrue(numbers.AnyEquals("two"));
+			ClassicAssert.IsTrue(numbers.AnyEquals("two"));
         }
 
 		[Test]
@@ -516,9 +517,9 @@ namespace WildHare.Tests
 
 			var arrayWith = array.WithIndex();
 
-			Assert.AreEqual(("zero",0),	arrayWith.ElementAt(0));
-			Assert.AreEqual(("one", 1),	arrayWith.ElementAt(1));
-			Assert.AreEqual(("two", 2),	arrayWith.ElementAt(2));
+			ClassicAssert.AreEqual(("zero",0),	arrayWith.ElementAt(0));
+			ClassicAssert.AreEqual(("one", 1),	arrayWith.ElementAt(1));
+			ClassicAssert.AreEqual(("two", 2),	arrayWith.ElementAt(2));
 		}
 
 		[Test]
@@ -528,15 +529,15 @@ namespace WildHare.Tests
 
 			var arrayStr = array.Select((s,i) => (s,i));
 
-			Assert.AreEqual(("zero", 0),arrayStr.ElementAt(0));
-			Assert.AreEqual(("one", 1),	arrayStr.ElementAt(1));
-			Assert.AreEqual(("two", 2), arrayStr.ElementAt(2));
+			ClassicAssert.AreEqual(("zero", 0),arrayStr.ElementAt(0));
+			ClassicAssert.AreEqual(("one", 1),	arrayStr.ElementAt(1));
+			ClassicAssert.AreEqual(("two", 2), arrayStr.ElementAt(2));
 
 			var arrayStr2 = array.Select((s, i) => $"{s} {i}");
 
-			Assert.AreEqual("zero 0", arrayStr2.ElementAt(0));
-			Assert.AreEqual("one 1",  arrayStr2.ElementAt(1));
-			Assert.AreEqual("two 2",  arrayStr2.ElementAt(2));
+			ClassicAssert.AreEqual("zero 0", arrayStr2.ElementAt(0));
+			ClassicAssert.AreEqual("one 1",  arrayStr2.ElementAt(1));
+			ClassicAssert.AreEqual("two 2",  arrayStr2.ElementAt(2));
 		}
 
 		[Test]
@@ -546,7 +547,7 @@ namespace WildHare.Tests
 
 			string intArrayString = intArray.AsString();
 
-			Assert.AreEqual("", intArrayString);
+			ClassicAssert.AreEqual("", intArrayString);
 		}
 		[Test]
         public void Test_IntArray_AsString_Null()
@@ -555,7 +556,7 @@ namespace WildHare.Tests
 
             string intArrayString = intArray.AsString();
 
-            Assert.AreEqual(null, intArrayString);
+            ClassicAssert.AreEqual(null, intArrayString);
         }
 
         [Test]
@@ -565,7 +566,7 @@ namespace WildHare.Tests
 
             string intListString = intList.AsString();
 
-            Assert.AreEqual("1,2,3,4,9", intListString);
+            ClassicAssert.AreEqual("1,2,3,4,9", intListString);
         }
 
         [Test]
@@ -575,7 +576,7 @@ namespace WildHare.Tests
 
             string intListString = intList.AsString();
 
-            Assert.AreEqual("", intListString);
+            ClassicAssert.AreEqual("", intListString);
         }
 
         [Test]
@@ -585,7 +586,7 @@ namespace WildHare.Tests
 
             string intListString = intList.AsString();
 
-            Assert.AreEqual(null, intListString);
+            ClassicAssert.AreEqual(null, intListString);
         }
 
         [Test]
@@ -595,9 +596,9 @@ namespace WildHare.Tests
             int[] descending    = [5, 4, 3, 2, 1];
             int[] jumbled       = [2, 4, 1, 3, 5];
 
-            Assert.AreEqual(ascending,  jumbled.OrderBy(o => o));
-            Assert.AreEqual(ascending,  jumbled.OrderBy(o => o, false));
-            Assert.AreEqual(descending, jumbled.OrderBy(o => o, true));
+            ClassicAssert.AreEqual(ascending,  jumbled.OrderBy(o => o));
+            ClassicAssert.AreEqual(ascending,  jumbled.OrderBy(o => o, false));
+            ClassicAssert.AreEqual(descending, jumbled.OrderBy(o => o, true));
         }
 
         [Test]
@@ -612,7 +613,7 @@ namespace WildHare.Tests
 
             string[] stringArray = list.Select(n => n.ItemName).ToArray();
 
-            Assert.AreEqual(stringArray, list.ToArray(n => n.ItemName));
+            ClassicAssert.AreEqual(stringArray, list.ToArray(n => n.ItemName));
         }
 
         [Test]
@@ -627,7 +628,7 @@ namespace WildHare.Tests
 
             int[] intArray = list.Select(n => n.ItemId).ToArray();
 
-            Assert.AreEqual(intArray, list.ToArray(n => n.ItemId));
+            ClassicAssert.AreEqual(intArray, list.ToArray(n => n.ItemId));
         }
 
         [Test]
@@ -644,7 +645,7 @@ namespace WildHare.Tests
 
             Item[] itemArray = list.Select(n => n).ToArray();
 
-            Assert.AreEqual(itemArray, list.ToArray(n => n));
+            ClassicAssert.AreEqual(itemArray, list.ToArray(n => n));
         }
 
         [Test]
@@ -654,7 +655,7 @@ namespace WildHare.Tests
 
             string[] stringArray = list.Select(n => n.ItemName).ToArray();
 
-            Assert.AreEqual(stringArray, list.ToArray(n => n.ItemName));
+            ClassicAssert.AreEqual(stringArray, list.ToArray(n => n.ItemName));
         }
 
 

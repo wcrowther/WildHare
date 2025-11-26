@@ -76,12 +76,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="TupleExtensions.cs" />
+	  <Compile Remove="TupleExtensionsOLD.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
-		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.ValueTuple" Version="4.6.1" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -27,8 +27,8 @@ public class CodeGenValidators(App app)
 	private readonly string assemblyName				= app.ValidatorsSettings.SourceAssemblyName;
 	private readonly string[] excludeClasses			= app.ValidatorsSettings.ExcludeClasses.Split(",", true, true);
 
-	private static readonly string indent	= "\t";
-	private static readonly int pad			= -20;
+	// private static readonly string indent	= "\t";
+	// private static readonly int pad			= -20;
 
 	public string Init()
     {

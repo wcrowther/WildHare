@@ -18,7 +18,7 @@ namespace WildHare.Tests
         //    Type itemType = typeof(Item);
         //    var metaModel = itemType.GetMetaModel();
 
-        //    Assert.AreEqual("Item", metaModel.TypeName);
+        //    ClassicAssert.AreEqual("Item", metaModel.TypeName);
         //}
     }
 }

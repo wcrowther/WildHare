@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,7 +40,7 @@ namespace WildHare.Tests
         [Test]
         public void Test_()
         {
-            Assert.AreEqual(1,1);
+            ClassicAssert.AreEqual(1,1);
         }
     }
 }

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,7 +31,7 @@ namespace WildHare.Tests
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory.GetStartBefore("bin");
 
-            Assert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", baseDirectory);
+            ClassicAssert.AreEqual(@"C:\Git\WildHare\WildHare.Tests\", baseDirectory);
         }
 
         [Test]
@@ -41,23 +42,23 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var destinationList = itemList.TakeRandom(5, random);
 
-            Assert.AreEqual(5, destinationList.Count);
-            Assert.AreEqual(5, itemList.Count);
+            ClassicAssert.AreEqual(5, destinationList.Count);
+            ClassicAssert.AreEqual(5, itemList.Count);
 
             // 'Randomly' selected - but repeatable as 
             // random seed is passed in.
 
-            Assert.AreEqual(3, destinationList[0].ItemId);
-            Assert.AreEqual(1, destinationList[1].ItemId);
-            Assert.AreEqual(2, destinationList[2].ItemId);
-            Assert.AreEqual(6, destinationList[3].ItemId);
-            Assert.AreEqual(9, destinationList[4].ItemId);
+            ClassicAssert.AreEqual(3, destinationList[0].ItemId);
+            ClassicAssert.AreEqual(1, destinationList[1].ItemId);
+            ClassicAssert.AreEqual(2, destinationList[2].ItemId);
+            ClassicAssert.AreEqual(6, destinationList[3].ItemId);
+            ClassicAssert.AreEqual(9, destinationList[4].ItemId);
 
-            Assert.AreEqual(4, itemList[0].ItemId);
-            Assert.AreEqual(5, itemList[1].ItemId);
-            Assert.AreEqual(7, itemList[2].ItemId);
-            Assert.AreEqual(8, itemList[3].ItemId);
-            Assert.AreEqual(10, itemList[4].ItemId);
+            ClassicAssert.AreEqual(4, itemList[0].ItemId);
+            ClassicAssert.AreEqual(5, itemList[1].ItemId);
+            ClassicAssert.AreEqual(7, itemList[2].ItemId);
+            ClassicAssert.AreEqual(8, itemList[3].ItemId);
+            ClassicAssert.AreEqual(10, itemList[4].ItemId);
         }
 
         [Test]
@@ -67,12 +68,12 @@ namespace WildHare.Tests
 
             var itemList = GetTestList();
 
-            Assert.AreEqual(10, itemList.Count);
+            ClassicAssert.AreEqual(10, itemList.Count);
 
             var randomItem = itemList.TakeRandomOne(random);
 
-            Assert.AreEqual(9, itemList.Count);
-            Assert.AreEqual(3, randomItem.ItemId);
+            ClassicAssert.AreEqual(9, itemList.Count);
+            ClassicAssert.AreEqual(3, randomItem.ItemId);
         }
 
         [Test]
@@ -85,8 +86,8 @@ namespace WildHare.Tests
 
             itemList.Debugger();
 
-            Assert.AreEqual(10, itemList.Count);
-            Assert.AreEqual(3, randomItem.ItemId);
+            ClassicAssert.AreEqual(10, itemList.Count);
+            ClassicAssert.AreEqual(3, randomItem.ItemId);
         }
 
         [Test]
@@ -95,20 +96,20 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var destinationList = itemList.TakeNext(5);
 
-            Assert.AreEqual(5, destinationList.Count);
-            Assert.AreEqual(5, itemList.Count);
+            ClassicAssert.AreEqual(5, destinationList.Count);
+            ClassicAssert.AreEqual(5, itemList.Count);
 
-            Assert.AreEqual(1, destinationList[0].ItemId);
-            Assert.AreEqual(2, destinationList[1].ItemId);
-            Assert.AreEqual(3, destinationList[2].ItemId);
-            Assert.AreEqual(4, destinationList[3].ItemId);
-            Assert.AreEqual(5, destinationList[4].ItemId);
+            ClassicAssert.AreEqual(1, destinationList[0].ItemId);
+            ClassicAssert.AreEqual(2, destinationList[1].ItemId);
+            ClassicAssert.AreEqual(3, destinationList[2].ItemId);
+            ClassicAssert.AreEqual(4, destinationList[3].ItemId);
+            ClassicAssert.AreEqual(5, destinationList[4].ItemId);
 
-            Assert.AreEqual(6, itemList[0].ItemId);
-            Assert.AreEqual(7, itemList[1].ItemId);
-            Assert.AreEqual(8, itemList[2].ItemId);
-            Assert.AreEqual(9, itemList[3].ItemId);
-            Assert.AreEqual(10, itemList[4].ItemId);
+            ClassicAssert.AreEqual(6, itemList[0].ItemId);
+            ClassicAssert.AreEqual(7, itemList[1].ItemId);
+            ClassicAssert.AreEqual(8, itemList[2].ItemId);
+            ClassicAssert.AreEqual(9, itemList[3].ItemId);
+            ClassicAssert.AreEqual(10, itemList[4].ItemId);
         }
 
         [Test]
@@ -117,20 +118,20 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var destinationList = itemList.TakeNext(5, 3);
 
-            Assert.AreEqual(5, destinationList.Count);
-            Assert.AreEqual(5, itemList.Count);
+            ClassicAssert.AreEqual(5, destinationList.Count);
+            ClassicAssert.AreEqual(5, itemList.Count);
 
-            Assert.AreEqual(4, destinationList[0].ItemId);
-            Assert.AreEqual(5, destinationList[1].ItemId);
-            Assert.AreEqual(6, destinationList[2].ItemId);
-            Assert.AreEqual(7, destinationList[3].ItemId);
-            Assert.AreEqual(8, destinationList[4].ItemId);
+            ClassicAssert.AreEqual(4, destinationList[0].ItemId);
+            ClassicAssert.AreEqual(5, destinationList[1].ItemId);
+            ClassicAssert.AreEqual(6, destinationList[2].ItemId);
+            ClassicAssert.AreEqual(7, destinationList[3].ItemId);
+            ClassicAssert.AreEqual(8, destinationList[4].ItemId);
 
-            Assert.AreEqual(1, itemList[0].ItemId);
-            Assert.AreEqual(2, itemList[1].ItemId);
-            Assert.AreEqual(3, itemList[2].ItemId);
-            Assert.AreEqual(9, itemList[3].ItemId);
-            Assert.AreEqual(10, itemList[4].ItemId);
+            ClassicAssert.AreEqual(1, itemList[0].ItemId);
+            ClassicAssert.AreEqual(2, itemList[1].ItemId);
+            ClassicAssert.AreEqual(3, itemList[2].ItemId);
+            ClassicAssert.AreEqual(9, itemList[3].ItemId);
+            ClassicAssert.AreEqual(10, itemList[4].ItemId);
         }
 
         [Test]
@@ -139,20 +140,20 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var destinationList = itemList.TakeNext(5, 2022);
 
-            Assert.AreEqual(5, destinationList.Count);
-            Assert.AreEqual(5, itemList.Count);
+            ClassicAssert.AreEqual(5, destinationList.Count);
+            ClassicAssert.AreEqual(5, itemList.Count);
 
-            Assert.AreEqual(3, destinationList[0].ItemId);
-            Assert.AreEqual(4, destinationList[1].ItemId);
-            Assert.AreEqual(5, destinationList[2].ItemId);
-            Assert.AreEqual(6, destinationList[3].ItemId);
-            Assert.AreEqual(7, destinationList[4].ItemId);
+            ClassicAssert.AreEqual(3, destinationList[0].ItemId);
+            ClassicAssert.AreEqual(4, destinationList[1].ItemId);
+            ClassicAssert.AreEqual(5, destinationList[2].ItemId);
+            ClassicAssert.AreEqual(6, destinationList[3].ItemId);
+            ClassicAssert.AreEqual(7, destinationList[4].ItemId);
 
-            Assert.AreEqual(1, itemList[0].ItemId);
-            Assert.AreEqual(2, itemList[1].ItemId);
-            Assert.AreEqual(8, itemList[2].ItemId);
-            Assert.AreEqual(9, itemList[3].ItemId);
-            Assert.AreEqual(10, itemList[4].ItemId);
+            ClassicAssert.AreEqual(1, itemList[0].ItemId);
+            ClassicAssert.AreEqual(2, itemList[1].ItemId);
+            ClassicAssert.AreEqual(8, itemList[2].ItemId);
+            ClassicAssert.AreEqual(9, itemList[3].ItemId);
+            ClassicAssert.AreEqual(10, itemList[4].ItemId);
         }
 
         [Test]
@@ -167,11 +168,11 @@ namespace WildHare.Tests
             int fourth = numbers.TakeNext().Single();
             int fifth = numbers.TakeNext().Single();
 
-            Assert.AreEqual(1, first);
-            Assert.AreEqual(4, second);
-            Assert.AreEqual(2, third);
-            Assert.AreEqual(3, fourth);
-            Assert.AreEqual(0, fifth);
+            ClassicAssert.AreEqual(1, first);
+            ClassicAssert.AreEqual(4, second);
+            ClassicAssert.AreEqual(2, third);
+            ClassicAssert.AreEqual(3, fourth);
+            ClassicAssert.AreEqual(0, fifth);
         }
 
         [Test]
@@ -185,10 +186,10 @@ namespace WildHare.Tests
             int third = numbers.TakeNext(offset: offset).Single();
             int fourth = numbers.TakeNext(offset: offset).Single();
 
-            Assert.AreEqual(2, first);
-            Assert.AreEqual(3, second);
-            Assert.AreEqual(4, third);
-            Assert.AreEqual(1, fourth);
+            ClassicAssert.AreEqual(2, first);
+            ClassicAssert.AreEqual(3, second);
+            ClassicAssert.AreEqual(4, third);
+            ClassicAssert.AreEqual(1, fourth);
         }
 
         [Test]
@@ -199,12 +200,12 @@ namespace WildHare.Tests
 
             var taken = numbers.TakeNext(4, offset);
 
-            Assert.AreEqual(4, taken.Count);
+            ClassicAssert.AreEqual(4, taken.Count);
 
-            Assert.AreEqual(2, taken[0]);
-            Assert.AreEqual(3, taken[1]);
-            Assert.AreEqual(4, taken[2]);
-            Assert.AreEqual(1, taken[3]);
+            ClassicAssert.AreEqual(2, taken[0]);
+            ClassicAssert.AreEqual(3, taken[1]);
+            ClassicAssert.AreEqual(4, taken[2]);
+            ClassicAssert.AreEqual(1, taken[3]);
         }
 
         [Test]
@@ -213,21 +214,21 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var destinationList = itemList.TakeNext(5, 8);
 
-            Assert.AreEqual(5, destinationList.Count);
-            Assert.AreEqual(5, itemList.Count);
+            ClassicAssert.AreEqual(5, destinationList.Count);
+            ClassicAssert.AreEqual(5, itemList.Count);
 
-            Assert.AreEqual(4, itemList[0].ItemId);
-            Assert.AreEqual(5, itemList[1].ItemId);
-            Assert.AreEqual(6, itemList[2].ItemId);
-            Assert.AreEqual(7, itemList[3].ItemId);
-            Assert.AreEqual(8, itemList[4].ItemId);
+            ClassicAssert.AreEqual(4, itemList[0].ItemId);
+            ClassicAssert.AreEqual(5, itemList[1].ItemId);
+            ClassicAssert.AreEqual(6, itemList[2].ItemId);
+            ClassicAssert.AreEqual(7, itemList[3].ItemId);
+            ClassicAssert.AreEqual(8, itemList[4].ItemId);
 
             // Takes five elements as it wraps back to the beginning
-            Assert.AreEqual(9, destinationList[0].ItemId);
-            Assert.AreEqual(10, destinationList[1].ItemId);
-            Assert.AreEqual(1, destinationList[2].ItemId);
-            Assert.AreEqual(2, destinationList[3].ItemId);
-            Assert.AreEqual(3, destinationList[4].ItemId);
+            ClassicAssert.AreEqual(9, destinationList[0].ItemId);
+            ClassicAssert.AreEqual(10, destinationList[1].ItemId);
+            ClassicAssert.AreEqual(1, destinationList[2].ItemId);
+            ClassicAssert.AreEqual(2, destinationList[3].ItemId);
+            ClassicAssert.AreEqual(3, destinationList[4].ItemId);
         }
 
         [Test]
@@ -236,13 +237,13 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var nextItem = itemList.TakeNextOne();
 
-            Assert.AreEqual(9, itemList.Count);
-            Assert.AreEqual(1, nextItem.ItemId);
+            ClassicAssert.AreEqual(9, itemList.Count);
+            ClassicAssert.AreEqual(1, nextItem.ItemId);
 
             var nextItem2 = itemList.TakeNextOne();
 
-            Assert.AreEqual(8, itemList.Count);
-            Assert.AreEqual(2, nextItem2.ItemId);
+            ClassicAssert.AreEqual(8, itemList.Count);
+            ClassicAssert.AreEqual(2, nextItem2.ItemId);
         }
 
         [Test]
@@ -251,13 +252,13 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var nextItem = itemList.TakeNextOne(remove: false);
 
-            Assert.AreEqual(10, itemList.Count);
-            Assert.AreEqual(1, nextItem.ItemId);
+            ClassicAssert.AreEqual(10, itemList.Count);
+            ClassicAssert.AreEqual(1, nextItem.ItemId);
 
             var nextItem2 = itemList.TakeNextOne();
 
-            Assert.AreEqual(9, itemList.Count);
-            Assert.AreEqual(1, nextItem2.ItemId);
+            ClassicAssert.AreEqual(9, itemList.Count);
+            ClassicAssert.AreEqual(1, nextItem2.ItemId);
         }
 
         [Test]
@@ -266,13 +267,13 @@ namespace WildHare.Tests
             var itemList = GetTestList();
             var nextItem = itemList.TakeNextOne(3, true);
 
-            Assert.AreEqual(9, itemList.Count);
-            Assert.AreEqual(4, nextItem.ItemId);
+            ClassicAssert.AreEqual(9, itemList.Count);
+            ClassicAssert.AreEqual(4, nextItem.ItemId);
 
             var nextItem2 = itemList.TakeNextOne();
 
-            Assert.AreEqual(8, itemList.Count);
-            Assert.AreEqual(1, nextItem2.ItemId);
+            ClassicAssert.AreEqual(8, itemList.Count);
+            ClassicAssert.AreEqual(1, nextItem2.ItemId);
         }
 
         [Test]
@@ -297,14 +298,14 @@ namespace WildHare.Tests
 
             var famDictionary = familiesList.ToDictionary(g => g.Key, g => g.ToList());
 
-            Assert.AreEqual(5, people.Count);
-            Assert.AreEqual(2, familiesList.Count());
+            ClassicAssert.AreEqual(5, people.Count);
+            ClassicAssert.AreEqual(2, familiesList.Count());
 
-            Assert.AreEqual(2, famDictionary.Count);
-            Assert.AreEqual(2, famDictionary.Values.Count);
-            Assert.AreEqual(2, famDictionary.Keys.Count);
-            Assert.AreEqual(2, famDictionary["Smith"].Count);
-            Assert.AreEqual(3, famDictionary["Jones"].Count);
+            ClassicAssert.AreEqual(2, famDictionary.Count);
+            ClassicAssert.AreEqual(2, famDictionary.Values.Count);
+            ClassicAssert.AreEqual(2, famDictionary.Keys.Count);
+            ClassicAssert.AreEqual(2, famDictionary["Smith"].Count);
+            ClassicAssert.AreEqual(3, famDictionary["Jones"].Count);
 
             // =======================================================
             // ToLookup(): simplest, best performance(?)
@@ -325,14 +326,14 @@ namespace WildHare.Tests
             }
             Debug.WriteLine("-".Repeat(20));
 
-            Assert.AreEqual(2, famLookUp.Count);
-            Assert.AreEqual(2, famLookUp["Smith"].Count());
-            Assert.AreEqual(3, famLookUp["Jones"].Count());
-            Assert.AreEqual(0, famLookUp["Crowther"].Count()); // Empty does not throw
+            ClassicAssert.AreEqual(2, famLookUp.Count);
+            ClassicAssert.AreEqual(2, famLookUp["Smith"].Count());
+            ClassicAssert.AreEqual(3, famLookUp["Jones"].Count());
+            ClassicAssert.AreEqual(0, famLookUp["Crowther"].Count()); // Empty does not throw
 
             string famLookUpJson = famLookUp.ToJson();
 
-            Assert.IsNotNull(famLookUp);
+			ClassicAssert.IsNotNull(famLookUp);
 
             // =======================================================
             // OVERLOAD: ToLookup(l => l.LastName, l => l.FirstName)
@@ -341,7 +342,7 @@ namespace WildHare.Tests
 
             var famLookUp2 = people.ToLookup(l => l.LastName, l => l.FirstName);
 
-            Assert.IsNotNull(famLookUp2);
+			ClassicAssert.IsNotNull(famLookUp2);
         }
 
         [Test]
@@ -350,14 +351,14 @@ namespace WildHare.Tests
             var itemList = new[]{ 2, 3, 4, 2, 6 };
 
             // Next
-            Assert.AreEqual(3, 2.NextIn(itemList));
-            Assert.AreEqual(4, 3.NextIn(itemList));
-            Assert.AreEqual(0, 6.NextIn(itemList));
+            ClassicAssert.AreEqual(3, 2.NextIn(itemList));
+            ClassicAssert.AreEqual(4, 3.NextIn(itemList));
+            ClassicAssert.AreEqual(0, 6.NextIn(itemList));
 
             // Previous
-            Assert.AreEqual(0, 2.PreviousIn(itemList));
-            Assert.AreEqual(2, 3.PreviousIn(itemList));
-            Assert.AreEqual(2, 6.PreviousIn(itemList));
+            ClassicAssert.AreEqual(0, 2.PreviousIn(itemList));
+            ClassicAssert.AreEqual(2, 3.PreviousIn(itemList));
+            ClassicAssert.AreEqual(2, 6.PreviousIn(itemList));
         }
 
         [Test]
@@ -372,14 +373,14 @@ namespace WildHare.Tests
             };
 
             // Next 
-            Assert.AreEqual(null, people[3].NextIn(people));
-            Assert.AreEqual(2, people[0].NextIn(people).PersonId);
-            Assert.AreEqual("Patty", people.First(f => f.FirstName == "Joe").NextIn(people).FirstName);
+            ClassicAssert.AreEqual(null, people[3].NextIn(people));
+            ClassicAssert.AreEqual(2, people[0].NextIn(people).PersonId);
+            ClassicAssert.AreEqual("Patty", people.First(f => f.FirstName == "Joe").NextIn(people).FirstName);
 
             // Previous
-            Assert.AreEqual(null, people[0].PreviousIn(people));
-            Assert.AreEqual(2, people[2].PreviousIn(people).PersonId);
-            Assert.AreEqual("Will", people.First(f => f.FirstName == "Joe").PreviousIn(people).FirstName);
+            ClassicAssert.AreEqual(null, people[0].PreviousIn(people));
+            ClassicAssert.AreEqual(2, people[2].PreviousIn(people).PersonId);
+            ClassicAssert.AreEqual("Will", people.First(f => f.FirstName == "Joe").PreviousIn(people).FirstName);
         }
 
 
@@ -391,8 +392,8 @@ namespace WildHare.Tests
             var four = numbers.ElementAt(3); // zero-based
             var nums = four.NextInWhile(numbers, p => p <= 8);
 
-            Assert.AreEqual(6, nums.Count); // stops when it gets to last 8
-            Assert.AreEqual(42, nums.Sum()); // sum of 5, 6, 7, 8, 8, 8
+            ClassicAssert.AreEqual(6, nums.Count); // stops when it gets to last 8
+            ClassicAssert.AreEqual(42, nums.Sum()); // sum of 5, 6, 7, 8, 8, 8
         }
 
         [Test]
@@ -410,12 +411,12 @@ namespace WildHare.Tests
             var will = people[0];
             var kin = will.NextInWhile(people, p => p.LastName == "Smith");
 
-            Assert.AreEqual(2, kin.Count); // stops when it gets to Jone Jones
+            ClassicAssert.AreEqual(2, kin.Count); // stops when it gets to Jone Jones
 
             var john = people[3];
             var smiths = john.NextInWhile(people, p => p.LastName == "Smith", -1);
 
-            Assert.AreEqual(3, smiths.Count); // stops when it gets to Will Smith
+            ClassicAssert.AreEqual(3, smiths.Count); // stops when it gets to Will Smith
         }
 
         [Test]
@@ -428,9 +429,9 @@ namespace WildHare.Tests
                 new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" }
             };
 
-            Assert.AreEqual(true, people[0].IsFirstIn(people));
-            Assert.AreEqual(false, people[1].IsFirstIn(people));
-            Assert.AreEqual(false, people[2].IsFirstIn(people));
+            ClassicAssert.AreEqual(true, people[0].IsFirstIn(people));
+            ClassicAssert.AreEqual(false, people[1].IsFirstIn(people));
+            ClassicAssert.AreEqual(false, people[2].IsFirstIn(people));
         }
 
         [Test]
@@ -443,9 +444,9 @@ namespace WildHare.Tests
                 new Person { PersonId = 3, FirstName = "Patty", LastName= "Smith" }
             };
 
-            Assert.AreEqual(false, people[0].IsLastIn(people));
-            Assert.AreEqual(false, people[1].IsLastIn(people));
-            Assert.AreEqual(true,  people[2].IsLastIn(people));
+            ClassicAssert.AreEqual(false, people[0].IsLastIn(people));
+            ClassicAssert.AreEqual(false, people[1].IsLastIn(people));
+            ClassicAssert.AreEqual(true,  people[2].IsLastIn(people));
         }
 
         [Test]
@@ -455,8 +456,8 @@ namespace WildHare.Tests
 
             words.ReplaceItem(3, "new");
 
-            Assert.AreEqual(5, words.Count);
-            Assert.AreEqual("This is the new item.", string.Join(' ', words));
+            ClassicAssert.AreEqual(5, words.Count);
+            ClassicAssert.AreEqual("This is the new item.", string.Join(' ', words));
         }
 
         [Test]
@@ -473,8 +474,8 @@ namespace WildHare.Tests
 
             people.ReplaceItem(2, person);
 
-            Assert.AreEqual(3, people.Count);
-            Assert.AreEqual($"Joe Blogs",  $"{people[2].FirstName} {people[2].LastName}");
+            ClassicAssert.AreEqual(3, people.Count);
+            ClassicAssert.AreEqual($"Joe Blogs",  $"{people[2].FirstName} {people[2].LastName}");
         }
 
 
@@ -498,8 +499,8 @@ namespace WildHare.Tests
 
             tokens.ReplaceItems(2, newTokens);  // replace token "the united states" with "a foreign country"
 
-            Assert.AreEqual(5, tokens.Count);
-            Assert.AreEqual("the president of a foreign country", string.Join(" ", tokens.Select(s => s.Text)));
+            ClassicAssert.AreEqual(5, tokens.Count);
+            ClassicAssert.AreEqual("the president of a foreign country", string.Join(" ", tokens.Select(s => s.Text)));
         }
 
         [Test]
@@ -527,9 +528,9 @@ namespace WildHare.Tests
                                 selected = num != 0
                             };
 
-            Assert.AreEqual(5, results.Count());
-            Assert.AreEqual(3, results.Count(c => c.selected == true));
-            Assert.AreEqual(2, results.Count(c => c.selected == false));
+            ClassicAssert.AreEqual(5, results.Count());
+            ClassicAssert.AreEqual(3, results.Count(c => c.selected == true));
+            ClassicAssert.AreEqual(2, results.Count(c => c.selected == false));
 
         }
 
@@ -539,7 +540,7 @@ namespace WildHare.Tests
             var data   = GetTempHierarchicalData();
             var result = data.OrderBy(d => d.SortOrder).ThenBy(d => d.ParentID);
 
-            Assert.IsNotNull(result);
+			ClassicAssert.IsNotNull(result);
         }
 
         private List<TempTable> GetTempHierarchicalData()

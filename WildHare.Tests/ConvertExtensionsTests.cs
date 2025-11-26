@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using WildHare.Extensions;
@@ -12,56 +13,56 @@ namespace WildHare.Tests
         public void Test_ToBool_Basic()
         {
             string boolStringTrue = "true";
-            Assert.AreEqual(true, boolStringTrue.ToBool());
+            ClassicAssert.AreEqual(true, boolStringTrue.ToBool());
 
             string boolStringFalse = "false";
-            Assert.AreEqual(false, boolStringFalse.ToBool());
+            ClassicAssert.AreEqual(false, boolStringFalse.ToBool());
 
             string boolStringFred = "Fred";
-            Assert.AreEqual(false, boolStringFred.ToBool());
+            ClassicAssert.AreEqual(false, boolStringFred.ToBool());
 
             string boolStringNull = null;
-            Assert.AreEqual(false, boolStringNull.ToBool());
+            ClassicAssert.AreEqual(false, boolStringNull.ToBool());
         }
 
         [Test]
         public void Test_ToBoolNullable_Basic()
         {
             string boolStringTrue = "true";
-            Assert.AreEqual(true, boolStringTrue.ToBoolNullable());
+            ClassicAssert.AreEqual(true, boolStringTrue.ToBoolNullable());
 
             string boolStringFalse = "false";
-            Assert.AreEqual(false, boolStringFalse.ToBoolNullable());
+            ClassicAssert.AreEqual(false, boolStringFalse.ToBoolNullable());
 
             string boolStringFred = "Fred";
-            Assert.AreEqual(null, boolStringFred.ToBoolNullable());
+            ClassicAssert.AreEqual(null, boolStringFred.ToBoolNullable());
 
             string boolStringNull = null;
-            Assert.AreEqual(null, boolStringNull.ToBoolNullable());
-            Assert.AreEqual(true, boolStringNull.ToBoolNullable(true));
+            ClassicAssert.AreEqual(null, boolStringNull.ToBoolNullable());
+            ClassicAssert.AreEqual(true, boolStringNull.ToBoolNullable(true));
         }
 
         [Test]
         public void Test_ToBool_With_trueValue()
         {
             string boolStringTrue = "Yes";
-            Assert.AreEqual(true, boolStringTrue.ToBool("Yes"));
+            ClassicAssert.AreEqual(true, boolStringTrue.ToBool("Yes"));
 
             string boolStringFalse = "No";
-            Assert.AreEqual(false, boolStringFalse.ToBool("Yes"));
+            ClassicAssert.AreEqual(false, boolStringFalse.ToBool("Yes"));
 
             string boolStringFred = "Fred";
-            Assert.AreEqual(false, boolStringFred.ToBool("Yes"));
+            ClassicAssert.AreEqual(false, boolStringFred.ToBool("Yes"));
 
             string boolStringNull = null;
-            Assert.AreEqual(false, boolStringNull.ToBool("Yes"));
-            Assert.AreEqual(false, boolStringNull.ToBool("No"));
+            ClassicAssert.AreEqual(false, boolStringNull.ToBool("Yes"));
+            ClassicAssert.AreEqual(false, boolStringNull.ToBool("No"));
 
             string boolStringTrueLowercase = "yes";
-            Assert.AreEqual(true, boolStringTrueLowercase.ToBool("Yes", true));
+            ClassicAssert.AreEqual(true, boolStringTrueLowercase.ToBool("Yes", true));
 
             string boolStringFalseLowercase = "yes";
-            Assert.AreEqual(false, boolStringFalseLowercase.ToBool("Yes", false));
+            ClassicAssert.AreEqual(false, boolStringFalseLowercase.ToBool("Yes", false));
         }
 
 
@@ -71,13 +72,13 @@ namespace WildHare.Tests
             string file = "file";
 
             string newStr = file.IncrementString();
-            Assert.AreEqual("file1", newStr);
+            ClassicAssert.AreEqual("file1", newStr);
 
             newStr = newStr.IncrementString();
-            Assert.AreEqual("file2", newStr);
+            ClassicAssert.AreEqual("file2", newStr);
 
             newStr = newStr.IncrementString();
-            Assert.AreEqual("file3", newStr);
+            ClassicAssert.AreEqual("file3", newStr);
         }
 
         [Test]
@@ -86,13 +87,13 @@ namespace WildHare.Tests
             string file = "file.txt";
 
             string newStr = file.IncrementString(1, ".txt");
-            Assert.AreEqual("file1.txt", newStr);
+            ClassicAssert.AreEqual("file1.txt", newStr);
 
             newStr = newStr.IncrementString(null, ".txt");
-            Assert.AreEqual("file2.txt", newStr);
+            ClassicAssert.AreEqual("file2.txt", newStr);
 
             newStr = newStr.IncrementString(ignoreExtension: ".txt");
-            Assert.AreEqual("file3.txt", newStr);
+            ClassicAssert.AreEqual("file3.txt", newStr);
         }
 
         [Test]
@@ -101,13 +102,13 @@ namespace WildHare.Tests
             string file = "file1.txt";
 
             string newStr = file.IncrementString(ignoreExtension: ".txt");
-            Assert.AreEqual("file2.txt", newStr);
+            ClassicAssert.AreEqual("file2.txt", newStr);
 
             newStr = newStr.IncrementString(ignoreExtension: ".txt");
-            Assert.AreEqual("file3.txt", newStr);
+            ClassicAssert.AreEqual("file3.txt", newStr);
 
             newStr = newStr.IncrementString(ignoreExtension: ".txt");
-            Assert.AreEqual("file4.txt", newStr);
+            ClassicAssert.AreEqual("file4.txt", newStr);
         }
 
         [Test]
@@ -118,7 +119,7 @@ namespace WildHare.Tests
             var array = intString.ToIntArray();
 
             // ignores letters in "sss4" to make it 4, ignores empty entry and 'Seven'
-            Assert.AreEqual(10, array.Length);
+            ClassicAssert.AreEqual(10, array.Length);
         }
 
         [Test]
@@ -128,11 +129,11 @@ namespace WildHare.Tests
 
             var array = intString.ToIntArray(separator: " ");
 
-            Assert.AreEqual(4, array.Length);
-            Assert.AreEqual(-1, array[0]);
-            Assert.AreEqual(12, array[1]);
-            Assert.AreEqual(6, array[2]);
-            Assert.AreEqual(8, array[3]);
+            ClassicAssert.AreEqual(4, array.Length);
+            ClassicAssert.AreEqual(-1, array[0]);
+            ClassicAssert.AreEqual(12, array[1]);
+            ClassicAssert.AreEqual(6, array[2]);
+            ClassicAssert.AreEqual(8, array[3]);
         }
 
         [Test]
@@ -145,7 +146,7 @@ namespace WildHare.Tests
 
             var array = intString.ToIntArray();
 
-            Assert.AreEqual(0, array.Length);
+            ClassicAssert.AreEqual(0, array.Length);
         }
 
         [Test]
@@ -162,7 +163,7 @@ namespace WildHare.Tests
             );
 
             string errorMessage = "ToIntArray() cannot have null or invalid values when in strict mode.";
-            Assert.AreEqual(errorMessage, ex.Message);
+            ClassicAssert.AreEqual(errorMessage, ex.Message);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,8 +42,8 @@ namespace WildHare.Tests
                     summary: g.Element("summary").Value
                 ));
 
-            Assert.AreEqual($@"{approot}\WildHare\WildHare\WildHare.xml", pathToDocumentation);
-            Assert.IsNotNull(docXml);
+            ClassicAssert.AreEqual($@"{approot}\WildHare\WildHare\WildHare.xml", pathToDocumentation);
+			ClassicAssert.IsNotNull(docXml);
         }
     }
 }
