@@ -15,7 +15,7 @@
     <Compile Remove="Models\ColumnsSchema.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.4.0" />
+    <PackageReference Include="AngleSharp" Version="0.17.1" />
     <PackageReference Include="AngleSharp.Css" Version="0.17.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />

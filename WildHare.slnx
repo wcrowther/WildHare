@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="CodeGen/CodeGen.csproj" />
+  <Project Path="WildHare.Tests/WildHare.Tests.csproj" />
+  <Project Path="WildHare.Web/WildHare.Web.csproj" />
+  <Project Path="WildHare/WildHare.csproj" />
+</Solution>
